@@ -36,6 +36,10 @@ impl GraphConfiguration {
         }
     }
 
+    pub fn item(&self, id: &str) -> Rc<Item> {
+        self.current_data.as_ref().unwrap().item(id).unwrap()
+    }
+
     pub fn can_render(&self) -> bool {
         self.processes.len() > 0
     }

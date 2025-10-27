@@ -1,4 +1,4 @@
-use std::{collections::HashMap, hash::{Hash, Hasher}, rc::Rc};
+use std::{collections::HashMap, hash::{Hash, Hasher}, ops, rc::Rc};
 
 use serde::{Deserialize, Serialize};
 
@@ -170,6 +170,19 @@ impl <'a> FromIterator<&'a Stack> for Stack {
             q += s.quantity;
         }
         Stack { item: i.unwrap(), quantity: q }
+    }
+}
+
+impl ops::Mul<f64> for &Stack {
+    type Output = Stack;
+    fn mul(self, rhs: f64) -> Stack {
+        Stack { item: self.item.clone(), quantity: self.quantity * rhs }
+    }
+}
+impl ops::Mul<f64> for Stack {
+    type Output = Stack;
+    fn mul(self, rhs: f64) -> Stack {
+        Stack { item: self.item.clone(), quantity: self.quantity * rhs }
     }
 }
 

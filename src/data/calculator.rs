@@ -2,12 +2,11 @@ use std::{collections::{BTreeMap, BTreeSet}, rc::Rc};
 
 use nalgebra::{DMatrix, DVector};
 
-use crate::data::{graph_configuration::GraphConfiguration, model::{ActiveProcess, Item}};
+use crate::data::{graph_configuration::GraphConfiguration, model::{ActiveProcess, Item, StackSet}};
 
 
 pub struct Calculator {
     gc: GraphConfiguration,
-    materials: Option<i32>,
     initial: DMatrix<f64>,
     reduced: DMatrix<f64>,
 }
@@ -19,7 +18,6 @@ impl Calculator {
 
         Calculator {
             gc: gc.clone(),
-            materials: None,
             initial,
             reduced,
         }
@@ -140,11 +138,28 @@ impl Calculator {
         }
         result
     }
+    pub fn materials(&self) -> StackSet {
+        let mut result = StackSet::new();
+        // for each process, multiply I&O by the process count and add to the stack set.
+        let counts = self.process_counts();
+        for proc in self.gc.get_processes() {
+            let count = *counts.get(proc.id()).unwrap();
+            for inp in proc.inputs() {
+                result.add(inp * (-1.0 * count))
+            }
+            for out in proc.outputs() {
+                result.add(out * count)
+            }
+        }
+        result
+    }
 }
 
 #[cfg(test)]
 mod test {
     use std::f64::EPSILON;
+
+    use approx::assert_abs_diff_eq;
 
     use crate::data::fixtures;
     use super::*;
@@ -282,6 +297,38 @@ mod test {
         assert_eq!(actual.len(), 1);
         assert!(actual.contains_key("one_to_one"));
         assert_eq!(actual.get("one_to_one"), Some(&10.0));
+    }
+
+    #[test]
+    fn it_calculates_all_materials() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_2", 10.0);
+        gc.add_import_export("part_1");
+        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.materials();
+        assert_eq!(actual.sum(&gc.item("part_1")).quantity, -50.0);
+        assert_eq!(actual.sum(&gc.item("part_2")).quantity, 10.0);
+    }
+
+    #[test]
+    fn it_calculates_all_materials_with_zero_sums() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_4", 13.0);
+        gc.add_import_export("part_1");
+        gc.add_import_export("part_2");
+        gc.add_process("make_a", 1.0, 1.0, 1.0);
+        gc.add_process("make_b", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.materials();
+        assert_abs_diff_eq!(actual.sum(&gc.item("part_1")).quantity, -39.0, epsilon = 1.0e-10);
+        assert_abs_diff_eq!(actual.sum(&gc.item("part_2")).quantity, -2.6, epsilon = 1.0e-10);
+
+        assert_abs_diff_eq!(actual.sum_positive(&gc.item("part_3")).quantity, 39.0, epsilon = 1.0e-10);
+        assert_abs_diff_eq!(actual.sum_negative(&gc.item("part_3")).quantity, -39.0, epsilon = 1.0e-10);
+        assert_abs_diff_eq!(actual.sum(&gc.item("part_3")).quantity, 0.0, epsilon = 1.0e-10);
+
+        assert_abs_diff_eq!(actual.sum(&gc.item("part_4")).quantity, 13.0, epsilon = 1.0e-10);
     }
 }
 
