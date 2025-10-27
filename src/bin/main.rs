@@ -12,29 +12,51 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 // use dataset::{DataSet, DataSetConf};
 // use data::model::{ActiveProcess, Data, DataParser, Item, Process, Stack};
 
+
+/// Examples:
+/// cargo run -- -s 'fac-2.0.0' -f www/data/fac-2.0.0.json -r 5:part_d -p make_d:1:1:1 -g sample.gv
+/// or
+/// cargo run -- \
+///     --style 'fac-2.0.0' \
+///     --data-location www/data/fac-2.0.0.json \
+///     --requirement 5:part_d \
+///     --process make_d:1:1:1 \
+///     --graph-out sample.gv
+///
 #[derive(Parser, Debug, Clone)]
-#[command(version, about, long_about = None)]
+#[command(version, about, verbatim_doc_comment)]
 struct Args {
     /// Data Style ID; as produced by DataSetStyle
     #[arg(short='s', long)]
     style: String,
+
     /// File path to data contents
     #[arg(short='f', long)]
     data_location: PathBuf,
 
     /// Requirements, in the form F:id
+    ///
     /// F is a floating point number
+    ///
     /// id is an item id that exists in the data
     #[arg(short='r', long="requirement")]
     requirements: Vec<String>,
 
     /// Imports/Exports
+    ///
     /// item id that exists in the data
     #[arg(short='t', long="io")]
     io: Vec<String>,
 
-    /// Included processes
-    /// process id that exists in the data
+    /// Included processes, in the form id:F1:F2:F3
+    ///
+    /// id is a process id that exists in the data
+    ///
+    /// F1 is a duration multiplier (0.5 = half speed, 2 = double speed)
+    ///
+    /// F2 is an input multiplier (0.5 = process uses 1/2 the inputs in each cycle)
+    ///
+    /// F3 is an output multiplier (2 = process produces double the outputs in each cycle)
     #[arg(short='p', long="process")]
     processes: Vec<String>,
 
