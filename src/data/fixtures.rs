@@ -22,6 +22,8 @@ pub fn simple_data_fixture() -> Data {
     let mut factories: HashMap<String, Rc<Factory>> = HashMap::new();
 
     factory_groups.insert("basic".to_string(), Rc::new(FactoryGroup { id: "basic".to_string() }));
+    factory_groups.insert("basic2".to_string(), Rc::new(FactoryGroup { id: "basic2".to_string() }));
+    factory_groups.insert("basic3".to_string(), Rc::new(FactoryGroup { id: "basic3".to_string() }));
     factories.insert("basic".to_string(), Rc::new(Factory {
         id: "basic".to_string(),
         display: "basic".to_string(),
@@ -30,11 +32,32 @@ pub fn simple_data_fixture() -> Data {
         inputs_multiplier: 1.0,
         outputs_multiplier: 1.0
     }));
+    factories.insert("all_basics".to_string(), Rc::new(Factory {
+        id: "all_basics".to_string(),
+        display: "all_basics".to_string(),
+        groups: vec![
+            factory_groups.get(&"basic".to_string()).unwrap().clone(),
+            factory_groups.get(&"basic2".to_string()).unwrap().clone()
+        ],
+        duration_multiplier: 1.0,
+        inputs_multiplier: 1.0,
+        outputs_multiplier: 1.0
+    }));
+    factories.insert("just_basic2".to_string(), Rc::new(Factory {
+        id: "just_basic2".to_string(),
+        display: "just_basic2".to_string(),
+        groups: vec![
+            factory_groups.get(&"basic2".to_string()).unwrap().clone()
+        ],
+        duration_multiplier: 0.5,
+        inputs_multiplier: 1.0,
+        outputs_multiplier: 1.0
+    }));
     let p1 = Process {
         id: "make_a".to_string(),
         display: "Make A".to_string(),
         duration: 1.0,
-        group: factory_groups.get(&"basic".to_string()).unwrap().clone(),
+        group: factory_groups.get(&"basic2".to_string()).unwrap().clone(),
         inputs: vec![
             Stack::new(items.get("part_1").unwrap().clone(), 5.0),
             Stack::new(items.get("part_2").unwrap().clone(), 2.0),

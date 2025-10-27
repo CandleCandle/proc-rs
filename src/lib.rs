@@ -17,7 +17,7 @@ use data::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigu
 
 use crate::data::calculator::Calculator;
 use crate::data::dataset::{DataSet, DataSetConf};
-use crate::data::model::ActiveProcess;
+use crate::data::model::{ActiveProcess, Factory};
 
 #[wasm_bindgen]
 extern "C" {
@@ -118,9 +118,9 @@ impl GraphConfiguration {
         Ok(serde_wasm_bindgen::to_value(self.wrapped.get_imports_exports())?)
     }
 
-    pub fn add_process(&mut self, id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
-        let factory_id = self.wrapped.get_fastest_factory_for_process(&id);
-        self.wrapped.add_process(&id, factory_id.as_str(), duration_multiplier, inputs_multiplier, outputs_multiplier);
+    pub fn add_process(&mut self, proc_id: String, factory_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
+        // let factory_id = self.wrapped.get_fastest_factory_for_process(&proc_id);
+        self.wrapped.add_process(&proc_id, &factory_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
         Ok(JsValue::null()) // XXX err result required.
     }
 
@@ -129,8 +129,8 @@ impl GraphConfiguration {
         Ok(JsValue::null()) // XXX err result required.
     }
 
-    pub fn update_modifiers(&mut self, proc_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
-        self.wrapped.update_modifiers(proc_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+    pub fn update_modifiers(&mut self, proc_id: String, factory_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
+        self.wrapped.update_modifiers(proc_id, factory_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
         Ok(JsValue::null()) // XXX err result required.
     }
 
@@ -140,6 +140,10 @@ impl GraphConfiguration {
                 |a, b| a.id().cmp(b.id())
             ).collect::<Vec<&ActiveProcess>>()
         )?)
+    }
+
+    pub fn factories_for_process(&mut self, id: String) -> Result<JsValue, JsValue> {
+        Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Factory>>>(&self.wrapped.factories_for_process(&id))?) // TODO list factories for the given process id
     }
 
     pub fn get_defaulted_items(&self) -> Result<JsValue, JsValue> {

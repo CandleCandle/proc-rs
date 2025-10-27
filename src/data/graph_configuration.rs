@@ -95,14 +95,9 @@ impl GraphConfiguration {
         self.processes.retain(|p| *p.id() != *id);
     }
 
-    pub fn update_modifiers(&mut self, proc_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
-        let original = self.processes.iter()
-            .find(|p| p.id() == proc_id)
-            .map(|p| p.factory().clone());
+    pub fn update_modifiers(&mut self, proc_id: String, factory_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
         self.remove_process(&proc_id);
-        if let Some(original) = original {
-            self.add_process(&proc_id, &original.id, duration_multiplier, inputs_multiplier, outputs_multiplier);
-        }
+        self.add_process(&proc_id, &factory_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
     }
 
     pub fn get_factory(&self, factory_id: &str) -> Rc<Factory> {
@@ -122,12 +117,26 @@ impl GraphConfiguration {
                 let fg = data.processes.get(proc_id).unwrap().group.clone();
                 data.factories.values()
                     .filter(|factory| factory.groups.contains(&fg))
-                    .sorted_by(|a, b| b.duration_multiplier.total_cmp(&a.duration_multiplier))
+                    .sorted_by(|a, b| a.duration_multiplier.total_cmp(&b.duration_multiplier))
                     .next()
                     .unwrap()
                     .id.clone()
             },
             None => "".to_string(),
+        }
+    }
+
+    pub fn factories_for_process(&mut self, proc_id: &String) -> Vec<Rc<Factory>> {
+        match &self.current_data {
+            Some(data) => {
+                let fg = data.processes.get(proc_id).unwrap().group.clone();
+                data.factories.values()
+                    .filter(|factory| factory.groups.contains(&fg))
+                    .sorted_by(|a, b| a.display.cmp(&b.display))
+                    .cloned()
+                    .collect()
+            },
+            None => Vec::new()
         }
     }
 
@@ -387,5 +396,14 @@ mod test {
         result.sort_by(|a, b| a.id.cmp(&b.id));
         let ids: Vec<String> = result.iter().map(|i| i.id.clone()).collect();
         assert_eq!(ids, vec!["part_2", "part_3"]);
+    }
+
+    #[test]
+    fn it_finds_factories_for_processes() {
+        let mut gc = fixtures::create_config();
+        let result = gc.factories_for_process(&"make_a".to_string())
+            .iter().map(|fg| fg.id.clone())
+            .collect::<Vec<String>>();
+        assert_eq!(result, vec!["all_basics", "just_basic2"]);
     }
 }
