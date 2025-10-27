@@ -1,0 +1,284 @@
+{
+  "items": [
+    {
+      "id": "aluminium",
+      "group": "item",
+      "i18n": {
+        "en": "aluminium"
+      }
+    },
+    {
+      "id": "copper",
+      "group": "item",
+      "i18n": {
+        "en": "copper"
+      }
+    },
+    {
+      "id": "glass",
+      "group": "item",
+      "i18n": {
+        "en": "glass"
+      }
+    },
+    {
+      "id": "gold",
+      "group": "item",
+      "i18n": {
+        "en": "gold"
+      }
+    },
+    {
+      "id": "iron",
+      "group": "item",
+      "i18n": {
+        "en": "iron"
+      }
+    },
+    {
+      "id": "laser",
+      "group": "item",
+      "i18n": {
+        "en": "laser"
+      }
+    },
+    {
+      "id": "light_alloy",
+      "group": "item",
+      "i18n": {
+        "en": "light alloy"
+      }
+    },
+    {
+      "id": "mirror",
+      "group": "item",
+      "i18n": {
+        "en": "mirror"
+      }
+    },
+    {
+      "id": "oxygen",
+      "group": "item",
+      "i18n": {
+        "en": "oxygen"
+      }
+    },
+    {
+      "id": "quartz",
+      "group": "item",
+      "i18n": {
+        "en": "quartz"
+      }
+    },
+    {
+      "id": "silicon",
+      "group": "item",
+      "i18n": {
+        "en": "silicon"
+      }
+    },
+    {
+      "id": "uranium",
+      "group": "item",
+      "i18n": {
+        "en": "uranium"
+      }
+    },
+    {
+      "id": "water",
+      "group": "item",
+      "i18n": {
+        "en": "water"
+      }
+    }
+  ],
+  "processes": [
+    {
+      "id": "glass",
+      "i18n": {
+        "en": "glass"
+      },
+      "duration": 1,
+      "group": "refiner",
+      "inputs": {
+        "quartz": 1
+      },
+      "outputs": {
+        "glass": 1
+      }
+    },
+    {
+      "id": "laser",
+      "i18n": {
+        "en": "laser"
+      },
+      "duration": 1,
+      "group": "optics_factory",
+      "inputs": {
+        "glass": 1,
+        "uranium": 1
+      },
+      "outputs": {
+        "laser": 1
+      }
+    },
+    {
+      "id": "light_alloy",
+      "i18n": {
+        "en": "light_alloy"
+      },
+      "duration": 1,
+      "group": "crucible",
+      "inputs": {
+        "aluminium": 1,
+        "silicon": 1
+      },
+      "outputs": {
+        "light_alloy": 1
+      }
+    },
+    {
+      "id": "mirror",
+      "i18n": {
+        "en": "mirror"
+      },
+      "duration": 1,
+      "group": "optics_factory",
+      "inputs": {
+        "glass": 1,
+        "light_alloy": 1
+      },
+      "outputs": {
+        "mirror": 1
+      }
+    },
+    {
+      "id": "oxygen",
+      "i18n": {
+        "en": "oxygen"
+      },
+      "duration": 1,
+      "group": "refiner",
+      "inputs": {
+        "water": 1
+      },
+      "outputs": {
+        "oxygen": 1
+      }
+    },
+    {
+      "id": "quartz",
+      "i18n": {
+        "en": "quartz"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "silicon": 1,
+        "water": 1
+      },
+      "outputs": {
+        "quartz": 1
+      }
+    }
+  ],
+  "factory_groups": [],
+  "factories": [
+    {
+      "id": "optics_factory",
+      "i18n": {
+        "en": "optics_factory"
+      },
+      "name": "optics_factory",
+      "factory_groups": [
+        "optics_factory"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "crucible",
+      "i18n": {
+        "en": "crucible"
+      },
+      "name": "crucible",
+      "factory_groups": [
+        "crucible"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "refiner",
+      "i18n": {
+        "en": "refiner"
+      },
+      "name": "refiner",
+      "factory_groups": [
+        "refiner"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "chemical_lab",
+      "i18n": {
+        "en": "chemical_lab"
+      },
+      "name": "chemical_lab",
+      "factory_groups": [
+        "chemical_lab"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "component_lab",
+      "i18n": {
+        "en": "component_lab"
+      },
+      "name": "component_lab",
+      "factory_groups": [
+        "component_lab"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "stuff_factory",
+      "i18n": {
+        "en": "stuff_factory"
+      },
+      "name": "stuff_factory",
+      "factory_groups": [
+        "stuff_factory"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "habitat",
+      "i18n": {
+        "en": "habitat"
+      },
+      "name": "habitat",
+      "factory_groups": [
+        "habitat"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "electronics_factory",
+      "i18n": {
+        "en": "electronics_factory"
+      },
+      "name": "electronics_factory",
+      "factory_groups": [
+        "electronics_factory"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    }
+  ]
+}
