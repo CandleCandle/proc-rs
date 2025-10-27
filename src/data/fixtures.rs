@@ -4,7 +4,7 @@ use crate::data::{dataset::DataSet, graph_configuration::GraphConfiguration, mod
 
 
 pub fn load_fixture(path: &str) -> String {
-    println!("fixtures location: {:?}", PathBuf::from(file!()).join(PathBuf::from(path)));
+    println!("fixtures location: {:?}", PathBuf::from(file!()).parent().unwrap().join(PathBuf::from(path)));
     fs::read_to_string(PathBuf::from(file!()).parent().unwrap().join(PathBuf::from(path))).unwrap()
 }
 

@@ -12,12 +12,16 @@ use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item
 pub enum DataParserRecipeListerFiles {
     AssemblingMachines,
     Furnace,
+    RocketSilo,
+    MiningDrill,
 }
 impl DataParserRecipeListerFiles {
     pub fn to_key(&self) -> &str {
         match &self {
             Self::AssemblingMachines => "AssemblingMachines",
             Self::Furnace => "Furnace",
+            Self::RocketSilo => "RocketSilo",
+            Self::MiningDrill => "MiningDrill",
         }
     }
 }
@@ -28,6 +32,7 @@ impl DataParser for DataParserRecipeLister {
         let mut result = BTreeMap::new();
         result.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), format!("{}/assembling-machine.json", conf.id()));
         result.insert(DataParserRecipeListerFiles::Furnace.to_key(), format!("{}/furnace.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::RocketSilo.to_key(), format!("{}/rocket-silo.json", conf.id()));
         result
     }
 
@@ -43,7 +48,9 @@ impl DataParser for DataParserRecipeLister {
         let mut items: HashMap<String, Rc<Item>> = HashMap::new();
 
         for k in &[
-            DataParserRecipeListerFiles::AssemblingMachines, DataParserRecipeListerFiles::Furnace
+            DataParserRecipeListerFiles::AssemblingMachines,
+            DataParserRecipeListerFiles::Furnace,
+            DataParserRecipeListerFiles::RocketSilo,
             ] {
             for (_, am) in parsed.get(k.to_key())
                 .ok_or(format!("missing json {k:?}"))?
@@ -58,6 +65,21 @@ impl DataParser for DataParserRecipeLister {
                         .keys()
                         .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id.clone()})) ));
             }
+        }
+
+        for (_, am) in parsed.get(DataParserRecipeListerFiles::MiningDrill.to_key())
+            .ok_or(format!("missing json {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))?
+            .as_object()
+            .ok_or(format!("missing root object in {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))? {
+            factory_groups.extend(
+                am.as_object()
+                    .ok_or(format!("missing root object in {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))?
+                    ["resource_categories"]
+                    .as_object()
+                    .ok_or(format!("missing resource_categories in {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))?
+                    .keys()
+                    .map(|id| format!("resource-{id}"))
+                    .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id})) ));
         }
         // processes
         // recipe.json
@@ -225,6 +247,8 @@ mod test {
         let mut jsons = BTreeMap::new();
         jsons.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), load_fixture("fixtures/assembling-machine.json").to_string());
         jsons.insert(DataParserRecipeListerFiles::Furnace.to_key(), load_fixture("fixtures/furnace.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::RocketSilo.to_key(), load_fixture("fixtures/rocket-silo.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::MiningDrill.to_key(), load_fixture("fixtures/mining-drill.json").to_string());
         let res = DataParserRecipeLister{}.parse(&mut jsons);
         let r = res.unwrap();
 
@@ -239,6 +263,10 @@ mod test {
             "pressing",
             "recycling",
             "recycling-or-hand-crafting",
+            "resource-basic-fluid",
+            "resource-basic-solid",
+            "resource-hard-solid",
+            "rocket-building",
             "smelting",
         ])
     }
