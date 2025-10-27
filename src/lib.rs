@@ -17,7 +17,7 @@ use serde_wasm_bindgen;
 mod dataset;
 use dataset::{DataSet, DataSetConf};
 mod data;
-use data::model::{Data, DataParser, Item, Stack};
+use data::model::{ActiveProcess, Data, DataParser, Item, Process, Stack};
 
 #[macro_use]
 extern crate serde_derive;
@@ -49,6 +49,7 @@ pub struct GraphConfiguration {
 
     requirements: Vec<Stack>,
     import_export: Vec<Rc<Item>>,
+    processes: Vec<ActiveProcess>,
 }
 
 #[wasm_bindgen]
@@ -60,6 +61,7 @@ impl GraphConfiguration {
             current_data: None,
             requirements: vec![],
             import_export: vec![],
+            processes: vec![],
         }
     }
 
@@ -98,7 +100,23 @@ impl GraphConfiguration {
     }
 
     pub fn get_imports_exports(&self) -> Result<JsValue, JsValue> {
-        Ok(serde_wasm_bindgen::to_value(&self.import_export)?) // XXX err result required.
+        Ok(serde_wasm_bindgen::to_value(&self.import_export)?)
+    }
+
+    pub fn add_process(&mut self, id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
+        self.processes.push(
+            ActiveProcess {
+                process: self.current_data.as_ref().unwrap().processes.get(&id).unwrap().clone(),
+                duration_multiplier,
+                inputs_multiplier,
+                outputs_multiplier,
+            }
+        );
+        Ok(JsValue::null()) // XXX err result required.
+    }
+
+    pub fn get_processes(&self) -> Result<JsValue, JsValue> {
+        Ok(serde_wasm_bindgen::to_value(&self.processes)?)
     }
 
     pub async fn update_data_set(&mut self, id: String) -> Result<JsValue, JsValue> {
@@ -144,6 +162,22 @@ impl GraphConfiguration {
                 Ok(serde_wasm_bindgen::to_value(&v)?)
             },
             None => Ok(serde_wasm_bindgen::to_value::<Vec<Item>>(&vec![])?),
+        }
+    }
+
+    pub fn search_processes(&self, search: String) -> Result<JsValue, JsValue> {
+        match &self.current_data {
+            Some(d) => {
+                let matcher = Regex::new(&search)
+                    .map_err(|e| JsValue::from_str(format!("{:?}", e).as_str()))?;
+                let mut v = d.processes.iter()
+                    .filter(|(_id, proc)| matcher.is_match(&proc.id) || matcher.is_match(&proc.display))
+                    .map(|(_id, i)| i.deref().clone())
+                    .collect::<Vec<Process>>();
+                v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
+                Ok(serde_wasm_bindgen::to_value::<Vec<Process>>(&v)?)
+            },
+            None => Ok(serde_wasm_bindgen::to_value::<Vec<Process>>(&vec![])?),
         }
     }
 }

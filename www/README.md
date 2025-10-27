@@ -98,3 +98,5 @@ https://vuejs.org/guide/essentials/forms.html
 
 https://book.micheletti.io/
 
+WASM objects can't really be Vue reactive; force a re-render of certain components with the :key work-around.
+https://michaelnthiessen.com/force-re-render/

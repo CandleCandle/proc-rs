@@ -21,7 +21,7 @@ pub struct Factory {
     pub groups: Vec<Rc<FactoryGroup>>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct FactoryGroup {
     pub id: String,
 }
@@ -37,7 +37,7 @@ pub struct FactoryGroup {
 //     count: f64,
 // }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Process {
     pub id: String,
     pub display: String,
@@ -47,13 +47,13 @@ pub struct Process {
     pub outputs: Vec<Stack>,
 }
 
-// #[derive(Debug, Clone, PartialEq)]
-// struct ActiveProcess {
-//     process: Process,
-//     duration: f64,
-//     inputs: Vec<Stack>,
-//     outputs: Vec<Stack>,
-// }
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ActiveProcess {
+    pub process: Rc<Process>,
+    pub duration_multiplier: f64,
+    pub inputs_multiplier: f64,
+    pub outputs_multiplier: f64,
+}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Stack {
