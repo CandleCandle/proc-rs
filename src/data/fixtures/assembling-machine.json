@@ -1,0 +1,127 @@
+{
+  "assembling-machine-1" : {
+    "name" : "assembling-machine-1",
+    "localised_name" : [
+      "entity-name.assembling-machine-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 75000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "crafting" : true,
+      "basic-crafting" : true,
+      "advanced-crafting" : true,
+      "electronics" : true,
+      "pressing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 2500
+      }
+    }
+  },
+  "assembling-machine-3" : {
+    "name" : "assembling-machine-3",
+    "localised_name" : [
+      "entity-name.assembling-machine-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 375000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.25,
+    "crafting_categories" : {
+      "basic-crafting" : true,
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "electronics" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 12500
+      }
+    }
+  },
+  "centrifuge" : {
+    "name" : "centrifuge",
+    "localised_name" : [
+      "entity-name.centrifuge"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "centrifuging" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  }
+}

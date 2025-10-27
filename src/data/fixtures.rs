@@ -1,9 +1,12 @@
-use std::{collections::HashMap, rc::Rc};
+use std::{collections::HashMap, fs, path::PathBuf, rc::Rc};
 
 use crate::data::{dataset::DataSet, graph_configuration::GraphConfiguration, model::{Classification, Data, Factory, FactoryGroup, Item, Process, Stack}};
 
 
-
+pub fn load_fixture(path: &str) -> String {
+    println!("fixtures location: {:?}", PathBuf::from(file!()).join(PathBuf::from(path)));
+    fs::read_to_string(PathBuf::from(file!()).parent().unwrap().join(PathBuf::from(path))).unwrap()
+}
 
 pub fn simple_data_fixture() -> Data {
     let items: HashMap<String, Rc<Item>> = vec![
