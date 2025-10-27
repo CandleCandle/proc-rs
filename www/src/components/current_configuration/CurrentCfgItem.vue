@@ -7,9 +7,11 @@ const { cfg, stack } = defineProps(['cfg', 'stack']);
 const requirement_value = ref(null);
 const type = ref(null);
 
-if (stack.is_req()) {
+if (stack.is_req()) { // XXX extract DisplayItem to a separate file and import the constants.
     requirement_value.value = stack.req_quantity();
     type.value = 'requirement';
+} else if (stack.is_intermediate()) {
+    type.value = 'intermediate';
 } else {
     type.value = 'import_export';
 }
