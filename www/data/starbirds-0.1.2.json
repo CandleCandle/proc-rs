@@ -127,10 +127,24 @@
       }
     },
     {
+      "id": "strong_alloy",
+      "group": "item",
+      "i18n": {
+        "en": "strong alloy"
+      }
+    },
+    {
       "id": "sulphur",
       "group": "item",
       "i18n": {
         "en": "sulphur"
+      }
+    },
+    {
+      "id": "titanium",
+      "group": "item",
+      "i18n": {
+        "en": "titanium"
       }
     },
     {
@@ -339,6 +353,36 @@
       },
       "outputs": {
         "circuit": 1
+      }
+    },
+    {
+      "id": "strong_alloy_titanium",
+      "i18n": {
+        "en": "strong_alloy_titanium"
+      },
+      "duration": 1,
+      "group": "crucible",
+      "inputs": {
+        "titanium": 1,
+        "iron": 1
+      },
+      "outputs": {
+        "strong_alloy": 1
+      }
+    },
+    {
+      "id": "strong_alloy_carbon",
+      "i18n": {
+        "en": "strong_alloy_carbon"
+      },
+      "duration": 1,
+      "group": "crucible",
+      "inputs": {
+        "iron": 1,
+        "carbon": 1
+      },
+      "outputs": {
+        "strong_alloy": 1
       }
     }
   ],
