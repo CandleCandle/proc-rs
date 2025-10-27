@@ -267,6 +267,10 @@ impl DataParser for DataParserRecipeLister {
         result.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), format!("{}/assembling-machine.json", conf.id()));
         result.insert(DataParserRecipeListerFiles::Furnace.to_key(), format!("{}/furnace.json", conf.id()));
         result.insert(DataParserRecipeListerFiles::RocketSilo.to_key(), format!("{}/rocket-silo.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::MiningDrill.to_key(), format!("{}/mining-drill.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Items.to_key(), format!("{}/item.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Fluids.to_key(), format!("{}/fluid.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Recipe.to_key(), format!("{}/recipe.json", conf.id()));
         result
     }
 

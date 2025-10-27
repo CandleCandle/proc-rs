@@ -1,7 +1,11 @@
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::wasm_bindgen;
 
-use crate::data::{basic_data_parse::DataParserBasic, model::DataParser};
+use crate::data::{
+    basic_data_parse::DataParserBasic,
+    model::DataParser,
+    rl_data_parse::DataParserRecipeLister,
+};
 
 
 /// Known list of data set configurations
@@ -9,11 +13,7 @@ use crate::data::{basic_data_parse::DataParserBasic, model::DataParser};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum DataSet {
     Starbirds012,
-    Fac200,
-    Fac150,
-    Fac200Se200,
-    Dsp100,
-    Fac1194Se100,
+    Factorio2066Sa2066,
 }
 
 pub enum ModifierStyle {
@@ -26,22 +26,14 @@ impl DataSet {
     pub fn params(self) -> DataSetConf {
         match self {
             DataSet::Starbirds012 => DataSetConf::new(DataSetStyle::Basic, "starbirds".into(), "0.1.2".into()),
-            DataSet::Fac200 => DataSetConf::new(DataSetStyle::Basic, "fac".into(), "2.0.0".into()),
-            DataSet::Fac150 => DataSetConf::new(DataSetStyle::Basic, "fac".into(), "1.5.0".into()),
-            DataSet::Fac200Se200 => DataSetConf::modded(DataSetStyle::Basic, Versioned::new("fac".into(), "2.0.0".into()), Versioned::new("se".into(), "4.0.0".into())),
-            DataSet::Dsp100 => DataSetConf::new(DataSetStyle::Basic, "dsp".into(), "1.0.0".into()),
-            DataSet::Fac1194Se100 => DataSetConf::modded(DataSetStyle::Basic, Versioned::new("factorio".into(), "1.1.94".into()), Versioned::new("se".into(), "1.0.0".into())),
+            DataSet::Factorio2066Sa2066 => DataSetConf::modded(DataSetStyle::RecipeLister, Versioned::new("factorio".into(), "2.0.66".into()), Versioned::new("sa".into(), "2.0.66".into())),
         }
     }
 
     pub fn all() -> Vec<DataSetConf> {
         vec!(
             DataSet::params(DataSet::Starbirds012),
-            DataSet::params(DataSet::Fac200),
-            DataSet::params(DataSet::Fac150),
-            DataSet::params(DataSet::Fac200Se200),
-            DataSet::params(DataSet::Dsp100),
-            DataSet::params(DataSet::Fac1194Se100),
+            DataSet::params(DataSet::Factorio2066Sa2066),
         )
     }
 
@@ -86,11 +78,13 @@ impl DataSetConf {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum DataSetStyle {
     Basic,
+    RecipeLister,
 }
 impl DataSetStyle {
-    pub fn parser(&self) -> Box<impl DataParser> {
+    pub fn parser(&self) -> Box<dyn DataParser> {
         match self {
-            Self::Basic => Box::new(DataParserBasic{})
+            Self::Basic => Box::new(DataParserBasic{}),
+            Self::RecipeLister => Box::new(DataParserRecipeLister{}),
         }
     }
 }
@@ -122,7 +116,7 @@ mod test {
 
     #[test]
     fn it_finds_data_set_conf_by_id() {
-        let result = DataSet::find("fac-2.0.0");
-        assert_eq!(result, Some(DataSet::Fac200.params()));
+        let result = DataSet::find("starbirds-0.1.2");
+        assert_eq!(result, Some(DataSet::Starbirds012.params()));
     }
 }

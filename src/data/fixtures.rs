@@ -103,6 +103,6 @@ pub fn simple_data_fixture() -> Data {
 
 pub fn create_config() -> GraphConfiguration {
     let mut gc = GraphConfiguration::new();
-    gc.set_data(simple_data_fixture(), DataSet::Fac200.params());
+    gc.set_data(simple_data_fixture(), DataSet::Starbirds012.params());
     gc
 }

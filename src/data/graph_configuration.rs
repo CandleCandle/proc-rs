@@ -5,7 +5,7 @@ use regex::Regex;
 
 use crate::data::model::Factory;
 
-use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, DataParser, Item, Process, Stack}};
+use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
 
 ///
 /// Provide a way to fetch the blob of json that represents the data contents
