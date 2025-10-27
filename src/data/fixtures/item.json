@@ -32,6 +32,16 @@
     "stack_size" : 50,
     "place_result" : "steel-chest"
   },
+  "uranium-ore" : {
+    "name" : "uranium-ore",
+    "localised_name" : [
+      "item-name.uranium-ore"
+    ],
+    "type" : "item",
+    "order" : "g[uranium-ore]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
   "uranium-235" : {
     "name" : "uranium-235",
     "localised_name" : [

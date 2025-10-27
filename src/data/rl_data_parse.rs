@@ -217,7 +217,7 @@ impl DataParserRecipeLister {
         mut quantity_calc: F,
     ) -> Result<Vec<Stack>, String>
     where
-        F: FnMut(f64, f64) -> f64,
+        F: FnMut(f64, f64, f64) -> f64,
     {
         if stacks.as_object().is_some() {
             return Ok(Vec::new())
@@ -227,6 +227,8 @@ impl DataParserRecipeLister {
             .iter().enumerate()
             .map(|(idx, stack)| {
                 // XXX work out how "extra_count_fraction" impacts this calculation.
+                // XXX add an example where the probability is not 1.
+                // XXX handle amount_(min|max)
                 let obj = stack.as_object().ok_or(format!("[{id}].\"ingredients|products\"[{idx}] from {k:?} was not an object"))?;
                 tracing::info!("{:?}", obj);
                 let item = items.get(
@@ -238,20 +240,23 @@ impl DataParserRecipeLister {
                 let ignored = obj.get("ignored_by_productivity")
                     .map(|v| -> Result<f64, &str> { v.as_f64().ok_or("todo!6") })
                     .unwrap_or(Ok(0.0))?;
+                let probability = obj.get("probability")
+                    .map(|v| -> Result<f64, &str> { v.as_f64().ok_or("todo!7") })
+                    .unwrap_or(Ok(1.0))?;
                 Ok(Stack{
                     item,
-                    quantity: quantity_calc(quantity, ignored),
+                    quantity: quantity_calc(quantity, ignored, probability),
                 })
             })
             .collect::<Result<Vec<Stack>, String>>()
     }
 
     fn extract_unmod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
-        Self::extract_io(stacks, items, id, k, |q, i| i.min(q))
+        Self::extract_io(stacks, items, id, k, |q, i, p| i.min(q) * p)
     }
 
     fn extract_mod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
-        Self::extract_io(stacks, items, id, k, |q, i| (q-i).max(0.0))
+        Self::extract_io(stacks, items, id, k, |q, i, p| (q-i).max(0.0) * p)
     }
 }
 
@@ -421,6 +426,7 @@ mod test {
             "tungsten-carbide",
             "uranium-235",
             "uranium-238",
+            "uranium-ore",
             "water",
             "wood",
             "wooden-chest",
@@ -437,6 +443,7 @@ mod test {
             "big-mining-drill-recycling",
             "kovarex-enrichment-process",
             "parameter-0",
+            "uranium-processing",
             "wooden-chest",
         ])
     }
@@ -460,5 +467,26 @@ mod test {
         assert_eq!(process.inputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0, 0.0]);
         assert_eq!(process.outputs_unmod.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["uranium-235", "uranium-238"]);
         assert_eq!(process.outputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[40.0, 2.0]);
+    }
+
+    #[test]
+    fn it_understands_process_with_probablistic_io() {
+        setup_tracing();
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        let process = r.processes.get("uranium-processing").unwrap();
+        assert_eq!(process.id, "uranium-processing");
+        assert_eq!(process.display, "uranium-processing");
+        assert_eq!(process.duration, 12.0);
+        assert_eq!(process.group.id, "centrifuging");
+        assert_eq!(process.inputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["uranium-ore"]);
+        assert_eq!(process.inputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[10.0]);
+        assert_eq!(process.outputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["uranium-235", "uranium-238"]);
+        assert_eq!(process.outputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.007, 0.993]);
+        assert_eq!(process.inputs_unmod.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["uranium-ore"]);
+        assert_eq!(process.inputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0]);
+        assert_eq!(process.outputs_unmod.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["uranium-235", "uranium-238"]);
+        assert_eq!(process.outputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0, 0.0]);
     }
 }
