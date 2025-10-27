@@ -1,7 +1,10 @@
 use std::{fs, path::PathBuf};
 
 use clap::{command, Parser};
-use proc_rs::data::{dataset::DataSet, graph_configuration::GraphConfiguration, model::DataParser};
+use proc_rs::data::{
+    dataset::DataSet,
+    calculator::Calculator,
+    graph_configuration::GraphConfiguration, model::DataParser};
 
 // use data::{dataset::DataSet, graph_configuration::GraphConfiguration, model::DataParser};
 
@@ -76,9 +79,9 @@ fn main() -> Result<(), String> {
 
     println!("{:?}", gc);
 
-    // calc.generate(gc);
+    let calc = Calculator::generate(gc);
     // calc.to_gv();
-    // calc.get_initial_matrix();
+    calc.initial_matrix();
     // calc.get_reduced_matrix();
 
     Ok(())
