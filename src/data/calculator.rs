@@ -184,27 +184,6 @@ impl ItemNetStatus {
             ItemNetStatus::Producer => "\"net-producer\"",
         }
     }
-
-    fn node_label(&self, positive_sum: &f64, display: &str, negative_sum: &f64) -> String {
-            let negative_sum = if negative_sum.abs() < 1e-10 && negative_sum.is_sign_negative() {
-                -negative_sum
-            } else {
-                *negative_sum
-            };
-            match self {
-                ItemNetStatus::Equal => format!("\" {{ {display} }} \""),
-                ItemNetStatus::Consumer => format!("\"{{\
-                      {{<produce> {display} }}\
-                    | {{<consume> consume {negative_sum:.2}/s }}\
-                    }}\
-                \""),
-                ItemNetStatus::Producer => format!("\"{{\
-                      {{<produce> produce {positive_sum:.2}/s }} \
-                    | {{<consume> {display} }}\
-                    }}\
-                \""),
-            }
-    }
 }
 
 impl Calculator {
@@ -226,6 +205,36 @@ impl Calculator {
         )
     }
 
+    fn node_label(positive_sum: &f64, display: &str, negative_sum: &f64) -> String {
+        let negative_sum = if negative_sum.abs() < 1e-10 && negative_sum.is_sign_positive() {
+            *negative_sum
+        } else {
+            -negative_sum
+        };
+        if positive_sum.abs() < 1e-10 && negative_sum.abs() < 1e-10 {
+            return format!("\"{display}\"");
+        }
+        let mut parts: Vec<String> = Vec::new();
+        if positive_sum.abs() > 1e-10 {
+            parts.push(
+                format!("\"{{ {{<produce> produce {positive_sum:.2}/s }}")
+            );
+        } else {
+            parts.push(format!("\"{{ {{<produce> {display} }}"))
+        }
+        if positive_sum.abs() > 1e-10 && negative_sum.abs() > 1e-10 {
+            parts.push(format!("{{ {display} }}"))
+        }
+        if negative_sum.abs() > 1e-10 {
+            parts.push(
+                format!("{{<consume> consume {negative_sum:.2}/s }} }}\"")
+            );
+        } else {
+            parts.push(format!("{{<consume> {display} }} }}\""))
+        }
+        parts.join(" | ")
+    }
+
     pub fn to_digraph(&self) -> String {
         let mut graph = Graph::DiGraph { id: Id::Plain("map".into()), strict: true, stmts: Vec::new() };
 
@@ -241,7 +250,7 @@ impl Calculator {
                         attr!("shape", "record"),
                         // net-consumer / net-producer / net-equal
                         NodeAttributes::class(class.to_string()),
-                        NodeAttributes::label(item_net_style.node_label(
+                        NodeAttributes::label(Self::node_label(
                             &materials.sum_positive(&mat).quantity,
                             &mat.display,
                             &materials.sum_negative(&mat).quantity))
@@ -273,7 +282,7 @@ impl Calculator {
                             "\" {{\
                               {{ {inputs_line} }} \
                             | {} \
-                            | {{ {duration:.2}s/cycle | {factory} ({factory_group}) }} \
+                            | {{ {duration:.2}s/cycle | fac_n x {factory} ({factory_group}) }} \
                             | {{ {outputs_line} }} \
                             }}\"",
                             proc.display(),
