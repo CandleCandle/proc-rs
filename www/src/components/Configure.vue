@@ -73,8 +73,14 @@ function handle_cfg_update() {
 
         <SearchResultsItem @cfg_update="handle_cfg_update()" v-for="item in searchResultsItems" :item="item" :cfg="cfg" />
         <div class="search_results">
-            <hr v-if="searchResultsProcesses.length > 0" />
-            <SearchResultsProcess @cfg_update="handle_cfg_update()" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" />
+            <div class="proc">
+                <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
+                <div class="proc_header_d" v-if="searchResultsProcesses.length > 0">Duration</div>
+                <div class="proc_header_i" v-if="searchResultsProcesses.length > 0">Inputs</div>
+                <div class="proc_header_o" v-if="searchResultsProcesses.length > 0">Outputs</div>
+                <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
+                <SearchResultsProcess @cfg_update="handle_cfg_update()" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" />
+            </div>
         </div>
     </div>
     <CurrentConfiguration :key="cfg_fu" :cfg="cfg" />
@@ -90,6 +96,41 @@ function handle_cfg_update() {
 .search_results {
     grid-column-start: 1;
     grid-column-end: span 2;
+}
+
+
+
+
+.proc_header_d {
+    grid-column: 2;
+}
+.proc_header_i {
+    grid-column: 3;
+}
+.proc_header_o {
+    grid-column: 4;
+}
+.proc, :deep(.proc) {
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr 3fr 0fr;
+    place-items: center stretch;
+    gap: 10px;
+}
+.proc_fw, :deep(.proc_fw)  {
+    grid-column-start: 1;
+    grid-column-end: span 5;
+    place-items: center stretch;
+}
+.proc_buttons, :deep(.proc_buttons)  {
+    grid-column-start: 5;
+    grid-row-end: span 2;
+    place-items: center stretch;
+}
+.proc_io, :deep(.proc_io)  {
+    display: grid;
+    grid-template-columns: 0fr 1fr;
+    place-items: center stretch;
+    gap: 10px;
 }
 
 </style>

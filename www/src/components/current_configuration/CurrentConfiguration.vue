@@ -54,13 +54,48 @@ function map_items(cfg) {
         <CurrentCfgItem v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
     </div>
     <h3>Processes</h3>
-    <div>
-        <hr v-if="cfg.get_processes().length > 0" />
+    <div class="proc">
+        <hr class="proc_fw" v-if="cfg.get_processes().length > 0" />
+        <div class="proc_header_d">Duration</div>
+        <div class="proc_header_i">Inputs</div>
+        <div class="proc_header_o">Outputs</div>
+        <hr class="proc_fw" v-if="cfg.get_processes().length > 0" />
         <CurrentCfgProc v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" />
     </div>
 </template>
 
-
 <style scoped>
+
+.proc_header_d {
+    grid-column: 2;
+}
+.proc_header_i {
+    grid-column: 3;
+}
+.proc_header_o {
+    grid-column: 4;
+}
+.proc, :deep(.proc) {
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr 3fr 0fr;
+    place-items: center stretch;
+    gap: 10px;
+}
+.proc_fw, :deep(.proc_fw)  {
+    grid-column-start: 1;
+    grid-column-end: span 5;
+    place-items: center stretch;
+}
+.proc_buttons, :deep(.proc_buttons)  {
+    grid-column-start: 5;
+    grid-row-end: span 2;
+    place-items: center stretch;
+}
+.proc_io, :deep(.proc_io)  {
+    display: grid;
+    grid-template-columns: 0fr 1fr;
+    place-items: center stretch;
+    gap: 10px;
+}
 
 </style>

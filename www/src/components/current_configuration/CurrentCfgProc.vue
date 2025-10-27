@@ -8,7 +8,6 @@ console.log("active_proc from CCP", active_proc);
 
 
 <template>
-  <div class="proc">
     <div id="name">
       {{ proc.display }} ({{ proc.id }})
     </div>
@@ -32,29 +31,11 @@ console.log("active_proc from CCP", active_proc);
     <div>{{ active_proc.duration_multiplier }}</div>
     <div>{{ active_proc.inputs_multiplier }}</div>
     <div>{{ active_proc.outputs_multiplier }}</div>
-  </div>
-  <hr />
+  <hr class="proc_fw"/>
 </template>
 
 
 <style scoped>
 
-.proc {
-    display: grid;
-    grid-template-columns: 3fr 1fr 3fr 3fr 0fr;
-    place-items: center stretch;
-    gap: 10px;
-}
-.proc_buttons {
-    grid-column-start: 5;
-    grid-row-end: span 2;
-    place-items: center stretch;
-}
-.proc_io {
-    display: grid;
-    grid-template-columns: 0fr 1fr;
-    place-items: center stretch;
-    gap: 10px;
-}
 
 </style>

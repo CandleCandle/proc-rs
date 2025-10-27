@@ -20,32 +20,30 @@ function add_process(cfg, proc_id, duration_multiplier = 1, inputs_multiplier = 
 
 
 <template>
-  <div class="proc">
-    <div id="name">
-      {{ proc.display }} ({{ proc.id }})
-    </div>
-    <div>
-      {{ proc.duration }}s
-    </div>
-    <div id="in">
-      <div v-for="input in proc.inputs" class="proc_io">
-        <div>{{ input.quantity }}</div>
-        <div>{{ input.item.display }} ({{ input.item.id }})</div>
-      </div>
-    </div>
-    <div id="out">
-      <div v-for="output in proc.outputs" class="proc_io">
-        <div>{{ output.quantity }}</div>
-        <div>{{ output.item.display }} ({{ output.item.id }})</div>
-      </div>
-    </div>
-    <div class="proc_buttons"><button @click="add_process(cfg, proc.id, duration_multiplier, inputs_multiplier, outputs_multiplier)">Add</button></div>
-    <div>modifiers</div>
-    <div>d mod</div>
-    <div>i mod</div>
-    <div>o mod</div>
+  <div id="name">
+    {{ proc.display }} ({{ proc.id }})
   </div>
-  <hr />
+  <div>
+    {{ proc.duration }}s
+  </div>
+  <div id="in">
+    <div v-for="input in proc.inputs" class="proc_io">
+      <div>{{ input.quantity }}</div>
+      <div>{{ input.item.display }} ({{ input.item.id }})</div>
+    </div>
+  </div>
+  <div id="out">
+    <div v-for="output in proc.outputs" class="proc_io">
+      <div>{{ output.quantity }}</div>
+      <div>{{ output.item.display }} ({{ output.item.id }})</div>
+    </div>
+  </div>
+  <div class="proc_buttons"><button @click="add_process(cfg, proc.id, duration_multiplier, inputs_multiplier, outputs_multiplier)">Add</button></div>
+  <div>modifiers</div>
+  <div>d mod</div>
+  <div>i mod</div>
+  <div>o mod</div>
+  <hr class="proc_fw" />
 </template>
 
 
