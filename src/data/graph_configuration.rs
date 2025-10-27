@@ -121,13 +121,16 @@ impl GraphConfiguration {
         }
     }
 
-    pub fn search_processes(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
+    fn search_proc<P>(&self, search: &str, mut predicate: P) -> Result<Vec<Rc<Process>>, String>
+    where
+        P: FnMut(&Regex, &Rc<Process>) -> bool,
+    {
         match &self.current_data {
             Some(d) => {
                 let matcher = Regex::new(search)
                     .map_err(|e| format!("{e:?}").clone())?;
                 let mut v = d.processes.iter()
-                    .filter(|(_id, proc)| matcher.is_match(&proc.id) || matcher.is_match(&proc.display))
+                    .filter(|(_id, proc)| predicate(&matcher, proc))
                     .map(|(_id, i)| i.clone())
                     .collect::<Vec<Rc<Process>>>();
                 v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
@@ -135,46 +138,28 @@ impl GraphConfiguration {
             },
             None => Ok(vec![]),
         }
+    }
+
+    pub fn search_processes(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
+        self.search_proc(search, |matcher, proc| {
+            matcher.is_match(&proc.id) || matcher.is_match(&proc.display)
+        })
     }
 
     pub fn search_processes_by_output(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
-        match &self.current_data {
-            Some(d) => {
-                let matcher = Regex::new(search)
-                    .map_err(|e| format!("{e:?}").clone())?;
-                let mut v = d.processes.iter()
-                    .filter(|(_id, proc)| {
-                        proc.outputs.iter().any(|output| {
-                            matcher.is_match(&output.item.id) || matcher.is_match(&output.item.display)
-                        })
-                    })
-                    .map(|(_id, i)| i.clone())
-                    .collect::<Vec<Rc<Process>>>();
-                v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
-                Ok(v)
-            },
-            None => Ok(vec![]),
-        }
+        self.search_proc(search, |matcher, proc| {
+            proc.outputs.iter().any(|output| {
+                matcher.is_match(&output.item.id) || matcher.is_match(&output.item.display)
+            })
+        })
     }
 
     pub fn search_processes_by_input(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
-        match &self.current_data {
-            Some(d) => {
-                let matcher = Regex::new(search)
-                    .map_err(|e| format!("{e:?}").clone())?;
-                let mut v = d.processes.iter()
-                    .filter(|(_id, proc)| {
-                        proc.inputs.iter().any(|input| {
-                            matcher.is_match(&input.item.id) || matcher.is_match(&input.item.display)
-                        })
-                    })
-                    .map(|(_id, i)| i.clone())
-                    .collect::<Vec<Rc<Process>>>();
-                v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
-                Ok(v)
-            },
-            None => Ok(vec![]),
-        }
+        self.search_proc(search, |matcher, proc| {
+            proc.inputs.iter().any(|input| {
+                matcher.is_match(&input.item.id) || matcher.is_match(&input.item.display)
+            })
+        })
     }
 
     pub fn get_defaulted_items(&self) -> Vec<Rc<Item>> {
