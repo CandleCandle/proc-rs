@@ -36,7 +36,16 @@ impl DataParserRecipeLister {
             DataParserRecipeListerFiles::AssemblingMachines,
             DataParserRecipeListerFiles::Furnace,
             DataParserRecipeListerFiles::RocketSilo,
+            DataParserRecipeListerFiles::MiningDrill,
             ] {
+            let groups_key = match &k {
+                DataParserRecipeListerFiles::MiningDrill => "resource_categories",
+                _ => "crafting_categories"
+            };
+            let group_mapper = match &k {
+                DataParserRecipeListerFiles::MiningDrill => |g_key: &String| format!("resource-{g_key}"),
+                _ => |g_key: &String| g_key.to_owned(),
+            };
             for (_, am) in parsed.get(&k.to_key())
                 .ok_or(format!("missing json {k:?}"))?
                 .as_object()
@@ -44,29 +53,16 @@ impl DataParserRecipeLister {
                 factory_groups.extend(
                     am.as_object()
                         .ok_or(format!("missing root object in {k:?}"))?
-                        ["crafting_categories"]
+                        [groups_key]
                         .as_object()
                         .ok_or(format!("missing crafting_categories in {k:?}"))?
                         .keys()
-                        .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id.clone()})) ));
+                        .map(group_mapper)
+                        .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id}))
+                ));
             }
         }
 
-        let mining_drill_key = DataParserRecipeListerFiles::MiningDrill.to_key();
-        for (_, am) in parsed.get(&mining_drill_key)
-            .ok_or(format!("missing json {:?}", mining_drill_key))?
-            .as_object()
-            .ok_or(format!("missing root object in {:?}", mining_drill_key))? {
-            factory_groups.extend(
-                am.as_object()
-                    .ok_or(format!("missing root object in {:?}", mining_drill_key))?
-                    ["resource_categories"]
-                    .as_object()
-                    .ok_or(format!("missing resource_categories in {:?}", mining_drill_key))?
-                    .keys()
-                    .map(|id| format!("resource-{id}"))
-                    .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id})) ));
-        }
         Ok(factory_groups)
     }
 
