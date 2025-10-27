@@ -59,10 +59,12 @@ impl DataParser for DataParserBasic {
                     item: items.get(k).unwrap().clone(),
                     quantity: v.as_f64().unwrap(),
                 }).collect(),
+                inputs_unmod: Vec::new(),
                 outputs: proc["outputs"].as_object().ok_or(format!("missing '.processes[{idx}].outputs' (id: {id})"))?.iter().map(|(k, v)| Stack{
                     item: items.get(k).unwrap().clone(),
                     quantity: v.as_f64().unwrap(),
                 }).collect(),
+                outputs_unmod: Vec::new(),
             }));
         }
 

@@ -33,9 +33,11 @@ pub fn simple_data_fixture() -> Data {
             Stack::new(items.get("part_1").unwrap().clone(), 5.0),
             Stack::new(items.get("part_2").unwrap().clone(), 2.0),
             ],
+        inputs_unmod: Vec::new(),
         outputs: vec![
             Stack::new(items.get("part_3").unwrap().clone(), 5.0),
             ],
+        outputs_unmod: Vec::new(),
         };
     let p1_slow = Process {
         id: "slow_a_maker".to_string(),
@@ -46,9 +48,11 @@ pub fn simple_data_fixture() -> Data {
             Stack::new(items.get("part_1").unwrap().clone(), 5.0),
             Stack::new(items.get("part_2").unwrap().clone(), 2.0),
             ],
+        inputs_unmod: Vec::new(),
         outputs: vec![
             Stack::new(items.get("part_3").unwrap().clone(), 5.0),
             ],
+        outputs_unmod: Vec::new(),
         };
     let p2 = Process {
         id: "make_b".to_string(),
@@ -58,10 +62,12 @@ pub fn simple_data_fixture() -> Data {
         inputs: vec![
             Stack::new(items.get("part_3").unwrap().clone(), 3.0),
             ],
+        inputs_unmod: Vec::new(),
         outputs: vec![
             Stack::new(items.get("part_2").unwrap().clone(), 1.0),
             Stack::new(items.get("part_4").unwrap().clone(), 1.0),
             ],
+        outputs_unmod: Vec::new(),
         };
     let p3 = Process {
         id: "one_to_one".to_string(),
@@ -71,9 +77,11 @@ pub fn simple_data_fixture() -> Data {
         inputs: vec![
             Stack::new(items.get("part_1").unwrap().clone(), 5.0),
         ],
+        inputs_unmod: Vec::new(),
         outputs: vec![
             Stack::new(items.get("part_2").unwrap().clone(), 1.0),
         ],
+        outputs_unmod: Vec::new(),
     };
     let processes = vec![p1, p1_slow, p2, p3].iter()
         .map(|p| (p.id.clone(), Rc::new(p.to_owned())))

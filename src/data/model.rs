@@ -1,5 +1,6 @@
 use std::{collections::{BTreeSet, HashMap}, hash::{Hash, Hasher}, ops, rc::Rc};
 
+use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
 pub trait DataParser {
@@ -49,7 +50,9 @@ pub struct Process {
     pub duration: f64,
     pub group: Rc<FactoryGroup>,
     pub inputs: Vec<Stack>,
+    pub inputs_unmod: Vec<Stack>,
     pub outputs: Vec<Stack>,
+    pub outputs_unmod: Vec<Stack>,
 }
 impl From<ProcessBuilder> for Process {
     fn from(pb: ProcessBuilder) -> Self {
@@ -59,7 +62,9 @@ impl From<ProcessBuilder> for Process {
             duration: pb.duration.unwrap(),
             group: pb.group.unwrap(),
             inputs: pb.inputs,
+            inputs_unmod: pb.inputs_unmod,
             outputs: pb.outputs,
+            outputs_unmod: pb.outputs_unmod,
         }
     }
 }
@@ -71,29 +76,37 @@ pub struct ProcessBuilder {
     duration: Option<f64>,
     group: Option<Rc<FactoryGroup>>,
     inputs: Vec<Stack>,
+    inputs_unmod: Vec<Stack>,
     outputs: Vec<Stack>,
+    outputs_unmod: Vec<Stack>,
 }
 impl ProcessBuilder {
     pub fn new() -> Self {
         ProcessBuilder { ..Default::default() }
     }
-    pub fn id(&mut self, id: String) -> &Self {
+    pub fn id(mut self, id: String) -> Self {
         self.id = Some(id); self
     }
-    pub fn display(&mut self, display: String) -> &Self {
+    pub fn display(mut self, display: String) -> Self {
         self.display = Some(display); self
     }
-    pub fn duration(&mut self, duration: f64) -> &Self {
+    pub fn duration(mut self, duration: f64) -> Self {
         self.duration = Some(duration); self
     }
-    pub fn group(&mut self, group: Rc<FactoryGroup>) -> &Self {
+    pub fn group(mut self, group: Rc<FactoryGroup>) -> Self {
         self.group = Some(group); self
     }
-    pub fn with_input(&mut self, input: Stack) -> &Self {
+    pub fn with_input(mut self, input: Stack) -> Self {
         self.inputs.push(input); self
     }
-    pub fn with_output(&mut self, output: Stack) -> &Self {
+    pub fn with_input_unmod(mut self, input: Stack) -> Self {
+        self.inputs_unmod.push(input); self
+    }
+    pub fn with_output(mut self, output: Stack) -> Self {
         self.outputs.push(output); self
+    }
+    pub fn with_output_unmod(mut self, output: Stack) -> Self {
+        self.outputs_unmod.push(output); self
     }
     pub fn build(self) -> Process {
         Process {
@@ -102,7 +115,9 @@ impl ProcessBuilder {
             duration: self.duration.unwrap(),
             group: self.group.unwrap(),
             inputs: self.inputs,
+            inputs_unmod: self.inputs_unmod,
             outputs: self.outputs,
+            outputs_unmod: self.outputs_unmod,
         }
     }
 }
@@ -133,18 +148,51 @@ impl ActiveProcess {
         self.process.duration * self.duration_multiplier
     }
 
-    pub fn inputs(&self) -> Vec<Stack> {
-        self.process.inputs
+    fn io_calc(modifiable: &Vec<Stack>, unmodifiable: &Vec<Stack>, multiplier: &f64, duration: &f64) -> Vec<Stack> {
+      let unmodified = unmodifiable
             .iter()
-            .map(|s| Stack::new(s.item.clone(), self.inputs_multiplier * s.quantity / self.duration()))
-            .collect()
+            .map(|s| Stack::new(s.item.clone(), s.quantity / duration));
+
+        let modified = modifiable
+            .iter()
+            .map(|s| Stack::new(s.item.clone(), multiplier * s.quantity / duration));
+
+        let all = unmodified.chain(modified)
+            .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
+            ;
+
+        let mut result: Vec<Stack> = Vec::new();
+        for stack in all {
+            let last = result.pop();
+            match last {
+                Some(stk) => {
+                    if stk.item.id == stack.item.id {
+                        result.push(stack + stk.quantity);
+                    } else {
+                        result.push(stk);
+                        result.push(stack);
+                    }
+                },
+                None => result.push(stack),
+            }
+        }
+        result
+    }
+
+    pub fn inputs(&self) -> Vec<Stack> {
+        Self::io_calc(
+            &self.process.inputs,
+            &self.process.inputs_unmod,
+            &self.inputs_multiplier,
+            &self.duration())
     }
 
     pub fn outputs(&self) -> Vec<Stack> {
-        self.process.outputs
-            .iter()
-            .map(|s| Stack::new(s.item.clone(), self.outputs_multiplier * s.quantity / self.duration()))
-            .collect()
+        Self::io_calc(
+            &self.process.outputs,
+            &self.process.outputs_unmod,
+            &self.outputs_multiplier,
+            &self.duration())
     }
 }
 
@@ -186,6 +234,12 @@ impl ops::Mul<f64> for Stack {
     type Output = Stack;
     fn mul(self, rhs: f64) -> Stack {
         Stack { item: self.item.clone(), quantity: self.quantity * rhs }
+    }
+}
+impl ops::Add<f64> for Stack {
+    type Output = Stack;
+    fn add(self, rhs: f64) -> Self::Output {
+        Stack { item: self.item.clone(), quantity: self.quantity + rhs }
     }
 }
 
@@ -379,5 +433,32 @@ mod test {
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 15.0)];
         assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn active_process_with_unmodifiable_inputs() {
+        let items = [
+            Rc::new(Item::new("id_0".to_string())),
+            Rc::new(Item::new("id_1".to_string())),
+            Rc::new(Item::new("id_2".to_string())),
+        ];
+        let proc = Rc::new(ProcessBuilder::new()
+            .id("proc".to_string())
+            .display("proc".to_string())
+            .group(Rc::new(FactoryGroup{id: "none".to_string()}))
+            .duration(1.0)
+            .with_input(Stack { item: items[0].clone(), quantity: 5.0 })
+            .with_input_unmod(Stack { item: items[0].clone(), quantity: 5.0 })
+            .with_input(Stack { item: items[1].clone(), quantity: 1.0 })
+            .with_output_unmod(Stack { item: items[0].clone(), quantity: 4.0 })
+            .with_output(Stack { item: items[2].clone(), quantity: 2.0 })
+            .build());
+
+        let ap = ActiveProcess::new(proc.clone(), 1.0, 2.0, 3.0);
+
+        assert_eq!(15.0, ap.inputs().iter().filter(|s| s.item.id == "id_0").next().unwrap().quantity);
+        assert_eq!(2.0, ap.inputs().iter().filter(|s| s.item.id == "id_1").next().unwrap().quantity);
+        assert_eq!(4.0, ap.outputs().iter().filter(|s| s.item.id == "id_0").next().unwrap().quantity);
+        assert_eq!(6.0, ap.outputs().iter().filter(|s| s.item.id == "id_2").next().unwrap().quantity);
     }
 }
