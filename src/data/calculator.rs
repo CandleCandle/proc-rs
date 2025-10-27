@@ -73,7 +73,6 @@ impl Calculator {
                     col[row_idx] = 1.0;
                 }
             }
-            println!("item: {}, {io_idx}, {item:?}, {col:?}", processes.len());
             result.set_column(processes.len() + io_idx, &col);
         }
 
