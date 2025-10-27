@@ -93,6 +93,11 @@ impl GraphConfiguration {
         Ok(())
     }
 
+    pub fn set_data(&mut self, data: Data, data_conf: DataSetConf) {
+        self.current_data_set = Some(data_conf);
+        self.current_data = Some(data);
+    }
+
     pub fn search_items(&self, search: String) -> Result<Vec<Rc<Item>>, String> {
         match &self.current_data {
             Some(d) => {
@@ -125,4 +130,153 @@ impl GraphConfiguration {
         }
     }
 
+}
+
+
+mod test {
+
+    use std::collections::HashMap;
+
+    use crate::data::model::{Classification, Factory, FactoryGroup};
+
+    use super::*;
+
+    fn simple_data_fixture() -> Data {
+        let items: HashMap<String, Rc<Item>> = vec![
+            Rc::new(Item::named("part_1".into(), Classification::Solid, "Part 1".into())),
+            Rc::new(Item::named("part_2".into(), Classification::Solid, "Part 2".into())),
+            Rc::new(Item::named("part_3".into(), Classification::Solid, "Part 3".into())),
+            Rc::new(Item::named("part_4".into(), Classification::Solid, "Part 4".into())),
+        ].iter()
+        .map(|i| (i.id.clone(), i.to_owned()))
+        .collect();
+
+        let mut factory_groups: HashMap<String, Rc<FactoryGroup>> = HashMap::new();
+        let mut factories: HashMap<String, Rc<Factory>> = HashMap::new();
+
+        factory_groups.insert("basic".to_string(), Rc::new(FactoryGroup { id: "basic".to_string() }));
+        factories.insert("basic".to_string(), Rc::new(Factory {
+            id: "basic".to_string(),
+            display: "basic".to_string(),
+            groups: vec![factory_groups.get(&"basic".to_string()).unwrap().clone()],
+        }));
+        let p1 = Process {
+            id: "make_a".to_string(),
+            display: "Make A".to_string(),
+            duration: 5.0,
+            group: factory_groups.get(&"basic".to_string()).unwrap().clone(),
+            inputs: vec![
+                Stack::new(items.get("part_1").unwrap().clone(), 5.0),
+                Stack::new(items.get("part_2").unwrap().clone(), 2.0),
+                ],
+            outputs: vec![
+                Stack::new(items.get("part_3").unwrap().clone(), 5.0),
+                ],
+            };
+        let p2 = Process {
+            id: "make_b".to_string(),
+            display: "Make B".to_string(),
+            duration: 5.0,
+            group: factory_groups.get(&"basic".to_string()).unwrap().clone(),
+            inputs: vec![
+                Stack::new(items.get("part_2").unwrap().clone(), 3.0),
+                ],
+            outputs: vec![
+                Stack::new(items.get("part_2").unwrap().clone(), 1.0),
+                Stack::new(items.get("part_4").unwrap().clone(), 1.0),
+                ],
+            };
+        let processes = vec![p1, p2].iter()
+            .map(|p| (p.id.clone(), Rc::new(p.to_owned())))
+            .collect()
+            ;
+        Data {
+            items,
+            factory_groups,
+            factories,
+            processes,
+        }
+    }
+
+    fn create_config() -> GraphConfiguration {
+        let mut gc = GraphConfiguration::new();
+        gc.set_data(simple_data_fixture(), DataSet::Fac200.params());
+        gc
+    }
+
+    #[test]
+    fn it_searches_items_with_no_data() {
+        let gc = GraphConfiguration::new();
+        let result = gc.search_items("part_1".to_string());
+        assert_eq!(result.unwrap().len(), 0);
+    }
+
+    #[test]
+    fn it_searches_items_with_full() {
+        let gc = create_config();
+        let result = gc.search_items("part_1".to_string()).unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "part_1");
+    }
+
+    #[test]
+    fn it_searches_items_with_partial_input() {
+        let gc = create_config();
+        let result = gc.search_items("t_1".to_string()).unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "part_1");
+    }
+
+    #[test]
+    fn it_searches_items_display_names() {
+        let gc = create_config();
+        let result = gc.search_items("t 1".to_string()).unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "part_1");
+    }
+
+    #[test]
+    fn it_searches_items_with_many_results() {
+        let gc = create_config();
+        let result = gc.search_items("par".to_string()).unwrap();
+        assert_eq!(result.len(), 4);
+    }
+
+    #[test]
+    fn it_searches_processes_with_no_data() {
+        let gc = GraphConfiguration::new();
+        let result = gc.search_items("make_a".to_string());
+        assert_eq!(result.unwrap().len(), 0);
+    }
+
+    #[test]
+    fn it_searches_processes_with_full() {
+        let gc = create_config();
+        let result = gc.search_processes("make_a".to_string()).unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_a");
+    }
+
+    #[test]
+    fn it_searches_processes_with_partial_input() {
+        let gc = create_config();
+        let result = gc.search_processes("e_a".to_string()).unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_a");
+    }
+
+    #[test]
+    fn it_searches_processes_display_names() {
+        let gc = create_config();
+        let result = gc.search_processes("e A".to_string()).unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_a");
+    }
+
+    #[test]
+    fn it_searches_processes_with_many_results() {
+        let gc = create_config();
+        let result = gc.search_processes("mak".to_string()).unwrap();
+        assert_eq!(result.len(), 2);
+    }
 }

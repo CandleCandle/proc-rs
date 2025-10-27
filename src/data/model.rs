@@ -46,6 +46,61 @@ pub struct Process {
     pub inputs: Vec<Stack>,
     pub outputs: Vec<Stack>,
 }
+impl From<ProcessBuilder> for Process {
+    fn from(pb: ProcessBuilder) -> Self {
+        Process {
+            id: pb.id.unwrap(),
+            display: pb.display.unwrap(),
+            duration: pb.duration.unwrap(),
+            group: pb.group.unwrap(),
+            inputs: pb.inputs,
+            outputs: pb.outputs,
+        }
+    }
+}
+
+#[derive(Default)]
+pub struct ProcessBuilder {
+    id: Option<String>,
+    display: Option<String>,
+    duration: Option<f64>,
+    group: Option<Rc<FactoryGroup>>,
+    inputs: Vec<Stack>,
+    outputs: Vec<Stack>,
+}
+impl ProcessBuilder {
+    pub fn new() -> Self {
+        ProcessBuilder { ..Default::default() }
+    }
+    pub fn id(&mut self, id: String) -> &Self {
+        self.id = Some(id); self
+    }
+    pub fn display(&mut self, display: String) -> &Self {
+        self.display = Some(display); self
+    }
+    pub fn duration(&mut self, duration: f64) -> &Self {
+        self.duration = Some(duration); self
+    }
+    pub fn group(&mut self, group: Rc<FactoryGroup>) -> &Self {
+        self.group = Some(group); self
+    }
+    pub fn with_input(&mut self, input: Stack) -> &Self {
+        self.inputs.push(input); self
+    }
+    pub fn with_output(&mut self, output: Stack) -> &Self {
+        self.outputs.push(output); self
+    }
+    pub fn build(self) -> Process {
+        Process {
+            id: self.id.unwrap(),
+            display: self.display.unwrap(),
+            duration: self.duration.unwrap(),
+            group: self.group.unwrap(),
+            inputs: self.inputs,
+            outputs: self.outputs,
+        }
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ActiveProcess {
@@ -60,6 +115,13 @@ pub struct Stack {
     pub item: Rc<Item>,
     pub quantity: f64,
 }
+impl Stack {
+    pub fn new(item: Rc<Item>, quantity: f64) -> Self {
+        Stack {
+            item, quantity
+        }
+    }
+}
 
 // impl Display for Stack {
 //     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -72,6 +134,14 @@ pub struct Item {
     pub id: String,
     pub classification: Classification,
     pub display: String,
+}
+impl Item {
+    pub fn named(id: String, classification: Classification, display: String) -> Self {
+        Self { id, classification, display }
+    }
+    pub fn new(id: String) -> Self {
+        Self { id: id.clone(), classification: Classification::Solid, display: id }
+    }
 }
 impl Hash for Item {
     fn hash<H: Hasher>(&self, state: &mut H) {

@@ -4,6 +4,7 @@ use wasm_bindgen::prelude::wasm_bindgen;
 use crate::data::{basic_data_parse::DataParserBasic, model::DataParser};
 
 
+#[wasm_bindgen]
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum DataSet {
     Fac200,
@@ -14,7 +15,7 @@ pub enum DataSet {
 
 #[wasm_bindgen]
 impl DataSet {
-    fn params(self) -> DataSetConf {
+    pub fn params(self) -> DataSetConf {
         match self {
             DataSet::Fac200 => DataSetConf::new(DataSetStyle::Basic, "fac".into(), "2.0.0".into()),
             DataSet::Fac150 => DataSetConf::new(DataSetStyle::Basic, "fac".into(), "1.5.0".into()),
