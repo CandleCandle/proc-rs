@@ -1,4 +1,4 @@
-use std::{collections::{BTreeMap, HashMap}, rc::Rc};
+use std::{collections::{BTreeMap, HashMap}, default, rc::Rc};
 
 use serde_json::Value;
 
@@ -77,7 +77,20 @@ impl DataParserRecipeLister {
             DataParserRecipeListerFiles::AssemblingMachines,
             DataParserRecipeListerFiles::Furnace,
             DataParserRecipeListerFiles::RocketSilo,
+            DataParserRecipeListerFiles::MiningDrill,
             ] {
+            let duration_key = match &k {
+                DataParserRecipeListerFiles::MiningDrill => "mining_speed",
+                _ => "crafting_speed"
+            };
+            let groups_key = match &k {
+                DataParserRecipeListerFiles::MiningDrill => "resource_categories",
+                _ => "crafting_categories"
+            };
+            let group_mapper = match &k {
+                DataParserRecipeListerFiles::MiningDrill => |g_key: &String| format!("resource-{g_key}"),
+                _ => |g_key: &String| g_key.to_owned(),
+            };
             factories.extend(
                 parsed.get(&k.to_key())
                     .ok_or(format!("missing json {k:?}"))?
@@ -91,17 +104,23 @@ impl DataParserRecipeLister {
                             Rc::new(
                                 Factory{
                                     id: obj.get("name")
-                                        .ok_or(format!("missing name in {:?} at {id}", k))?
-                                        .as_str().ok_or(format!("missing name in {:?} from {id} was not a string", k))?
+                                        .ok_or(format!("missing name in {k:?} at {id}"))?
+                                        .as_str().ok_or(format!("missing name in {k:?} from {id} was not a string"))?
                                         .to_string(),
                                     display: obj["name"].as_str().unwrap().to_string(), // TOOD import i18n
-                                    duration_multiplier: 1.0/obj["crafting_speed"].as_f64().unwrap(),
+                                    duration_multiplier: 1.0/obj[duration_key].as_f64().unwrap(),
                                     inputs_multiplier: 1.0,
                                     outputs_multiplier: 1.0,
-                                    groups: obj["crafting_categories"].as_object().unwrap()
+                                    groups: obj[groups_key].as_object().unwrap()
                                         .keys()
-                                        .map(|cc_key| factory_groups.get(cc_key).unwrap().clone())
-                                        .collect()
+                                        .map(group_mapper)
+                                        .map(
+                                            |cc_key| -> Result<Rc<FactoryGroup>, String> {
+                                                Ok(factory_groups.get(&cc_key)
+                                                    .ok_or(format!("unable to find a factor group {cc_key} in {k:?} at {id}"))?
+                                                    .clone())
+                                        })
+                                        .collect::<Result<Vec<Rc<FactoryGroup>>, String>>()?
                                 }
                             )
                         ))
@@ -252,6 +271,24 @@ mod test {
             "crafting-with-fluid",
             "electronics",
             "parameters",
+        ]);
+    }
+
+    #[test]
+    fn it_loads_info_for_mining_drills_into_factories() {
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        let factory = r.factories.get("big-mining-drill").unwrap();
+
+        assert_eq!(factory.id, "big-mining-drill");
+        assert_eq!(factory.display, "big-mining-drill");
+        assert_eq!(factory.duration_multiplier, 0.4);
+        assert_eq!(factory.inputs_multiplier, 1.0);
+        assert_eq!(factory.outputs_multiplier, 1.0);
+        assert_eq!(factory.groups.iter().map(|g| g.id.clone()).collect::<Vec<String>>(), &[
+            "resource-basic-solid",
+            "resource-hard-solid",
         ]);
     }
 }
