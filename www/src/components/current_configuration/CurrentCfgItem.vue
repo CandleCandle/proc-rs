@@ -15,6 +15,7 @@ if (stack.is_req()) {
 }
 
 watch(type, (value) => {
+    // TODO add debounce
     console.log('change in type', type, stack.id(), 'req val', requirement_value.value);
     switch (value) {
         case 'requirement':
@@ -33,6 +34,7 @@ watch(type, (value) => {
 });
 
 watch(requirement_value, (value) => {
+    // TODO add debounce
     console.log("requirement value updated", type.value, value);
     if (type.value == 'requirement') {
         cfg.update_requirement(stack.id(), value);

@@ -24,6 +24,7 @@ const searchItem = ref('');
 const searchResultsItems = ref([]);
 watch(searchItem, (value) => {
     console.log("Item search for", value);
+    // TODO add debounce
     if (value.length >= 3) {
         searchResultsItems.value = cfg.search_items(value);
         console.log("search results items", searchResultsItems);
@@ -33,6 +34,7 @@ const searchProcess = ref('');
 const searchResultsProcesses = ref([]);
 watch(searchProcess, (value) => {
     console.log("Process search for", value);
+    // TODO add debounce
     if (value.length >= 3) {
         searchResultsProcesses.value = cfg.search_processes(value);
         console.log("search results processes", searchResultsProcesses);

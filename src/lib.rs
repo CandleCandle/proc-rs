@@ -65,6 +65,10 @@ impl GraphConfiguration {
         }
     }
 
+    pub fn can_render(&self) -> Result<JsValue, JsValue> {
+        Ok(JsValue::from_bool(self.processes.len() > 0))
+    }
+
     pub fn add_requirement(&mut self, id: String, quantity: f64) -> Result<JsValue, JsValue> {
         self.requirements.push(
             Stack {
