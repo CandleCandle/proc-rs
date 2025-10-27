@@ -271,8 +271,8 @@ impl Calculator {
                 .map(|(idx, i)| format!("<o{}> {} ({:.2}/s)", idx, i.item.display, i.quantity * proc_count))
                 .join(" | ");
             let duration = proc.duration();
-            let factory = "default";
-            let factory_group = "default";
+            let factory = proc.factory().display.clone();
+            let factory_group = proc.factory_group().id.clone();
             graph.add_stmt(Stmt::Node(
                 Node {
                     id: NodeId(proc_id.clone(), Option::None),
@@ -282,7 +282,7 @@ impl Calculator {
                             "\" {{\
                               {{ {inputs_line} }} \
                             | {} \
-                            | {{ {duration:.2}s/cycle | fac_n x {factory} ({factory_group}) }} \
+                            | {{ {duration:.2}s/cycle | {proc_count:.2} x {factory} ({factory_group}) }} \
                             | {{ {outputs_line} }} \
                             }}\"",
                             proc.display(),
@@ -345,7 +345,7 @@ mod test {
 
     use approx::assert_abs_diff_eq;
 
-    use crate::data::fixtures;
+    use crate::data::{fixtures};
     use super::*;
 
     #[test]
@@ -354,7 +354,7 @@ mod test {
         gc.add_requirement("part_3", 7.0);
         gc.add_import_export("part_1");
         gc.add_import_export("part_2");
-        gc.add_process("make_a", 1.0, 1.0, 1.0);
+        gc.add_process("make_a", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.initial_matrix();
         let expected = DMatrix::from_row_slice(3, 4, &[
@@ -373,7 +373,7 @@ mod test {
         let mut gc = fixtures::create_config();
         gc.add_requirement("part_2", 10.0);
         gc.add_import_export("part_1");
-        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        gc.add_process("one_to_one", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.initial_matrix();
         let expected = DMatrix::from_row_slice(2, 3, &[
@@ -391,7 +391,7 @@ mod test {
         let mut gc = fixtures::create_config();
         gc.add_requirement("part_2", 10.0);
         gc.add_import_export("part_1");
-        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        gc.add_process("one_to_one", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.reduced_matrix();
             //  proc io  req
@@ -413,7 +413,7 @@ mod test {
         gc.add_requirement("part_3", 7.0);
         gc.add_import_export("part_1");
         gc.add_import_export("part_2");
-        gc.add_process("make_a", 1.0, 1.0, 1.0);
+        gc.add_process("make_a", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.reduced_matrix();
         //  proc io   io   req
@@ -437,8 +437,8 @@ mod test {
         gc.add_requirement("part_4", 13.0);
         gc.add_import_export("part_1");
         gc.add_import_export("part_2");
-        gc.add_process("make_a", 1.0, 1.0, 1.0);
-        gc.add_process("make_b", 1.0, 1.0, 1.0);
+        gc.add_process("make_a", "basic", 1.0, 1.0, 1.0);
+        gc.add_process("make_b", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.reduced_matrix();
         //  a     b    io    io    req
@@ -475,7 +475,7 @@ mod test {
         let mut gc = fixtures::create_config();
         gc.add_requirement("part_2", 10.0);
         gc.add_import_export("part_1");
-        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        gc.add_process("one_to_one", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.process_counts();
         assert_eq!(actual.len(), 1);
@@ -488,7 +488,7 @@ mod test {
         let mut gc = fixtures::create_config();
         gc.add_requirement("part_2", 10.0);
         gc.add_import_export("part_1");
-        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        gc.add_process("one_to_one", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.materials();
         assert_eq!(actual.sum(&gc.item("part_1")).quantity, -50.0);
@@ -500,7 +500,7 @@ mod test {
     fn it_creates_initial_for_1_to_1_with_defaulted_items() {
         let mut gc = fixtures::create_config();
         gc.add_requirement("part_2", 10.0);
-        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        gc.add_process("one_to_one", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.initial_matrix();
         let expected = DMatrix::from_row_slice(2, 3, &[
@@ -517,7 +517,7 @@ mod test {
     fn it_adds_defaulted_as_import_exports() {
         let mut gc = fixtures::create_config();
         gc.add_requirement("part_2", 10.0);
-        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        gc.add_process("one_to_one", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.materials();
         assert_eq!(actual.sum(&gc.item("part_1")).quantity, -50.0);
@@ -530,8 +530,8 @@ mod test {
         gc.add_requirement("part_4", 13.0);
         gc.add_import_export("part_1");
         gc.add_import_export("part_2");
-        gc.add_process("make_a", 1.0, 1.0, 1.0);
-        gc.add_process("make_b", 1.0, 1.0, 1.0);
+        gc.add_process("make_a", "basic", 1.0, 1.0, 1.0);
+        gc.add_process("make_b", "basic", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.materials();
         assert_abs_diff_eq!(actual.sum(&gc.item("part_1")).quantity, -39.0, epsilon = 1.0e-10);

@@ -44,6 +44,9 @@ impl DataParser for DataParserBasic {
                         .iter()
                         .map(|g| factory_groups.get(g.as_str().unwrap()).unwrap().clone())
                         .collect(),
+                duration_multiplier: 1.0,
+                inputs_multiplier: 1.0,
+                outputs_multiplier: 1.0,
             }));
         }
 

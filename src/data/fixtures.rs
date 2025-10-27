@@ -23,6 +23,9 @@ pub fn simple_data_fixture() -> Data {
         id: "basic".to_string(),
         display: "basic".to_string(),
         groups: vec![factory_groups.get(&"basic".to_string()).unwrap().clone()],
+        duration_multiplier: 1.0,
+        inputs_multiplier: 1.0,
+        outputs_multiplier: 1.0
     }));
     let p1 = Process {
         id: "make_a".to_string(),

@@ -1,6 +1,9 @@
 use std::{collections::HashSet, rc::Rc};
 
+use itertools::Itertools;
 use regex::Regex;
+
+use crate::data::model::Factory;
 
 use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, DataParser, Item, Process, Stack}};
 
@@ -76,10 +79,11 @@ impl GraphConfiguration {
         &self.import_export
     }
 
-    pub fn add_process(&mut self, id: &str, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
+    pub fn add_process(&mut self, id: &str, factory: &str, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
         self.processes.push(
             ActiveProcess::new(
                 self.current_data.as_ref().unwrap().processes.get(id).unwrap().clone(),
+                self.get_factory(factory),
                 duration_multiplier,
                 inputs_multiplier,
                 outputs_multiplier,
@@ -92,8 +96,39 @@ impl GraphConfiguration {
     }
 
     pub fn update_modifiers(&mut self, proc_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
+        let original = self.processes.iter()
+            .find(|p| p.id() == proc_id)
+            .map(|p| p.factory().clone());
         self.remove_process(&proc_id);
-        self.add_process(&proc_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+        if original.is_some() {
+            self.add_process(&proc_id, &original.unwrap().id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+        }
+    }
+
+    pub fn get_factory(&self, factory_id: &str) -> Rc<Factory> {
+        match &self.current_data {
+            Some(data) =>
+                data.factories
+                    .get(factory_id)
+                    .cloned()
+                    .unwrap_or_default(),
+            None => Rc::new(Factory::default())
+        }
+    }
+
+    pub fn get_fastest_factory_for_process(&self, proc_id: &str) -> String {
+        match &self.current_data {
+            Some(data) => {
+                let fg = data.processes.get(proc_id).unwrap().group.clone();
+                data.factories.values()
+                    .filter(|factory| factory.groups.contains(&fg))
+                    .sorted_by(|a, b| b.duration_multiplier.total_cmp(&a.duration_multiplier))
+                    .next()
+                    .unwrap()
+                    .id.clone()
+            },
+            None => "".to_string(),
+        }
     }
 
     pub fn get_processes(&self) -> &Vec<ActiveProcess> {
@@ -330,7 +365,7 @@ mod test {
     #[test]
     fn it_discovers_unknown_io() {
         let mut gc = fixtures::create_config();
-        gc.add_process("make_a", 1.0, 1.0, 1.0);
+        gc.add_process("make_a", "basic", 1.0, 1.0, 1.0);
         let mut result = gc.get_defaulted_items();
         result.sort_by(|a, b| a.id.cmp(&b.id));
         let ids: Vec<String> = result.iter().map(|i| i.id.clone()).collect();
@@ -340,8 +375,8 @@ mod test {
     #[test]
     fn it_discovers_unknown_intermediates() {
         let mut gc = fixtures::create_config();
-        gc.add_process("make_a", 1.0, 1.0, 1.0);
-        gc.add_process("make_b", 1.0, 1.0, 1.0);
+        gc.add_process("make_a", "basic", 1.0, 1.0, 1.0);
+        gc.add_process("make_b", "basic", 1.0, 1.0, 1.0);
         let mut result = gc.get_intermediate_items();
         result.sort_by(|a, b| a.id.cmp(&b.id));
         let ids: Vec<String> = result.iter().map(|i| i.id.clone()).collect();

@@ -109,7 +109,7 @@ fn main() -> Result<(), String> {
             .transpose()?
             .unwrap_or(1.0);
         tracing::debug!("Found proc {id}, dur {dur_mod}, in {in_mod}, out {out_mod}");
-        gc.add_process(id, dur_mod, in_mod, out_mod);
+        gc.add_process(id, gc.get_fastest_factory_for_process(id).as_str(), dur_mod, in_mod, out_mod);
     }
 
     let unknown = gc.get_defaulted_items();

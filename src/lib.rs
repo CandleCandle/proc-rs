@@ -117,7 +117,8 @@ impl GraphConfiguration {
     }
 
     pub fn add_process(&mut self, id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
-        self.wrapped.add_process(&id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+        let factory_id = self.wrapped.get_fastest_factory_for_process(&id);
+        self.wrapped.add_process(&id, factory_id.as_str(), duration_multiplier, inputs_multiplier, outputs_multiplier);
         Ok(JsValue::null()) // XXX err result required.
     }
 

@@ -20,16 +20,36 @@ impl Data {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Factory {
     pub id: String,
     pub display: String,
     pub groups: Vec<Rc<FactoryGroup>>,
+    pub duration_multiplier: f64,
+    pub inputs_multiplier: f64,
+    pub outputs_multiplier: f64,
+}
+impl Default for Factory {
+    fn default() -> Self {
+        Self {
+            id: "default".to_string(),
+            display: "Default".to_string(),
+            groups: vec![Rc::new(FactoryGroup::default())],
+            duration_multiplier: 1.0,
+            inputs_multiplier: 1.0,
+            outputs_multiplier: 1.0,
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct FactoryGroup {
     pub id: String,
+}
+impl Default for FactoryGroup {
+    fn default() -> Self {
+        Self { id: "default".to_string() }
+    }
 }
 
 // #[derive(Debug, Clone, PartialEq)]
@@ -125,14 +145,21 @@ impl ProcessBuilder {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ActiveProcess {
     process: Rc<Process>,
+    factory: Rc<Factory>,
     duration_multiplier: f64,
     inputs_multiplier: f64,
     outputs_multiplier: f64,
 }
 impl ActiveProcess {
-    pub fn new(process: Rc<Process>, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Self {
+    pub fn new(
+        process: Rc<Process>,
+        factory: Rc<Factory>,
+        duration_multiplier: f64,
+        inputs_multiplier: f64,
+        outputs_multiplier: f64,
+    ) -> Self {
         Self {
-            process, duration_multiplier, inputs_multiplier, outputs_multiplier,
+            process, duration_multiplier, inputs_multiplier, outputs_multiplier, factory
         }
     }
 
@@ -142,6 +169,14 @@ impl ActiveProcess {
 
     pub fn display(&self) -> &str {
         &self.process.display
+    }
+
+    pub fn factory(&self) -> Rc<Factory> {
+        self.factory.clone()
+    }
+
+    pub fn factory_group(&self) -> Rc<FactoryGroup> {
+        self.process.group.clone()
     }
 
     pub fn duration(&self) -> f64 {
@@ -375,7 +410,7 @@ mod test {
     #[test]
     fn active_process_inputs_are_scaled_by_duration() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("slow_a_maker").unwrap().clone(), 1.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(data.processes.get("slow_a_maker").unwrap().clone(), Rc::new(Factory::default()), 1.0, 1.0, 1.0);
         let actual = ap.inputs();
         let expected = vec![Stack::new(data.item("part_1").unwrap(), 1.0), Stack::new(data.item("part_2").unwrap(), 0.4)];
         assert_eq!(expected, actual);
@@ -384,7 +419,7 @@ mod test {
     #[test]
     fn active_process_outputs_are_scaled_by_duration() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("slow_a_maker").unwrap().clone(), 1.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(data.processes.get("slow_a_maker").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 1.0, 1.0, 1.0);
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 1.0)];
         assert_eq!(expected, actual);
@@ -393,7 +428,7 @@ mod test {
     #[test]
     fn active_process_duration_is_modified() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), 2.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 2.0, 1.0, 1.0);
         let actual = ap.duration();
         let expected = 2.0;
         assert_eq!(expected, actual);
@@ -402,7 +437,7 @@ mod test {
     #[test]
     fn active_process_inputs_are_scaled_by_duration_with_duration_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), 2.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 2.0, 1.0, 1.0);
         let actual = ap.inputs();
         let expected = vec![Stack::new(data.item("part_1").unwrap(), 2.5), Stack::new(data.item("part_2").unwrap(), 1.0)];
         assert_eq!(expected, actual);
@@ -411,7 +446,7 @@ mod test {
     #[test]
     fn active_process_outputs_are_scaled_by_duration_with_duration_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), 2.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 2.0, 1.0, 1.0);
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 2.5)];
         assert_eq!(expected, actual);
@@ -420,7 +455,7 @@ mod test {
     #[test]
     fn active_process_inputs_are_scaled_by_duration_with_input_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), 1.0, 2.0, 1.0);
+        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 1.0, 2.0, 1.0);
         let actual = ap.inputs();
         let expected = vec![Stack::new(data.item("part_1").unwrap(), 10.0), Stack::new(data.item("part_2").unwrap(), 4.0)];
         assert_eq!(expected, actual);
@@ -429,7 +464,7 @@ mod test {
     #[test]
     fn active_process_outputs_are_scaled_by_duration_with_output_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), 1.0, 1.0, 3.0);
+        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 1.0, 1.0, 3.0);
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 15.0)];
         assert_eq!(expected, actual);
@@ -454,7 +489,7 @@ mod test {
             .with_output(Stack { item: items[2].clone(), quantity: 2.0 })
             .build());
 
-        let ap = ActiveProcess::new(proc.clone(), 1.0, 2.0, 3.0);
+        let ap = ActiveProcess::new(proc.clone(), Rc::new(Factory::default()), 1.0, 2.0, 3.0);
 
         assert_eq!(15.0, ap.inputs().iter().filter(|s| s.item.id == "id_0").next().unwrap().quantity);
         assert_eq!(2.0, ap.inputs().iter().filter(|s| s.item.id == "id_1").next().unwrap().quantity);
