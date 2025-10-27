@@ -55,18 +55,19 @@ impl DataParser for DataParserBasic {
             let id = proc["id"].as_str().ok_or(format!("missing '.processes[{idx}].id'"))?.to_string();
             processes.insert(id.clone(), Rc::new(Process {
                 id: id.clone(),
-                display: proc["i18n"]["en"].as_str().ok_or(format!("missing '.processes[{idx}].i18n.en' (id: {id})"))?.to_string(),
+                display: proc["i18n"]["en"].as_str().ok_or(format!("missing '.processes[{idx}].i18n.en' (process id: {id})"))?.to_string(),
                 group: factory_groups
-                    .get(proc["group"].as_str().ok_or(format!("missing '.processes[{id}].group' (id: {id})"))?)
-                    .ok_or(format!("unknown factory group for .processes[{id}].group"))?
+                    .get(proc["group"].as_str().ok_or(format!("missing '.processes[{idx}].group' (process id: {id})"))?)
+                    .ok_or(format!("unknown factory group for .processes[{idx}].group (process id: {id})"))?
                     .clone(),
-                duration: proc["duration"].as_f64().ok_or(format!("missing '.processes[{idx}].duration' (id: {id})"))?,
-                inputs: proc["inputs"].as_object().ok_or(format!("missing '.processes[{idx}].inputs' (id: {id})"))?.iter().map(|(k, v)| Stack{
-                    item: items.get(k).unwrap().clone(),
-                    quantity: v.as_f64().unwrap(),
-                }).collect(),
+                duration: proc["duration"].as_f64().ok_or(format!("missing '.processes[{idx}].duration' (process id: {id})"))?,
+                inputs: proc["inputs"].as_object().ok_or(format!("missing '.processes[{idx}].inputs' (process id: {id})"))?.iter().map(|(k, v)| -> Result<Stack, String> { Ok(Stack{
+                    item: items.get(k).ok_or(format!("unknown item ({k}) at .processes[{idx}].inputs (process id: {id})"))?.clone(),
+                    quantity: v.as_f64().ok_or(format!("bad number ({v}) at .processes[{idx}].inputs (process id: {id})"))?,
+                })})
+                .collect::<Result<Vec<Stack>, String>>()?,
                 inputs_unmod: Vec::new(),
-                outputs: proc["outputs"].as_object().ok_or(format!("missing '.processes[{idx}].outputs' (id: {id})"))?.iter().map(|(k, v)| Stack{
+                outputs: proc["outputs"].as_object().ok_or(format!("missing '.processes[{idx}].outputs' (process id: {id})"))?.iter().map(|(k, v)| Stack{
                     item: items.get(k).unwrap().clone(),
                     quantity: v.as_f64().unwrap(),
                 }).collect(),
