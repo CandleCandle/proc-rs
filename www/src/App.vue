@@ -4,7 +4,7 @@
 import VueSplitter from '@rmp135/vue-splitter';
 import Configure from './components/Configure.vue';
 import GraphRender from './components/GraphRender.vue';
-import { ref, shallowRef, triggerRef, watch, defineProps, toRefs } from 'vue';
+import { ref, shallowRef, triggerRef, watch, toRefs } from 'vue';
 import { GraphConfiguration } from 'proc-rs';
 
 const cfg = shallowRef(new GraphConfiguration());
