@@ -1,6 +1,6 @@
 use std::{collections::HashMap, hash::{Hash, Hasher}, rc::Rc};
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 pub trait DataParser {
     fn from_str(&self, json: &str) -> Result<Data, String>;
