@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, rc::Rc};
 
 use serde_json::Value;
 
@@ -12,33 +12,33 @@ impl DataParser for DataParserBasic {
     fn from_str(json: &str) -> Result<Data, ()> {
         let outer: Value = serde_json::from_str(json).map_err(|_e| ())?;
 
-        let items: HashMap<String, Item> = outer["items"].as_array().unwrap().iter()
+        let items: HashMap<String, Rc<Item>> = outer["items"].as_array().unwrap().iter()
             .map(|i| Item{
                 id: i["id"].as_str().unwrap().to_string(),
                 display: i["i18n"]["en"].as_str().unwrap().to_string(),
                 classification: Classification::Solid,
             })
-            .map(|i| (i.id.clone(), i))
+            .map(|i| (i.id.clone(), Rc::new(i)))
             .collect();
-        let mut factory_groups: HashMap<String, FactoryGroup> = HashMap::new();
-        let mut factories: HashMap<String, Factory> = HashMap::new();
+        let mut factory_groups: HashMap<String, Rc<FactoryGroup>> = HashMap::new();
+        let mut factories: HashMap<String, Rc<Factory>> = HashMap::new();
 
         for fac in outer["factories"].as_array().unwrap() {
             for fac_grp in fac["factory_groups"].as_array().unwrap() {
                 let id = fac_grp.as_str().unwrap().to_string();
                 if !factory_groups.contains_key(&id) {
-                    factory_groups.insert(id.clone(), FactoryGroup { id });
+                    factory_groups.insert(id.clone(), Rc::new(FactoryGroup { id }));
                 }
             }
             let id = fac["id"].as_str().unwrap().to_string();
-            factories.insert(id.clone(), Factory {
+            factories.insert(id.clone(), Rc::new(Factory {
                 id,
                 display: fac["i18n"]["en"].as_str().unwrap().to_string(),
                 groups: fac["factory_groups"].as_array().unwrap()
                         .iter()
                         .map(|g| factory_groups.get(&g.as_str().unwrap().to_string()).unwrap().clone())
                         .collect(),
-            });
+            }));
         }
 
         Ok(Data{

@@ -1,21 +1,21 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, rc::Rc};
 
 pub trait DataParser {
     fn from_str(json: &str) -> Result<Data, ()>;
 }
 
 pub struct Data {
-    pub items: HashMap<String, Item>,
-    pub factory_groups: HashMap<String, FactoryGroup>,
-    pub factories: HashMap<String, Factory>,
-    pub processes: HashMap<String, Process>,
+    pub items: HashMap<String, Rc<Item>>,
+    pub factory_groups: HashMap<String, Rc<FactoryGroup>>,
+    pub factories: HashMap<String, Rc<Factory>>,
+    pub processes: HashMap<String, Rc<Process>>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Factory {
     pub id: String,
     pub display: String,
-    pub groups: Vec<FactoryGroup>,
+    pub groups: Vec<Rc<FactoryGroup>>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -54,7 +54,7 @@ pub struct Process {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Stack {
-    pub item: Item,
+    pub item: Rc<Item>,
     pub quantity: f64,
 }
 
