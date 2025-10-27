@@ -1,8 +1,8 @@
 <script setup>
 import { ref, watch, toRefs } from 'vue';
 
-const props = defineProps(['cfg', 'item']);
-const { cfg, item } = defineEmits(['cfg_update']);
+const { cfg, item } = defineProps(['cfg', 'item']);
+const emit = defineEmits(['cfg_update']);
 
 const requirement_value = ref(null);
 
@@ -22,7 +22,7 @@ function add_import_export(cfg, item_id) {
 
 
 <template>
-    <div>{{ item.display() }} ({{ item.id() }})</div>
+    <div>{{ item.display }} ({{ item.id }})</div>
     <div>
         <input type="text" size="4" @keyup.enter="add_requirement(cfg, item.id, requirement_value)" v-model="requirement_value"/>
         <button @click="add_requirement(cfg, item.id, requirement_value)">Requirement</button>

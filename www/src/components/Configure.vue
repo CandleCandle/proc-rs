@@ -53,6 +53,16 @@ function handle_cfg_update() {
     emit('cfg_update');
 }
 
+function handle_make_item(item_id) {
+    console.log("C handle make item", item_id);
+    searchResultsProcesses.value = cfg.search_processes_by_output(item_id);
+}
+
+function handle_use_item(item_id) {
+    console.log("C handle use item", item_id)
+    searchResultsProcesses.value = cfg.search_processes_by_input(item_id);
+}
+
 </script>
 
 <template>
@@ -70,7 +80,7 @@ function handle_cfg_update() {
         <div><label for="process_search"> Process Search:</label></div>
         <div><input id="process_search" type="text" :disabled="dataSetId == ''" v-model="searchProcess" /></div>
 
-        <SearchResultsItem @cfg_update="handle_cfg_update()" v-for="item in searchResultsItems" :item="item" :cfg="cfg" />
+        <SearchResultsItem @cfg_update="handle_cfg_update" v-for="item in searchResultsItems" :item="item" :cfg="cfg" />
         <div class="search_results">
             <div class="proc">
                 <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
@@ -78,11 +88,11 @@ function handle_cfg_update() {
                 <div class="proc_header_i" v-if="searchResultsProcesses.length > 0">Inputs</div>
                 <div class="proc_header_o" v-if="searchResultsProcesses.length > 0">Outputs</div>
                 <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
-                <SearchResultsProcess @cfg_update="handle_cfg_update()" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" />
+                <SearchResultsProcess @cfg_update="handle_cfg_update" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" />
             </div>
         </div>
     </div>
-    <CurrentConfiguration @cfg_update="handle_cfg_update()" :key="cfg_fu" :cfg="cfg" />
+    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" :key="cfg_fu" :cfg="cfg" />
 </template>
 
 

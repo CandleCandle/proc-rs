@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 import { DisplayItem } from './display_item';
 
-const emit = defineEmits(['cfg_update']);
+const emit = defineEmits(['cfg_update', 'make_item', 'use_item']);
 const { cfg, stack } = defineProps(['cfg', 'stack']);
 
 const requirement_value = ref(stack.req_quantity());
@@ -54,13 +54,21 @@ watch(requirement_value, (value) => {
         icon {{ stack.display() }} ({{ stack.id() }})
     </div>
     <div>
-        <input type="text" size="5" v-model="requirement_value" :disabled="type != DisplayItem.REQUIREMENT" />&nbsp;
+        <button @click="emit('make_item', stack.id())">Make</button>
+        <button @click="emit('use_item', stack.id())">Use</button>
+        &nbsp;
+        <input type="text" size="5" v-model="requirement_value" :disabled="type != DisplayItem.REQUIREMENT" />
+        &nbsp;
         <input type="radio" id="requirement" value="requirement" v-model="type" />
-        <label for="requirement"> Requirement</label>&nbsp;
+        <label for="requirement"> Requirement</label>
+        &nbsp;
         <input type="radio" id="import_export" value="import_export" v-model="type" />
-        <label for="import_export"> Import/Export</label>&nbsp;
+        <label for="import_export"> Import/Export</label>
+        &nbsp;
+        <span>
         <input type="radio" id="intermediate" value="intermediate" v-model="type" />
-        <label for="intermediate"> Intermediate</label>&nbsp;
+        <label for="intermediate"> Intermediate</label>
+        </span>
     </div>
 </template>
 

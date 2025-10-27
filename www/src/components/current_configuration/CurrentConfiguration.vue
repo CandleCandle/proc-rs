@@ -4,14 +4,23 @@ import CurrentCfgItem from './CurrentCfgItem.vue';
 import CurrentCfgProc from './CurrentCfgProc.vue';
 import { DisplayItem, DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
 
-const emit = defineEmits(['cfg_update']);
+const emit = defineEmits(['cfg_update', 'make_item', 'use_item']);
 const { cfg } = defineProps(['cfg']);
 
 
 function handle_cfg_update() {
     console.log("CC handle_cfg_update");
-
     emit('cfg_update');
+}
+
+function handle_make_item(item_id) {
+    console.log("CC handle make item", item_id);
+    emit("make_item", item_id);
+}
+
+function handle_use_item(item_id) {
+    console.log("CC handle use item", item_id)
+    emit("use_item", item_id);
 }
 
 function map_items(cfg) {
@@ -51,7 +60,7 @@ function map_items(cfg) {
     <h3>Items</h3>
     <div class="items">
         <hr class="items_fw" v-if="map_items(cfg).length > 0" />
-        <CurrentCfgItem @cfg_update="handle_cfg_update()" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
+        <CurrentCfgItem @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
     </div>
     <h3>Processes</h3>
     <div class="proc" v-if="cfg.get_processes().length > 0">

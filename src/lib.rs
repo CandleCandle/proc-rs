@@ -150,6 +150,16 @@ impl GraphConfiguration {
             &self.wrapped.search_processes(&search).map_err(|e| JsValue::from_str(&e))?
         )?)
     }
+    pub fn search_processes_by_output(&self, search: String) -> Result<JsValue, JsValue> {
+        Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Process>>>(
+            &self.wrapped.search_processes_by_output(&search).map_err(|e| JsValue::from_str(&e))?
+        )?)
+    }
+    pub fn search_processes_by_input(&self, search: String) -> Result<JsValue, JsValue> {
+        Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Process>>>(
+            &self.wrapped.search_processes_by_input(&search).map_err(|e| JsValue::from_str(&e))?
+        )?)
+    }
 
     pub fn calculate(&mut self) {
         self.calculator = Some(Calculator::generate(&self.wrapped));

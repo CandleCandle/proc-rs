@@ -137,6 +137,46 @@ impl GraphConfiguration {
         }
     }
 
+    pub fn search_processes_by_output(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
+        match &self.current_data {
+            Some(d) => {
+                let matcher = Regex::new(search)
+                    .map_err(|e| format!("{e:?}").clone())?;
+                let mut v = d.processes.iter()
+                    .filter(|(_id, proc)| {
+                        proc.outputs.iter().any(|output| {
+                            matcher.is_match(&output.item.id) || matcher.is_match(&output.item.display)
+                        })
+                    })
+                    .map(|(_id, i)| i.clone())
+                    .collect::<Vec<Rc<Process>>>();
+                v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
+                Ok(v)
+            },
+            None => Ok(vec![]),
+        }
+    }
+
+    pub fn search_processes_by_input(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
+        match &self.current_data {
+            Some(d) => {
+                let matcher = Regex::new(search)
+                    .map_err(|e| format!("{e:?}").clone())?;
+                let mut v = d.processes.iter()
+                    .filter(|(_id, proc)| {
+                        proc.inputs.iter().any(|input| {
+                            matcher.is_match(&input.item.id) || matcher.is_match(&input.item.display)
+                        })
+                    })
+                    .map(|(_id, i)| i.clone())
+                    .collect::<Vec<Rc<Process>>>();
+                v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
+                Ok(v)
+            },
+            None => Ok(vec![]),
+        }
+    }
+
     pub fn get_defaulted_items(&self) -> Vec<Rc<Item>> {
         // set of all process input items (I)
         // set of all process output items (O)
@@ -252,6 +292,38 @@ mod test {
         let result = gc.search_processes("e A").unwrap();
         assert_eq!(result.len(), 1);
         assert_eq!(result.get(0).unwrap().id, "make_a");
+    }
+
+    #[test]
+    fn it_searches_processes_by_input_id() {
+        let gc = fixtures::create_config();
+        let result = gc.search_processes_by_input("part_3").unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_b");
+    }
+
+    #[test]
+    fn it_searches_processes_by_input_display() {
+        let gc = fixtures::create_config();
+        let result = gc.search_processes_by_input("Part 3").unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_b");
+    }
+
+    #[test]
+    fn it_searches_processes_by_output_id() {
+        let gc = fixtures::create_config();
+        let result = gc.search_processes_by_output("part_4").unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_b");
+    }
+
+    #[test]
+    fn it_searches_processes_by_output_display() {
+        let gc = fixtures::create_config();
+        let result = gc.search_processes_by_output("Part 4").unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_b");
     }
 
     #[test]
