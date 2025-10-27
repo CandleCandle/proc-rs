@@ -1,10 +1,38 @@
 {
   "items": [
     {
+      "id": "acid",
+      "group": "item",
+      "i18n": {
+        "en": "acid"
+      }
+    },
+    {
       "id": "aluminium",
       "group": "item",
       "i18n": {
         "en": "aluminium"
+      }
+    },
+    {
+      "id": "carbon",
+      "group": "item",
+      "i18n": {
+        "en": "carbon"
+      }
+    },
+    {
+      "id": "ceramic",
+      "group": "item",
+      "i18n": {
+        "en": "ceramic"
+      }
+    },
+    {
+      "id": "circuit",
+      "group": "item",
+      "i18n": {
+        "en": "circuit"
       }
     },
     {
@@ -29,6 +57,13 @@
       }
     },
     {
+      "id": "hydrocarbon",
+      "group": "item",
+      "i18n": {
+        "en": "hydrocarbon"
+      }
+    },
+    {
       "id": "iron",
       "group": "item",
       "i18n": {
@@ -50,6 +85,13 @@
       }
     },
     {
+      "id": "methane",
+      "group": "item",
+      "i18n": {
+        "en": "methane"
+      }
+    },
+    {
       "id": "mirror",
       "group": "item",
       "i18n": {
@@ -64,6 +106,13 @@
       }
     },
     {
+      "id": "plastic",
+      "group": "item",
+      "i18n": {
+        "en": "plastic"
+      }
+    },
+    {
       "id": "quartz",
       "group": "item",
       "i18n": {
@@ -75,6 +124,13 @@
       "group": "item",
       "i18n": {
         "en": "silicon"
+      }
+    },
+    {
+      "id": "sulphur",
+      "group": "item",
+      "i18n": {
+        "en": "sulphur"
       }
     },
     {
@@ -179,6 +235,110 @@
       },
       "outputs": {
         "quartz": 1
+      }
+    },
+    {
+      "id": "hydrocarbon_w",
+      "i18n": {
+        "en": "hydrocarbon"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "water": 1,
+        "carbon": 1
+      },
+      "outputs": {
+        "hydrocarbon": 1
+      }
+    },
+    {
+      "id": "carbon",
+      "i18n": {
+        "en": "carbon"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "methane": 1,
+        "oxygen": 1
+      },
+      "outputs": {
+        "carbon": 1
+      }
+    },
+    {
+      "id": "hydrocarbon_m",
+      "i18n": {
+        "en": "hydrocarbon_m"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "methane": 1,
+        "carbon": 1
+      },
+      "outputs": {
+        "hydrocarbon": 1
+      }
+    },
+    {
+      "id": "plastic",
+      "i18n": {
+        "en": "plastic"
+      },
+      "duration": 1,
+      "group": "refiner",
+      "inputs": {
+        "hydrocarbon": 1
+      },
+      "outputs": {
+        "plastic": 1
+      }
+    },
+    {
+      "id": "ceramic",
+      "i18n": {
+        "en": "ceramic"
+      },
+      "duration": 1,
+      "group": "crucible",
+      "inputs": {
+        "aluminium": 1,
+        "carbon": 1
+      },
+      "outputs": {
+        "ceramic": 1
+      }
+    },
+    {
+      "id": "acid",
+      "i18n": {
+        "en": "acid"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "sulphur": 1,
+        "water": 1
+      },
+      "outputs": {
+        "acid": 1
+      }
+    },
+    {
+      "id": "circuit",
+      "i18n": {
+        "en": "circuit"
+      },
+      "duration": 1,
+      "group": "component_lab",
+      "inputs": {
+        "silicon": 1,
+        "acid": 1
+      },
+      "outputs": {
+        "circuit": 1
       }
     }
   ],
