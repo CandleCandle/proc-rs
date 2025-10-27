@@ -24,9 +24,12 @@ impl Calculator {
     }
 
     fn create_initial(gc: &GraphConfiguration) -> DMatrix<f64> {
-        let all_proc_io: BTreeSet<&Rc<Item>> = gc.get_processes().iter().flat_map(|proc| {
-            proc.process.inputs.iter().map(|s| &s.item).chain(
-                proc.process.outputs.iter().map(|s| &s.item))
+        let all_proc_io: BTreeSet<Rc<Item>> = gc.get_processes().iter().flat_map(|proc| {
+            let i = proc.inputs();
+            let o = proc.outputs();
+            let ii = i.iter().map(|s| s.item.clone());
+            let oo = o.iter().map(|s| s.item.clone());
+            ii.chain(oo).collect::<Vec<Rc<Item>>>()
         }).collect();
         let num_rows = all_proc_io.len(); // size of the set of all items that are inputs or outputs to the processes
         let num_cols = gc.get_processes().len() + gc.get_imports_exports().len() + 1; // one column for each process, I/O, and an extra for the requirements
@@ -35,14 +38,21 @@ impl Calculator {
 
         // one column per process. Inputs are -ive, outputs are +ive
         // When a item appears in both the inputs and outputs, the net input or output is used.
-        let processes: BTreeMap<String, &ActiveProcess> = gc.get_processes().iter().map(|p| (p.process.id.clone(), p)).collect();
+        let processes: BTreeMap<&str, &ActiveProcess> = gc.get_processes().iter().map(|p| (p.id(), p)).collect();
         for (proc_idx, proc) in processes.values().enumerate() {
             let mut col = DVector::from_element(num_rows, 0.0);
             for (row_idx, row_item) in all_proc_io.iter().enumerate() {
-                let is = proc.process.inputs.iter().filter(|s| s.item.id == row_item.id).next();
-                let os = proc.process.outputs.iter().filter(|s| s.item.id == row_item.id).next();
-                col[row_idx] = is.map(|s| s.quantity * -1.0).unwrap_or(0.0)
-                        + os.map(|s| s.quantity).unwrap_or(0.0);
+                let is = proc.inputs().iter()
+                    .filter(|s| s.item.id == row_item.id)
+                    .next()
+                    .map(|s| s.quantity * -1.0)
+                    .unwrap_or(0.0);
+                let os = proc.outputs().iter()
+                    .filter(|s| s.item.id == row_item.id)
+                    .next()
+                    .map(|s| s.quantity)
+                    .unwrap_or(0.0);
+                col[row_idx] = is + os;
             }
             result.set_column(proc_idx, &col);
         }
@@ -141,6 +151,7 @@ mod test {
             -2.0, 0.0, 1.0, 0.0, // p2
              5.0, 0.0, 0.0, 7.0, // p3
         ]);
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()), "Row/Column mismatch: {} is not equal to {}", actual, expected);
         let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
         assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
     }
@@ -158,7 +169,7 @@ mod test {
             -5.0, 1.0,  0.0, // p1
              1.0, 0.0, 10.0, // p2
         ]);
-        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()));
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()), "Row/Column mismatch: {} is not equal to {}", actual, expected);
         let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
         assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
     }
@@ -179,7 +190,7 @@ mod test {
              1.0,  0.0, 10.0, // p1
              0.0,  1.0, 50.0, // p2
         ]);
-        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()));
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()), "Row/Column mismatch: {} is not equal to {}", actual, expected);
         let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
         assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
     }
@@ -203,7 +214,7 @@ mod test {
             0.0, 1.0, 0.0, 7.0, // p2
             0.0, 0.0, 1.0, 2.8, // p3
         ]);
-        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()));
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()), "Row/Column mismatch: {} is not equal to {}", actual, expected);
         let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
         assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
     }
@@ -230,7 +241,7 @@ mod test {
             0.0,  0.0, 1.0, 0.0, 39.0,
             0.0,  0.0, 0.0, 1.0,  2.6,
         ]);
-        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()));
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()), "Row/Column mismatch: {} is not equal to {}", actual, expected);
         let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
         assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
     }

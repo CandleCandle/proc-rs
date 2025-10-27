@@ -70,17 +70,17 @@ impl GraphConfiguration {
 
     pub fn add_process(&mut self, id: &str, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
         self.processes.push(
-            ActiveProcess {
-                process: self.current_data.as_ref().unwrap().processes.get(id).unwrap().clone(),
+            ActiveProcess::new(
+                self.current_data.as_ref().unwrap().processes.get(id).unwrap().clone(),
                 duration_multiplier,
                 inputs_multiplier,
                 outputs_multiplier,
-            }
+            )
         );
     }
 
     pub fn remove_process(&mut self, id: &str) {
-        self.processes.retain(|p| p.process.id != *id);
+        self.processes.retain(|p| *p.id() != *id);
     }
 
     pub fn get_processes(&self) -> &Vec<ActiveProcess> {
@@ -139,10 +139,10 @@ impl GraphConfiguration {
         // disjoint of I and O (symmetric_difference)
         // remove anything that is in io or req.
         let inputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
-            proc.process.inputs.iter().map(|s| s.item.clone())
+            proc.inputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
         }).collect();
         let outputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
-            proc.process.outputs.iter().map(|s| s.item.clone())
+            proc.outputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
         }).collect();
         let mut diff: HashSet<Rc<Item>> = inputs.symmetric_difference(&outputs).map(|i| i.clone()).collect();
         for io in &self.import_export {
@@ -234,7 +234,7 @@ mod test {
     fn it_searches_processes_with_many_results() {
         let gc = fixtures::create_config();
         let result = gc.search_processes("mak").unwrap();
-        assert_eq!(result.len(), 2);
+        assert_eq!(result.len(), 3);
     }
 
     #[test]
