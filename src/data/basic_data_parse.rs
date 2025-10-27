@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use serde_json::Value;
 
-use super::model::{Classification, Data, DataParser, Item};
+use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item};
 
 
 
@@ -20,11 +20,31 @@ impl DataParser for DataParserBasic {
             })
             .map(|i| (i.id.clone(), i))
             .collect();
+        let mut factory_groups: HashMap<String, FactoryGroup> = HashMap::new();
+        let mut factories: HashMap<String, Factory> = HashMap::new();
+
+        for fac in outer["factories"].as_array().unwrap() {
+            for fac_grp in fac["factory_groups"].as_array().unwrap() {
+                let id = fac_grp.as_str().unwrap().to_string();
+                if !factory_groups.contains_key(&id) {
+                    factory_groups.insert(id.clone(), FactoryGroup { id });
+                }
+            }
+            let id = fac["id"].as_str().unwrap().to_string();
+            factories.insert(id.clone(), Factory {
+                id,
+                display: fac["i18n"]["en"].as_str().unwrap().to_string(),
+                groups: fac["factory_groups"].as_array().unwrap()
+                        .iter()
+                        .map(|g| factory_groups.get(&g.as_str().unwrap().to_string()).unwrap().clone())
+                        .collect(),
+            });
+        }
 
         Ok(Data{
             items,
-            factory_groups: HashMap::from([]),
-            factory_types: HashMap::from([]),
+            factory_groups,
+            factories,
             processes: HashMap::from([]),
         })
     }
@@ -34,7 +54,7 @@ impl DataParser for DataParserBasic {
 
 #[cfg(test)]
 mod tests {
-    use crate::data::model::{Classification, Item};
+    use crate::data::model::{Classification};
 
     use super::*;
 
@@ -49,6 +69,28 @@ mod tests {
                             "en": "Part A"
                         }
                     }
+                ],
+                "factories": [ ]
+            }
+        "#
+    }
+
+    fn simple_factory_fixture() -> &'static str {
+        r#"
+            {
+                "items": [ ],
+                "factories": [
+                    {
+                        "id": "main",
+                        "i18n": {
+                            "en": "Main"
+                        },
+                        "factory_groups": [
+                            "default"
+                        ],
+                        "duration_modifier": 1,
+                        "output_modifier": 1
+                    }
                 ]
             }
         "#
@@ -61,6 +103,20 @@ mod tests {
         let r = res.unwrap();
         let i = r.items.get("part_a").unwrap();
         assert_eq!(i.id, "part_a");
+        assert_eq!(i.display, "Part A");
         assert_eq!(i.classification, Classification::Solid);
     }
+
+    #[test]
+    fn simple_factory_get_by_id() {
+        let fixture = simple_factory_fixture();
+        let res = DataParserBasic::from_str(fixture);
+        let r = res.unwrap();
+        let f = r.factories.get("main").unwrap();
+        assert_eq!(f.id, "main");
+        assert_eq!(f.display, "Main");
+        assert_eq!(f.groups.len(), 1);
+        assert_eq!(f.groups[0].id, "default");
+    }
+
 }

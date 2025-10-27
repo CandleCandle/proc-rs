@@ -1,29 +1,24 @@
 use std::collections::HashMap;
 
-use wasm_bindgen::prelude::wasm_bindgen;
-
-use serde_json::{Value};
-
 pub trait DataParser {
     fn from_str(json: &str) -> Result<Data, ()>;
 }
 
-
 pub struct Data {
     pub items: HashMap<String, Item>,
     pub factory_groups: HashMap<String, FactoryGroup>,
-    pub factory_types: HashMap<String, Factory>,
+    pub factories: HashMap<String, Factory>,
     pub processes: HashMap<String, Process>,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Factory {
     pub id: String,
     pub display: String,
     pub groups: Vec<FactoryGroup>,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FactoryGroup {
     pub id: String,
 }

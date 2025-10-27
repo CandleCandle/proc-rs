@@ -56,7 +56,7 @@
             }
         }
     ],
-    "factory_types": [
+    "factories": [
         {
             "id": "main",
             "name": "Main",
