@@ -161,6 +161,52 @@ impl Calculator {
     }
 }
 
+enum ItemNetStatus {
+    Equal,
+    Consumer,
+    Producer,
+}
+impl ItemNetStatus {
+    fn from_count(count: &f64) -> ItemNetStatus {
+        if count.abs() < 1e-10 {
+            ItemNetStatus::Equal
+        } else if *count > 0.0 {
+            ItemNetStatus::Producer
+        } else {
+            ItemNetStatus::Consumer
+        }
+    }
+
+    fn style(&self) -> &str {
+        match self {
+            ItemNetStatus::Equal => "\"net-equal\"",
+            ItemNetStatus::Consumer => "\"net-consumer\"",
+            ItemNetStatus::Producer => "\"net-producer\"",
+        }
+    }
+
+    fn node_label(&self, positive_sum: &f64, display: &str, negative_sum: &f64) -> String {
+            let negative_sum = if negative_sum.abs() < 1e-10 && negative_sum.is_sign_negative() {
+                -negative_sum
+            } else {
+                *negative_sum
+            };
+            match self {
+                ItemNetStatus::Equal => format!("\" {{ {display} }} \""),
+                ItemNetStatus::Consumer => format!("\"{{\
+                      {{<produce> {display} }}\
+                    | {{<consume> consume {negative_sum:.2}/s }}\
+                    }}\
+                \""),
+                ItemNetStatus::Producer => format!("\"{{\
+                      {{<produce> produce {positive_sum:.2}/s }} \
+                    | {{<consume> {display} }}\
+                    }}\
+                \""),
+            }
+    }
+}
+
 impl Calculator {
     fn normalise_id(id: &str) -> String {
         let replace_invalid = Regex::new(r"[^a-zA-Z0-9_]").unwrap();
@@ -186,17 +232,8 @@ impl Calculator {
         let materials = self.materials();
         for mat in materials.contained_items() {
             let sum = (materials.sum(&mat).quantity * 100.0).round() / 100.0;
-            let class = if sum.abs() < 1e-10 {
-                "\"net-equal\""
-            } else if sum > 0.0 {
-                "\"net-producer\""
-            } else {
-                "\"net-consumer\""
-            };
-            let mut negative_sum = -materials.sum_negative(&mat).quantity;
-            if negative_sum.abs() < 1e-10 && negative_sum.is_sign_negative() {
-                negative_sum = -negative_sum;
-            }
+            let item_net_style = ItemNetStatus::from_count(&sum);
+            let class = item_net_style.style();
             graph.add_stmt(Stmt::Node(
                 Node {
                     id: NodeId(Id::Plain(Self::normalise_id(&mat.id)), Option::None),
@@ -204,16 +241,10 @@ impl Calculator {
                         attr!("shape", "record"),
                         // net-consumer / net-producer / net-equal
                         NodeAttributes::class(class.to_string()),
-                        NodeAttributes::label(format!(
-                            "\"\
-                              {{ {{<produce> produce {:.2}/s }} \
-                            | {{ {} }} \
-                            | {{<consume> consume {:.2}/s }} }}\
-                            \"",
-                            materials.sum_positive(&mat).quantity,
-                            mat.display,
-                            negative_sum,
-                        ))
+                        NodeAttributes::label(item_net_style.node_label(
+                            &materials.sum_positive(&mat).quantity,
+                            &mat.display,
+                            &materials.sum_negative(&mat).quantity))
                     ]
                 }
             ));
@@ -230,6 +261,9 @@ impl Calculator {
             let outputs_line = outputs.iter().enumerate()
                 .map(|(idx, i)| format!("<o{}> {} ({:.2}/s)", idx, i.item.display, i.quantity * proc_count))
                 .join(" | ");
+            let duration = proc.duration();
+            let factory = "default";
+            let factory_group = "default";
             graph.add_stmt(Stmt::Node(
                 Node {
                     id: NodeId(proc_id.clone(), Option::None),
@@ -237,13 +271,12 @@ impl Calculator {
                         attr!("shape", "record"),
                         NodeAttributes::label(format!(
                             "\" {{\
-                              {{ {} }} \
+                              {{ {inputs_line} }} \
                             | {} \
-                            | {{ {} }} \
+                            | {{ {duration:.2}s/cycle | {factory} ({factory_group}) }} \
+                            | {{ {outputs_line} }} \
                             }}\"",
-                            inputs_line,
                             proc.display(),
-                            outputs_line,
                         ))
                     ],
                 }

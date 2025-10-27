@@ -1,5 +1,5 @@
 <script setup>
-import { watch, defineProps, toRefs } from 'vue';
+import { watch, toRefs } from 'vue';
 
 const props = defineProps(['cfg', 'cfg_fu']);
 const { _0, cfg_fu } = toRefs(props);
