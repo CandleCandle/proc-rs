@@ -94,6 +94,7 @@ dependencies = [
  "serde",
  "serde-wasm-bindgen",
  "serde_derive",
+ "serde_json",
  "wasm-bindgen",
  "wasm-bindgen-test",
  "web-sys",

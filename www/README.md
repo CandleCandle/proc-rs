@@ -43,3 +43,13 @@ How do I get that data to load async?
 
 
 Do I build a json blob in JS with all the inputs, then pass it to Rust?
+
+
+
+# Documentation References
+
+https://rustwasm.github.io/docs/wasm-bindgen/introduction.html
+
+https://rustwasm.github.io/docs/wasm-bindgen/examples/fetch.html
+
+https://github.com/serde-rs/json
