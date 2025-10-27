@@ -11,11 +11,13 @@ use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item
 #[derive(Debug)]
 pub enum DataParserRecipeListerFiles {
     AssemblingMachines,
+    Furnace,
 }
 impl DataParserRecipeListerFiles {
     pub fn to_key(&self) -> &str {
         match &self {
             Self::AssemblingMachines => "AssemblingMachines",
+            Self::Furnace => "Furnace",
         }
     }
 }
@@ -25,25 +27,37 @@ impl DataParser for DataParserRecipeLister {
     fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<&str, String> {
         let mut result = BTreeMap::new();
         result.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), format!("{}/assembling-machine.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Furnace.to_key(), format!("{}/furnace.json", conf.id()));
         result
     }
 
     fn parse(&self, jsons: &mut BTreeMap<&str, String>) -> Result<Data, String> {
-        let json = jsons.remove(DataParserRecipeListerFiles::AssemblingMachines.to_key()).unwrap();
-        let outer: Value = serde_json::from_str(&json).map_err(|e| format!("{e}"))?;
+        let mut parsed: BTreeMap<&str, Value> = BTreeMap::new();
+        for (k, v) in jsons.iter() {
+            parsed.insert(k, serde_json::from_str(&v).map_err(|e| format!("{e}"))?);
+        }
 
         let mut factory_groups: HashMap<String, Rc<FactoryGroup>> = HashMap::new();
         let mut factories: HashMap<String, Rc<Factory>> = HashMap::new();
         let mut processes: HashMap<String, Rc<Process>> = HashMap::new();
         let mut items: HashMap<String, Rc<Item>> = HashMap::new();
 
-        for (_, am) in outer.as_object().unwrap() {
-            factory_groups.extend(
-                am.as_object().unwrap()["crafting_categories"].as_object().unwrap().keys()
-                    .map(
-                        |id| (id.clone(), Rc::new(FactoryGroup{id: id.clone()}))
-                    )
-            );
+        for k in &[
+            DataParserRecipeListerFiles::AssemblingMachines, DataParserRecipeListerFiles::Furnace
+            ] {
+            for (_, am) in parsed.get(k.to_key())
+                .ok_or(format!("missing json {k:?}"))?
+                .as_object()
+                .ok_or(format!("missing root object in {k:?}"))? {
+                factory_groups.extend(
+                    am.as_object()
+                        .ok_or(format!("missing root object in {k:?}"))?
+                        ["crafting_categories"]
+                        .as_object()
+                        .ok_or(format!("missing crafting_categories in {k:?}"))?
+                        .keys()
+                        .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id.clone()})) ));
+            }
         }
         // processes
         // recipe.json
@@ -73,6 +87,8 @@ impl DataParser for DataParserRecipeLister {
 #[cfg(test)]
 mod test {
     use std::any::{Any, TypeId};
+
+    use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
     use itertools::Itertools;
 
@@ -198,9 +214,17 @@ mod test {
 
     #[test]
     fn it_loads_factory_groups() {
-        let fixture = load_fixture("fixtures/assembling-machine.json");
+        tracing_subscriber::registry()
+            .with(tracing_subscriber::fmt::Layer::default()
+            .with_ansi(true)
+            .with_writer(std::io::stdout)
+            .compact())
+            .try_init().map_err(|e| e.to_string())
+            .unwrap();
+
         let mut jsons = BTreeMap::new();
-        jsons.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), fixture.to_string());
+        jsons.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), load_fixture("fixtures/assembling-machine.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::Furnace.to_key(), load_fixture("fixtures/furnace.json").to_string());
         let res = DataParserRecipeLister{}.parse(&mut jsons);
         let r = res.unwrap();
 
@@ -213,6 +237,9 @@ mod test {
             "electronics",
             "parameters",
             "pressing",
+            "recycling",
+            "recycling-or-hand-crafting",
+            "smelting",
         ])
     }
 }
