@@ -4,7 +4,7 @@ use serde_json::Value;
 
 use crate::data::dataset::DataSetConf;
 
-use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
+use super::model::{Data, DataParser, Factory, FactoryGroup, Item, Process};
 
 
 
@@ -27,25 +27,10 @@ impl DataParserRecipeListerFiles {
 }
 
 pub struct DataParserRecipeLister {}
-impl DataParser for DataParserRecipeLister {
-    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<String, String> {
-        let mut result = BTreeMap::new();
-        result.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), format!("{}/assembling-machine.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::Furnace.to_key(), format!("{}/furnace.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::RocketSilo.to_key(), format!("{}/rocket-silo.json", conf.id()));
-        result
-    }
+impl DataParserRecipeLister {
 
-    fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String> {
-        let mut parsed: BTreeMap<String, Value> = BTreeMap::new();
-        for (k, v) in jsons.iter() {
-            parsed.insert(k.clone(), serde_json::from_str(&v).map_err(|e| format!("{e}"))?);
-        }
-
+    fn extract_factory_groups(parsed: &BTreeMap<String, Value>) -> Result<HashMap<String, Rc<FactoryGroup>>, String> {
         let mut factory_groups: HashMap<String, Rc<FactoryGroup>> = HashMap::new();
-        let mut factories: HashMap<String, Rc<Factory>> = HashMap::new();
-        let mut processes: HashMap<String, Rc<Process>> = HashMap::new();
-        let mut items: HashMap<String, Rc<Item>> = HashMap::new();
 
         for k in &[
             DataParserRecipeListerFiles::AssemblingMachines,
@@ -81,6 +66,31 @@ impl DataParser for DataParserRecipeLister {
                     .map(|id| format!("resource-{id}"))
                     .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id})) ));
         }
+        Ok(factory_groups)
+    }
+
+}
+
+impl DataParser for DataParserRecipeLister {
+    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<String, String> {
+        let mut result = BTreeMap::new();
+        result.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), format!("{}/assembling-machine.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Furnace.to_key(), format!("{}/furnace.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::RocketSilo.to_key(), format!("{}/rocket-silo.json", conf.id()));
+        result
+    }
+
+    fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String> {
+        let mut parsed: BTreeMap<String, Value> = BTreeMap::new();
+        for (k, v) in jsons.iter() {
+            parsed.insert(k.clone(), serde_json::from_str(&v).map_err(|e| format!("{e}"))?);
+        }
+
+        let factory_groups = DataParserRecipeLister::extract_factory_groups(&parsed)?;
+        let factories: HashMap<String, Rc<Factory>> = HashMap::new();
+        let processes: HashMap<String, Rc<Process>> = HashMap::new();
+        let items: HashMap<String, Rc<Item>> = HashMap::new();
+
         // processes
         // recipe.json
         //
@@ -108,13 +118,11 @@ impl DataParser for DataParserRecipeLister {
 
 #[cfg(test)]
 mod test {
-    use std::any::{Any, TypeId};
-
     use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
     use itertools::Itertools;
 
-    use crate::data::{fixtures::load_fixture, model::Classification};
+    use crate::data::{fixtures::load_fixture};
 
     use super::*;
 
