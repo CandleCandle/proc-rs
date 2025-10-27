@@ -32,7 +32,7 @@ function handle_cfg_update() {
         <Configure :cfg="cfg" :cfg_fu="cfg_fu" @cfg_update="handle_cfg_update()" />
       </template>
       <template #right-pane>
-        <GraphRender :cfg_fu="cfg_fu" :cfg="cfg" />
+        <GraphRender :cfg="cfg" :cfg_fu="cfg_fu"/>
       </template>
     </vue-splitter>
   </main>
