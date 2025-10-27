@@ -6,6 +6,13 @@ edition = "2024"
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+[target.wasm32-unknown-unknown]
+rustflags = ["--cfg getrandom_backend=\"wasm_js\""]
+
+[target.wasm32-unknown-unknown.dependencies.getrandom]
+version = "0.2.16"
+features = ["js"]
+
 [features]
 default = ["console_error_panic_hook"]
 
@@ -31,7 +38,7 @@ nalgebra = "0.34.0"
 tabled = "0.20.0"
 tempdir = "0.3"
 graphviz-rust = "0.9.5"
-itertools = "0.14.0"
+itertools = { version = "0.14.0", default-features = false, features = ["use_alloc"] }
 
 [dependencies.web-sys]
 version = "0.3.77"
