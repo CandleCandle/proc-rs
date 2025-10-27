@@ -13,7 +13,7 @@ use serde_wasm_bindgen;
 mod dataset;
 use dataset::{DataSet, DataSetConf};
 mod data;
-use data::Data;
+use data::model::Data;
 
 #[macro_use]
 extern crate serde_derive;
@@ -56,6 +56,9 @@ impl GraphConfiguration {
 
     pub fn update_data_set(&mut self, id: String) {
         self.current_data_set = DataSet::all().iter().find(|d| d.id() == id).map(|d| d.clone());
+        // XXX Start loading spinner?
         // XXX fetch and parse data.
+
+        // XXX Remove loading spinner?
     }
 }

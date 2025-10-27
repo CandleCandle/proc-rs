@@ -5,27 +5,27 @@ use wasm_bindgen::prelude::wasm_bindgen;
 use serde_json::{Value};
 
 pub trait DataParser {
-    fn from_str(json: &str) -> Data;
+    fn from_str(json: &str) -> Result<Data, ()>;
 }
 
 
 pub struct Data {
-    items: HashMap<String, Item>,
-    factoru_groups: HashMap<String, FactoryGroup>,
-    factory_types: HashMap<String, Factory>,
-    processes: HashMap<String, Process>,
+    pub items: HashMap<String, Item>,
+    pub factory_groups: HashMap<String, FactoryGroup>,
+    pub factory_types: HashMap<String, Factory>,
+    pub processes: HashMap<String, Process>,
 }
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Factory {
-    id: String,
-    display: String,
-    groups: Vec<FactoryGroup>,
+    pub id: String,
+    pub display: String,
+    pub groups: Vec<FactoryGroup>,
 }
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct FactoryGroup {
-    id: String,
+    pub id: String,
 }
 
 // #[derive(Debug, Clone, PartialEq)]
@@ -41,12 +41,12 @@ pub struct FactoryGroup {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Process {
-    id: String,
-    display: String,
-    duration: f64,
-    group: FactoryGroup,
-    inputs: Vec<Stack>,
-    outputs: Vec<Stack>,
+    pub id: String,
+    pub display: String,
+    pub duration: f64,
+    pub group: FactoryGroup,
+    pub inputs: Vec<Stack>,
+    pub outputs: Vec<Stack>,
 }
 
 // #[derive(Debug, Clone, PartialEq)]
@@ -59,8 +59,8 @@ pub struct Process {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Stack {
-    item: Item,
-    quantity: f64,
+    pub item: Item,
+    pub quantity: f64,
 }
 
 // impl Display for Stack {
@@ -71,9 +71,9 @@ pub struct Stack {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Item {
-    id: String,
-    classification: Classification,
-    display: String,
+    pub id: String,
+    pub classification: Classification,
+    pub display: String,
 }
 
 // // XXX possible to derive a Display using the enum names?

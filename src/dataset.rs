@@ -1,10 +1,6 @@
-use std::collections::HashMap;
-
 use wasm_bindgen::prelude::wasm_bindgen;
 
-use serde_json::{Value};
-// mod data;
-use crate::data;
+use crate::data::{basic_data_parse::DataParserBasic, model::DataParser};
 
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -71,6 +67,13 @@ impl DataSetConf {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum DataSetStyle {
     Basic,
+}
+impl DataSetStyle {
+    pub fn parser(&self) -> Box<impl DataParser> {
+        match self {
+            Self::Basic => Box::new(DataParserBasic{})
+        }
+    }
 }
 
 #[wasm_bindgen]
