@@ -198,6 +198,57 @@ mod test {
     }
 
     #[test]
+    fn it_reduces_for_slightly_more_complex_form() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_3", 7.0);
+        gc.add_import_export("part_1");
+        gc.add_import_export("part_2");
+        gc.add_process("make_a", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.reduced_matrix();
+        //  proc io   io   req
+        // -5.0, 1.0, 0.0, 0.0, // p1
+        // -2.0, 0.0, 1.0, 0.0, // p2
+        //  5.0, 0.0, 0.0, 7.0, // p3
+        let expected = DMatrix::from_row_slice(3, 4, &[
+        //  proc io   io   req
+            1.0, 0.0, 0.0, 1.4, // p1
+            0.0, 1.0, 0.0, 7.0, // p2
+            0.0, 0.0, 1.0, 2.8, // p3
+        ]);
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()));
+        let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
+        assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
+    }
+
+    #[test]
+    fn it_reduces_for_all_fixture_data() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_4", 13.0);
+        gc.add_import_export("part_1");
+        gc.add_import_export("part_2");
+        gc.add_process("make_a", 1.0, 1.0, 1.0);
+        gc.add_process("make_b", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.reduced_matrix();
+        //  a     b    io    io    req
+        // -5.0,  0.0, 1.0,  0.0,  0.0, // p1
+        // -2.0,  1.0, 0.0,  1.0,  0.0, // p2
+        //  5.0, -3.0, 0.0,  0.0,  0.0, // p3
+        //  0.0,  1.0, 0.0,  0.0, 13.0, // p4
+        let expected = DMatrix::from_row_slice(4, 5, &[
+        //  a     b    io   io    req
+            1.0,  0.0, 0.0, 0.0,  7.8,
+            0.0,  1.0, 0.0, 0.0, 13.0,
+            0.0,  0.0, 1.0, 0.0, 39.0,
+            0.0,  0.0, 0.0, 1.0,  2.6,
+        ]);
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()));
+        let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
+        assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
+    }
+
+    #[test]
     fn it_finds_the_max_row() {
         let input = DMatrix::from_row_slice(2, 3, &[
             -5.0,  1.0,  0.0,
@@ -210,75 +261,3 @@ mod test {
     }
 }
 
-
-/*
-
--5  1  0
- 1  0 10
-
-1 / -5
-
- 1 -0.2  0
- 1  0   10
-
-2 - (1x) 1
-
- 1 -0.2  0
- 0  0.2  10
-
-2 * 5
-
- 1 -0.2  0
- 0  1    50
-
-1 + (0.2x) 2
-
-1  0  10
-0  1  50
-
-*/
-
-/*
-
--5 1 0 0
--2 0 1 0
- 5 0 0 7
-
-+ 1, 3
-
- 0 1 0 7
--2 0 1 0
- 5 0 0 7
-
-s 1, 2
-
--2 0 1 0
- 0 1 0 7
- 5 0 0 7
-
-* 1, -2
-
- 1 0 -2 0
- 0 1  0 7
- 5 0  0 7
-
-+ 5 (-5)x1
-
- 1 0 -2 0
- 0 1  0 7
- 0 0  10 7
-
-* 3, 0.1
-
- 1 0 -2 0
- 0 1  0 7
- 0 0  1 0.7
-
-+ 1, (2)x3
-
- 1 0 0 1.4
- 0 1 0 7
- 0 0 1 0.7
-
-
-*/

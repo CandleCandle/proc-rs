@@ -43,7 +43,7 @@ pub fn simple_data_fixture() -> Data {
         duration: 5.0,
         group: factory_groups.get(&"basic".to_string()).unwrap().clone(),
         inputs: vec![
-            Stack::new(items.get("part_2").unwrap().clone(), 3.0),
+            Stack::new(items.get("part_3").unwrap().clone(), 3.0),
             ],
         outputs: vec![
             Stack::new(items.get("part_2").unwrap().clone(), 1.0),
