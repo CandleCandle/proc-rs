@@ -58,7 +58,7 @@ fn main() -> Result<(), String> {
 
     let json = fs::read(args.data_location)
         .map(|vec| String::from_utf8(vec).map_err(|e| e.to_string())).map_err(|e| e.to_string())??;
-    let current_data = Some(current_data_conf.style.parser().from_str(&json)?).unwrap();
+    let current_data = Some(current_data_conf.style.parser().parse(&json)?).unwrap();
 
     let mut gc = GraphConfiguration::new();
     gc.set_data(current_data, current_data_conf);

@@ -96,7 +96,7 @@ impl GraphConfiguration {
 
         let bdy = fetcher.fetch(&id).await.unwrap();
 
-        self.current_data = Some(self.current_data_set.as_ref().unwrap().style.parser().from_str(&bdy)?);
+        self.current_data = Some(self.current_data_set.as_ref().unwrap().style.parser().parse(&bdy)?);
         Ok(())
     }
 

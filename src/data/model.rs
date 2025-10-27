@@ -3,7 +3,7 @@ use std::{collections::{BTreeSet, HashMap}, hash::{Hash, Hasher}, ops, rc::Rc};
 use serde::{Deserialize, Serialize};
 
 pub trait DataParser {
-    fn from_str(&self, json: &str) -> Result<Data, String>;
+    fn parse(&self, json: &str) -> Result<Data, String>;
 }
 
 #[derive(Debug, Clone, PartialEq)]
