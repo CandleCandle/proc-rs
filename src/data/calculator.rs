@@ -6,6 +6,7 @@ use crate::data::{graph_configuration::GraphConfiguration, model::{ActiveProcess
 
 
 pub struct Calculator {
+    gc: GraphConfiguration,
     materials: Option<i32>,
     initial: DMatrix<f64>,
     reduced: DMatrix<f64>,
@@ -17,6 +18,7 @@ impl Calculator {
         let reduced = Self::reduce(&initial);
 
         Calculator {
+            gc: gc.clone(),
             materials: None,
             initial,
             reduced,
@@ -126,6 +128,17 @@ impl Calculator {
     }
     pub fn reduced_matrix(&self) -> &DMatrix<f64> {
         &self.reduced
+    }
+    pub fn process_counts(&self) -> BTreeMap<String, f64> {
+        let processes: BTreeSet<&str> = self.gc.get_processes().iter().map(|p| p.id()).collect();
+        // last column, truncated to processes.len(), mapped.
+        let last_col = self.reduced.column(self.reduced.ncols()-1);
+
+        let mut result = BTreeMap::new();
+        for (idx, id) in processes.iter().enumerate() {
+            result.insert(id.to_string(), *last_col.get(idx).unwrap());
+        }
+        result
     }
 }
 
@@ -256,6 +269,19 @@ mod test {
         assert_eq!(Calculator::find_row_with_max_magnitude(&input, 0, 1), 0);
         assert_eq!(Calculator::find_row_with_max_magnitude(&input, 0, 2), 1);
         assert_eq!(Calculator::find_row_with_max_magnitude(&input, 1, 1), 1);
+    }
+
+    #[test]
+    fn it_calculates_process_counts() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_2", 10.0);
+        gc.add_import_export("part_1");
+        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.process_counts();
+        assert_eq!(actual.len(), 1);
+        assert!(actual.contains_key("one_to_one"));
+        assert_eq!(actual.get("one_to_one"), Some(&10.0));
     }
 }
 

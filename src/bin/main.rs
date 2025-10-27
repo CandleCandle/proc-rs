@@ -1,4 +1,4 @@
-use std::{fs, path::PathBuf};
+use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use clap::{command, Parser};
 use proc_rs::data::{
@@ -6,6 +6,7 @@ use proc_rs::data::{
     calculator::Calculator,
     graph_configuration::GraphConfiguration, model::DataParser};
 
+use tabled::{settings::object::Cell, Table};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 // use data::{dataset::DataSet, graph_configuration::GraphConfiguration, model::DataParser};
@@ -70,14 +71,22 @@ fn main() -> Result<(), String> {
         gc.add_requirement(id, quantity);
     }
     for proc in args.processes {
-        // let parts = proc.split(':');
-        // for part in parts {
-        //     // id
-        //     // id:duration
-        //     // id:duration:output
-        //     // id:duration:output:inpput
-        // }
-        gc.add_process(&proc, 1.0, 1.0, 1.0);
+        let parts: Vec<&str> = proc.split(':').collect();
+        let id = parts[0];
+        let dur_mod = parts.get(1)
+            .map(|p| p.parse::<f64>().map_err(|e| e.to_string()))
+            .transpose()?
+            .unwrap_or(1.0);
+        let in_mod = parts.get(2)
+            .map(|p| p.parse::<f64>().map_err(|e| e.to_string()))
+            .transpose()?
+            .unwrap_or(1.0);
+        let out_mod = parts.get(3)
+            .map(|p| p.parse::<f64>().map_err(|e| e.to_string()))
+            .transpose()?
+            .unwrap_or(1.0);
+        tracing::debug!("Found proc {}, dur {}, in {}, out {}", id, dur_mod, in_mod, out_mod);
+        gc.add_process(id, dur_mod, in_mod, out_mod);
     }
 
     let unknown = gc.get_defaulted_items();
@@ -90,8 +99,16 @@ fn main() -> Result<(), String> {
 
     let calc = Calculator::generate(&gc);
     // calc.to_gv();
-    calc.initial_matrix();
-    // calc.get_reduced_matrix();
+    tracing::info!("initial matrix {}", calc.initial_matrix());
+    tracing::info!("reduced matrix {}", calc.reduced_matrix());
+    tracing::info!("process counts \n{}", make_process_count_table(&calc.process_counts()));
 
     Ok(())
+}
+
+fn make_process_count_table(process_counts: &BTreeMap<String, f64>) -> String {
+    Table::new(process_counts)
+        .modify(Cell::new(0, 0), "id")
+        .modify(Cell::new(0, 1), "count")
+        .to_string()
 }
