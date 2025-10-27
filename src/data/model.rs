@@ -15,7 +15,7 @@ pub struct Data {
 }
 impl Data {
     pub fn item(&self, id: &str) -> Option<Rc<Item>> {
-        self.items.get(id).map(|i| i.clone())
+        self.items.get(id).cloned()
     }
 }
 
@@ -167,9 +167,8 @@ impl <'a> FromIterator<&'a Stack> for Stack {
         let mut q = 0.0;
         let mut i: Option<Rc<Item>> = None;
         for s in iter {
-            match i {
-                None => i = Some(s.item.clone()),
-                _ => (),
+            if i.is_none() {
+                i = Some(s.item.clone());
             }
             q += s.quantity;
         }
@@ -219,16 +218,13 @@ pub enum Classification {
     Solid,
 }
 
+#[derive(Default)]
 pub struct StackSet {
     combined: Vec<Stack>,
 }
 
 impl StackSet {
-    pub fn new() -> Self {
-        Self {
-            combined: Vec::new(),
-        }
-    }
+
 
     pub fn add(&mut self, stack: Stack) {
         self.combined.push(stack);
@@ -274,7 +270,7 @@ mod test {
 
     #[test]
     fn stackset_sums() {
-        let mut undertest = StackSet::new();
+        let mut undertest = StackSet::default();
         let i0 = Rc::new(Item::new("id0".to_string()));
         let i1 = Rc::new(Item::new("id1".to_string()));
         undertest.add(Stack::new(i0.clone(), 1.0));
@@ -286,7 +282,7 @@ mod test {
 
     #[test]
     fn stackset_sums_missing() {
-        let mut undertest = StackSet::new();
+        let mut undertest = StackSet::default();
         let i0 = Rc::new(Item::new("id0".to_string()));
         let i1 = Rc::new(Item::new("id1".to_string()));
         let i2 = Rc::new(Item::new("id2".to_string()));
@@ -298,7 +294,7 @@ mod test {
 
     #[test]
     fn stackset_sums_negative() {
-        let mut undertest = StackSet::new();
+        let mut undertest = StackSet::default();
         let i0 = Rc::new(Item::new("id0".to_string()));
         let i1 = Rc::new(Item::new("id1".to_string()));
         undertest.add(Stack::new(i0.clone(), -1.0));
@@ -311,7 +307,7 @@ mod test {
 
     #[test]
     fn stackset_sums_positive() {
-        let mut undertest = StackSet::new();
+        let mut undertest = StackSet::default();
         let i0 = Rc::new(Item::new("id0".to_string()));
         let i1 = Rc::new(Item::new("id1".to_string()));
         undertest.add(Stack::new(i0.clone(), 5.0));

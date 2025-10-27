@@ -142,7 +142,7 @@ impl Calculator {
         result
     }
     pub fn materials(&self) -> StackSet {
-        let mut result = StackSet::new();
+        let mut result = StackSet::default();
         // for each process, multiply I&O by the process count and add to the stack set.
         let counts = self.process_counts();
         for proc in self.gc.get_processes() {
