@@ -84,6 +84,10 @@ All items
   * unmodified inputs
   * unmodified outputs
 
+# Ideas
+
+Data set editor - "open" from local filesystem and "download" to create replacement.
+
 
 # Documentation References
 
