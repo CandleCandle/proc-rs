@@ -209,11 +209,6 @@ impl DataParserRecipeLister {
         Ok(processes)
     }
 
-    // fn map<B, F>(self, f: F) -> Map<Self, F>
-    // where
-    //     Self: Sized,
-    //     F: FnMut(Self::Item) -> B,
-
     fn extract_io<F>(
         stacks: &Value,
         items: &HashMap<String, Rc<Item>>,
