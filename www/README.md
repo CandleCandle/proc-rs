@@ -27,3 +27,19 @@ npm run dev
 ```sh
 npm run build
 ```
+
+# Design
+
+## Separation of JS vs Rust (WASM)
+
+What goes where?
+UI bits MUST be JS.
+
+Matrix bit will be Rust
+How do I maintain state? - see game-of-life?
+
+Where does the data.json live?
+How do I get that data to load async?
+
+
+Do I build a json blob in JS with all the inputs, then pass it to Rust?

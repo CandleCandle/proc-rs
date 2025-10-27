@@ -2,6 +2,7 @@
 // import HelloWorld from './components/HelloWorld.vue'
 // import TheWelcome from './components/TheWelcome.vue'
 import VueSplitter from '@rmp135/vue-splitter';
+import Configure from './components/Configure.vue';
 import { stuff } from 'proc-rs';
 
 </script>
@@ -16,6 +17,7 @@ import { stuff } from 'proc-rs';
   <main>
     <vue-splitter>
       <template #left-pane>
+        <Configure />
         <div>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pretium risus quis mattis cursus. Etiam justo tortor, rutrum at tristique eget, laoreet et ex. Praesent varius metus a risus elementum, a feugiat urna finibus. Vivamus vulputate lacinia risus nec vulputate. Mauris bibendum consequat quam, nec consectetur turpis.  Aenean hendrerit turpis id nisi porttitor euismod. Vivamus ante nibh, lacinia eget imperdiet non, fermentum sed enim. Etiam vel risus ut felis venenatis tristique eu eget mauris. Suspendisse feugiat ligula at turpis efficitur auctor. Nulla lobortis nisi at quam gravida dignissim. Sed sit amet aliquam erat. Quisque dictum pellentesque sodales. Nam nec vestibulum lectus, ac mattis ligula.
           <br /><br />

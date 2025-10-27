@@ -91,6 +91,7 @@ name = "proc-rs"
 version = "0.1.0"
 dependencies = [
  "console_error_panic_hook",
+ "serde",
  "serde-wasm-bindgen",
  "serde_derive",
  "wasm-bindgen",
