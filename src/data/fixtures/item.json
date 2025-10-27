@@ -31,5 +31,90 @@
     "fuel_value" : 0,
     "stack_size" : 50,
     "place_result" : "steel-chest"
+  },
+  "uranium-235" : {
+    "name" : "uranium-235",
+    "localised_name" : [
+      "item-name.uranium-235"
+    ],
+    "type" : "item",
+    "order" : "a[uranium-processing]-b[uranium-235]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "uranium-238" : {
+    "name" : "uranium-238",
+    "localised_name" : [
+      "item-name.uranium-238"
+    ],
+    "type" : "item",
+    "order" : "a[uranium-processing]-c[uranium-238]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "tungsten-carbide" : {
+    "name" : "tungsten-carbide",
+    "localised_name" : [
+      "item-name.tungsten-carbide"
+    ],
+    "type" : "item",
+    "order" : "c[tungsten]-b[tungsten-carbide]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "electric-engine-unit" : {
+    "name" : "electric-engine-unit",
+    "localised_name" : [
+      "item-name.electric-engine-unit"
+    ],
+    "type" : "item",
+    "order" : "c[advanced-intermediates]-b[electric-engine-unit]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "advanced-circuit" : {
+    "name" : "advanced-circuit",
+    "localised_name" : [
+      "item-name.advanced-circuit"
+    ],
+    "type" : "item",
+    "order" : "b[circuits]-b[advanced-circuit]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "big-mining-drill" : {
+    "name" : "big-mining-drill",
+    "localised_name" : [
+      "entity-name.big-mining-drill"
+    ],
+    "type" : "item",
+    "order" : "a[items]-c[big-mining-drill]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_result" : "big-mining-drill"
+  },
+  "electric-mining-drill" : {
+    "name" : "electric-mining-drill",
+    "localised_name" : [
+      "entity-name.electric-mining-drill"
+    ],
+    "type" : "item",
+    "order" : "a[items]-b[electric-mining-drill]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "electric-mining-drill"
+  },
+  "wood" : {
+    "name" : "wood",
+    "localised_name" : [
+      "item-name.wood"
+    ],
+    "type" : "item",
+    "order" : "a[wood]",
+    "fuel_value" : 2000000,
+    "stack_size" : 100,
+    "fuel_category" : "chemical",
+    "fuel_acceleration_multiplier" : 1,
+    "fuel_top_speed_multiplier" : 1
   }
 }

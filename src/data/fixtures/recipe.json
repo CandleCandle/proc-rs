@@ -1,0 +1,185 @@
+{
+  "wooden-chest" : {
+    "name" : "wooden-chest",
+    "localised_name" : [
+      "entity-name.wooden-chest"
+    ],
+    "category" : "crafting",
+    "order" : "a[items]-a[wooden-chest]",
+    "group" : {
+      "name" : "logistics",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "storage",
+      "type" : "item-subgroup"
+    },
+    "enabled" : true,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 0.5,
+    "ingredients" : [
+      {
+        "type" : "item",
+        "name" : "wood",
+        "amount" : 2
+      }
+    ],
+    "products" : [
+      {
+        "type" : "item",
+        "name" : "wooden-chest",
+        "probability" : 1,
+        "amount" : 1
+      }
+    ],
+    "main_product" : {
+      "type" : "item",
+      "name" : "wooden-chest",
+      "probability" : 1,
+      "amount" : 1
+    }
+  },
+  "kovarex-enrichment-process" : {
+    "name" : "kovarex-enrichment-process",
+    "localised_name" : [
+      "recipe-name.kovarex-enrichment-process"
+    ],
+    "category" : "centrifuging",
+    "order" : "b[uranium-products]-c[kovarex-enrichment-process]",
+    "group" : {
+      "name" : "intermediate-products",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "uranium-processing",
+      "type" : "item-subgroup"
+    },
+    "enabled" : false,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 60,
+    "ingredients" : [
+      {
+        "type" : "item",
+        "name" : "uranium-235",
+        "amount" : 40,
+        "ignored_by_stats" : 40
+      },
+      {
+        "type" : "item",
+        "name" : "uranium-238",
+        "amount" : 5,
+        "ignored_by_stats" : 2
+      }
+    ],
+    "products" : [
+      {
+        "type" : "item",
+        "name" : "uranium-235",
+        "probability" : 1,
+        "amount" : 41,
+        "ignored_by_stats" : 40,
+        "ignored_by_productivity" : 40
+      },
+      {
+        "type" : "item",
+        "name" : "uranium-238",
+        "probability" : 1,
+        "amount" : 2,
+        "ignored_by_stats" : 2,
+        "ignored_by_productivity" : 2
+      }
+    ]
+  },
+  "parameter-0" : {
+    "name" : "parameter-0",
+    "localised_name" : [
+      "parameter-x",
+      "0"
+    ],
+    "category" : "parameters",
+    "order" : "a",
+    "group" : {
+      "name" : "other",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "parameters",
+      "type" : "item-subgroup"
+    },
+    "enabled" : true,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 0.5,
+    "ingredients" : {
+
+    },
+    "products" : {
+
+    }
+  },
+  "big-mining-drill-recycling" : {
+    "name" : "big-mining-drill-recycling",
+    "localised_name" : [
+      "recipe-name.recycling",
+      [
+        "entity-name.big-mining-drill"
+      ]
+    ],
+    "category" : "recycling",
+    "order" : "",
+    "group" : {
+      "name" : "other",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "other",
+      "type" : "item-subgroup"
+    },
+    "enabled" : true,
+    "hidden" : true,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 1.875,
+    "ingredients" : [
+      {
+        "type" : "item",
+        "name" : "big-mining-drill",
+        "amount" : 1
+      }
+    ],
+    "products" : [
+      {
+        "type" : "item",
+        "name" : "electric-mining-drill",
+        "probability" : 1,
+        "amount" : 0,
+        "extra_count_fraction" : 0.25
+      },
+      {
+        "type" : "item",
+        "name" : "tungsten-carbide",
+        "probability" : 1,
+        "amount" : 5
+      },
+      {
+        "type" : "item",
+        "name" : "electric-engine-unit",
+        "probability" : 1,
+        "amount" : 2,
+        "extra_count_fraction" : 0.5
+      },
+      {
+        "type" : "item",
+        "name" : "advanced-circuit",
+        "probability" : 1,
+        "amount" : 2,
+        "extra_count_fraction" : 0.5
+      }
+    ]
+  }
+}
