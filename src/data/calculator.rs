@@ -8,6 +8,7 @@ use crate::data::{graph_configuration::GraphConfiguration, model::{ActiveProcess
 pub struct Calculator {
     materials: Option<i32>,
     initial: DMatrix<f64>,
+    reduced: DMatrix<f64>,
 }
 
 // trait MulRow<T, R: Dim, C: Dim, S> {
@@ -25,12 +26,13 @@ pub struct Calculator {
 impl Calculator {
     pub fn generate(gc: &GraphConfiguration) -> Self {
         let initial = Self::create_initial(&gc);
-        let mut reduced = initial.clone();
-        reduced.swap_rows(1, 2);
+        let reduced = Self::reduce(&initial);
+        // reduced.swap_rows(1, 2);
 
         Calculator {
             materials: None,
             initial,
+            reduced,
         }
     }
 
@@ -85,8 +87,48 @@ impl Calculator {
         result
     }
 
+    fn reduce(input: &DMatrix<f64>) -> DMatrix<f64> {
+        let mut matrix = input.clone();
+        let mut pivot_row = 0usize;
+        let mut pivot_col = 0usize;
+
+        while pivot_row < matrix.nrows() && pivot_col < matrix.ncols() {
+            let row_with_max = Self::find_row_with_max_magnitude(&matrix, pivot_row, pivot_col);
+            if matrix[(row_with_max, pivot_col)].abs() < 1e-10 { // "effectively zero"
+                pivot_col += 1;
+            } else {
+                matrix.swap_rows(pivot_row, row_with_max);
+                for i in 0..matrix.nrows() {
+                    if i == pivot_row { continue; }
+                    let multiplier = matrix[(i, pivot_col)] / matrix[(pivot_row, pivot_col)];
+                    matrix[(i, pivot_col)] = 0.0;
+                    for j in 0..matrix.ncols() {
+                        if j == pivot_col { continue; }
+                        matrix[(i, j)] = matrix[(i, j)] - (matrix[(pivot_row, j)] * multiplier)
+                    }
+                }
+                let scale = 1.0/matrix[(pivot_row, pivot_col)];
+                matrix.row_mut(pivot_row).scale_mut(scale);
+                pivot_col += 1;
+                pivot_row += 1;
+            }
+        }
+        matrix
+    }
+
+    fn find_row_with_max_magnitude(mtx: &DMatrix<f64>, start_row: usize, col: usize) -> usize {
+        mtx.column(col).iter()
+            .enumerate() // enumerate first to ensure that row indicies are correct
+            .skip(start_row) // lucky-ish: if the start_row is zero, we want to skip zero items.
+            .max_by(|a, b| a.1.abs().total_cmp(&b.1.abs()))
+            .unwrap().0
+    }
+
     pub fn initial_matrix(&self) -> &DMatrix<f64> {
         &self.initial
+    }
+    pub fn reduced_matrix(&self) -> &DMatrix<f64> {
+        &self.reduced
     }
 }
 
@@ -106,17 +148,95 @@ mod test {
         gc.add_process("make_a", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.initial_matrix();
-        let expected = DMatrix::from_vec(3, 4, vec![
-            // p1  p2    p3
-            -5.0, -2.0,  5.0, // proc
-             1.0,  0.0,  0.0, // io
-             0.0,  1.0,  0.0, // io
-             0.0,  0.0,  7.0, // req
+        let expected = DMatrix::from_row_slice(3, 4, &[
+            // proc io  io  req
+            -5.0, 1.0, 0.0, 0.0, // p1
+            -2.0, 0.0, 1.0, 0.0, // p2
+             5.0, 0.0, 0.0, 7.0, // p3
         ]);
         let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
-        assert!(equality, "{:?} is not equal to {:?} (epsilon: {})", actual, expected, 1e-10);
+        assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
+    }
+
+    #[test]
+    fn it_creates_initial_for_1_to_1() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_2", 10.0);
+        gc.add_import_export("part_1");
+        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.initial_matrix();
+        let expected = DMatrix::from_row_slice(2, 3, &[
+            // proc io  req
+            -5.0, 1.0,  0.0, // p1
+             1.0, 0.0, 10.0, // p2
+        ]);
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()));
+        let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
+        assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
+    }
+
+    #[test]
+    fn it_reduces_for_1_to_1() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_2", 10.0);
+        gc.add_import_export("part_1");
+        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.reduced_matrix();
+            //  proc io  req
+            // -5.0, 1.0,  0.0, // p1
+            //  1.0, 0.0, 10.0, // p2
+        let expected = DMatrix::from_row_slice(2, 3, &[
+            // proc io  req
+             1.0,  0.0, 10.0, // p1
+             0.0,  1.0, 50.0, // p2
+        ]);
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()));
+        let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
+        assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
+    }
+
+    #[test]
+    fn it_finds_the_max_row() {
+        let input = DMatrix::from_row_slice(2, 3, &[
+            -5.0,  1.0,  0.0,
+             1.0,  0.0, 10.0,
+        ]);
+        assert_eq!(Calculator::find_row_with_max_magnitude(&input, 0, 0), 0);
+        assert_eq!(Calculator::find_row_with_max_magnitude(&input, 0, 1), 0);
+        assert_eq!(Calculator::find_row_with_max_magnitude(&input, 0, 2), 1);
+        assert_eq!(Calculator::find_row_with_max_magnitude(&input, 1, 1), 1);
     }
 }
+
+
+/*
+
+-5  1  0
+ 1  0 10
+
+1 / -5
+
+ 1 -0.2  0
+ 1  0   10
+
+2 - (1x) 1
+
+ 1 -0.2  0
+ 0  0.2  10
+
+2 * 5
+
+ 1 -0.2  0
+ 0  1    50
+
+1 + (0.2x) 2
+
+1  0  10
+0  1  50
+
+*/
 
 /*
 

@@ -50,7 +50,19 @@ pub fn simple_data_fixture() -> Data {
             Stack::new(items.get("part_4").unwrap().clone(), 1.0),
             ],
         };
-    let processes = vec![p1, p2].iter()
+    let p3 = Process {
+        id: "one_to_one".to_string(),
+        display: "one to one".to_string(),
+        duration: 5.0,
+        group: factory_groups.get(&"basic".to_string()).unwrap().clone(),
+        inputs: vec![
+            Stack::new(items.get("part_1").unwrap().clone(), 5.0),
+        ],
+        outputs: vec![
+            Stack::new(items.get("part_2").unwrap().clone(), 1.0),
+        ],
+    };
+    let processes = vec![p1, p2, p3].iter()
         .map(|p| (p.id.clone(), Rc::new(p.to_owned())))
         .collect()
         ;
