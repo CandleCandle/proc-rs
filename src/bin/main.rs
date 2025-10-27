@@ -6,6 +6,8 @@ use proc_rs::data::{
     calculator::Calculator,
     graph_configuration::GraphConfiguration, model::DataParser};
 
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
 // use data::{dataset::DataSet, graph_configuration::GraphConfiguration, model::DataParser};
 
 // use dataset::{DataSet, DataSetConf};
@@ -43,6 +45,13 @@ fn main() -> Result<(), String> {
     let args = Args::parse();
     println!("Args: {:?}", args);
 
+    tracing_subscriber::registry()
+        .with(tracing_subscriber::fmt::Layer::default()
+            .with_ansi(true)
+            .with_writer(std::io::stdout)
+            .compact())
+        .try_init().map_err(|e| e.to_string())?;
+
     let current_data_conf = DataSet::find(&args.style).ok_or(format!("no dataset conf for {}", &args.style))?;
 
     let json = fs::read(args.data_location)
@@ -73,11 +82,11 @@ fn main() -> Result<(), String> {
 
     let unknown = gc.get_defaulted_items();
     for i in unknown {
-        // tracing::warn("Found unsatisfied item, adding as import/export: {}", i.id);
+        tracing::warn!("Found unsatisfied item, adding as import/export: {}", i.id);
         gc.add_import_export(&i.id);
     }
 
-    println!("{:?}", gc);
+    // println!("{:?}", gc);
 
     let calc = Calculator::generate(gc);
     // calc.to_gv();
