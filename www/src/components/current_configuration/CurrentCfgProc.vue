@@ -1,17 +1,12 @@
 <script setup>
 import { watch, reactive } from 'vue';
+import { ModifierValues } from '../proc_modifiers';
 
 const emit = defineEmits(['cfg_update']);
 const { active_proc, cfg } = defineProps(['active_proc', 'cfg']);
 const proc = active_proc.process;
 
-class ModifierValues {
-  constructor(d, i, o) {
-    this.duration = d;
-    this.input = i;
-    this.output = o;
-  }
-}
+
 const modifiers = reactive(new ModifierValues(active_proc.duration_multiplier, active_proc.inputs_multiplier, active_proc.outputs_multiplier));
 
 function remove_process(cfg, id) {

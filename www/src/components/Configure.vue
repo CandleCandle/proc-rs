@@ -76,17 +76,17 @@ function handle_use_item(item_id) {
 <template>
     <div><h2>Get Started <button @click="getStartedIsExpanded = !getStartedIsExpanded">{{ getStartedIsExpanded ? '\\/' : '>' }}</button></h2></div>
     <Collapse class="input_options" :when="getStartedIsExpanded">
-        <div><label for="selectDataSet">Data Set:</label></div>
-        <div>
+        <div v-tooltip="'Start here, find the game and version that you need'"><label for="selectDataSet">Data Set:</label></div>
+        <div v-tooltip="'Start here, find the game and version that you need'">
             <select v-model="dataSetId">
                 <option disabled value="">Select a data set</option>
                 <option v-for="v in available" :value="v.id()" >{{ v.description() }}</option>
             </select>
         </div>
-        <div><label for="item_search"> Item Search:</label></div>
-        <div><input id="item_search" type="text" :disabled="dataSetId == ''" v-model="searchItem" /></div>
-        <div><label for="process_search"> Process Search:</label></div>
-        <div><input id="process_search" type="text" :disabled="dataSetId == ''" v-model="searchProcess" /></div>
+        <div v-tooltip="'Start by looking for an output item that you need'"><label for="item_search"> Item Search:</label></div>
+        <div v-tooltip="'Start by looking for an output item that you need'"><input id="item_search" type="text" :disabled="dataSetId == ''" v-model="searchItem" /></div>
+        <div v-tooltip="'Start by looking for a process that you want to use'"><label for="process_search"> Process Search:</label></div>
+        <div v-tooltip="'Start by looking for a process that you want to use'"><input id="process_search" type="text" :disabled="dataSetId == ''" v-model="searchProcess" /></div>
     </Collapse>
 
     <Collapse class="input_options" :when="searchResultsIsExpanded">

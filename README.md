@@ -63,6 +63,11 @@ Graph:
 4 -> 4 ; loop until unknowns are solved
 4 -> 5 ; end
 
+## UX Feedback
+Needs better "do this next" pointers
+Loop/no-solution: Needs better "convert one of the intermediates to an import/export" hints
+When searching for an item: case insesitivity; search for item names as well as IDs.
+
 ### Modifications
 adjust requirements; can be -ive to be "must consume amount"
 "I want exactly X of process Y"

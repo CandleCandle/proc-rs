@@ -1,5 +1,5 @@
 <script setup>
-import { ref, toRefs, watch } from 'vue';
+import { ref, toRefs, watch, reactive } from 'vue';
 import { Collapse } from 'vue-collapsed';
 import CurrentCfgItem from './CurrentCfgItem.vue';
 import CurrentCfgProc from './CurrentCfgProc.vue';
@@ -8,7 +8,7 @@ import { DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
 const emit = defineEmits(['cfg_update', 'make_item', 'use_item']);
 const { cfg } = defineProps(['cfg']);
 
-const currentConfigurationIsExpanded = ref(cfg.can_render());
+const currentConfigurationIsExpanded = ref(cfg.can_render() || cfg.get_requirements().length > 0);
 
 function handle_cfg_update() {
     console.log("CC handle_cfg_update");
