@@ -3,7 +3,7 @@ import SearchResultsItem from './SearchResultsItem.vue';
 import CurrentConfiguration from './current_configuration/CurrentConfiguration.vue';
 import SearchResultsProcess from './SearchResultsProcess.vue';
 import { ref, shallowRef, triggerRef, watch, defineProps, toRefs } from 'vue';
-import { GraphConfiguration, DataSet } from 'proc-rs';
+import { dataset_all } from 'proc-rs';
 
 
 const emit = defineEmits(['cfg_update']);
@@ -11,7 +11,7 @@ const props = defineProps(['cfg', 'cfg_fu']);
 const { _0, cfg_fu } = toRefs(props);
 const { cfg, _1 } = props;
 
-let available = DataSet.all();
+let available = dataset_all();
 console.log("available data", available);
 
 const dataSetId = ref("");

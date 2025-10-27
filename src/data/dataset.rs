@@ -4,6 +4,7 @@ use wasm_bindgen::prelude::wasm_bindgen;
 use crate::data::{basic_data_parse::DataParserBasic, model::DataParser};
 
 
+/// Known list of data set configurations
 #[wasm_bindgen]
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum DataSet {
@@ -13,7 +14,6 @@ pub enum DataSet {
     Dsp100,
 }
 
-#[wasm_bindgen]
 impl DataSet {
     pub fn params(self) -> DataSetConf {
         match self {
@@ -31,6 +31,10 @@ impl DataSet {
             DataSet::params(DataSet::Fac200Se200),
             DataSet::params(DataSet::Dsp100),
         )
+    }
+
+    pub fn find(id: &str) -> Option<DataSetConf> {
+        DataSet::all().iter().find(|d| d.id() == id).map(|d| d.clone())
     }
 }
 
@@ -87,5 +91,25 @@ pub struct Versioned {
 impl Versioned {
     fn new(id: String, version: String) -> Self {
         Versioned{id, version}
+    }
+}
+
+
+
+#[cfg(test)]
+mod test {
+
+    use super::*;
+
+    #[test]
+    fn it_finds_no_data_set_conf() {
+        let result = DataSet::find("nothing matches");
+        assert_eq!(result, Option::None);
+    }
+
+    #[test]
+    fn it_finds_data_set_conf_by_id() {
+        let result = DataSet::find("fac-2.0.0");
+        assert_eq!(result, Some(DataSet::Fac200.params()));
     }
 }

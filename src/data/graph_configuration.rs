@@ -1,16 +1,19 @@
-use std::rc::Rc;
+use std::{collections::HashSet, rc::Rc};
 
 use regex::Regex;
 
 use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, DataParser, Item, Process, Stack}};
 
 ///
-/// Provide a way to fetch the blob of
+/// Provide a way to fetch the blob of json that represents the data contents
 pub trait FetchDataSet {
-    async fn fetch(&self, dataset_id: &String) -> Result<String, String>;
+    #[allow(async_fn_in_trait)]
+    async fn fetch(&self, dataset_id: &str) ->  Result<String, String>;
+    // fn fetch(&self, dataset_id: &String) -> impl Future<Output = Result<String, String>> + Send;
 }
 
 
+#[derive(Debug, Clone, PartialEq)]
 pub struct GraphConfiguration {
     // everything needed in order to make a graph, mutable so that the UI can make changes.
     // It should only allow graph generation when it has enough information to do something.
@@ -37,7 +40,7 @@ impl GraphConfiguration {
         self.processes.len() > 0
     }
 
-    pub fn add_requirement(&mut self, id: &String, quantity: f64) {
+    pub fn add_requirement(&mut self, id: &str, quantity: f64) {
         self.requirements.push(
             Stack {
                 item: self.current_data.as_ref().unwrap().items.get(id).unwrap().clone(),
@@ -45,7 +48,7 @@ impl GraphConfiguration {
         });
     }
 
-    pub fn remove_requirement(&mut self, id: &String) {
+    pub fn remove_requirement(&mut self, id: &str) {
         self.requirements.retain(|s| s.item.id != *id);
     }
 
@@ -53,11 +56,11 @@ impl GraphConfiguration {
         &self.requirements
     }
 
-    pub fn add_import_export(&mut self, id: &String) {
+    pub fn add_import_export(&mut self, id: &str) {
         self.import_export.push(self.current_data.as_ref().unwrap().items.get(id).unwrap().clone());
     }
 
-    pub fn remove_import_export(&mut self, id: &String) {
+    pub fn remove_import_export(&mut self, id: &str) {
         self.import_export.retain(|io| io.id != *id);
     }
 
@@ -65,7 +68,7 @@ impl GraphConfiguration {
         &self.import_export
     }
 
-    pub fn add_process(&mut self, id: &String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
+    pub fn add_process(&mut self, id: &str, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
         self.processes.push(
             ActiveProcess {
                 process: self.current_data.as_ref().unwrap().processes.get(id).unwrap().clone(),
@@ -76,7 +79,7 @@ impl GraphConfiguration {
         );
     }
 
-    pub fn remove_process(&mut self, id: &String) {
+    pub fn remove_process(&mut self, id: &str) {
         self.processes.retain(|p| p.process.id != *id);
     }
 
@@ -84,8 +87,8 @@ impl GraphConfiguration {
         &self.processes
     }
 
-    pub async fn update_data_set(&mut self, id: String, fetcher: impl FetchDataSet) -> Result<(), String> {
-        self.current_data_set = DataSet::all().iter().find(|d| d.id() == id).map(|d| d.clone());
+    pub async fn update_data_set(&mut self, id: &str, fetcher: impl FetchDataSet) -> Result<(), String> {
+        self.current_data_set = DataSet::find(&id);
 
         let bdy = fetcher.fetch(&id).await.unwrap();
 
@@ -98,7 +101,7 @@ impl GraphConfiguration {
         self.current_data = Some(data);
     }
 
-    pub fn search_items(&self, search: String) -> Result<Vec<Rc<Item>>, String> {
+    pub fn search_items(&self, search: &str) -> Result<Vec<Rc<Item>>, String> {
         match &self.current_data {
             Some(d) => {
                 let matcher = Regex::new(&search)
@@ -114,7 +117,7 @@ impl GraphConfiguration {
         }
     }
 
-    pub fn search_processes(&self, search: String) -> Result<Vec<Rc<Process>>, String> {
+    pub fn search_processes(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
         match &self.current_data {
             Some(d) => {
                 let matcher = Regex::new(&search)
@@ -130,6 +133,26 @@ impl GraphConfiguration {
         }
     }
 
+    pub fn get_defaulted_items(&self) -> Vec<Rc<Item>> {
+        // set of all process input items (I)
+        // set of all process output items (O)
+        // disjoint of I and O (symmetric_difference)
+        // remove anything that is in io or req.
+        let inputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
+            proc.process.inputs.iter().map(|s| s.item.clone())
+        }).collect();
+        let outputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
+            proc.process.outputs.iter().map(|s| s.item.clone())
+        }).collect();
+        let mut diff: HashSet<Rc<Item>> = inputs.symmetric_difference(&outputs).map(|i| i.clone()).collect();
+        for io in &self.import_export {
+            diff.remove(io);
+        }
+        for req in &self.requirements {
+            diff.remove(&req.item);
+        }
+        diff.iter().map(|i| i.clone()).collect()
+    }
 }
 
 #[cfg(test)]
@@ -207,14 +230,14 @@ mod test {
     #[test]
     fn it_searches_items_with_no_data() {
         let gc = GraphConfiguration::new();
-        let result = gc.search_items("part_1".to_string());
+        let result = gc.search_items("part_1");
         assert_eq!(result.unwrap().len(), 0);
     }
 
     #[test]
     fn it_searches_items_with_full() {
         let gc = create_config();
-        let result = gc.search_items("part_1".to_string()).unwrap();
+        let result = gc.search_items("part_1").unwrap();
         assert_eq!(result.len(), 1);
         assert_eq!(result.get(0).unwrap().id, "part_1");
     }
@@ -222,7 +245,7 @@ mod test {
     #[test]
     fn it_searches_items_with_partial_input() {
         let gc = create_config();
-        let result = gc.search_items("t_1".to_string()).unwrap();
+        let result = gc.search_items("t_1").unwrap();
         assert_eq!(result.len(), 1);
         assert_eq!(result.get(0).unwrap().id, "part_1");
     }
@@ -230,7 +253,7 @@ mod test {
     #[test]
     fn it_searches_items_display_names() {
         let gc = create_config();
-        let result = gc.search_items("t 1".to_string()).unwrap();
+        let result = gc.search_items("t 1").unwrap();
         assert_eq!(result.len(), 1);
         assert_eq!(result.get(0).unwrap().id, "part_1");
     }
@@ -238,21 +261,21 @@ mod test {
     #[test]
     fn it_searches_items_with_many_results() {
         let gc = create_config();
-        let result = gc.search_items("par".to_string()).unwrap();
+        let result = gc.search_items("par").unwrap();
         assert_eq!(result.len(), 4);
     }
 
     #[test]
     fn it_searches_processes_with_no_data() {
         let gc = GraphConfiguration::new();
-        let result = gc.search_items("make_a".to_string());
+        let result = gc.search_items("make_a");
         assert_eq!(result.unwrap().len(), 0);
     }
 
     #[test]
     fn it_searches_processes_with_full() {
         let gc = create_config();
-        let result = gc.search_processes("make_a".to_string()).unwrap();
+        let result = gc.search_processes("make_a").unwrap();
         assert_eq!(result.len(), 1);
         assert_eq!(result.get(0).unwrap().id, "make_a");
     }
@@ -260,7 +283,7 @@ mod test {
     #[test]
     fn it_searches_processes_with_partial_input() {
         let gc = create_config();
-        let result = gc.search_processes("e_a".to_string()).unwrap();
+        let result = gc.search_processes("e_a").unwrap();
         assert_eq!(result.len(), 1);
         assert_eq!(result.get(0).unwrap().id, "make_a");
     }
@@ -268,7 +291,7 @@ mod test {
     #[test]
     fn it_searches_processes_display_names() {
         let gc = create_config();
-        let result = gc.search_processes("e A".to_string()).unwrap();
+        let result = gc.search_processes("e A").unwrap();
         assert_eq!(result.len(), 1);
         assert_eq!(result.get(0).unwrap().id, "make_a");
     }
@@ -276,7 +299,17 @@ mod test {
     #[test]
     fn it_searches_processes_with_many_results() {
         let gc = create_config();
-        let result = gc.search_processes("mak".to_string()).unwrap();
+        let result = gc.search_processes("mak").unwrap();
         assert_eq!(result.len(), 2);
+    }
+
+    #[test]
+    fn it_discovers_unknown_io() {
+        let mut gc = create_config();
+        gc.add_process("make_a", 1.0, 1.0, 1.0);
+        let mut result = gc.get_defaulted_items();
+        result.sort_by(|a, b| a.id.cmp(&b.id));
+        let ids: Vec<String> = result.iter().map(|i| i.id.clone()).collect();
+        assert_eq!(ids, vec!["part_1", "part_2", "part_3"]);
     }
 }

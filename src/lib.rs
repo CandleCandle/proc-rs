@@ -1,4 +1,4 @@
-use std::{collections::HashSet, rc::Rc};
+use std::{rc::Rc};
 
 
 use wasm_bindgen::prelude::wasm_bindgen;
@@ -9,9 +9,11 @@ use web_sys::{Request, RequestInit, RequestMode, Response};
 
 use serde_wasm_bindgen;
 
-mod data;
+pub mod data;
 use data::model::{Item, Process};
 use data::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
+
+use crate::data::dataset::{DataSet, DataSetConf};
 
 #[wasm_bindgen]
 extern "C" {
@@ -29,13 +31,18 @@ pub fn stuff(input: String) -> Result<JsValue, JsValue> {
 }
 
 #[wasm_bindgen]
+pub fn dataset_all() -> Vec<DataSetConf> {
+    DataSet::all()
+}
+
+#[wasm_bindgen]
 pub struct GraphConfiguration {
     wrapped: GraphConfigurationLib,
 }
 
 struct RequestFetcher {}
 impl FetchDataSet for RequestFetcher {
-    async fn fetch(&self, dataset_id: &String) -> Result<String, String> {
+    async fn fetch(&self, dataset_id: &str) -> Result<String, String> {
         let opts = RequestInit::new();
         opts.set_method("GET");
         opts.set_mode(RequestMode::Cors);
@@ -114,41 +121,23 @@ impl GraphConfiguration {
     }
 
     pub fn get_defaulted_items(&self) -> Result<JsValue, JsValue> {
-        // set of all process input items (I)
-        // set of all process output items (O)
-        // disjoint of I and O (symmetric_difference)
-        // remove anything that is in io or req.
-        let inputs: HashSet<Rc<Item>> = self.wrapped.get_processes().iter().flat_map(|proc| {
-            proc.process.inputs.iter().map(|s| s.item.clone())
-        }).collect();
-        let outputs: HashSet<Rc<Item>> = self.wrapped.get_processes().iter().flat_map(|proc| {
-            proc.process.outputs.iter().map(|s| s.item.clone())
-        }).collect();
-        let mut diff: HashSet<&Rc<Item>> = inputs.symmetric_difference(&outputs).collect();
-        for io in self.wrapped.get_imports_exports() {
-            diff.remove(&io);
-        }
-        for req in self.wrapped.get_requirements() {
-            diff.remove(&req.item);
-        }
-        let result: Vec<&&Rc<Item>> = diff.iter().collect();
-        Ok(serde_wasm_bindgen::to_value(&result)?)
+        Ok(serde_wasm_bindgen::to_value(&self.wrapped.get_defaulted_items())?)
     }
 
     pub async fn update_data_set(&mut self, id: String) -> Result<JsValue, JsValue> {
-        self.wrapped.update_data_set(id, RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e))?;
+        self.wrapped.update_data_set(&id, RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e))?;
         Ok(JsValue::null())
     }
 
     pub fn search_items(&self, search: String) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Item>>>(
-            &self.wrapped.search_items(search).map_err(|e| JsValue::from_str(&e))?
+            &self.wrapped.search_items(&search).map_err(|e| JsValue::from_str(&e))?
         )?)
     }
 
     pub fn search_processes(&self, search: String) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Process>>>(
-            &self.wrapped.search_processes(search).map_err(|e| JsValue::from_str(&e))?
+            &self.wrapped.search_processes(&search).map_err(|e| JsValue::from_str(&e))?
         )?)
     }
 }

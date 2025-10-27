@@ -78,7 +78,7 @@ impl DataParser for DataParserBasic {
 
 
 #[cfg(test)]
-mod tests {
+mod test {
     use std::any::{Any, TypeId};
 
     use crate::data::model::{Classification};
