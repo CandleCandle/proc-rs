@@ -130,6 +130,10 @@ impl GraphConfiguration {
         Ok(serde_wasm_bindgen::to_value(&self.wrapped.get_defaulted_items())?)
     }
 
+    pub fn get_intermediate_items(&self) -> Result<JsValue, JsValue> {
+        Ok(serde_wasm_bindgen::to_value(&self.wrapped.get_intermediate_items())?)
+    }
+
     pub async fn update_data_set(&mut self, id: String) -> Result<JsValue, JsValue> {
         self.wrapped.update_data_set(&id, RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e))?;
         Ok(JsValue::null())

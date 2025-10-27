@@ -5,23 +5,39 @@ import CurrentCfgProc from './CurrentCfgProc.vue';
 
 const emit = defineEmits(['cfg_update']);
 const { cfg } = defineProps(['cfg']);
-
-class DisplayReq {
+class DisplayItem {
+    static INTERMEDIATE = "intermediate";
+    static IMPORT_EXPORT = "import_export";
+    static REQUIREMENT = "requirement";
+    constructor(type) {
+        this.type = type;
+    }
+    is_intermediate() { return this.type == this.INTERMEDIATE; }
+    is_req() { return this.type == this.REQUIREMENT; }
+    is_io() { return this.type == this.IMPORT_EXPORT; }
+}
+class DisplayReq extends DisplayItem {
     constructor(req) {
+        super(DisplayItem.REQUIREMENT);
         this.req = req;
     }
-    is_req() { return true; }
-    is_io() { return false; }
     id() { return this.req.item.id; }
     display() { return this.req.item.display; }
     req_quantity() { return this.req.quantity; }
 }
 class DisplayIO {
     constructor(item) {
+        super(DisplayItem.IMPORT_EXPORT);
         this.item = item;
     }
-    is_req() { return false; }
-    is_io() { return true; }
+    id() { return this.item.id; }
+    display() { return this.item.display; }
+}
+class DisplayIntermediate {
+    constructor(item) {
+        super(DisplayItem.INTERMEDIATE);
+        this.item = item;
+    }
     id() { return this.item.id; }
     display() { return this.item.display; }
 }
@@ -34,13 +50,19 @@ function handle_cfg_update() {
 }
 
 function map_items(cfg) {
-    let r = cfg.get_requirements()
+    let req = cfg.get_requirements()
         .map(r => new DisplayReq(r));
     let io = cfg.get_imports_exports()
         .map(i => new DisplayIO(i));
+    let inter = cfg.get_intermediate_items()
+        .map(i => new DisplayIntermediate(i));
     let def = cfg.get_defaulted_items()
         .map(d => new DisplayIO(d));
-    let result = r.concat(io).concat(def).sort((a, b) => a.display().localeCompare(b.display()));
+    let result = req
+        .concat(io)
+        .concat(inter)
+        .concat(def)
+        .sort((a, b) => a.display().localeCompare(b.display()));
     return result;
 }
 </script>

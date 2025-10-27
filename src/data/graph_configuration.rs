@@ -157,6 +157,26 @@ impl GraphConfiguration {
         }
         diff.iter().cloned().collect()
     }
+    pub fn get_intermediate_items(&self) -> Vec<Rc<Item>> {
+        // set of all process input items (I)
+        // set of all process output items (O)
+        // intersection of I and O (symmetric_difference)
+        // remove anything that is in io or req.
+        let inputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
+            proc.inputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
+        }).collect();
+        let outputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
+            proc.outputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
+        }).collect();
+        let mut diff: HashSet<Rc<Item>> = inputs.intersection(&outputs).cloned().collect();
+        for io in &self.import_export {
+            diff.remove(io);
+        }
+        for req in &self.requirements {
+            diff.remove(&req.item);
+        }
+        diff.iter().cloned().collect()
+    }
 }
 
 #[cfg(test)]
@@ -249,5 +269,16 @@ mod test {
         result.sort_by(|a, b| a.id.cmp(&b.id));
         let ids: Vec<String> = result.iter().map(|i| i.id.clone()).collect();
         assert_eq!(ids, vec!["part_1", "part_2", "part_3"]);
+    }
+
+    #[test]
+    fn it_discovers_unknown_intermediates() {
+        let mut gc = fixtures::create_config();
+        gc.add_process("make_a", 1.0, 1.0, 1.0);
+        gc.add_process("make_b", 1.0, 1.0, 1.0);
+        let mut result = gc.get_intermediate_items();
+        result.sort_by(|a, b| a.id.cmp(&b.id));
+        let ids: Vec<String> = result.iter().map(|i| i.id.clone()).collect();
+        assert_eq!(ids, vec!["part_2", "part_3"]);
     }
 }

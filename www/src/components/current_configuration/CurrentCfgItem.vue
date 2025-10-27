@@ -28,6 +28,9 @@ watch(type, (value) => {
             cfg.remove_requirement(stack.id());
             emit('cfg_update');
             break;
+        case 'intermediate':
+            cfg.remove_import_export(stack.id());
+            cfg.remove_import_export(stack.id());
         default:
             break;
     }
@@ -56,6 +59,8 @@ watch(requirement_value, (value) => {
             <label for="requirement"> Requirement</label>&nbsp;
             <input type="radio" id="import_export" value="import_export" v-model="type" />
             <label for="import_export"> Import/Export</label>&nbsp;
+            <input type="radio" id="intermediate" value="intermediate" v-model="type" />
+            <label for="intermediate"> Intermediate</label>&nbsp;
         </div>
     </div>
 </template>
