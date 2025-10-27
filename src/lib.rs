@@ -126,6 +126,11 @@ impl GraphConfiguration {
         Ok(JsValue::null()) // XXX err result required.
     }
 
+    pub fn update_modifiers(&mut self, proc_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
+        self.wrapped.update_modifiers(proc_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+        Ok(JsValue::null()) // XXX err result required.
+    }
+
     pub fn get_processes(&self) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value(&self.wrapped.get_processes())?)
     }

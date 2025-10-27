@@ -1,14 +1,31 @@
 <script setup>
+import { watch, reactive } from 'vue';
 
 const emit = defineEmits(['cfg_update']);
 const { active_proc, cfg } = defineProps(['active_proc', 'cfg']);
 const proc = active_proc.process;
+
+class ModifierValues {
+  constructor(d, i, o) {
+    this.duration = d;
+    this.input = i;
+    this.output = o;
+  }
+}
+const modifiers = reactive(new ModifierValues(active_proc.duration_multiplier, active_proc.inputs_multiplier, active_proc.outputs_multiplier));
 
 function remove_process(cfg, id) {
   console.log("removing", id);
   cfg.remove_process(id);
   emit('cfg_update');
 }
+
+watch(modifiers, (value) => {
+  console.log("modifiers changed", proc.id, value, Number(value.duration), Number(value.input), Number(value.output));
+  cfg.update_modifiers(proc.id, Number(value.duration), Number(value.input), Number(value.output));
+  emit('cfg_update');
+});
+
 
 </script>
 
@@ -34,9 +51,9 @@ function remove_process(cfg, id) {
     </div>
     <div class="proc_buttons"><button @click="remove_process(cfg, proc.id)">Remove</button></div>
     <div>modifiers</div>
-    <div>{{ active_proc.duration_multiplier }}</div>
-    <div>{{ active_proc.inputs_multiplier }}</div>
-    <div>{{ active_proc.outputs_multiplier }}</div>
+    <input type="text" size="4" v-model="modifiers.duration"/>
+    <input type="text" size="4" v-model="modifiers.input"/>
+    <input type="text" size="4" v-model="modifiers.output"/>
   <hr class="proc_fw"/>
 </template>
 

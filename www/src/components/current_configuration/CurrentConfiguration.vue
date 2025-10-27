@@ -8,7 +8,7 @@ import { DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
 const emit = defineEmits(['cfg_update', 'make_item', 'use_item']);
 const { cfg } = defineProps(['cfg']);
 
-const currentConfigurationIsExpanded = ref(cfg.can_render())
+const currentConfigurationIsExpanded = ref(cfg.can_render());
 
 function handle_cfg_update() {
     console.log("CC handle_cfg_update");

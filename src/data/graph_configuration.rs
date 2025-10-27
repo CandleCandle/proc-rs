@@ -91,6 +91,11 @@ impl GraphConfiguration {
         self.processes.retain(|p| *p.id() != *id);
     }
 
+    pub fn update_modifiers(&mut self, proc_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
+        self.remove_process(&proc_id);
+        self.add_process(&proc_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+    }
+
     pub fn get_processes(&self) -> &Vec<ActiveProcess> {
         &self.processes
     }

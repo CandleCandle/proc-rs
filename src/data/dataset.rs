@@ -12,6 +12,7 @@ pub enum DataSet {
     Fac150,
     Fac200Se200,
     Dsp100,
+    Fac1194Se100,
 }
 
 pub enum ModifierStyle {
@@ -27,6 +28,7 @@ impl DataSet {
             DataSet::Fac150 => DataSetConf::new(DataSetStyle::Basic, "fac".into(), "1.5.0".into()),
             DataSet::Fac200Se200 => DataSetConf::modded(DataSetStyle::Basic, Versioned::new("fac".into(), "2.0.0".into()), Versioned::new("se".into(), "4.0.0".into())),
             DataSet::Dsp100 => DataSetConf::new(DataSetStyle::Basic, "dsp".into(), "1.0.0".into()),
+            DataSet::Fac1194Se100 => DataSetConf::modded(DataSetStyle::Basic, Versioned::new("factorio".into(), "1.1.94".into()), Versioned::new("se".into(), "1.0.0".into())),
         }
     }
 
@@ -36,6 +38,7 @@ impl DataSet {
             DataSet::params(DataSet::Fac150),
             DataSet::params(DataSet::Fac200Se200),
             DataSet::params(DataSet::Dsp100),
+            DataSet::params(DataSet::Fac1194Se100),
         )
     }
 
