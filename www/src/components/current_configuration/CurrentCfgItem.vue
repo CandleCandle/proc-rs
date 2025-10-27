@@ -50,24 +50,24 @@ watch(requirement_value, (value) => {
 
 
 <template>
-    <div>
-        icon {{ stack.display() }} ({{ stack.id() }})
+    <div v-tooltip="'id: ' + stack.id()">
+        [icon] {{ stack.display() }}
     </div>
     <div>
-        <button @click="emit('make_item', stack.id())">Make</button>
-        <button @click="emit('use_item', stack.id())">Use</button>
+        <button @click="emit('make_item', stack.id())" v-tooltip="'Search for processes that have ' + stack.display() + ' as an output.'">Make</button>
+        <button @click="emit('use_item', stack.id())" v-tooltip="'Search for processes that have ' + stack.display() + ' as an input.'">Use</button>
         &nbsp;
-        <input type="text" size="5" v-model="requirement_value" :disabled="type != DisplayItem.REQUIREMENT" />
+        <input type="text" size="5" v-model="requirement_value" :disabled="type != DisplayItem.REQUIREMENT" v-tooltip="'Set a requirement of X per second for ' + stack.display()"/>
         &nbsp;
-        <input type="radio" id="requirement" value="requirement" v-model="type" />
-        <label for="requirement"> Requirement</label>
+        <input type="radio" id="requirement" value="requirement" v-model="type"/>
+        <label for="requirement" v-tooltip="'Set ' + stack.display() + ' as a requirement'" > Requirement</label>
         &nbsp;
         <input type="radio" id="import_export" value="import_export" v-model="type" />
-        <label for="import_export"> Import/Export</label>
+        <label for="import_export" v-tooltip="'Use an infinite source or sink for ' + stack.display()" > Import/Export</label>
         &nbsp;
         <span>
         <input type="radio" id="intermediate" value="intermediate" v-model="type" />
-        <label for="intermediate"> Intermediate</label>
+        <label for="intermediate" v-tooltip="stack.display() + ' should have a net zero produce & consume'"> Intermediate</label>
         </span>
     </div>
 </template>

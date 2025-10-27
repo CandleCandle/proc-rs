@@ -1,7 +1,9 @@
-import './assets/main.css'
+import './assets/main.css';
 
-import App from './App.vue'
-import { createApp } from 'vue'
+import App from './App.vue';
+import { createApp } from 'vue';
+import FloatingVue from 'floating-vue'
+import 'floating-vue/dist/style.css'
 
 
 const scripts = ['https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.8.0/viz-lite.js']
@@ -15,7 +17,9 @@ scripts.forEach(script => {
             }
         });
 
-createApp(App).mount('#app');
+createApp(App)
+    .use(FloatingVue)
+    .mount('#app');
 
 // import('proc-rs').then(mod => {
 //     let app = createApp(App, {

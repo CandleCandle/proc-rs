@@ -16,8 +16,8 @@ function add_process(cfg, proc_id, duration_multiplier = 1, inputs_multiplier = 
 
 
 <template>
-  <div id="name">
-    {{ proc.display }} ({{ proc.id }})
+  <div id="name" v-tooltip="'id: ' + proc.id">
+    {{ proc.display }}
   </div>
   <div>
     {{ proc.duration }}s
@@ -25,13 +25,13 @@ function add_process(cfg, proc_id, duration_multiplier = 1, inputs_multiplier = 
   <div id="in">
     <div v-for="input in proc.inputs" class="proc_io">
       <div>{{ input.quantity }}</div>
-      <div>{{ input.item.display }} ({{ input.item.id }})</div>
+      <div v-tooltip="'id: ' + input.item.id">{{ input.item.display }}</div>
     </div>
   </div>
   <div id="out">
     <div v-for="output in proc.outputs" class="proc_io">
       <div>{{ output.quantity }}</div>
-      <div>{{ output.item.display }} ({{ output.item.id }})</div>
+      <div v-tooltip="'id: ' + output.item.id">{{ output.item.display }}</div>
     </div>
   </div>
   <div class="proc_buttons"><button @click="add_process(cfg, proc.id, duration_multiplier, inputs_multiplier, outputs_multiplier)">Add</button></div>

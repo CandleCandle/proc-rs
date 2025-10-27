@@ -14,8 +14,8 @@ function remove_process(cfg, id) {
 
 
 <template>
-    <div id="name">
-      {{ proc.display }} ({{ proc.id }})
+    <div id="name" v-tooltip="'id: ' + proc.id">
+      {{ proc.display }}
     </div>
     <div>
       {{ proc.duration }}s
@@ -23,13 +23,13 @@ function remove_process(cfg, id) {
     <div id="in">
       <div v-for="input in proc.inputs" class="proc_io">
         <div>{{ input.quantity }}</div>
-        <div>{{ input.item.display }} ({{ input.item.id }})</div>
+        <div v-tooltip="'id: ' + input.item.id">{{ input.item.display }}</div>
       </div>
     </div>
     <div id="out">
       <div v-for="output in proc.outputs" class="proc_io">
         <div>{{ output.quantity }}</div>
-        <div>{{ output.item.display }} ({{ output.item.id }})</div>
+        <div v-tooltip="'id: ' + output.item.id">{{ output.item.display }}</div>
       </div>
     </div>
     <div class="proc_buttons"><button @click="remove_process(cfg, proc.id)">Remove</button></div>
