@@ -209,7 +209,21 @@ impl DataParserRecipeLister {
         Ok(processes)
     }
 
-    fn extract_unmod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
+    // fn map<B, F>(self, f: F) -> Map<Self, F>
+    // where
+    //     Self: Sized,
+    //     F: FnMut(Self::Item) -> B,
+
+    fn extract_io<F>(
+        stacks: &Value,
+        items: &HashMap<String, Rc<Item>>,
+        id: &String,
+        k: &DataParserRecipeListerFiles,
+        mut quantity_calc: F,
+    ) -> Result<Vec<Stack>, String>
+    where
+        F: FnMut(f64, f64) -> f64,
+    {
         if stacks.as_object().is_some() {
             return Ok(Vec::new())
         }
@@ -231,38 +245,18 @@ impl DataParserRecipeLister {
                     .unwrap_or(Ok(0.0))?;
                 Ok(Stack{
                     item,
-                    quantity: ignored.min(quantity),
+                    quantity: quantity_calc(quantity, ignored),
                 })
             })
             .collect::<Result<Vec<Stack>, String>>()
     }
 
-    fn extract_mod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
-        if stacks.as_object().is_some() {
-            return Ok(Vec::new())
-        }
+    fn extract_unmod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
+        Self::extract_io(stacks, items, id, k, |q, i| i.min(q))
+    }
 
-        stacks.as_array().ok_or(format!("[{id}].\"ingredients|products\" from {k:?} was not an array or empty object"))?
-            .iter().enumerate()
-            .map(|(idx, stack)| {
-                // XXX work out how "extra_count_fraction" impacts this calculation.
-                let obj = stack.as_object().ok_or(format!("[{id}].\"ingredients|products\"[{idx}] from {k:?} was not an object"))?;
-                tracing::info!("{:?}", obj);
-                let item = items.get(
-                    obj.get("name").ok_or("todo!1")?
-                        .as_str().ok_or("todo!2")?
-                    ).ok_or(format!("unable to find item at [{id}].\"ingredients|products\"[{idx}] from {k:?}"))?
-                    .clone();
-                let quantity = obj.get("amount").ok_or("todo!4")?.as_f64().ok_or("todo!5")?;
-                let ignored = obj.get("ignored_by_productivity")
-                    .map(|v| -> Result<f64, &str> { v.as_f64().ok_or("todo!6") })
-                    .unwrap_or(Ok(0.0))?;
-                Ok(Stack{
-                    item,
-                    quantity: (quantity-ignored).max(0.0),
-                })
-            })
-            .collect::<Result<Vec<Stack>, String>>()
+    fn extract_mod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
+        Self::extract_io(stacks, items, id, k, |q, i| (q-i).max(0.0))
     }
 }
 
