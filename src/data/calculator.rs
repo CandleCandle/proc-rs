@@ -35,7 +35,10 @@ impl Calculator {
             ii.chain(oo).collect::<Vec<Rc<Item>>>()
         }).collect();
         let num_rows = all_proc_io.len(); // size of the set of all items that are inputs or outputs to the processes
-        let num_cols = gc.get_processes().len() + gc.get_imports_exports().len() + 1; // one column for each process, I/O, and an extra for the requirements
+        let num_cols = gc.get_processes().len()
+            + gc.get_imports_exports().len()
+            + gc.get_defaulted_items().len()
+            + 1; // one column for each process, I/O, and an extra for the requirements
 
         let mut result = DMatrix::from_element(num_rows, num_cols, 0.0);
 
@@ -59,15 +62,18 @@ impl Calculator {
         }
 
         // one column per input/output, set the value to 1.
+        // one column per defaulted input/output, set the value to 1.
         // net inputs will end up with -ive values in the reduced matrix.
         // net outputs will end up with +ive values in the reduced matrix.
-        for (io_idx, item) in gc.get_imports_exports().iter().enumerate() {
+        let defaulted = gc.get_defaulted_items();
+        for (io_idx, item) in gc.get_imports_exports().iter().chain(&defaulted).enumerate() {
             let mut col = DVector::from_element(num_rows, 0.0);
             for (row_idx, row_item) in all_proc_io.iter().enumerate() {
                 if item.id == row_item.id {
                     col[row_idx] = 1.0;
                 }
             }
+            println!("item: {}, {io_idx}, {item:?}, {col:?}", processes.len());
             result.set_column(processes.len() + io_idx, &col);
         }
 
@@ -441,6 +447,35 @@ mod test {
         let mut gc = fixtures::create_config();
         gc.add_requirement("part_2", 10.0);
         gc.add_import_export("part_1");
+        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.materials();
+        assert_eq!(actual.sum(&gc.item("part_1")).quantity, -50.0);
+        assert_eq!(actual.sum(&gc.item("part_2")).quantity, 10.0);
+    }
+
+
+    #[test]
+    fn it_creates_initial_for_1_to_1_with_defaulted_items() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_2", 10.0);
+        gc.add_process("one_to_one", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.initial_matrix();
+        let expected = DMatrix::from_row_slice(2, 3, &[
+            // proc io  req
+            -5.0, 1.0,  0.0, // p1
+             1.0, 0.0, 10.0, // p2
+        ]);
+        assert_eq!((actual.nrows(), actual.ncols()), (expected.nrows(), expected.ncols()), "Row/Column mismatch: {} is not equal to {}", actual, expected);
+        let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
+        assert!(equality, "{} is not equal to {} (epsilon: {})", actual, expected, 1e-10);
+    }
+
+    #[test]
+    fn it_adds_defaulted_as_import_exports() {
+        let mut gc = fixtures::create_config();
+        gc.add_requirement("part_2", 10.0);
         gc.add_process("one_to_one", 1.0, 1.0, 1.0);
         let calc = Calculator::generate(&gc);
         let actual = calc.materials();
