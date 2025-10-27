@@ -56,7 +56,10 @@ impl DataParser for DataParserBasic {
             processes.insert(id.clone(), Rc::new(Process {
                 id: id.clone(),
                 display: proc["i18n"]["en"].as_str().ok_or(format!("missing '.processes[{idx}].i18n.en' (id: {id})"))?.to_string(),
-                group: factory_groups.get(proc["group"].as_str().ok_or(format!("missing '.processes[{id}].group' (id: {id})"))?).unwrap().clone(),
+                group: factory_groups
+                    .get(proc["group"].as_str().ok_or(format!("missing '.processes[{id}].group' (id: {id})"))?)
+                    .ok_or(format!("unknown factory group for .processes[{id}].group"))?
+                    .clone(),
                 duration: proc["duration"].as_f64().ok_or(format!("missing '.processes[{idx}].duration' (id: {id})"))?,
                 inputs: proc["inputs"].as_object().ok_or(format!("missing '.processes[{idx}].inputs' (id: {id})"))?.iter().map(|(k, v)| Stack{
                     item: items.get(k).unwrap().clone(),
