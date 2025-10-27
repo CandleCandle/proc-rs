@@ -43,6 +43,12 @@ function handle_cfg_update() {
 body {
   display: block;
 }
+
+:root {
+    color-scheme: light dark;
+    --fg: light-dark(#333, #ccc);
+    --bg: light-dark(#fff, #333);
+}
 </style>
 
 <style scoped>

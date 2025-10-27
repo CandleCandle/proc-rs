@@ -11,6 +11,18 @@ const sample = `digraph sample {
   bgcolor = transparent
 
   A [
+    class="net-consumer"
+  ]
+  B [
+    class="net-equal"
+  ]
+  D [
+    class="net-equal"
+  ]
+  C [
+    class="net-producer"
+  ]
+  E [
     class="net-producer"
   ]
 
@@ -45,23 +57,29 @@ watch(cfg_fu, (value) => {
 
 <style>
 :root {
-    color-scheme: light dark;
-    --fg: light-dark(#333, #ccc);
-    --bg: light-dark(#fff, #333);
+    --item-net-producer-fg: light-dark(#fff, #fff);
     --item-net-producer-bg: light-dark(#f00, #f00);
+    --item-net-consumer-fg: light-dark(#333, #333);
     --item-net-consumer-bg: light-dark(#0f0, #0f0);
-    --item-net-equal-bg: light-dark(#333, #333);
+    --item-net-equal-fg: light-dark(#333, #fff);
+    --item-net-equal-bg: light-dark(#fff, #333);
 }
-
-/* body {
-    background-color: var(--bg);
-    color: var(--fg);
-    font-family: "Helvetica Neue";
-} */
 
 .node {
     stroke: var(--fg);
     fill: var(--bg);
+}
+.node.net-producer {
+    stroke: var(--item-net-producer-fg);
+    fill: var(--item-net-producer-bg);
+}
+.node.net-consumer {
+    stroke: var(--item-net-consumer-fg);
+    fill: var(--item-net-consumer-bg);
+}
+.node.net-equal {
+    stroke: var(--item-net-equal-fg);
+    fill: var(--item-net-equal-bg);
 }
 
 .edge {
@@ -70,8 +88,8 @@ watch(cfg_fu, (value) => {
 }
 
 g text {
-    fill: var(--fg);
-    stroke: var(--fg);
+    /* fill: inherit;
+    stroke: inherit; */
     font-family: inherit;
     font-size: 70%;
 }
