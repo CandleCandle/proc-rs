@@ -2,9 +2,7 @@
 import { ref, watch, toRefs } from 'vue';
 
 const props = defineProps(['cfg', 'item']);
-const emit = defineEmits(['cfg_update']);
-const { cfg, item } = props;//toRefs(props);
-console.log("cfg SRI", cfg, item);
+const { cfg, item } = defineEmits(['cfg_update']);
 
 const requirement_value = ref(null);
 
@@ -12,18 +10,14 @@ function add_requirement(cfg, item_id, value) {
     console.log("adding requirement", item_id, value, cfg);
     cfg.add_requirement(item_id, value);
     emit('cfg_update');
-    // somehow trigger vue to clear the search box and therefore the search results
 }
 
 function add_import_export(cfg, item_id) {
     console.log("adding import/export", item_id, cfg);
     cfg.add_import_export(item_id);
     emit('cfg_update');
-    // somehow trigger vue to clear the search box and therefore the search results
 }
-// watch(cfg, (value) => {
-//     console.log("cfg from watch SRI", value);
-// });
+
 </script>
 
 

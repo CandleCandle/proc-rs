@@ -2,11 +2,7 @@
 import { ref, watch, toRefs } from 'vue'
 
 const emit = defineEmits(['cfg_update']);
-const props = defineProps(['cfg', 'stack']);
-
-console.log("props", props);
-const { cfg, stack } = props;
-console.log('cfg', cfg, 'stack', stack);
+const { cfg, stack } = defineProps(['cfg', 'stack']);
 
 const requirement_value = ref(null);
 const type = ref(null);

@@ -115,6 +115,11 @@ impl GraphConfiguration {
         Ok(JsValue::null()) // XXX err result required.
     }
 
+    pub fn remove_process(&mut self, id: String) -> Result<JsValue, JsValue> {
+        self.processes.retain(|p| p.process.id != id);
+        Ok(JsValue::null()) // XXX err result required.
+    }
+
     pub fn get_processes(&self) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value(&self.processes)?)
     }

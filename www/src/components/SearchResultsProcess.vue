@@ -4,16 +4,12 @@ const emit = defineEmits(['cfg_update']);
 const props = defineProps(['cfg', 'proc']);
 const { cfg, proc } = toRefs(props);
 
-console.log("props", props);
-console.log("cfg SRP", cfg, proc);
-
 
 function add_process(cfg, proc_id, duration_multiplier = 1, inputs_multiplier = 1, outputs_multiplier = 1) {
     console.log("adding process", proc_id, duration_multiplier, inputs_multiplier, outputs_multiplier, cfg);
     let result = cfg.add_process(proc_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
     console.log("add process result", result, cfg, cfg.get_processes());
     emit('cfg_update');
-    // somehow trigger vue to clear the search box and therefore the search results
 }
 
 </script>

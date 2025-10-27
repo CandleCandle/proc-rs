@@ -3,9 +3,8 @@ import { ref, toRefs, watch } from 'vue';
 import CurrentCfgItem from './CurrentCfgItem.vue';
 import CurrentCfgProc from './CurrentCfgProc.vue';
 
-const props = defineProps(['cfg']);
-const { cfg } = props;
-console.log("cfg from CC", cfg);
+const emit = defineEmits(['cfg_update']);
+const { cfg } = defineProps(['cfg']);
 
 class DisplayReq {
     constructor(req) {
@@ -27,9 +26,12 @@ class DisplayIO {
     display() { return this.item.display; }
 }
 
-// watch(cfg, (value) => {
-//     console.log("cfg in CC", value, value.get_requirements(), value.get_imports_exports(), value.get_processes());
-// });
+
+function handle_cfg_update() {
+    console.log("CC handle_cfg_update");
+
+    emit('cfg_update');
+}
 
 function map_items(cfg) {
     let r = cfg.get_requirements()
@@ -39,7 +41,6 @@ function map_items(cfg) {
     let def = cfg.get_defaulted_items()
         .map(d => new DisplayIO(d));
     let result = r.concat(io).concat(def).sort((a, b) => a.display().localeCompare(b.display()));
-    console.log("display items", "req", r, "io", io, "result", result);
     return result;
 }
 </script>
@@ -51,16 +52,16 @@ function map_items(cfg) {
     <h3>Items</h3>
     <div>
         <hr v-if="map_items(cfg).length > 0" />
-        <CurrentCfgItem v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
+        <CurrentCfgItem @cfg_update="handle_cfg_update()" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
     </div>
     <h3>Processes</h3>
-    <div class="proc">
-        <hr class="proc_fw" v-if="cfg.get_processes().length > 0" />
+    <div class="proc" v-if="cfg.get_processes().length > 0">
+        <hr class="proc_fw" />
         <div class="proc_header_d">Duration</div>
         <div class="proc_header_i">Inputs</div>
         <div class="proc_header_o">Outputs</div>
-        <hr class="proc_fw" v-if="cfg.get_processes().length > 0" />
-        <CurrentCfgProc v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" />
+        <hr class="proc_fw" />
+        <CurrentCfgProc @cfg_update="handle_cfg_update()" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" />
     </div>
 </template>
 

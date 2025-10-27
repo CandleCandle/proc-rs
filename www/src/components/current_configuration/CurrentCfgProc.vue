@@ -1,9 +1,15 @@
 <script setup>
-// import { ref } from 'vue';
+
+const emit = defineEmits(['cfg_update']);
 const { active_proc, cfg } = defineProps(['active_proc', 'cfg']);
 const proc = active_proc.process;
-// const requirement_value = ref(null);
-console.log("active_proc from CCP", active_proc);
+
+function remove_process(cfg, id) {
+  console.log("removing", id);
+  cfg.remove_process(id);
+  emit('cfg_update');
+}
+
 </script>
 
 
