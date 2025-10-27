@@ -52,16 +52,17 @@ impl DataParserRecipeLister {
             }
         }
 
-        for (_, am) in parsed.get(&DataParserRecipeListerFiles::MiningDrill.to_key())
-            .ok_or(format!("missing json {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))?
+        let mining_drill_key = DataParserRecipeListerFiles::MiningDrill.to_key();
+        for (_, am) in parsed.get(&mining_drill_key)
+            .ok_or(format!("missing json {:?}", mining_drill_key))?
             .as_object()
-            .ok_or(format!("missing root object in {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))? {
+            .ok_or(format!("missing root object in {:?}", mining_drill_key))? {
             factory_groups.extend(
                 am.as_object()
-                    .ok_or(format!("missing root object in {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))?
+                    .ok_or(format!("missing root object in {:?}", mining_drill_key))?
                     ["resource_categories"]
                     .as_object()
-                    .ok_or(format!("missing resource_categories in {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))?
+                    .ok_or(format!("missing resource_categories in {:?}", mining_drill_key))?
                     .keys()
                     .map(|id| format!("resource-{id}"))
                     .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id})) ));
@@ -69,6 +70,48 @@ impl DataParserRecipeLister {
         Ok(factory_groups)
     }
 
+    fn extract_factories(parsed: &BTreeMap<String, Value>, factory_groups: &HashMap<String, Rc<FactoryGroup>>) -> Result<HashMap<String, Rc<Factory>>, String> {
+        let mut factories: HashMap<String, Rc<Factory>> = HashMap::new();
+
+        for k in &[
+            DataParserRecipeListerFiles::AssemblingMachines,
+            DataParserRecipeListerFiles::Furnace,
+            DataParserRecipeListerFiles::RocketSilo,
+            ] {
+            factories.extend(
+                parsed.get(&k.to_key())
+                    .ok_or(format!("missing json {k:?}"))?
+                    .as_object()
+                    .ok_or(format!("missing root object in {k:?}"))?
+                    .into_iter()
+                    .map(|(id, val)| -> Result<(String, Rc<Factory>), String> {
+                        let obj = val.as_object().unwrap();
+                        Ok((
+                            id.clone(),
+                            Rc::new(
+                                Factory{
+                                    id: obj.get("name")
+                                        .ok_or(format!("missing name in {:?} at {id}", k))?
+                                        .as_str().ok_or(format!("missing name in {:?} from {id} was not a string", k))?
+                                        .to_string(),
+                                    display: obj["name"].as_str().unwrap().to_string(), // TOOD import i18n
+                                    duration_multiplier: 1.0/obj["crafting_speed"].as_f64().unwrap(),
+                                    inputs_multiplier: 1.0,
+                                    outputs_multiplier: 1.0,
+                                    groups: obj["crafting_categories"].as_object().unwrap()
+                                        .keys()
+                                        .map(|cc_key| factory_groups.get(cc_key).unwrap().clone())
+                                        .collect()
+                                }
+                            )
+                        ))
+                    })
+                    .collect::<Result<Vec<(String, Rc<Factory>)>, String>>()?
+            )
+        }
+
+        Ok(factories)
+    }
 }
 
 impl DataParser for DataParserRecipeLister {
@@ -86,8 +129,9 @@ impl DataParser for DataParserRecipeLister {
             parsed.insert(k.clone(), serde_json::from_str(&v).map_err(|e| format!("{e}"))?);
         }
 
-        let factory_groups = DataParserRecipeLister::extract_factory_groups(&parsed)?;
-        let factories: HashMap<String, Rc<Factory>> = HashMap::new();
+        let factory_groups = Self::extract_factory_groups(&parsed)?;
+        // let factories: HashMap<String, Rc<Factory>> = HashMap::new();
+        let factories = Self::extract_factories(&parsed, &factory_groups)?;
         let processes: HashMap<String, Rc<Process>> = HashMap::new();
         let items: HashMap<String, Rc<Item>> = HashMap::new();
 
@@ -126,6 +170,16 @@ mod test {
 
     use super::*;
 
+    fn setup_tracing() {
+        tracing_subscriber::registry()
+            .with(tracing_subscriber::fmt::Layer::default()
+            .with_ansi(true)
+            .with_writer(std::io::stdout)
+            .compact())
+            .try_init().map_err(|e| e.to_string())
+            .unwrap();
+    }
+
     fn create_input_fixture() -> BTreeMap<String, String> {
         let mut jsons = BTreeMap::new();
         jsons.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key().to_string(), load_fixture("fixtures/assembling-machine.json").to_string());
@@ -136,15 +190,7 @@ mod test {
     }
 
     #[test]
-    fn it_loads_factory_groups() {
-        tracing_subscriber::registry()
-            .with(tracing_subscriber::fmt::Layer::default()
-            .with_ansi(true)
-            .with_writer(std::io::stdout)
-            .compact())
-            .try_init().map_err(|e| e.to_string())
-            .unwrap();
-
+    fn it_loads_all_factory_groups() {
         let mut jsons = create_input_fixture();
         let res = DataParserRecipeLister{}.parse(&mut jsons);
         let r = res.unwrap();
@@ -166,5 +212,46 @@ mod test {
             "rocket-building",
             "smelting",
         ])
+    }
+
+    #[test]
+    fn it_loads_all_factories() {
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        assert_eq!(r.factories.values().map(|fg| fg.id.clone()).sorted().collect::<Vec<String>>(), &[
+            "assembling-machine-1",
+            "assembling-machine-3",
+            "big-mining-drill",
+            "centrifuge",
+            "electric-furnace",
+            "electric-mining-drill",
+            "pumpjack",
+            "recycler",
+            "rocket-silo",
+            "steel-furnace",
+        ])
+    }
+
+    #[test]
+    fn it_loads_info_for_factories() {
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        let factory = r.factories.get("assembling-machine-3").unwrap();
+
+        assert_eq!(factory.id, "assembling-machine-3");
+        assert_eq!(factory.display, "assembling-machine-3");
+        assert_eq!(factory.duration_multiplier, 0.8);
+        assert_eq!(factory.inputs_multiplier, 1.0);
+        assert_eq!(factory.outputs_multiplier, 1.0);
+        assert_eq!(factory.groups.iter().map(|g| g.id.clone()).collect::<Vec<String>>(), &[
+            "advanced-crafting",
+            "basic-crafting",
+            "crafting",
+            "crafting-with-fluid",
+            "electronics",
+            "parameters",
+        ]);
     }
 }
