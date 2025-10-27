@@ -6,8 +6,8 @@ use serde::{Deserialize, Serialize};
 use crate::data::dataset::DataSetConf;
 
 pub trait DataParser {
-    fn parse(&self, jsons: &mut BTreeMap<&str, String>) -> Result<Data, String>;
-    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<&str, String>;
+    fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String>;
+    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<String, String>;
 }
 
 #[derive(Debug, Clone, PartialEq)]

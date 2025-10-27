@@ -11,23 +11,23 @@ pub enum DataParserBasicFiles {
     Main,
 }
 impl DataParserBasicFiles {
-    pub fn to_key(&self) -> &str {
+    pub fn to_key(&self) -> String {
         match &self {
-            Self::Main => "main",
+            Self::Main => "main".to_string(),
         }
     }
 }
 
 pub struct DataParserBasic {}
 impl DataParser for DataParserBasic {
-    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<&str, String> {
+    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<String, String> {
         let mut result = BTreeMap::new();
         result.insert(DataParserBasicFiles::Main.to_key(), format!("{}.json", conf.id()));
         result
     }
 
-    fn parse(&self, jsons: &mut BTreeMap<&str, String>) -> Result<Data, String> {
-        let json = jsons.remove(DataParserBasicFiles::Main.to_key()).unwrap();
+    fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String> {
+        let json = jsons.remove(&DataParserBasicFiles::Main.to_key()).unwrap();
         let outer: Value = serde_json::from_str(&json).map_err(|e| format!("{e}"))?;
 
         let items_res: Result<Vec<Rc<Item>>, String> = outer["items"].as_array().ok_or("missing '.items'")?.iter()

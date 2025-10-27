@@ -16,19 +16,19 @@ pub enum DataParserRecipeListerFiles {
     MiningDrill,
 }
 impl DataParserRecipeListerFiles {
-    pub fn to_key(&self) -> &str {
+    pub fn to_key(&self) -> String {
         match &self {
-            Self::AssemblingMachines => "AssemblingMachines",
-            Self::Furnace => "Furnace",
-            Self::RocketSilo => "RocketSilo",
-            Self::MiningDrill => "MiningDrill",
+            Self::AssemblingMachines => "AssemblingMachines".to_string(),
+            Self::Furnace => "Furnace".to_string(),
+            Self::RocketSilo => "RocketSilo".to_string(),
+            Self::MiningDrill => "MiningDrill".to_string(),
         }
     }
 }
 
 pub struct DataParserRecipeLister {}
 impl DataParser for DataParserRecipeLister {
-    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<&str, String> {
+    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<String, String> {
         let mut result = BTreeMap::new();
         result.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), format!("{}/assembling-machine.json", conf.id()));
         result.insert(DataParserRecipeListerFiles::Furnace.to_key(), format!("{}/furnace.json", conf.id()));
@@ -36,10 +36,10 @@ impl DataParser for DataParserRecipeLister {
         result
     }
 
-    fn parse(&self, jsons: &mut BTreeMap<&str, String>) -> Result<Data, String> {
-        let mut parsed: BTreeMap<&str, Value> = BTreeMap::new();
+    fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String> {
+        let mut parsed: BTreeMap<String, Value> = BTreeMap::new();
         for (k, v) in jsons.iter() {
-            parsed.insert(k, serde_json::from_str(&v).map_err(|e| format!("{e}"))?);
+            parsed.insert(k.clone(), serde_json::from_str(&v).map_err(|e| format!("{e}"))?);
         }
 
         let mut factory_groups: HashMap<String, Rc<FactoryGroup>> = HashMap::new();
@@ -52,7 +52,7 @@ impl DataParser for DataParserRecipeLister {
             DataParserRecipeListerFiles::Furnace,
             DataParserRecipeListerFiles::RocketSilo,
             ] {
-            for (_, am) in parsed.get(k.to_key())
+            for (_, am) in parsed.get(&k.to_key())
                 .ok_or(format!("missing json {k:?}"))?
                 .as_object()
                 .ok_or(format!("missing root object in {k:?}"))? {
@@ -67,7 +67,7 @@ impl DataParser for DataParserRecipeLister {
             }
         }
 
-        for (_, am) in parsed.get(DataParserRecipeListerFiles::MiningDrill.to_key())
+        for (_, am) in parsed.get(&DataParserRecipeListerFiles::MiningDrill.to_key())
             .ok_or(format!("missing json {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))?
             .as_object()
             .ok_or(format!("missing root object in {:?}", DataParserRecipeListerFiles::MiningDrill.to_key()))? {
@@ -118,121 +118,14 @@ mod test {
 
     use super::*;
 
-    // fn simple_item_fixture() -> &'static str {
-    //     r#"
-    //         {
-    //             "items": [
-    //                 {
-    //                     "id": "part_a",
-    //                     "group": "thing",
-    //                     "i18n": {
-    //                         "en": "Part A"
-    //                     }
-    //                 }
-    //             ],
-    //             "factories": [ ],
-    //             "processes": [ ]
-    //         }
-    //     "#
-    // }
-
-    // fn missing_item_id_fixture() -> &'static str {
-    //     r#"
-    //         {
-    //             "items": [
-    //                 {
-    //                     "group": "thing",
-    //                     "i18n": {
-    //                         "en": "Part A"
-    //                     }
-    //                 }
-    //             ],
-    //             "factories": [ ],
-    //             "processes": [ ]
-    //         }
-    //     "#
-    // }
-
-    // fn simple_factory_fixture() -> &'static str {
-    //     r#"
-    //         {
-    //             "items": [ ],
-    //             "processes": [ ],
-    //             "factories": [
-    //                 {
-    //                     "id": "main",
-    //                     "i18n": {
-    //                         "en": "Main"
-    //                     },
-    //                     "factory_groups": [
-    //                         "default"
-    //                     ],
-    //                     "duration_modifier": 1,
-    //                     "output_modifier": 1
-    //                 }
-    //             ]
-    //         }
-    //     "#
-    // }
-
-    // fn simple_process_fixture() -> &'static str {
-    //     r#"
-    //         {
-    //             "items": [
-    //                 {
-    //                     "id": "part_a",
-    //                     "group": "thing",
-    //                     "i18n": {
-    //                         "en": "Part A"
-    //                     }
-    //                 },
-    //                 {
-    //                     "id": "part_b",
-    //                     "group": "thing",
-    //                     "i18n": {
-    //                         "en": "Part B"
-    //                     }
-    //                 }
-    //             ],
-    //             "factories": [
-    //                 {
-    //                     "id": "main",
-    //                     "i18n": {
-    //                         "en": "Main"
-    //                     },
-    //                     "factory_groups": [
-    //                         "default"
-    //                     ],
-    //                     "duration_modifier": 1,
-    //                     "output_modifier": 1
-    //                 }
-    //             ],
-    //             "processes": [
-    //                 {
-    //                     "id": "make_b",
-    //                     "i18n": {
-    //                         "en": "Make B"
-    //                     },
-    //                     "duration": 5,
-    //                     "group": "default",
-    //                     "inputs": {
-    //                         "part_a": 1
-    //                     },
-    //                     "outputs": {
-    //                         "part_b": 2
-    //                     }
-    //                 }
-    //             ]
-    //         }
-    //     "#
-    // }
-
-    // #[test]
-    // fn simple_item_get_by_id() {
-    //     todo!()
-    //     // assert_eq!(i.display, "Part A");
-    //     // assert_eq!(i.classification, Classification::Solid);
-    // }
+    fn create_input_fixture() -> BTreeMap<String, String> {
+        let mut jsons = BTreeMap::new();
+        jsons.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key().to_string(), load_fixture("fixtures/assembling-machine.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::Furnace.to_key().to_string(), load_fixture("fixtures/furnace.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::RocketSilo.to_key().to_string(), load_fixture("fixtures/rocket-silo.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::MiningDrill.to_key().to_string(), load_fixture("fixtures/mining-drill.json").to_string());
+        jsons
+    }
 
     #[test]
     fn it_loads_factory_groups() {
@@ -244,11 +137,7 @@ mod test {
             .try_init().map_err(|e| e.to_string())
             .unwrap();
 
-        let mut jsons = BTreeMap::new();
-        jsons.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), load_fixture("fixtures/assembling-machine.json").to_string());
-        jsons.insert(DataParserRecipeListerFiles::Furnace.to_key(), load_fixture("fixtures/furnace.json").to_string());
-        jsons.insert(DataParserRecipeListerFiles::RocketSilo.to_key(), load_fixture("fixtures/rocket-silo.json").to_string());
-        jsons.insert(DataParserRecipeListerFiles::MiningDrill.to_key(), load_fixture("fixtures/mining-drill.json").to_string());
+        let mut jsons = create_input_fixture();
         let res = DataParserRecipeLister{}.parse(&mut jsons);
         let r = res.unwrap();
 
