@@ -1,12 +1,14 @@
 <script setup>
 import { ref, toRefs, watch } from 'vue';
+import { Collapse } from 'vue-collapsed';
 import CurrentCfgItem from './CurrentCfgItem.vue';
 import CurrentCfgProc from './CurrentCfgProc.vue';
-import { DisplayItem, DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
+import { DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
 
 const emit = defineEmits(['cfg_update', 'make_item', 'use_item']);
 const { cfg } = defineProps(['cfg']);
 
+const currentConfigurationIsExpanded = ref(cfg.can_render())
 
 function handle_cfg_update() {
     console.log("CC handle_cfg_update");
@@ -55,22 +57,27 @@ function map_items(cfg) {
 
 
 <template>
-    <div><h2>Current Configuration</h2></div>
-    <h3>Data Set ID</h3>
-    <h3>Items</h3>
-    <div class="items">
-        <hr class="items_fw" v-if="map_items(cfg).length > 0" />
-        <CurrentCfgItem @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
-    </div>
-    <h3>Processes</h3>
-    <div class="proc" v-if="cfg.get_processes().length > 0">
-        <hr class="proc_fw" />
-        <div class="proc_header_d">Duration</div>
-        <div class="proc_header_i">Inputs</div>
-        <div class="proc_header_o">Outputs</div>
-        <hr class="proc_fw" />
-        <CurrentCfgProc @cfg_update="handle_cfg_update()" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" />
-    </div>
+    <div><h2>Current Configuration <button @click="currentConfigurationIsExpanded = !currentConfigurationIsExpanded">{{ currentConfigurationIsExpanded ? '\\/' : '>' }}</button></h2></div>
+
+    <Collapse class="input_options" :when="currentConfigurationIsExpanded">
+        <h3>Data Set</h3>
+        <hr />
+
+        <h3>Items</h3>
+        <div class="items">
+            <hr class="items_fw" v-if="map_items(cfg).length > 0" />
+            <CurrentCfgItem @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
+        </div>
+        <h3>Processes</h3>
+        <div class="proc" v-if="cfg.get_processes().length > 0">
+            <hr class="proc_fw" />
+            <div class="proc_header_d">Duration</div>
+            <div class="proc_header_i">Inputs</div>
+            <div class="proc_header_o">Outputs</div>
+            <hr class="proc_fw" />
+            <CurrentCfgProc @cfg_update="handle_cfg_update()" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" />
+        </div>
+    </Collapse>
 </template>
 
 <style scoped>

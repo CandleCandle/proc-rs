@@ -2,7 +2,8 @@
 import SearchResultsItem from './SearchResultsItem.vue';
 import CurrentConfiguration from './current_configuration/CurrentConfiguration.vue';
 import SearchResultsProcess from './SearchResultsProcess.vue';
-import { ref, shallowRef, triggerRef, watch, defineProps, toRefs } from 'vue';
+import { Collapse } from 'vue-collapsed';
+import { ref, watch, defineProps, toRefs } from 'vue';
 import { dataset_all } from 'proc-rs';
 
 
@@ -10,6 +11,9 @@ const emit = defineEmits(['cfg_update']);
 const props = defineProps(['cfg', 'cfg_fu']);
 const { _0, cfg_fu } = toRefs(props);
 const { cfg, _1 } = props;
+
+const getStartedIsExpanded = ref(!cfg.can_render());
+const searchResultsIsExpanded = ref(false);
 
 let available = dataset_all();
 console.log("available data", available);
@@ -40,9 +44,12 @@ watch(searchProcess, (value) => {
         console.log("search results processes", searchResultsProcesses);
     }
 });
-// watch(cfg, (value) => {
-//     console.log("cfg", value, value.get_requirements(), value.get_imports_exports(), value.get_processes());
-// });
+watch(searchResultsItems, (value) => {
+    searchResultsIsExpanded.value = searchResultsProcesses.value.length > 0 || value.length > 0
+});
+watch(searchResultsProcesses, (value) => {
+    searchResultsIsExpanded.value = searchResultsItems.value.length > 0 || value.length > 0
+});
 
 function handle_cfg_update() {
     console.log("C handle_cfg_update");
@@ -50,6 +57,7 @@ function handle_cfg_update() {
     searchResultsProcesses.value = [];
     searchItem.value = '';
     searchResultsItems.value = [];
+    getStartedIsExpanded.value = false;
     emit('cfg_update');
 }
 
@@ -66,8 +74,8 @@ function handle_use_item(item_id) {
 </script>
 
 <template>
-    <div><h2>Get Started</h2></div>
-    <div class="input_options">
+    <div><h2>Get Started <button @click="getStartedIsExpanded = !getStartedIsExpanded">{{ getStartedIsExpanded ? '\\/' : '>' }}</button></h2></div>
+    <Collapse class="input_options" :when="getStartedIsExpanded">
         <div><label for="selectDataSet">Data Set:</label></div>
         <div>
             <select v-model="dataSetId">
@@ -79,7 +87,10 @@ function handle_use_item(item_id) {
         <div><input id="item_search" type="text" :disabled="dataSetId == ''" v-model="searchItem" /></div>
         <div><label for="process_search"> Process Search:</label></div>
         <div><input id="process_search" type="text" :disabled="dataSetId == ''" v-model="searchProcess" /></div>
+    </Collapse>
 
+    <Collapse class="input_options" :when="searchResultsIsExpanded">
+        <h2 class="input_options_fw">Search Results</h2>
         <SearchResultsItem @cfg_update="handle_cfg_update" v-for="item in searchResultsItems" :item="item" :cfg="cfg" />
         <div class="search_results">
             <div class="proc">
@@ -91,7 +102,7 @@ function handle_use_item(item_id) {
                 <SearchResultsProcess @cfg_update="handle_cfg_update" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" />
             </div>
         </div>
-    </div>
+    </Collapse>
     <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" :key="cfg_fu" :cfg="cfg" />
 </template>
 
@@ -101,6 +112,10 @@ function handle_use_item(item_id) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+}
+.input_options_fw {
+    grid-column-start: 1;
+    grid-column-end: span 2;
 }
 .search_results {
     grid-column-start: 1;
