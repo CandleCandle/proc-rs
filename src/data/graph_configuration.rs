@@ -40,6 +40,10 @@ impl GraphConfiguration {
         self.current_data.as_ref().unwrap().item(id).unwrap()
     }
 
+    pub fn get_current_data_set(&self) -> Option<DataSetConf> {
+        self.current_data_set.clone()
+    }
+
     pub fn can_render(&self) -> bool {
         !self.processes.is_empty()
     }

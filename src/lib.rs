@@ -74,6 +74,10 @@ impl GraphConfiguration {
         }
     }
 
+    pub fn get_current_data_set(&self) -> Option<DataSetConf> {
+        self.wrapped.get_current_data_set()
+    }
+
     pub fn can_render(&self) -> Result<JsValue, JsValue> {
         Ok(JsValue::from_bool(self.wrapped.can_render()))
     }

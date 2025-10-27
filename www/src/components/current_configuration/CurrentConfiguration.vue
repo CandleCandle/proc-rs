@@ -62,12 +62,14 @@ function map_items(cfg) {
     <Collapse class="input_options" :when="currentConfigurationIsExpanded">
         <h3>Data Set</h3>
         <hr />
-
+        <span>{{ cfg.get_current_data_set() ? cfg.get_current_data_set().description() : "" }}</span>
+        <br /><br />
         <h3>Items</h3>
         <div class="items">
             <hr class="items_fw" v-if="map_items(cfg).length > 0" />
             <CurrentCfgItem @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
         </div>
+        <br /><br />
         <h3>Processes</h3>
         <div class="proc" v-if="cfg.get_processes().length > 0">
             <hr class="proc_fw" />
