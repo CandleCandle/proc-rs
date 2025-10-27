@@ -36,7 +36,10 @@ watch(cfg_fu, (value) => {
     if (cfg.can_render()) {
         console.log("rendering");
         cfg.calculate();
+        console.log("initial", cfg.get_initial_matrix());
+        console.log("reduced", cfg.get_reduced_matrix());
         let content = cfg.to_digraph();
+        console.log("graph", content);
         let inner = Viz(
             content,
             {
@@ -85,7 +88,7 @@ watch(cfg_fu, (value) => {
 }
 
 .edge {
-    fill: var(--bg);
+    fill-opacity: 0.0;
     stroke: var(--fg);
 }
 

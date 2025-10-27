@@ -1,12 +1,14 @@
 use std::{rc::Rc};
 
 
+use nalgebra::{DMatrix, Scalar};
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::{prelude::JsValue, JsCast};
 
 use wasm_bindgen_futures::JsFuture;
 use web_sys::{Request, RequestInit, RequestMode, Response};
 
+use serde::{Deserialize, Serialize};
 use serde_wasm_bindgen;
 
 pub mod data;
@@ -151,6 +153,36 @@ impl GraphConfiguration {
         match &self.calculator {
             Some(c) => Ok(serde_wasm_bindgen::to_value(&c.to_digraph())?),
             None => Err(serde_wasm_bindgen::to_value("no calculator")?)
+        }
+    }
+    pub fn get_initial_matrix(&self) -> Result<JsValue, JsValue> {
+        match &self.calculator {
+            Some(c) => Ok(serde_wasm_bindgen::to_value(&SendableMatrix::from(c.initial_matrix()))?),
+            None => Err(serde_wasm_bindgen::to_value("no calculator")?)
+        }
+    }
+    pub fn get_reduced_matrix(&self) -> Result<JsValue, JsValue> {
+        match &self.calculator {
+            Some(c) => Ok(serde_wasm_bindgen::to_value(&SendableMatrix::from(c.reduced_matrix()))?),
+            None => Err(serde_wasm_bindgen::to_value("no calculator")?)
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct SendableMatrix<T> {
+    r: usize,
+    c: usize,
+    data: Vec<T>
+}
+impl <T> From<&DMatrix<T>> for SendableMatrix<T>
+    where T: Scalar
+    {
+    fn from(m: &DMatrix<T>) -> SendableMatrix<T> {
+        SendableMatrix {
+            r: m.nrows(),
+            c: m.ncols(),
+            data: m.transpose().as_slice().to_vec(),
         }
     }
 }
