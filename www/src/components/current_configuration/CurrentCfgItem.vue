@@ -57,7 +57,9 @@ watch(requirement_value, (value) => {
         <button @click="emit('make_item', stack.id())" v-tooltip="'Search for processes that have ' + stack.display() + ' as an output.'">Make</button>
         <button @click="emit('use_item', stack.id())" v-tooltip="'Search for processes that have ' + stack.display() + ' as an input.'">Use</button>
         &nbsp;
-        <input type="text" size="5" v-model="requirement_value" :disabled="type != DisplayItem.REQUIREMENT" v-tooltip="'Set a requirement of X per second for ' + stack.display()"/>
+        <input type="text" size="5" v-model.lazy.number="requirement_value" :disabled="type != DisplayItem.REQUIREMENT"
+            v-tooltip="'Set a requirement of X per second for ' + stack.display() + (type == DisplayItem.REQUIREMENT ? '' : ' (disabled because ' + stack.display() + ' is not marked as a requirement)')"
+        />
         &nbsp;
         <input type="radio" id="requirement" value="requirement" v-model="type"/>
         <label for="requirement" v-tooltip="'Set ' + stack.display() + ' as a requirement'" > Requirement</label>

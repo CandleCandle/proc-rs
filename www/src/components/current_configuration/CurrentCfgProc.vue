@@ -51,9 +51,9 @@ watch(modifiers, (value) => {
     </div>
     <div class="proc_buttons"><button @click="remove_process(cfg, proc.id)">Remove</button></div>
     <div>modifiers</div>
-    <input type="text" size="4" v-model="modifiers.duration"/>
-    <input type="text" size="4" v-model="modifiers.input"/>
-    <input type="text" size="4" v-model="modifiers.output"/>
+    <input type="text" size="4" v-model.lazy.number="modifiers.duration"/>
+    <input type="text" size="4" v-model.lazy.number="modifiers.input"/>
+    <input type="text" size="4" v-model.lazy.number="modifiers.output"/>
   <hr class="proc_fw"/>
 </template>
 
