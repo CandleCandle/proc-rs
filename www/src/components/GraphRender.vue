@@ -35,8 +35,10 @@ const sample = `digraph sample {
 watch(cfg_fu, (value) => {
     if (cfg.can_render()) {
         console.log("rendering");
+        cfg.calculate();
+        let content = cfg.to_digraph();
         let inner = Viz(
-            sample,
+            content,
             {
                 format: 'svg',
                 engine: 'dot'

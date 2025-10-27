@@ -13,6 +13,7 @@ pub mod data;
 use data::model::{Item, Process};
 use data::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
 
+use crate::data::calculator::Calculator;
 use crate::data::dataset::{DataSet, DataSetConf};
 
 #[wasm_bindgen]
@@ -38,6 +39,7 @@ pub fn dataset_all() -> Vec<DataSetConf> {
 #[wasm_bindgen]
 pub struct GraphConfiguration {
     wrapped: GraphConfigurationLib,
+    calculator: Option<Calculator>,
 }
 
 struct RequestFetcher {}
@@ -65,6 +67,7 @@ impl GraphConfiguration {
     pub fn new() -> GraphConfiguration {
         GraphConfiguration {
             wrapped: GraphConfigurationLib::new(),
+            calculator: None,
         }
     }
 
@@ -139,5 +142,15 @@ impl GraphConfiguration {
         Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Process>>>(
             &self.wrapped.search_processes(&search).map_err(|e| JsValue::from_str(&e))?
         )?)
+    }
+
+    pub fn calculate(&mut self) {
+        self.calculator = Some(Calculator::generate(&self.wrapped));
+    }
+    pub fn to_digraph(&self) -> Result<JsValue, JsValue> {
+        match &self.calculator {
+            Some(c) => Ok(serde_wasm_bindgen::to_value(&c.to_digraph())?),
+            None => Err(serde_wasm_bindgen::to_value("no calculator")?)
+        }
     }
 }

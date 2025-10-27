@@ -1,6 +1,6 @@
 use std::{collections::{BTreeMap, BTreeSet}, rc::Rc};
 
-use graphviz_rust::{attributes::{normalize, shape, EdgeAttributes, NodeAttributes}, dot_generator::{attr, id, node, node_id}, dot_structures::{Attribute, Edge, EdgeTy, Graph, Id, Node, NodeId, Port, Stmt, Vertex}, printer::{DotPrinter, PrinterContext}};
+use graphviz_rust::{attributes::{NodeAttributes}, dot_generator::{attr, id}, dot_structures::{Attribute, Edge, EdgeTy, Graph, Id, Node, NodeId, Port, Stmt, Vertex}, printer::{DotPrinter, PrinterContext}};
 use itertools::Itertools;
 use nalgebra::{DMatrix, DVector};
 
