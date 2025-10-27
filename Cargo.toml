@@ -30,6 +30,8 @@ tracing-subscriber = "0.3.19"
 nalgebra = "0.34.0"
 tabled = "0.20.0"
 tempdir = "0.3"
+graphviz-rust = "0.9.5"
+itertools = "0.14.0"
 
 [dependencies.web-sys]
 version = "0.3.77"

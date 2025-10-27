@@ -38,6 +38,9 @@ struct Args {
     #[arg(short='p', long="process")]
     processes: Vec<String>,
 
+    /// Path to write the graph description
+    #[arg(short='g', long="graph-out")]
+    graph: Option<PathBuf>,
 }
 
 fn main() -> Result<(), String> {
@@ -101,7 +104,12 @@ fn main() -> Result<(), String> {
     tracing::info!("reduced matrix {}", calc.reduced_matrix());
     tracing::info!("process counts \n{}", make_process_count_table(&calc.process_counts()));
     tracing::info!("materials\n{}", make_materials_count_table(&calc.materials()));
+    tracing::info!("graph\n{}", calc.to_digraph());
 
+    if args.graph.is_some() {
+        fs::write(args.graph.unwrap(), calc.to_digraph())
+            .map_err(|e| e.to_string())?;
+    }
     Ok(())
 }
 

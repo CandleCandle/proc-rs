@@ -1,9 +1,12 @@
 use std::{collections::{BTreeMap, BTreeSet}, rc::Rc};
 
+use graphviz_rust::{attributes::{normalize, shape, EdgeAttributes, NodeAttributes}, dot_generator::{attr, id, node, node_id}, dot_structures::{Attribute, Edge, EdgeTy, Graph, Id, Node, NodeId, Port, Stmt, Vertex}, printer::{DotPrinter, PrinterContext}};
+use itertools::Itertools;
 use nalgebra::{DMatrix, DVector};
 
 use crate::data::{graph_configuration::GraphConfiguration, model::{ActiveProcess, Item, StackSet}};
 
+use regex::{self, Regex};
 
 pub struct Calculator {
     gc: GraphConfiguration,
@@ -152,6 +155,133 @@ impl Calculator {
             }
         }
         result
+    }
+}
+
+impl Calculator {
+    fn normalise_id(id: &str) -> String {
+        let replace_invalid = Regex::new(r"[^a-zA-Z0-9_]").unwrap();
+        let result = replace_invalid.replace_all(id, "_");
+        let invalid_start = Regex::new(r"^[0-9]").unwrap();
+        if invalid_start.is_match(&result) {
+            return format!("id_{}", result);
+        }
+        result.to_string()
+    }
+
+    fn make_process_id(ap: &ActiveProcess) -> Id {
+        Id::Plain(
+            Self::normalise_id(
+                format!("process_{}", &ap.id()).as_str()
+            ).to_string()
+        )
+    }
+
+    pub fn to_digraph(&self) -> String {
+        let mut graph = Graph::DiGraph { id: Id::Plain("map".into()), strict: true, stmts: Vec::new() };
+
+        let materials = self.materials();
+        for mat in materials.contained_items() {
+            graph.add_stmt(Stmt::Node(
+                Node {
+                    id: NodeId{ 0: Id::Plain(Self::normalise_id(&mat.id)), 1: Option::None },
+                    attributes: vec![
+                        attr!("shape", "record"),
+                        // net-consumer / net-producer / net-equal
+                        NodeAttributes::class("net_p_c".to_string()),
+                        NodeAttributes::label(format!(
+                            "\"\
+                              {{ {{<produce> produce {:.2}/s }} \
+                            | {{ {} }} \
+                            | {{<consume> consume {:.2}/s }} }}\
+                            \"",
+                            materials.sum_positive(&mat).quantity,
+                            mat.display,
+                            materials.sum_negative(&mat).quantity * -1.0
+                        ))
+                    ]
+                }
+            ));
+        }
+        let counts = self.process_counts();
+        for proc in self.gc.get_processes() {
+            let proc_count = counts.get(proc.id()).unwrap();
+            let proc_id = Self::make_process_id(proc);
+            let inputs = proc.inputs();
+            let outputs = proc.outputs();
+            let inputs_line = inputs.iter().enumerate()
+                .map(|(idx, i)| format!("<i{}> {} ({:.2}/s)", idx, i.item.display, i.quantity * proc_count))
+                .join(" | ");
+            let outputs_line = outputs.iter().enumerate()
+                .map(|(idx, i)| format!("<o{}> {} ({:.2}/s)", idx, i.item.display, i.quantity * proc_count))
+                .join(" | ");
+            graph.add_stmt(Stmt::Node(
+                Node {
+                    id: NodeId{
+                        0: proc_id.clone(),
+                        1: Option::None
+                    },
+                    attributes: vec![
+                        attr!("shape", "record"),
+                        NodeAttributes::label(format!(
+                            "\" {{\
+                              {{ {} }} \
+                            | {} \
+                            | {{ {} }} \
+                            }}\"",
+                            inputs_line,
+                            proc.id(), // TODO use .display()
+                            outputs_line,
+                        ))
+                    ],
+                }
+            ));
+            for (idx, input) in inputs.iter().enumerate() {
+                graph.add_stmt(Stmt::Edge(
+                    Edge {
+                        ty: EdgeTy::Pair(
+                            Vertex::N(NodeId{
+                                0: Id::Plain(Self::normalise_id(&input.item.id)),
+                                1: Some(Port{
+                                    0: Some(Id::Plain("consume".to_string())),
+                                    1: None})
+                            }),
+                            Vertex::N(NodeId{
+                                0: proc_id.clone(),
+                                1: Some(Port{
+                                    0: Some(Id::Plain(format!("i{}", idx))),
+                                    1: None})
+                            }),
+                        ),
+                        attributes: vec![],
+                    }
+                ));
+            }
+
+            for (idx, output) in outputs.iter().enumerate() {
+                graph.add_stmt(Stmt::Edge(
+                    Edge {
+                        ty: EdgeTy::Pair(
+                            Vertex::N(NodeId{
+                                0: proc_id.clone(),
+                                1: Some(Port{
+                                    0: Some(Id::Plain(format!("o{}", idx))),
+                                    1: None})
+                            }),
+                            Vertex::N(NodeId{
+                                0: Id::Plain(Self::normalise_id(&output.item.id)),
+                                1: Some(Port{
+                                    0: Some(Id::Plain("produce".to_string())),
+                                    1: None})
+                            }),
+                        ),
+                        attributes: vec![],
+                    }
+                ));
+            }
+        }
+
+        graph.print(&mut PrinterContext::default())
     }
 }
 
@@ -330,5 +460,20 @@ mod test {
 
         assert_abs_diff_eq!(actual.sum(&gc.item("part_4")).quantity, 13.0, epsilon = 1.0e-10);
     }
-}
 
+
+    #[test]
+    fn it_does_not_modify_valid_identifiers() {
+        assert_eq!(Calculator::normalise_id("valid_id"), "valid_id");
+    }
+
+    #[test]
+    fn add_prefix_when_identifiers_start_with_invalid() {
+        assert_eq!(Calculator::normalise_id("123valid_id"), "id_123valid_id");
+    }
+
+    #[test]
+    fn add_prefix_when_identifiers_contain_invalid() {
+        assert_eq!(Calculator::normalise_id("invalid--!!!111"), "invalid_____111");
+    }
+}
