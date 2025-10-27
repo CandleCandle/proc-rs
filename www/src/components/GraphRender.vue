@@ -36,6 +36,11 @@ watch(cfg_fu, (value) => {
     if (cfg.can_render()) {
         console.log("rendering");
         cfg.calculate();
+        console.log("processes", cfg.get_processes());
+        console.log("requirements", cfg.get_requirements());
+        console.log("import/export", cfg.get_imports_exports());
+        console.log("intermediates", cfg.get_intermediate_items());
+        console.log("defaulted", cfg.get_defaulted_items());
         console.log("initial", cfg.get_initial_matrix());
         console.log("reduced", cfg.get_reduced_matrix());
         let content = cfg.to_digraph();

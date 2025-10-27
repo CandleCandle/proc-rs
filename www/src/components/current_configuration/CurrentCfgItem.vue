@@ -50,27 +50,21 @@ watch(requirement_value, (value) => {
 
 
 <template>
-    <div class="items_list">
-        <div>
-            icon {{ stack.display() }} ({{ stack.id() }})
-        </div>
-        <div>
-            <input type="text" size="5" v-model="requirement_value" :disabled="type != DisplayItem.REQUIREMENT" />&nbsp;
-            <input type="radio" id="requirement" value="requirement" v-model="type" />
-            <label for="requirement"> Requirement</label>&nbsp;
-            <input type="radio" id="import_export" value="import_export" v-model="type" />
-            <label for="import_export"> Import/Export</label>&nbsp;
-            <input type="radio" id="intermediate" value="intermediate" v-model="type" />
-            <label for="intermediate"> Intermediate</label>&nbsp;
-        </div>
+    <div>
+        icon {{ stack.display() }} ({{ stack.id() }})
+    </div>
+    <div>
+        <input type="text" size="5" v-model="requirement_value" :disabled="type != DisplayItem.REQUIREMENT" />&nbsp;
+        <input type="radio" id="requirement" value="requirement" v-model="type" />
+        <label for="requirement"> Requirement</label>&nbsp;
+        <input type="radio" id="import_export" value="import_export" v-model="type" />
+        <label for="import_export"> Import/Export</label>&nbsp;
+        <input type="radio" id="intermediate" value="intermediate" v-model="type" />
+        <label for="intermediate"> Intermediate</label>&nbsp;
     </div>
 </template>
 
 
 <style scoped>
-.items_list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
+
 </style>

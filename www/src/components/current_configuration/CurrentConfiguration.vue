@@ -49,8 +49,8 @@ function map_items(cfg) {
     <div><h2>Current Configuration</h2></div>
     <h3>Data Set ID</h3>
     <h3>Items</h3>
-    <div>
-        <hr v-if="map_items(cfg).length > 0" />
+    <div class="items">
+        <hr class="items_fw" v-if="map_items(cfg).length > 0" />
         <CurrentCfgItem @cfg_update="handle_cfg_update()" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
     </div>
     <h3>Processes</h3>
@@ -65,6 +65,18 @@ function map_items(cfg) {
 </template>
 
 <style scoped>
+
+.items, :deep(.items) {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+}
+.items_fw, :deep(.items_fw) {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    place-items: center stretch;
+}
+
 
 .proc_header_d {
     grid-column: 2;
