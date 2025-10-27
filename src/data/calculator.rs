@@ -188,6 +188,10 @@ impl Calculator {
             } else {
                 "\"net-consumer\""
             };
+            let mut negative_sum = -materials.sum_negative(&mat).quantity;
+            if negative_sum.abs() < 1e-10 && negative_sum.is_sign_negative() {
+                negative_sum = -negative_sum;
+            }
             graph.add_stmt(Stmt::Node(
                 Node {
                     id: NodeId(Id::Plain(Self::normalise_id(&mat.id)), Option::None),
@@ -203,7 +207,7 @@ impl Calculator {
                             \"",
                             materials.sum_positive(&mat).quantity,
                             mat.display,
-                            -materials.sum_negative(&mat).quantity,
+                            negative_sum,
                         ))
                     ]
                 }
