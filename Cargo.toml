@@ -22,10 +22,11 @@ console_error_panic_hook = { version = "0.1.7", optional = true }
 serde = { version = "1.0.219", features = ["derive"] }
 
 serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
+wasm-bindgen-futures = "0.4.50"
 
 [dependencies.web-sys]
 version = "0.3.77"
-features = ["console", 'Headers', 'Request', 'RequestInit', 'RequestMode', 'Response', 'Window']
+features = ['console', 'Headers', 'Request', 'RequestInit', 'RequestMode', 'Response', 'Window', 'ReadableStream']
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.34"

@@ -9,32 +9,38 @@ use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item
 
 pub struct DataParserBasic {}
 impl DataParser for DataParserBasic {
-    fn from_str(json: &str) -> Result<Data, ()> {
-        let outer: Value = serde_json::from_str(json).map_err(|_e| ())?;
+    fn from_str(&self, json: &str) -> Result<Data, String> {
+        let outer: Value = serde_json::from_str(json).map_err(|e| format!("{}", e))?;
 
-        let items: HashMap<String, Rc<Item>> = outer["items"].as_array().unwrap().iter()
-            .map(|i| Item{
-                id: i["id"].as_str().unwrap().to_string(),
-                display: i["i18n"]["en"].as_str().unwrap().to_string(),
-                classification: Classification::Solid,
-            })
-            .map(|i| (i.id.clone(), Rc::new(i)))
+        let items_res: Result<Vec<Rc<Item>>, String> = outer["items"].as_array().ok_or("missing '.items'")?.iter()
+            .enumerate()
+            .map(|(idx, i)| {
+                let id = i["id"].as_str().ok_or(format!("missing '.items[{}].id'", idx))?.to_string();
+                Ok(Rc::new(Item{
+                    id: id.clone(),
+                    display: i["i18n"]["en"].as_str().ok_or(format!("missing '.items[{}].i18n.en' (id: {})", idx, id))?.to_string(),
+                    classification: Classification::Solid,
+                    }))
+                }
+            )
             .collect();
+        let items: HashMap<String, Rc<Item>> = items_res?.into_iter().map(|i| (i.id.clone(), i)).collect();
+
         let mut factory_groups: HashMap<String, Rc<FactoryGroup>> = HashMap::new();
         let mut factories: HashMap<String, Rc<Factory>> = HashMap::new();
 
-        for fac in outer["factories"].as_array().unwrap() {
-            for fac_grp in fac["factory_groups"].as_array().unwrap() {
-                let id = fac_grp.as_str().unwrap().to_string();
+        for (idx, fac) in outer["factories"].as_array().ok_or("missing '.factories'")?.iter().enumerate() {
+            let id = fac["id"].as_str().ok_or(format!("missing '.factories[{}].id''", idx))?.to_string();
+            for (fg_id, fac_grp) in fac["factory_groups"].as_array().ok_or(format!("missing '.factories[{}].factory_groups' (id: {})", idx, id))?.iter().enumerate() {
+                let id = fac_grp.as_str().ok_or(format!("unparsable '.factories[{}].factory_groups[{}]' (id: {})", idx, fg_id, id))?.to_string();
                 if !factory_groups.contains_key(&id) {
                     factory_groups.insert(id.clone(), Rc::new(FactoryGroup { id }));
                 }
             }
-            let id = fac["id"].as_str().unwrap().to_string();
             factories.insert(id.clone(), Rc::new(Factory {
-                id,
-                display: fac["i18n"]["en"].as_str().unwrap().to_string(),
-                groups: fac["factory_groups"].as_array().unwrap()
+                id: id.clone(),
+                display: fac["i18n"]["en"].as_str().ok_or(format!("missing '.factories[{}].i18n.en' (id: {})", idx, id))?.to_string(),
+                groups: fac["factory_groups"].as_array().ok_or(format!("missing '.items[{}].factory_groups' (id: {})", idx, id))?
                         .iter()
                         .map(|g| factory_groups.get(&g.as_str().unwrap().to_string()).unwrap().clone())
                         .collect(),
@@ -42,18 +48,18 @@ impl DataParser for DataParserBasic {
         }
 
         let mut processes: HashMap<String, Rc<Process>> = HashMap::new();
-        for proc in outer["processes"].as_array().unwrap() {
-            let id = proc["id"].as_str().unwrap().to_string();
+        for (idx, proc) in outer["processes"].as_array().ok_or("missing '.processes'")?.iter().enumerate() {
+            let id = proc["id"].as_str().ok_or(format!("missing '.processes[{}].id'", idx))?.to_string();
             processes.insert(id.clone(), Rc::new(Process {
-                id,
-                display: proc["i18n"]["en"].as_str().unwrap().to_string(),
-                group: factory_groups.get(&proc["group"].as_str().unwrap().to_string()).unwrap().clone(),
-                duration: proc["duration"].as_f64().unwrap(),
-                inputs: proc["inputs"].as_object().unwrap().iter().map(|(k, v)| Stack{
+                id: id.clone(),
+                display: proc["i18n"]["en"].as_str().ok_or(format!("missing '.processes[{}].i18n.en' (id: {})", idx, id))?.to_string(),
+                group: factory_groups.get(&proc["group"].as_str().ok_or(format!("missing '.processes[{}].group' (id: {})", idx, id))?.to_string()).unwrap().clone(),
+                duration: proc["duration"].as_f64().ok_or(format!("missing '.processes[{}].duration' (id: {})", idx, id))?,
+                inputs: proc["inputs"].as_object().ok_or(format!("missing '.processes[{}].inputs' (id: {})", idx, id))?.iter().map(|(k, v)| Stack{
                     item: items.get(k).unwrap().clone(),
                     quantity: v.as_f64().unwrap(),
                 }).collect(),
-                outputs: proc["outputs"].as_object().unwrap().iter().map(|(k, v)| Stack{
+                outputs: proc["outputs"].as_object().ok_or(format!("missing '.processes[{}].outputs' (id: {})", idx, id))?.iter().map(|(k, v)| Stack{
                     item: items.get(k).unwrap().clone(),
                     quantity: v.as_f64().unwrap(),
                 }).collect(),
@@ -73,6 +79,8 @@ impl DataParser for DataParserBasic {
 
 #[cfg(test)]
 mod tests {
+    use std::any::{Any, TypeId};
+
     use crate::data::model::{Classification};
 
     use super::*;
@@ -83,6 +91,23 @@ mod tests {
                 "items": [
                     {
                         "id": "part_a",
+                        "group": "thing",
+                        "i18n": {
+                            "en": "Part A"
+                        }
+                    }
+                ],
+                "factories": [ ],
+                "processes": [ ]
+            }
+        "#
+    }
+
+    fn missing_item_id_fixture() -> &'static str {
+        r#"
+            {
+                "items": [
+                    {
                         "group": "thing",
                         "i18n": {
                             "en": "Part A"
@@ -172,7 +197,7 @@ mod tests {
     #[test]
     fn simple_item_get_by_id() {
         let fixture = simple_item_fixture();
-        let res = DataParserBasic::from_str(fixture);
+        let res = DataParserBasic{}.from_str(fixture);
         let r = res.unwrap();
         let i = r.items.get("part_a").unwrap();
         assert_eq!(i.id, "part_a");
@@ -181,9 +206,17 @@ mod tests {
     }
 
     #[test]
+    fn missing_item_id_get_by_id() {
+        let fixture = missing_item_id_fixture();
+        let res = DataParserBasic{}.from_str(fixture);
+        let result = res.map_err(|e| e.type_id());
+        assert_eq!(result, Err(TypeId::of::<String>()));
+    }
+
+    #[test]
     fn simple_factory_get_by_id() {
         let fixture = simple_factory_fixture();
-        let res = DataParserBasic::from_str(fixture);
+        let res = DataParserBasic{}.from_str(fixture);
         let r = res.unwrap();
         let f = r.factories.get("main").unwrap();
         assert_eq!(f.id, "main");
@@ -195,7 +228,7 @@ mod tests {
     #[test]
     fn simple_process_get_by_id() {
         let fixture = simple_process_fixture();
-        let res = DataParserBasic::from_str(fixture);
+        let res = DataParserBasic{}.from_str(fixture);
         let r = res.unwrap();
         println!("{:?}", r);
         let f = r.processes.get("make_b").unwrap();

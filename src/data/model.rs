@@ -1,7 +1,7 @@
 use std::{collections::HashMap, rc::Rc};
 
 pub trait DataParser {
-    fn from_str(json: &str) -> Result<Data, ()>;
+    fn from_str(&self, json: &str) -> Result<Data, String>;
 }
 
 #[derive(Debug, Clone, PartialEq)]

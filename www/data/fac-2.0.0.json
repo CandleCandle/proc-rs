@@ -31,7 +31,10 @@
     ],
     "processes": [
         {
-            "name": "make_c",
+            "id": "make_c",
+            "i18n": {
+                "en": "Make C"
+            },
             "duration": 5,
             "group": "default",
             "inputs": {

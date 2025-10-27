@@ -35,7 +35,7 @@ impl DataSet {
 #[wasm_bindgen]
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct DataSetConf {
-    style: DataSetStyle,
+    pub style: DataSetStyle,
     base: Versioned,
     mods: Option<Versioned>,
 }
@@ -64,7 +64,7 @@ impl DataSetConf {
 }
 
 #[wasm_bindgen]
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum DataSetStyle {
     Basic,
 }

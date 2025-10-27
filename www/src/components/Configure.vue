@@ -38,6 +38,7 @@ console.log(configuration);
 const dataSetId = ref(null);
 watch(dataSetId, (id) => {
     console.log("Updating config with", id);
+    configuration.update_data_set(id);
 });
 
 </script>
