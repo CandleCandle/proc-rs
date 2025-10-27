@@ -1,16 +1,34 @@
-use std::{collections::HashMap, rc::Rc};
+use std::{collections::{BTreeMap, HashMap}, rc::Rc};
 
 use serde_json::Value;
 
+use crate::data::dataset::DataSetConf;
+
 use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
 
-
-
+#[derive(Debug)]
+pub enum DataParserBasicFiles {
+    Main,
+}
+impl DataParserBasicFiles {
+    pub fn to_key(&self) -> &str {
+        match &self {
+            Self::Main => "main",
+        }
+    }
+}
 
 pub struct DataParserBasic {}
 impl DataParser for DataParserBasic {
-    fn parse(&self, json: &str) -> Result<Data, String> {
-        let outer: Value = serde_json::from_str(json).map_err(|e| format!("{e}"))?;
+    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<&str, String> {
+        let mut result = BTreeMap::new();
+        result.insert(DataParserBasicFiles::Main.to_key(), format!("{}.json", conf.id()));
+        result
+    }
+
+    fn parse(&self, jsons: &mut BTreeMap<&str, String>) -> Result<Data, String> {
+        let json = jsons.remove(DataParserBasicFiles::Main.to_key()).unwrap();
+        let outer: Value = serde_json::from_str(&json).map_err(|e| format!("{e}"))?;
 
         let items_res: Result<Vec<Rc<Item>>, String> = outer["items"].as_array().ok_or("missing '.items'")?.iter()
             .enumerate()
@@ -83,6 +101,7 @@ impl DataParser for DataParserBasic {
             processes,
         })
     }
+
 }
 
 
@@ -207,7 +226,9 @@ mod test {
     #[test]
     fn simple_item_get_by_id() {
         let fixture = simple_item_fixture();
-        let res = DataParserBasic{}.parse(fixture);
+        let mut jsons = BTreeMap::new();
+        jsons.insert(DataParserBasicFiles::Main.to_key(), fixture.to_string());
+        let res = DataParserBasic{}.parse(&mut jsons);
         let r = res.unwrap();
         let i = r.items.get("part_a").unwrap();
         assert_eq!(i.id, "part_a");
@@ -218,7 +239,9 @@ mod test {
     #[test]
     fn missing_item_id_get_by_id() {
         let fixture = missing_item_id_fixture();
-        let res = DataParserBasic{}.parse(fixture);
+        let mut jsons = BTreeMap::new();
+        jsons.insert(DataParserBasicFiles::Main.to_key(), fixture.to_string());
+        let res = DataParserBasic{}.parse(&mut jsons);
         let result = res.map_err(|e| e.type_id());
         assert_eq!(result, Err(TypeId::of::<String>()));
     }
@@ -226,7 +249,9 @@ mod test {
     #[test]
     fn simple_factory_get_by_id() {
         let fixture = simple_factory_fixture();
-        let res = DataParserBasic{}.parse(fixture);
+        let mut jsons = BTreeMap::new();
+        jsons.insert(DataParserBasicFiles::Main.to_key(), fixture.to_string());
+        let res = DataParserBasic{}.parse(&mut jsons);
         let r = res.unwrap();
         let f = r.factories.get("main").unwrap();
         assert_eq!(f.id, "main");
@@ -238,7 +263,9 @@ mod test {
     #[test]
     fn simple_process_get_by_id() {
         let fixture = simple_process_fixture();
-        let res = DataParserBasic{}.parse(fixture);
+        let mut jsons = BTreeMap::new();
+        jsons.insert(DataParserBasicFiles::Main.to_key(), fixture.to_string());
+        let res = DataParserBasic{}.parse(&mut jsons);
         let r = res.unwrap();
         println!("{:?}", r);
         let f = r.processes.get("make_b").unwrap();

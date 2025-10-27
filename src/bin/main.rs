@@ -2,7 +2,7 @@ use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use clap::{command, Parser};
 use proc_rs::data::{
-    calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::{DataParser, StackSet}};
+    basic_data_parse::DataParserBasicFiles, calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::{DataParser, StackSet}};
 
 use tabled::{builder::Builder, settings::object::Cell, Table};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -78,9 +78,12 @@ fn main() -> Result<(), String> {
 
     let current_data_conf = DataSet::find(&args.style).ok_or(format!("no dataset conf for {}", &args.style))?;
 
+
     let json = fs::read(args.data_location)
         .map(|vec| String::from_utf8(vec).map_err(|e| e.to_string())).map_err(|e| e.to_string())??;
-    let current_data = current_data_conf.style.parser().parse(&json)?;
+    let mut jsons = BTreeMap::new();
+    jsons.insert(DataParserBasicFiles::Main.to_key(), json.to_string());
+    let current_data = current_data_conf.style.parser().parse(&mut jsons)?;
 
     let mut gc = GraphConfiguration::new();
     gc.set_data(current_data, current_data_conf);

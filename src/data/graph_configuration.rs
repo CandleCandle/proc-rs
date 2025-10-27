@@ -1,4 +1,4 @@
-use std::{collections::HashSet, rc::Rc};
+use std::{collections::{BTreeMap, HashSet}, rc::Rc};
 
 use itertools::Itertools;
 use regex::Regex;
@@ -11,7 +11,7 @@ use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, DataPa
 /// Provide a way to fetch the blob of json that represents the data contents
 pub trait FetchDataSet {
     #[allow(async_fn_in_trait)]
-    async fn fetch(&self, dataset_id: &str) ->  Result<String, String>;
+    async fn fetch(&self, relative_path: &str) ->  Result<String, String>;
     // fn fetch(&self, dataset_id: &String) -> impl Future<Output = Result<String, String>> + Send;
 }
 
@@ -138,9 +138,15 @@ impl GraphConfiguration {
     pub async fn update_data_set(&mut self, id: &str, fetcher: impl FetchDataSet) -> Result<(), String> {
         self.current_data_set = DataSet::find(id);
 
-        let bdy = fetcher.fetch(id).await.unwrap();
+        let parser = self.current_data_set.as_ref().unwrap().style.parser();
 
-        self.current_data = Some(self.current_data_set.as_ref().unwrap().style.parser().parse(&bdy)?);
+        let files = parser.files_to_fetch_list(&self.current_data_set.as_ref().unwrap());
+        let mut jsons = BTreeMap::new();
+        for (key, path) in files {
+            jsons.insert(key, fetcher.fetch(&path).await.unwrap());
+        }
+
+        self.current_data = Some(parser.parse(&mut jsons)?);
         Ok(())
     }
 

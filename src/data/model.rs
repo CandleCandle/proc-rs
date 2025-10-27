@@ -1,10 +1,13 @@
-use std::{collections::{BTreeSet, HashMap}, hash::{Hash, Hasher}, ops, rc::Rc};
+use std::{collections::{BTreeMap, BTreeSet, HashMap}, hash::{Hash, Hasher}, ops, rc::Rc};
 
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
+use crate::data::dataset::DataSetConf;
+
 pub trait DataParser {
-    fn parse(&self, json: &str) -> Result<Data, String>;
+    fn parse(&self, jsons: &mut BTreeMap<&str, String>) -> Result<Data, String>;
+    fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<&str, String>;
 }
 
 #[derive(Debug, Clone, PartialEq)]

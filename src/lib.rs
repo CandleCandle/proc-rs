@@ -46,11 +46,11 @@ pub struct GraphConfiguration {
 
 struct RequestFetcher {}
 impl FetchDataSet for RequestFetcher {
-    async fn fetch(&self, dataset_id: &str) -> Result<String, String> {
+    async fn fetch(&self, relative_path: &str) -> Result<String, String> {
         let opts = RequestInit::new();
         opts.set_method("GET");
         opts.set_mode(RequestMode::Cors);
-        let url = format!("data/{dataset_id}.json");
+        let url = format!("data/{relative_path}");
 
         let request = Request::new_with_str_and_init(&url, &opts).map_err(|e| e.as_string().unwrap())?;
 
