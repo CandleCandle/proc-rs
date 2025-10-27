@@ -9,9 +9,7 @@ import { stuff } from 'proc-rs';
 
 <template>
   <header>
-    <h1>Some form of title</h1>
-    <br />
-    Rusty api call {{ stuff("thing 2") }}
+    <h1>Process Calculator</h1>
   </header>
   <br />
   <main>

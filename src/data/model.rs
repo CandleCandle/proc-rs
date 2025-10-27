@@ -1,5 +1,7 @@
 use std::{collections::HashMap, rc::Rc};
 
+use serde::Serialize;
+
 pub trait DataParser {
     fn from_str(&self, json: &str) -> Result<Data, String>;
 }
@@ -53,7 +55,7 @@ pub struct Process {
 //     outputs: Vec<Stack>,
 // }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Stack {
     pub item: Rc<Item>,
     pub quantity: f64,
@@ -65,7 +67,7 @@ pub struct Stack {
 //     }
 // }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Item {
     pub id: String,
     pub classification: Classification,
@@ -73,7 +75,7 @@ pub struct Item {
 }
 
 // // XXX possible to derive a Display using the enum names?
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Classification {
     Energy,
     Gas,
