@@ -11,23 +11,10 @@ pub struct Calculator {
     reduced: DMatrix<f64>,
 }
 
-// trait MulRow<T, R: Dim, C: Dim, S> {
-//     fn mul_row(&mut self, scalar: T);
-// }
-
-// impl<T, R: Dim, C: Dim, S> MulRow for nalgebra::Matrix<T, R, C, S>
-// where
-//     T: Scalar,
-//     S: RawStorage<T, R, C>,
-// {
-//     fn mul_row(&mut self, scalar: T) {}
-// }
-
 impl Calculator {
     pub fn generate(gc: &GraphConfiguration) -> Self {
         let initial = Self::create_initial(&gc);
         let reduced = Self::reduce(&initial);
-        // reduced.swap_rows(1, 2);
 
         Calculator {
             materials: None,
