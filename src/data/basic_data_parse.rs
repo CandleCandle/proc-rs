@@ -67,10 +67,11 @@ impl DataParser for DataParserBasic {
                 })})
                 .collect::<Result<Vec<Stack>, String>>()?,
                 inputs_unmod: Vec::new(),
-                outputs: proc["outputs"].as_object().ok_or(format!("missing '.processes[{idx}].outputs' (process id: {id})"))?.iter().map(|(k, v)| Stack{
-                    item: items.get(k).unwrap().clone(),
-                    quantity: v.as_f64().unwrap(),
-                }).collect(),
+                outputs: proc["outputs"].as_object().ok_or(format!("missing '.processes[{idx}].outputs' (process id: {id})"))?.iter().map(|(k, v)| -> Result<Stack, String> { Ok(Stack{
+                    item: items.get(k).ok_or(format!("unknown item ({k}) at .processes[{idx}].outputs (process id: {id})"))?.clone(),
+                    quantity: v.as_f64().ok_or(format!("bad number ({v}) at .processes[{idx}].outputs (process id: {id})"))?,
+                })})
+                .collect::<Result<Vec<Stack>, String>>()?,
                 outputs_unmod: Vec::new(),
             }));
         }
