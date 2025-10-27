@@ -30,6 +30,45 @@ cd www
 npm run build
 ```
 
+# Adding a Data Set
+
+tl;dr:
+1. Create the JSON blob manually or by using `./bin/add_process.sh`
+   1. naming requirements are
+      1. Standard base game: `[game]-[game-version].json`
+      2. Modded game: `[game]-[game-version]-[modpack-name]-[modpack-version].json`
+2. Add an entry in the `DataSet` enum in `src/data/dataset.rs`
+3. Update `DataSet::params`
+   1. Use the `DataSetStyle::Basic` style.
+   2. IDs must match the naming requirements above.
+   3. Versions must match the naming requirements above.
+4. Update `DataSet::all`
+5. Rebuild & deploy
+
+## Factorio Recipe Lister Data
+
+The "basic data" structure can not cope with the complications that Factorio contains; e.g.
+1. Fluids vs Solids
+2. Fluid temperatures and requirements of some processes (e.g. some require a fluid to be have a temperature between 15 and 165 C)
+3. "Catalysts"; where there is an input and an output from a process that is not modified by output modifiers.
+
+Given these, and that the data is split into several files, we need:
+1. a manifest describing which files contain the items, processes, etc. The manifest follows the same naming convetions as the basic data.
+2. Use `DataSetStyle::RecipeLister`
+3. the various files.
+
+Directory structure should follow:
+```
+www/data
+ |- factorio-[base]-modpack-[mod_version].json
+ \- factorio-[base]-modpack-[mod_version]/
+    |- item.json
+    |- assembling-machine.json
+    \- ...
+
+```
+
+
 # Design
 
 ## Separation of JS vs Rust (WASM)
