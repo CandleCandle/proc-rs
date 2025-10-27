@@ -183,7 +183,7 @@ impl ActiveProcess {
         self.process.duration * self.duration_multiplier
     }
 
-    fn io_calc(modifiable: &Vec<Stack>, unmodifiable: &Vec<Stack>, multiplier: &f64, duration: &f64) -> Vec<Stack> {
+    fn io_calc(modifiable: &[Stack], unmodifiable: &[Stack], multiplier: &f64, duration: &f64) -> Vec<Stack> {
       let unmodified = unmodifiable
             .iter()
             .map(|s| Stack::new(s.item.clone(), s.quantity / duration));

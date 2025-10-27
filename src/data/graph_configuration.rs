@@ -100,8 +100,8 @@ impl GraphConfiguration {
             .find(|p| p.id() == proc_id)
             .map(|p| p.factory().clone());
         self.remove_process(&proc_id);
-        if original.is_some() {
-            self.add_process(&proc_id, &original.unwrap().id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+        if let Some(original) = original {
+            self.add_process(&proc_id, &original.id, duration_multiplier, inputs_multiplier, outputs_multiplier);
         }
     }
 
