@@ -8,6 +8,7 @@ use crate::data::{basic_data_parse::DataParserBasic, model::DataParser};
 #[wasm_bindgen]
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum DataSet {
+    Starbirds012,
     Fac200,
     Fac150,
     Fac200Se200,
@@ -24,6 +25,7 @@ pub enum ModifierStyle {
 impl DataSet {
     pub fn params(self) -> DataSetConf {
         match self {
+            DataSet::Starbirds012 => DataSetConf::new(DataSetStyle::Basic, "starbirds".into(), "0.1.2".into()),
             DataSet::Fac200 => DataSetConf::new(DataSetStyle::Basic, "fac".into(), "2.0.0".into()),
             DataSet::Fac150 => DataSetConf::new(DataSetStyle::Basic, "fac".into(), "1.5.0".into()),
             DataSet::Fac200Se200 => DataSetConf::modded(DataSetStyle::Basic, Versioned::new("fac".into(), "2.0.0".into()), Versioned::new("se".into(), "4.0.0".into())),
@@ -34,6 +36,7 @@ impl DataSet {
 
     pub fn all() -> Vec<DataSetConf> {
         vec!(
+            DataSet::params(DataSet::Starbirds012),
             DataSet::params(DataSet::Fac200),
             DataSet::params(DataSet::Fac150),
             DataSet::params(DataSet::Fac200Se200),
