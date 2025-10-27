@@ -2,45 +2,10 @@
 import { ref, toRefs, watch } from 'vue';
 import CurrentCfgItem from './CurrentCfgItem.vue';
 import CurrentCfgProc from './CurrentCfgProc.vue';
+import { DisplayItem, DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
 
 const emit = defineEmits(['cfg_update']);
 const { cfg } = defineProps(['cfg']);
-class DisplayItem {
-    static INTERMEDIATE = "intermediate";
-    static IMPORT_EXPORT = "import_export";
-    static REQUIREMENT = "requirement";
-    constructor(type) {
-        this.type = type;
-    }
-    is_intermediate() { return this.type == this.INTERMEDIATE; }
-    is_req() { return this.type == this.REQUIREMENT; }
-    is_io() { return this.type == this.IMPORT_EXPORT; }
-}
-class DisplayReq extends DisplayItem {
-    constructor(req) {
-        super(DisplayItem.REQUIREMENT);
-        this.req = req;
-    }
-    id() { return this.req.item.id; }
-    display() { return this.req.item.display; }
-    req_quantity() { return this.req.quantity; }
-}
-class DisplayIO {
-    constructor(item) {
-        super(DisplayItem.IMPORT_EXPORT);
-        this.item = item;
-    }
-    id() { return this.item.id; }
-    display() { return this.item.display; }
-}
-class DisplayIntermediate {
-    constructor(item) {
-        super(DisplayItem.INTERMEDIATE);
-        this.item = item;
-    }
-    id() { return this.item.id; }
-    display() { return this.item.display; }
-}
 
 
 function handle_cfg_update() {
@@ -51,13 +16,25 @@ function handle_cfg_update() {
 
 function map_items(cfg) {
     let req = cfg.get_requirements()
-        .map(r => new DisplayReq(r));
+        .map(r => { console.log("requirement", r.item.id, r.quantity); return r; })
+        .map(r => new DisplayReq(r))
+        .map(r => { console.log("  ", r); return r; })
+        ;
     let io = cfg.get_imports_exports()
-        .map(i => new DisplayIO(i));
+        .map(r => { console.log("io", r.id); return r; })
+        .map(i => new DisplayIO(i))
+        .map(r => { console.log("  ", r); return r; })
+        ;
     let inter = cfg.get_intermediate_items()
-        .map(i => new DisplayIntermediate(i));
+        .map(r => { console.log("intermediate", r.id); return r; })
+        .map(i => new DisplayIntermediate(i))
+        .map(r => { console.log("  ", r); return r; })
+        ;
     let def = cfg.get_defaulted_items()
-        .map(d => new DisplayIO(d));
+        .map(r => { console.log("defaulted", r.id); return r; })
+        .map(d => new DisplayIO(d))
+        .map(r => { console.log("  ", r); return r; })
+        ;
     let result = req
         .concat(io)
         .concat(inter)

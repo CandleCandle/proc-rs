@@ -14,6 +14,12 @@ pub enum DataSet {
     Dsp100,
 }
 
+pub enum ModifierStyle {
+    Multiplier, // same: 1; faster: 0.3; slower: 1.4; more output: 1.5, less output: 0.4
+    PercentAddition, // same: 0; faster: 20%; slower: -30%; more output: 10%, less output: -5%
+    Percent, // same: 100%; faster: 110%; slower: 90%; more output: 150%, less output: 80%
+}
+
 impl DataSet {
     pub fn params(self) -> DataSetConf {
         match self {
@@ -44,6 +50,7 @@ pub struct DataSetConf {
     pub style: DataSetStyle,
     base: Versioned,
     mods: Option<Versioned>,
+    // modifier_style
 }
 
 #[wasm_bindgen]
