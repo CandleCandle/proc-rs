@@ -1,4 +1,4 @@
-use std::{ops::Deref, rc::Rc};
+use std::{collections::HashSet, ops::Deref, rc::Rc};
 
 use regex::Regex;
 #[allow(dead_code)]
@@ -117,6 +117,28 @@ impl GraphConfiguration {
 
     pub fn get_processes(&self) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value(&self.processes)?)
+    }
+
+    pub fn get_defaulted_items(&self) -> Result<JsValue, JsValue> {
+        // set of all process input items (I)
+        // set of all process output items (O)
+        // disjoint of I and O (symmetric_difference)
+        // remove anything that is in io or req.
+        let inputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
+            proc.process.inputs.iter().map(|s| s.item.clone())
+        }).collect();
+        let outputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
+            proc.process.outputs.iter().map(|s| s.item.clone())
+        }).collect();
+        let mut diff: HashSet<&Rc<Item>> = inputs.symmetric_difference(&outputs).collect();
+        for io in &self.import_export {
+            diff.remove(&io);
+        }
+        for req in &self.requirements {
+            diff.remove(&req.item);
+        }
+        let result: Vec<&&Rc<Item>> = diff.iter().collect();
+        Ok(serde_wasm_bindgen::to_value(&result)?)
     }
 
     pub async fn update_data_set(&mut self, id: String) -> Result<JsValue, JsValue> {

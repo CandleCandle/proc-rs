@@ -1,6 +1,7 @@
 <script setup>
 import { ref, toRefs, watch } from 'vue';
 import CurrentCfgItem from './CurrentCfgItem.vue';
+import CurrentCfgProc from './CurrentCfgProc.vue';
 
 const props = defineProps(['cfg']);
 const { cfg } = props;
@@ -35,7 +36,9 @@ function map_items(cfg) {
         .map(r => new DisplayReq(r));
     let io = cfg.get_imports_exports()
         .map(i => new DisplayIO(i));
-    let result = r.concat(io).sort((a, b) => a.display().localeCompare(b.display()));
+    let def = cfg.get_defaulted_items()
+        .map(d => new DisplayIO(d));
+    let result = r.concat(io).concat(def).sort((a, b) => a.display().localeCompare(b.display()));
     console.log("display items", "req", r, "io", io, "result", result);
     return result;
 }
@@ -47,10 +50,14 @@ function map_items(cfg) {
     <h3>Data Set ID</h3>
     <h3>Items</h3>
     <div>
+        <hr v-if="map_items(cfg).length > 0" />
         <CurrentCfgItem v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
     </div>
     <h3>Processes</h3>
-    <div>TODO processes. {{ cfg.get_processes() }}</div>
+    <div>
+        <hr v-if="cfg.get_processes().length > 0" />
+        <CurrentCfgProc v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" />
+    </div>
 </template>
 
 

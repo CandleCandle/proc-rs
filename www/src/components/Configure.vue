@@ -8,7 +8,7 @@ import { GraphConfiguration, DataSet } from 'proc-rs';
 let available = DataSet.all();
 
 const cfg = shallowRef(new GraphConfiguration());
-// The GraphConfuguration is a WASM object. There is no property
+// The GraphConfiguration is a WASM object. There is no property
 // in it that can be "watched" to trigger render changes
 // this Forces an Update as it is the :key on the CurrentConfiguration.
 const cfg_fu = ref(0);
@@ -70,8 +70,9 @@ function handle_cfg_update() {
         <div><input id="item_search" type="text" :disabled="dataSetId == ''" v-model="searchItem" /></div>
         <div><label for="process_search"> Process Search:</label></div>
         <div><input id="process_search" type="text" :disabled="dataSetId == ''" v-model="searchProcess" /></div>
+
         <SearchResultsItem @cfg_update="handle_cfg_update()" v-for="item in searchResultsItems" :item="item" :cfg="cfg" />
-        <div class="proc_search_results">
+        <div class="search_results">
             <hr v-if="searchResultsProcesses.length > 0" />
             <SearchResultsProcess @cfg_update="handle_cfg_update()" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" />
         </div>
@@ -83,14 +84,12 @@ function handle_cfg_update() {
 <style scoped>
 .input_options {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
-.proc_search_results {
+.search_results {
     grid-column-start: 1;
     grid-column-end: span 2;
 }
-/* .input_search_results {
-    grid-column-end: span 2;
-} */
+
 </style>

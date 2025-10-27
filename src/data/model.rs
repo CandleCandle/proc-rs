@@ -1,4 +1,4 @@
-use std::{collections::HashMap, rc::Rc};
+use std::{collections::HashMap, hash::{Hash, Hasher}, rc::Rc};
 
 use serde::Serialize;
 
@@ -72,6 +72,11 @@ pub struct Item {
     pub id: String,
     pub classification: Classification,
     pub display: String,
+}
+impl Hash for Item {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.id.hash(state);
+    }
 }
 
 // // XXX possible to derive a Display using the enum names?

@@ -1,42 +1,39 @@
 <script setup>
-import { ref } from 'vue';
-defineProps(['proc', 'cfg']);
-const requirement_value = ref(null);
-
+// import { ref } from 'vue';
+const { active_proc, cfg } = defineProps(['active_proc', 'cfg']);
+const proc = active_proc.process;
+// const requirement_value = ref(null);
+console.log("active_proc from CCP", active_proc);
 </script>
-
 
 
 <template>
   <div class="proc">
     <div id="name">
-      Part D (part_d)
+      {{ proc.display }} ({{ proc.id }})
     </div>
     <div>
-      5
+      {{ proc.duration }}s
     </div>
     <div id="in">
-      <div id="in0" class="proc_io">
-        <div>Part A</div>
-        <div>5</div>
-      </div>
-      <div id="in1" class="proc_io">
-        <div>Part B</div>
-        <div>3</div>
+      <div v-for="input in proc.inputs" class="proc_io">
+        <div>{{ input.quantity }}</div>
+        <div>{{ input.item.display }} ({{ input.item.id }})</div>
       </div>
     </div>
     <div id="out">
-      <div id="out0" class="proc_io">
-        <div>Part D</div>
-        <div>2</div>
+      <div v-for="output in proc.outputs" class="proc_io">
+        <div>{{ output.quantity }}</div>
+        <div>{{ output.item.display }} ({{ output.item.id }})</div>
       </div>
     </div>
-    <div>modifiers for Part D</div>
-    <div>d mod</div>
-    <div>i mod</div>
-    <div>o mod</div>
+    <div class="proc_buttons"><button @click="remove_process(cfg, proc.id)">Remove</button></div>
+    <div>modifiers</div>
+    <div>{{ active_proc.duration_multiplier }}</div>
+    <div>{{ active_proc.inputs_multiplier }}</div>
+    <div>{{ active_proc.outputs_multiplier }}</div>
   </div>
-  <div><button @click="add_process(cfg, proc.id, duration_multiplier, inputs_multiplier, outputs_multiplier)">Add</button></div>
+  <hr />
 </template>
 
 
@@ -44,14 +41,20 @@ const requirement_value = ref(null);
 
 .proc {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 3fr 1fr 3fr 3fr 0fr;
     place-items: center stretch;
     gap: 10px;
+}
+.proc_buttons {
+    grid-column-start: 5;
+    grid-row-end: span 2;
+    place-items: center stretch;
 }
 .proc_io {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 0fr 1fr;
     place-items: center stretch;
     gap: 10px;
 }
+
 </style>
