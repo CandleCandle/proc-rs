@@ -43,7 +43,10 @@
             }
         },
         {
-            "name": "make_d",
+            "id": "make_d",
+            "i18n": {
+                "en": "Make D"
+            },
             "duration": 5,
             "group": "default",
             "inputs": {
@@ -59,7 +62,9 @@
     "factories": [
         {
             "id": "main",
-            "name": "Main",
+            "i18n": {
+                "en": "Main"
+            },
             "factory_groups": [
                 "default"
             ],

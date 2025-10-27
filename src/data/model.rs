@@ -4,6 +4,7 @@ pub trait DataParser {
     fn from_str(json: &str) -> Result<Data, ()>;
 }
 
+#[derive(Debug, Clone, PartialEq)]
 pub struct Data {
     pub items: HashMap<String, Rc<Item>>,
     pub factory_groups: HashMap<String, Rc<FactoryGroup>>,
@@ -39,7 +40,7 @@ pub struct Process {
     pub id: String,
     pub display: String,
     pub duration: f64,
-    pub group: FactoryGroup,
+    pub group: Rc<FactoryGroup>,
     pub inputs: Vec<Stack>,
     pub outputs: Vec<Stack>,
 }
