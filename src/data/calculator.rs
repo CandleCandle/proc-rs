@@ -16,7 +16,7 @@ pub struct Calculator {
 
 impl Calculator {
     pub fn generate(gc: &GraphConfiguration) -> Self {
-        let initial = Self::create_initial(&gc);
+        let initial = Self::create_initial(gc);
         let reduced = Self::reduce(&initial);
 
         Calculator {
@@ -46,13 +46,11 @@ impl Calculator {
             let mut col = DVector::from_element(num_rows, 0.0);
             for (row_idx, row_item) in all_proc_io.iter().enumerate() {
                 let is = proc.inputs().iter()
-                    .filter(|s| s.item.id == row_item.id)
-                    .next()
-                    .map(|s| s.quantity * -1.0)
+                    .find(|s| s.item.id == row_item.id)
+                    .map(|s| -s.quantity)
                     .unwrap_or(0.0);
                 let os = proc.outputs().iter()
-                    .filter(|s| s.item.id == row_item.id)
-                    .next()
+                    .find(|s| s.item.id == row_item.id)
                     .map(|s| s.quantity)
                     .unwrap_or(0.0);
                 col[row_idx] = is + os;
@@ -104,7 +102,7 @@ impl Calculator {
                     matrix[(i, pivot_col)] = 0.0;
                     for j in 0..matrix.ncols() {
                         if j == pivot_col { continue; }
-                        matrix[(i, j)] = matrix[(i, j)] - (matrix[(pivot_row, j)] * multiplier)
+                        matrix[(i, j)] -= matrix[(pivot_row, j)] * multiplier
                     }
                 }
                 let scale = 1.0/matrix[(pivot_row, pivot_col)];
@@ -148,7 +146,7 @@ impl Calculator {
         for proc in self.gc.get_processes() {
             let count = *counts.get(proc.id()).unwrap();
             for inp in proc.inputs() {
-                result.add(inp * (-1.0 * count))
+                result.add(inp * -count)
             }
             for out in proc.outputs() {
                 result.add(out * count)
@@ -164,7 +162,7 @@ impl Calculator {
         let result = replace_invalid.replace_all(id, "_");
         let invalid_start = Regex::new(r"^[0-9]").unwrap();
         if invalid_start.is_match(&result) {
-            return format!("id_{}", result);
+            return format!("id_{result}");
         }
         result.to_string()
     }
@@ -192,7 +190,7 @@ impl Calculator {
             };
             graph.add_stmt(Stmt::Node(
                 Node {
-                    id: NodeId{ 0: Id::Plain(Self::normalise_id(&mat.id)), 1: Option::None },
+                    id: NodeId(Id::Plain(Self::normalise_id(&mat.id)), Option::None),
                     attributes: vec![
                         attr!("shape", "record"),
                         // net-consumer / net-producer / net-equal
@@ -205,7 +203,7 @@ impl Calculator {
                             \"",
                             materials.sum_positive(&mat).quantity,
                             mat.display,
-                            materials.sum_negative(&mat).quantity * -1.0
+                            -materials.sum_negative(&mat).quantity,
                         ))
                     ]
                 }
@@ -225,10 +223,7 @@ impl Calculator {
                 .join(" | ");
             graph.add_stmt(Stmt::Node(
                 Node {
-                    id: NodeId{
-                        0: proc_id.clone(),
-                        1: Option::None
-                    },
+                    id: NodeId(proc_id.clone(), Option::None),
                     attributes: vec![
                         attr!("shape", "record"),
                         NodeAttributes::label(format!(
@@ -248,18 +243,18 @@ impl Calculator {
                 graph.add_stmt(Stmt::Edge(
                     Edge {
                         ty: EdgeTy::Pair(
-                            Vertex::N(NodeId{
-                                0: Id::Plain(Self::normalise_id(&input.item.id)),
-                                1: Some(Port{
-                                    0: Some(Id::Plain("consume".to_string())),
-                                    1: None})
-                            }),
-                            Vertex::N(NodeId{
-                                0: proc_id.clone(),
-                                1: Some(Port{
-                                    0: Some(Id::Plain(format!("i{}", idx))),
-                                    1: None})
-                            }),
+                            Vertex::N(NodeId(
+                                Id::Plain(Self::normalise_id(&input.item.id)),
+                                Some(Port(
+                                    Some(Id::Plain("consume".to_string())),
+                                    None))
+                            )),
+                            Vertex::N(NodeId(
+                                proc_id.clone(),
+                                Some(Port(
+                                    Some(Id::Plain(format!("i{idx}"))),
+                                    None))
+                            )),
                         ),
                         attributes: vec![],
                     }
@@ -270,18 +265,18 @@ impl Calculator {
                 graph.add_stmt(Stmt::Edge(
                     Edge {
                         ty: EdgeTy::Pair(
-                            Vertex::N(NodeId{
-                                0: proc_id.clone(),
-                                1: Some(Port{
-                                    0: Some(Id::Plain(format!("o{}", idx))),
-                                    1: None})
-                            }),
-                            Vertex::N(NodeId{
-                                0: Id::Plain(Self::normalise_id(&output.item.id)),
-                                1: Some(Port{
-                                    0: Some(Id::Plain("produce".to_string())),
-                                    1: None})
-                            }),
+                            Vertex::N(NodeId(
+                                proc_id.clone(),
+                                Some(Port(
+                                    Some(Id::Plain(format!("o{idx}"))),
+                                    None))
+                            )),
+                            Vertex::N(NodeId(
+                                Id::Plain(Self::normalise_id(&output.item.id)),
+                                Some(Port(
+                                    Some(Id::Plain("produce".to_string())),
+                                    None))
+                            )),
                         ),
                         attributes: vec![],
                     }

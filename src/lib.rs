@@ -9,7 +9,6 @@ use wasm_bindgen_futures::JsFuture;
 use web_sys::{Request, RequestInit, RequestMode, Response};
 
 use serde::{Deserialize, Serialize};
-use serde_wasm_bindgen;
 
 pub mod data;
 use data::model::{Item, Process};
@@ -29,7 +28,7 @@ extern "C" {
 // "hello world" function to assert that we have bi-directional function calling
 #[wasm_bindgen]
 pub fn stuff(input: String) -> Result<JsValue, JsValue> {
-    log(format!("received {} from JS", input).as_str());
+    log(format!("received {input} from JS").as_str());
     Ok(serde_wasm_bindgen::to_value(&input)?)
 }
 
@@ -39,6 +38,7 @@ pub fn dataset_all() -> Vec<DataSetConf> {
 }
 
 #[wasm_bindgen]
+#[derive(Default)]
 pub struct GraphConfiguration {
     wrapped: GraphConfigurationLib,
     calculator: Option<Calculator>,
@@ -50,7 +50,7 @@ impl FetchDataSet for RequestFetcher {
         let opts = RequestInit::new();
         opts.set_method("GET");
         opts.set_mode(RequestMode::Cors);
-        let url = format!("data/{}.json", dataset_id);
+        let url = format!("data/{dataset_id}.json");
 
         let request = Request::new_with_str_and_init(&url, &opts).map_err(|e| e.as_string().unwrap())?;
 
@@ -66,6 +66,7 @@ impl FetchDataSet for RequestFetcher {
 #[wasm_bindgen]
 impl GraphConfiguration {
     #[wasm_bindgen(constructor)]
+    #[allow(clippy::new_without_default)]
     pub fn new() -> GraphConfiguration {
         GraphConfiguration {
             wrapped: GraphConfigurationLib::new(),

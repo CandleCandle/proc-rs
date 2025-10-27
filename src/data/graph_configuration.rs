@@ -13,7 +13,7 @@ pub trait FetchDataSet {
 }
 
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct GraphConfiguration {
     // everything needed in order to make a graph, mutable so that the UI can make changes.
     // It should only allow graph generation when it has enough information to do something.
@@ -41,7 +41,7 @@ impl GraphConfiguration {
     }
 
     pub fn can_render(&self) -> bool {
-        self.processes.len() > 0
+        !self.processes.is_empty()
     }
 
     pub fn add_requirement(&mut self, id: &str, quantity: f64) {
@@ -92,9 +92,9 @@ impl GraphConfiguration {
     }
 
     pub async fn update_data_set(&mut self, id: &str, fetcher: impl FetchDataSet) -> Result<(), String> {
-        self.current_data_set = DataSet::find(&id);
+        self.current_data_set = DataSet::find(id);
 
-        let bdy = fetcher.fetch(&id).await.unwrap();
+        let bdy = fetcher.fetch(id).await.unwrap();
 
         self.current_data = Some(self.current_data_set.as_ref().unwrap().style.parser().parse(&bdy)?);
         Ok(())
@@ -108,8 +108,8 @@ impl GraphConfiguration {
     pub fn search_items(&self, search: &str) -> Result<Vec<Rc<Item>>, String> {
         match &self.current_data {
             Some(d) => {
-                let matcher = Regex::new(&search)
-                    .map_err(|e| format!("{:?}", e).clone())?;
+                let matcher = Regex::new(search)
+                    .map_err(|e| format!("{e:?}").clone())?;
                 let mut v = d.items.iter()
                     .filter(|(_id, item)| matcher.is_match(&item.id) || matcher.is_match(&item.display))
                     .map(|(_id, i)| i.clone())
@@ -124,8 +124,8 @@ impl GraphConfiguration {
     pub fn search_processes(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
         match &self.current_data {
             Some(d) => {
-                let matcher = Regex::new(&search)
-                    .map_err(|e| format!("{:?}", e).clone())?;
+                let matcher = Regex::new(search)
+                    .map_err(|e| format!("{e:?}").clone())?;
                 let mut v = d.processes.iter()
                     .filter(|(_id, proc)| matcher.is_match(&proc.id) || matcher.is_match(&proc.display))
                     .map(|(_id, i)| i.clone())
@@ -148,14 +148,14 @@ impl GraphConfiguration {
         let outputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
             proc.outputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
         }).collect();
-        let mut diff: HashSet<Rc<Item>> = inputs.symmetric_difference(&outputs).map(|i| i.clone()).collect();
+        let mut diff: HashSet<Rc<Item>> = inputs.symmetric_difference(&outputs).cloned().collect();
         for io in &self.import_export {
             diff.remove(io);
         }
         for req in &self.requirements {
             diff.remove(&req.item);
         }
-        diff.iter().map(|i| i.clone()).collect()
+        diff.iter().cloned().collect()
     }
 }
 

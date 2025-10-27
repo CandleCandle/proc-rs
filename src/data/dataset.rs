@@ -34,7 +34,7 @@ impl DataSet {
     }
 
     pub fn find(id: &str) -> Option<DataSetConf> {
-        DataSet::all().iter().find(|d| d.id() == id).map(|d| d.clone())
+        DataSet::all().iter().find(|d| d.id() == id).cloned()
     }
 }
 

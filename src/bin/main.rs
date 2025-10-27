@@ -45,7 +45,7 @@ struct Args {
 
 fn main() -> Result<(), String> {
     let args = Args::parse();
-    println!("Args: {:?}", args);
+    println!("Args: {args:?}");
 
     tracing_subscriber::registry()
         .with(tracing_subscriber::fmt::Layer::default()
@@ -58,7 +58,7 @@ fn main() -> Result<(), String> {
 
     let json = fs::read(args.data_location)
         .map(|vec| String::from_utf8(vec).map_err(|e| e.to_string())).map_err(|e| e.to_string())??;
-    let current_data = Some(current_data_conf.style.parser().parse(&json)?).unwrap();
+    let current_data = current_data_conf.style.parser().parse(&json)?;
 
     let mut gc = GraphConfiguration::new();
     gc.set_data(current_data, current_data_conf);
@@ -66,7 +66,7 @@ fn main() -> Result<(), String> {
         gc.add_import_export(&io);
     }
     for req in args.requirements {
-        let parts = req.split_once(':').ok_or(format!("requirements must be in the form F:id, found {}", req))?;
+        let parts = req.split_once(':').ok_or(format!("requirements must be in the form F:id, found {req}"))?;
         let quantity: f64 = parts.0.parse().map_err(|e: std::num::ParseFloatError| e.to_string())?;
         let id = parts.1;
         gc.add_requirement(id, quantity);
@@ -86,7 +86,7 @@ fn main() -> Result<(), String> {
             .map(|p| p.parse::<f64>().map_err(|e| e.to_string()))
             .transpose()?
             .unwrap_or(1.0);
-        tracing::debug!("Found proc {}, dur {}, in {}, out {}", id, dur_mod, in_mod, out_mod);
+        tracing::debug!("Found proc {id}, dur {dur_mod}, in {in_mod}, out {out_mod}");
         gc.add_process(id, dur_mod, in_mod, out_mod);
     }
 
@@ -125,11 +125,11 @@ fn make_materials_count_table(materials: &StackSet) -> String {
 
     let mut result = Builder::default();
     for item in &all_items {
-        let positive = (materials.sum_positive(&item).quantity * 100.0).round() / 100.0;
-        let negative = (materials.sum_negative(&item).quantity * 100.0).round() / 100.0;
-        let mut net = (materials.sum(&item).quantity * 100.0).round() / 100.0;
+        let positive = (materials.sum_positive(item).quantity * 100.0).round() / 100.0;
+        let negative = (materials.sum_negative(item).quantity * 100.0).round() / 100.0;
+        let mut net = (materials.sum(item).quantity * 100.0).round() / 100.0;
         if net.is_sign_negative() && net.abs() < 0.001 { // essentially, display -0 as 0.
-            net = net * -1.0;
+            net = -net;
         }
         result.push_record(&[ negative.to_string(), positive.to_string(), net.to_string() ]);
     }

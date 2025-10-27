@@ -231,7 +231,7 @@ impl StackSet {
     }
 
     pub fn sum_negative(&self, item: &Rc<Item>) -> Stack {
-        vec![Stack{item: item.clone(), quantity: 0.0}].iter()
+        [Stack{item: item.clone(), quantity: 0.0}].iter()
             .chain(self.combined.iter())
             .filter(|s| s.item.id == item.id)
             .filter(|s| s.quantity <= 0.0)
@@ -239,7 +239,7 @@ impl StackSet {
     }
 
     pub fn sum_positive(&self, item: &Rc<Item>) -> Stack {
-        vec![Stack{item: item.clone(), quantity: 0.0}].iter()
+        [Stack{item: item.clone(), quantity: 0.0}].iter()
             .chain(self.combined.iter())
             .filter(|s| s.item.id == item.id)
             .filter(|s| s.quantity >= 0.0)
@@ -247,7 +247,7 @@ impl StackSet {
     }
 
     pub fn sum(&self, item: &Rc<Item>) -> Stack {
-        vec![Stack{item: item.clone(), quantity: 0.0}].iter()
+        [Stack{item: item.clone(), quantity: 0.0}].iter()
             .chain(self.combined.iter())
             .filter(|s| s.item.id == item.id)
             .collect()
