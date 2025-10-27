@@ -1,0 +1,24 @@
+{
+  "water" : {
+    "name" : "water",
+    "localised_name" : [
+      "fluid-name.water"
+    ],
+    "order" : "a[fluid]-a[water]-a[water]",
+    "default_temperature" : 15,
+    "max_temperature" : 100,
+    "fuel_value" : 0,
+    "emissions_multiplier" : 1
+  },
+  "steam" : {
+    "name" : "steam",
+    "localised_name" : [
+      "fluid-name.steam"
+    ],
+    "order" : "a[fluid]-a[water]-b[steam]",
+    "default_temperature" : 15,
+    "max_temperature" : 5000,
+    "fuel_value" : 0,
+    "emissions_multiplier" : 1
+  }
+}

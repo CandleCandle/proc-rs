@@ -308,6 +308,7 @@ pub enum Classification {
     Gas,
     Liquid,
     Solid,
+    Fluid, // liquid or gas
 }
 
 #[derive(Default)]

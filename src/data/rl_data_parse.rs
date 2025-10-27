@@ -2,7 +2,7 @@ use std::{collections::{BTreeMap, HashMap}, default, rc::Rc};
 
 use serde_json::Value;
 
-use crate::data::dataset::DataSetConf;
+use crate::data::{dataset::DataSetConf, model::Classification};
 
 use super::model::{Data, DataParser, Factory, FactoryGroup, Item, Process};
 
@@ -14,6 +14,8 @@ pub enum DataParserRecipeListerFiles {
     Furnace,
     RocketSilo,
     MiningDrill,
+    Items,
+    Fluids,
 }
 impl DataParserRecipeListerFiles {
     pub fn to_key(&self) -> String {
@@ -22,6 +24,8 @@ impl DataParserRecipeListerFiles {
             Self::Furnace => "Furnace".to_string(),
             Self::RocketSilo => "RocketSilo".to_string(),
             Self::MiningDrill => "MiningDrill".to_string(),
+            Self::Items => "Items".to_string(),
+            Self::Fluids => "Fluids".to_string(),
         }
     }
 }
@@ -88,10 +92,8 @@ impl DataParserRecipeLister {
                 _ => |g_key: &String| g_key.to_owned(),
             };
             factories.extend(
-                parsed.get(&k.to_key())
-                    .ok_or(format!("missing json {k:?}"))?
-                    .as_object()
-                    .ok_or(format!("missing root object in {k:?}"))?
+                parsed.get(&k.to_key()).ok_or(format!("missing json {k:?}"))?
+                    .as_object().ok_or(format!("missing root object in {k:?}"))?
                     .into_iter()
                     .map(|(id, val)| -> Result<(String, Rc<Factory>), String> {
                         let obj = val.as_object().unwrap();
@@ -99,8 +101,7 @@ impl DataParserRecipeLister {
                             id.clone(),
                             Rc::new(
                                 Factory{
-                                    id: obj.get("name")
-                                        .ok_or(format!("missing name in {k:?} at {id}"))?
+                                    id: obj.get("name").ok_or(format!("missing name in {k:?} at {id}"))?
                                         .as_str().ok_or(format!("missing name in {k:?} from {id} was not a string"))?
                                         .to_string(),
                                     display: obj["name"].as_str().unwrap().to_string(), // TOOD import i18n
@@ -127,7 +128,43 @@ impl DataParserRecipeLister {
 
         Ok(factories)
     }
+
+    fn extract_items(parsed: &BTreeMap<String, Value>) -> Result<HashMap<String, Rc<Item>>, String> {
+        let mut items: HashMap<String, Rc<Item>> = HashMap::new();
+
+        for k in &[
+                DataParserRecipeListerFiles::Items,
+                DataParserRecipeListerFiles::Fluids,
+                ] {
+            let classification = match &k {
+                DataParserRecipeListerFiles::Items => Some(Classification::Solid),
+                DataParserRecipeListerFiles::Fluids => Some(Classification::Fluid),
+                _ => None,
+            }.ok_or(format!("Unable to classify {k:?} as a solid or fluid"))?;
+            items.extend(
+                parsed.get(&k.to_key()).ok_or(format!("missing json {k:?}"))?
+                    .as_object().ok_or(format!("missing root object in {k:?}"))?
+                    .into_iter()
+                    .map(|(id, val)| -> Result<(String, Rc<Item>), String> {
+                        Ok((
+                            id.clone(),
+                            Rc::new(Item{
+                                id: val.get("name").ok_or(format!("missing name in {id} from {k:?}"))?
+                                        .as_str().ok_or(format!("{k:?} {id}.name was not a string"))?
+                                        .to_string(),
+                                display: id.clone(), // TODO find the i18n files and use.
+                                classification: classification.clone(),
+                            })
+                        ))
+                    })
+                    .collect::<Result<Vec<(String, Rc<Item>)>, String>>()?
+            );
+        }
+
+        Ok(items)
+    }
 }
+
 
 impl DataParser for DataParserRecipeLister {
     fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<String, String> {
@@ -145,10 +182,9 @@ impl DataParser for DataParserRecipeLister {
         }
 
         let factory_groups = Self::extract_factory_groups(&parsed)?;
-        // let factories: HashMap<String, Rc<Factory>> = HashMap::new();
         let factories = Self::extract_factories(&parsed, &factory_groups)?;
+        let items = Self::extract_items(&parsed)?;
         let processes: HashMap<String, Rc<Process>> = HashMap::new();
-        let items: HashMap<String, Rc<Item>> = HashMap::new();
 
         // processes
         // recipe.json
@@ -201,6 +237,8 @@ mod test {
         jsons.insert(DataParserRecipeListerFiles::Furnace.to_key().to_string(), load_fixture("fixtures/furnace.json").to_string());
         jsons.insert(DataParserRecipeListerFiles::RocketSilo.to_key().to_string(), load_fixture("fixtures/rocket-silo.json").to_string());
         jsons.insert(DataParserRecipeListerFiles::MiningDrill.to_key().to_string(), load_fixture("fixtures/mining-drill.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::Fluids.to_key().to_string(), load_fixture("fixtures/fluid.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::Items.to_key().to_string(), load_fixture("fixtures/item.json").to_string());
         jsons
     }
 
@@ -286,5 +324,19 @@ mod test {
             "resource-basic-solid",
             "resource-hard-solid",
         ]);
+    }
+
+    #[test]
+    fn it_loads_all_items() {
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        assert_eq!(r.items.values().map(|fg| fg.id.clone()).sorted().collect::<Vec<String>>(), &[
+            "iron-chest",
+            "steam",
+            "steel-chest",
+            "water",
+            "wooden-chest",
+        ])
     }
 }

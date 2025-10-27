@@ -1,0 +1,35 @@
+{
+  "wooden-chest" : {
+    "name" : "wooden-chest",
+    "localised_name" : [
+      "entity-name.wooden-chest"
+    ],
+    "type" : "item",
+    "order" : "a[items]-a[wooden-chest]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "wooden-chest"
+  },
+  "iron-chest" : {
+    "name" : "iron-chest",
+    "localised_name" : [
+      "entity-name.iron-chest"
+    ],
+    "type" : "item",
+    "order" : "a[items]-b[iron-chest]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "iron-chest"
+  },
+  "steel-chest" : {
+    "name" : "steel-chest",
+    "localised_name" : [
+      "entity-name.steel-chest"
+    ],
+    "type" : "item",
+    "order" : "a[items]-c[steel-chest]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "steel-chest"
+  }
+}
