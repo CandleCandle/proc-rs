@@ -2,11 +2,9 @@ use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use clap::{command, Parser};
 use proc_rs::data::{
-    dataset::DataSet,
-    calculator::Calculator,
-    graph_configuration::GraphConfiguration, model::DataParser};
+    calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::{DataParser, StackSet}};
 
-use tabled::{settings::object::Cell, Table};
+use tabled::{builder::Builder, settings::object::Cell, Table};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 // use data::{dataset::DataSet, graph_configuration::GraphConfiguration, model::DataParser};
@@ -102,6 +100,7 @@ fn main() -> Result<(), String> {
     tracing::info!("initial matrix {}", calc.initial_matrix());
     tracing::info!("reduced matrix {}", calc.reduced_matrix());
     tracing::info!("process counts \n{}", make_process_count_table(&calc.process_counts()));
+    tracing::info!("materials\n{}", make_materials_count_table(&calc.materials()));
 
     Ok(())
 }
@@ -111,4 +110,23 @@ fn make_process_count_table(process_counts: &BTreeMap<String, f64>) -> String {
         .modify(Cell::new(0, 0), "id")
         .modify(Cell::new(0, 1), "count")
         .to_string()
+}
+
+fn make_materials_count_table(materials: &StackSet) -> String {
+    let all_items = materials.contained_items();
+
+    let mut result = Builder::default();
+    for item in &all_items {
+        let positive = (materials.sum_positive(&item).quantity * 100.0).round() / 100.0;
+        let negative = (materials.sum_negative(&item).quantity * 100.0).round() / 100.0;
+        let mut net = (materials.sum(&item).quantity * 100.0).round() / 100.0;
+        if net.is_sign_negative() && net.abs() < 0.001 { // essentially, display -0 as 0.
+            net = net * -1.0;
+        }
+        result.push_record(&[ negative.to_string(), positive.to_string(), net.to_string() ]);
+    }
+    result.insert_column(0, all_items.iter().map(|i| i.display.clone()).collect::<Vec<String>>());
+    result.insert_record(0, &[ "item".to_string(), "consume".to_string(), "produce".to_string(), "net".to_string() ]);
+
+    result.build().to_string()
 }

@@ -1,4 +1,4 @@
-use std::{collections::HashMap, hash::{Hash, Hasher}, ops, rc::Rc};
+use std::{collections::{BTreeSet, HashMap}, hash::{Hash, Hasher}, ops, rc::Rc};
 
 use serde::{Deserialize, Serialize};
 
@@ -251,6 +251,10 @@ impl StackSet {
             .chain(self.combined.iter())
             .filter(|s| s.item.id == item.id)
             .collect()
+    }
+
+    pub fn contained_items(&self) -> BTreeSet<Rc<Item>> {
+        self.combined.iter().map(|s| s.item.clone()).collect()
     }
 }
 
