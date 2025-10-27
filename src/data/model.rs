@@ -129,7 +129,7 @@ impl Stack {
 //     }
 // }
 
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Item {
     pub id: String,
     pub classification: Classification,
@@ -150,7 +150,7 @@ impl Hash for Item {
 }
 
 // // XXX possible to derive a Display using the enum names?
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum Classification {
     Energy,
     Gas,

@@ -88,7 +88,7 @@ fn main() -> Result<(), String> {
 
     // println!("{:?}", gc);
 
-    let calc = Calculator::generate(gc);
+    let calc = Calculator::generate(&gc);
     // calc.to_gv();
     calc.initial_matrix();
     // calc.get_reduced_matrix();
