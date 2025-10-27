@@ -20,5 +20,27 @@
     "max_temperature" : 5000,
     "fuel_value" : 0,
     "emissions_multiplier" : 1
+  },
+  "sulfuric-acid" : {
+    "name" : "sulfuric-acid",
+    "localised_name" : [
+      "fluid-name.sulfuric-acid"
+    ],
+    "order" : "a[fluid]-b[oil]-f[sulfuric-acid]",
+    "default_temperature" : 25,
+    "max_temperature" : 25,
+    "fuel_value" : 0,
+    "emissions_multiplier" : 1
+  },
+  "crude-oil" : {
+    "name" : "crude-oil",
+    "localised_name" : [
+      "fluid-name.crude-oil"
+    ],
+    "order" : "a[fluid]-b[oil]-a[crude-oil]",
+    "default_temperature" : 25,
+    "max_temperature" : 25,
+    "fuel_value" : 0,
+    "emissions_multiplier" : 1
   }
 }

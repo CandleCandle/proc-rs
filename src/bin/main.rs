@@ -2,15 +2,10 @@ use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use clap::{command, Parser};
 use proc_rs::data::{
-    basic_data_parse::DataParserBasicFiles, calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::{DataParser, StackSet}};
+    basic_data_parse::DataParserBasicFiles, calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::StackSet};
 
 use tabled::{builder::Builder, settings::object::Cell, Table};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-
-// use data::{dataset::DataSet, graph_configuration::GraphConfiguration, model::DataParser};
-
-// use dataset::{DataSet, DataSetConf};
-// use data::model::{ActiveProcess, Data, DataParser, Item, Process, Stack};
 
 
 /// Examples:

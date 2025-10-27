@@ -17,6 +17,7 @@ pub enum DataParserRecipeListerFiles {
     Items,
     Fluids,
     Recipe,
+    Resource,
 }
 impl DataParserRecipeListerFiles {
     pub fn to_key(&self) -> String {
@@ -28,6 +29,7 @@ impl DataParserRecipeListerFiles {
             Self::Items => "Items".to_string(),
             Self::Fluids => "Fluids".to_string(),
             Self::Recipe => "Recipe".to_string(),
+            Self::Resource => "Resource".to_string(),
         }
     }
 }
@@ -173,39 +175,83 @@ impl DataParserRecipeLister {
         ) -> Result<HashMap<String, Rc<Process>>, String> {
         let mut processes: HashMap<String, Rc<Process>> = HashMap::new();
 
-        for k in &[
-            DataParserRecipeListerFiles::Recipe,
-        ] {
-            processes.extend(
-                parsed.get(&k.to_key()).ok_or(format!("missing json {k:?}"))?
-                    .as_object().ok_or(format!("missing root object in {k:?}"))?
-                    .into_iter()
-                    .map(|(id, val)| -> Result<(String, Rc<Process>), String> {
-                        let map = val.as_object().ok_or(format!("item at {id} in {k:?} was not an object"))?;
-                        Ok((id.clone(), Rc::new(
-                            Process{
-                                id: id.clone(),
-                                display: map.get("name").unwrap().as_str().unwrap().to_string(),
-                                duration: map.get("energy").ok_or(format!("missing [{id}.\"energy\"] in {k:?}"))?.as_f64().unwrap(),
-                                group: factory_groups.get(map.get("category").unwrap().as_str().unwrap()).unwrap().clone(),
-                                inputs: Self::extract_mod(
-                                    map.get("ingredients").ok_or(format!("missing [{id}].\"ingredients\" from {k:?}"))?,
-                                    items, &id, &k)?,
-                                outputs: Self::extract_mod(
-                                    map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                    items, &id, &k)?,
-                                inputs_unmod: Self::extract_unmod(
-                                    map.get("ingredients").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                    items, &id, &k)?,
-                                outputs_unmod: Self::extract_unmod(
-                                    map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                    items, &id, &k)?,
-                            }
-                        )))
-                    })
-                    .collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
-            )
-        }
+        let k = DataParserRecipeListerFiles::Recipe;
+        processes.extend(
+            parsed.get(&k.to_key()).ok_or(format!("missing json {k:?}"))?
+                .as_object().ok_or(format!("missing root object in {k:?}"))?
+                .into_iter()
+                .map(|(id, val)| -> Result<(String, Rc<Process>), String> {
+                    let map = val.as_object().ok_or(format!("item at {id} in {k:?} was not an object"))?;
+                    Ok((id.clone(), Rc::new(
+                        Process{
+                            id: id.clone(),
+                            display: map.get("name").unwrap().as_str().unwrap().to_string(),
+                            duration: map.get("energy").ok_or(format!("missing [{id}.\"energy\"] in {k:?}"))?.as_f64().unwrap(),
+                            group: factory_groups.get(map.get("category").unwrap().as_str().unwrap()).unwrap().clone(),
+                            inputs: Self::extract_mod(
+                                map.get("ingredients").ok_or(format!("missing [{id}].\"ingredients\" from {k:?}"))?,
+                                items, &id, &k)?,
+                            outputs: Self::extract_mod(
+                                map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
+                                items, &id, &k)?,
+                            inputs_unmod: Self::extract_unmod(
+                                map.get("ingredients").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
+                                items, &id, &k)?,
+                            outputs_unmod: Self::extract_unmod(
+                                map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
+                                items, &id, &k)?,
+                        }
+                    )))
+                })
+                .collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
+            );
+
+        let k = DataParserRecipeListerFiles::Resource;
+
+        processes.extend(
+            parsed.get(&k.to_key()).ok_or(format!("missing json {k:?}"))?
+                .as_object().ok_or(format!("missing root object in {k:?}"))?
+                .into_iter()
+                .map(|(id, val)| -> Result<(String, Rc<Process>), String> {
+                    Ok((
+                        format!("resource-{}", id),
+                        Rc::new(Process{
+                            id: format!("resource-{}", id),
+                            display: val.get("name").unwrap().as_str().unwrap().to_string(),
+                            duration: val.get("mineable_properties").unwrap()
+                                .as_object().unwrap()
+                                .get("mining_time").unwrap().as_f64().unwrap(),
+                            group: factory_groups.get(
+                                &format!("resource-{}", val.get("resource_category").unwrap().as_str().unwrap())
+                            ).unwrap().clone(),
+                            inputs: val.get("mineable_properties")
+                                .map(|mp| -> Result<Vec<Stack>, String> {
+                                    let mp = mp.as_object().unwrap();
+                                    if let Some(rf) = mp.get("required_fluid")
+                                        && let Some(fa) = mp.get("fluid_amount") {
+                                        let rfs = rf.as_str().unwrap();
+                                        Ok(vec![
+                                            Stack::new(
+                                                items.get(rfs).ok_or(format!("unable to find mineable requirement {rfs}"))?.clone(),
+                                                fa.as_f64().unwrap()
+                                            )
+                                        ])
+                                    } else {
+                                        Ok(Vec::new())
+                                    }
+                                }).unwrap()?,
+                            inputs_unmod: Vec::new(),
+                            outputs: Self::extract_mod(
+                                val
+                                    .get("mineable_properties").unwrap().as_object().unwrap()
+                                    .get("products").unwrap(),
+                                items, id, &k)?,
+                            outputs_unmod: Vec::new(),
+                        })
+                    ))
+                })
+                .collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
+            );
         Ok(processes)
     }
 
@@ -271,6 +317,7 @@ impl DataParser for DataParserRecipeLister {
         result.insert(DataParserRecipeListerFiles::Items.to_key(), format!("{}/item.json", conf.id()));
         result.insert(DataParserRecipeListerFiles::Fluids.to_key(), format!("{}/fluid.json", conf.id()));
         result.insert(DataParserRecipeListerFiles::Recipe.to_key(), format!("{}/recipe.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Resource.to_key(), format!("{}/resource.json", conf.id()));
         result
     }
 
@@ -322,6 +369,7 @@ mod test {
         jsons.insert(DataParserRecipeListerFiles::Fluids.to_key().to_string(), load_fixture("fixtures/fluid.json").to_string());
         jsons.insert(DataParserRecipeListerFiles::Items.to_key().to_string(), load_fixture("fixtures/item.json").to_string());
         jsons.insert(DataParserRecipeListerFiles::Recipe.to_key().to_string(), load_fixture("fixtures/recipe.json").to_string());
+        jsons.insert(DataParserRecipeListerFiles::Resource.to_key().to_string(), load_fixture("fixtures/resource.json").to_string());
         jsons
     }
 
@@ -422,12 +470,17 @@ mod test {
         assert_eq!(r.items.values().map(|fg| fg.id.clone()).sorted().collect::<Vec<String>>(), &[
             "advanced-circuit",
             "big-mining-drill",
+            "coal",
+            "crude-oil",
             "electric-engine-unit",
             "electric-mining-drill",
             "iron-chest",
+            "scrap",
             "steam",
             "steel-chest",
+            "sulfuric-acid",
             "tungsten-carbide",
+            "tungsten-ore",
             "uranium-235",
             "uranium-238",
             "uranium-ore",
@@ -447,6 +500,11 @@ mod test {
             "big-mining-drill-recycling",
             "kovarex-enrichment-process",
             "parameter-0",
+            "resource-coal",
+            "resource-crude-oil",
+            "resource-scrap",
+            "resource-tungsten-ore",
+            "resource-uranium-ore",
             "uranium-processing",
             "wooden-chest",
         ])
@@ -492,5 +550,41 @@ mod test {
         assert_eq!(process.inputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0]);
         assert_eq!(process.outputs_unmod.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["uranium-235", "uranium-238"]);
         assert_eq!(process.outputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0, 0.0]);
+    }
+
+    #[test]
+    fn it_understands_resource_processes_with_inputs() {
+        setup_tracing();
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        let process = r.processes.get("resource-uranium-ore").unwrap();
+
+        assert_eq!(process.id, "resource-uranium-ore");
+        assert_eq!(process.display, "uranium-ore");
+        assert_eq!(process.duration, 2.0);
+        assert_eq!(process.group.id, "resource-basic-solid");
+        assert_eq!(process.inputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["sulfuric-acid"]);
+        assert_eq!(process.inputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[10.0]);
+        assert_eq!(process.outputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["uranium-ore"]);
+        assert_eq!(process.outputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[1.0]);
+    }
+
+    #[test]
+    fn it_understands_resource_processes_without_inputs() {
+        setup_tracing();
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        let process = r.processes.get("resource-coal").unwrap();
+
+        assert_eq!(process.id, "resource-coal");
+        assert_eq!(process.display, "coal");
+        assert_eq!(process.duration, 1.0);
+        assert_eq!(process.group.id, "resource-basic-solid");
+        assert_eq!(process.inputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>().is_empty(), true);
+        assert_eq!(process.inputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>().is_empty(), true);
+        assert_eq!(process.outputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["coal"]);
+        assert_eq!(process.outputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[1.0]);
     }
 }

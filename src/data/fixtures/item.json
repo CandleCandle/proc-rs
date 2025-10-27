@@ -32,6 +32,29 @@
     "stack_size" : 50,
     "place_result" : "steel-chest"
   },
+  "scrap" : {
+    "name" : "scrap",
+    "localised_name" : [
+      "item-name.scrap"
+    ],
+    "type" : "item",
+    "order" : "a[scrap]-a[scrap]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "coal" : {
+    "name" : "coal",
+    "localised_name" : [
+      "item-name.coal"
+    ],
+    "type" : "item",
+    "order" : "b[coal]",
+    "fuel_value" : 4000000,
+    "stack_size" : 50,
+    "fuel_category" : "chemical",
+    "fuel_acceleration_multiplier" : 1,
+    "fuel_top_speed_multiplier" : 1
+  },
   "uranium-ore" : {
     "name" : "uranium-ore",
     "localised_name" : [
@@ -69,6 +92,16 @@
     ],
     "type" : "item",
     "order" : "c[tungsten]-b[tungsten-carbide]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "tungsten-ore" : {
+    "name" : "tungsten-ore",
+    "localised_name" : [
+      "item-name.tungsten-ore"
+    ],
+    "type" : "item",
+    "order" : "c[tungsten]-a[tungsten-ore]",
     "fuel_value" : 0,
     "stack_size" : 50
   },
