@@ -125,6 +125,10 @@ impl ActiveProcess {
         &self.process.id
     }
 
+    pub fn display(&self) -> &str {
+        &self.process.display
+    }
+
     pub fn duration(&self) -> f64 {
         self.process.duration * self.duration_multiplier
     }

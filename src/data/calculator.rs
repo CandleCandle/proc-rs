@@ -182,13 +182,21 @@ impl Calculator {
 
         let materials = self.materials();
         for mat in materials.contained_items() {
+            let sum = (materials.sum(&mat).quantity * 100.0).round() / 100.0;
+            let class = if sum.abs() < 1e-10 {
+                "\"net-equal\""
+            } else if sum > 0.0 {
+                "\"net-producer\""
+            } else {
+                "\"net-consumer\""
+            };
             graph.add_stmt(Stmt::Node(
                 Node {
                     id: NodeId{ 0: Id::Plain(Self::normalise_id(&mat.id)), 1: Option::None },
                     attributes: vec![
                         attr!("shape", "record"),
                         // net-consumer / net-producer / net-equal
-                        NodeAttributes::class("net_p_c".to_string()),
+                        NodeAttributes::class(class.to_string()),
                         NodeAttributes::label(format!(
                             "\"\
                               {{ {{<produce> produce {:.2}/s }} \
@@ -230,7 +238,7 @@ impl Calculator {
                             | {{ {} }} \
                             }}\"",
                             inputs_line,
-                            proc.id(), // TODO use .display()
+                            proc.display(),
                             outputs_line,
                         ))
                     ],
