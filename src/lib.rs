@@ -1,6 +1,7 @@
 use std::{rc::Rc};
 
 
+use itertools::Itertools;
 use nalgebra::{DMatrix, Scalar};
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::{prelude::JsValue, JsCast};
@@ -16,6 +17,7 @@ use data::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigu
 
 use crate::data::calculator::Calculator;
 use crate::data::dataset::{DataSet, DataSetConf};
+use crate::data::model::ActiveProcess;
 
 #[wasm_bindgen]
 extern "C" {
@@ -133,7 +135,11 @@ impl GraphConfiguration {
     }
 
     pub fn get_processes(&self) -> Result<JsValue, JsValue> {
-        Ok(serde_wasm_bindgen::to_value(&self.wrapped.get_processes())?)
+        Ok(serde_wasm_bindgen::to_value(
+            &self.wrapped.get_processes().iter().sorted_by(
+                |a, b| a.id().cmp(b.id())
+            ).collect::<Vec<&ActiveProcess>>()
+        )?)
     }
 
     pub fn get_defaulted_items(&self) -> Result<JsValue, JsValue> {
