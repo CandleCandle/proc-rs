@@ -123,11 +123,21 @@ impl Stack {
     }
 }
 
-// impl Display for Stack {
-//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-//         write!(f, "{} {:?}, ({})", self.item.display, self.item.classification, self.quantity)
-//     }
-// }
+impl <'a> FromIterator<&'a Stack> for Stack {
+    fn from_iter<T>(iter: T) -> Self
+    where T: IntoIterator<Item = &'a Stack> {
+        let mut q = 0.0;
+        let mut i: Option<Rc<Item>> = None;
+        for s in iter {
+            match i {
+                None => i = Some(s.item.clone()),
+                _ => (),
+            }
+            q += s.quantity;
+        }
+        Stack { item: i.unwrap(), quantity: q }
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Item {
@@ -156,4 +166,103 @@ pub enum Classification {
     Gas,
     Liquid,
     Solid,
+}
+
+pub struct StackSet {
+    combined: Vec<Stack>,
+}
+
+impl StackSet {
+    pub fn new() -> Self {
+        Self {
+            combined: Vec::new(),
+        }
+    }
+
+    pub fn add(&mut self, stack: Stack) {
+        self.combined.push(stack);
+    }
+
+    pub fn sum_negative(&self, item: &Rc<Item>) -> Stack {
+        vec![Stack{item: item.clone(), quantity: 0.0}].iter()
+            .chain(self.combined.iter())
+            .filter(|s| s.item.id == item.id)
+            .filter(|s| s.quantity <= 0.0)
+            .collect()
+    }
+
+    pub fn sum_positive(&self, item: &Rc<Item>) -> Stack {
+        vec![Stack{item: item.clone(), quantity: 0.0}].iter()
+            .chain(self.combined.iter())
+            .filter(|s| s.item.id == item.id)
+            .filter(|s| s.quantity >= 0.0)
+            .collect()
+    }
+
+    pub fn sum(&self, item: &Rc<Item>) -> Stack {
+        vec![Stack{item: item.clone(), quantity: 0.0}].iter()
+            .chain(self.combined.iter())
+            .filter(|s| s.item.id == item.id)
+            .collect()
+    }
+}
+
+
+
+
+#[cfg(test)]
+mod test {
+
+    use super::*;
+
+    #[test]
+    fn stackset_sums() {
+        let mut undertest = StackSet::new();
+        let i0 = Rc::new(Item::new("id0".to_string()));
+        let i1 = Rc::new(Item::new("id1".to_string()));
+        undertest.add(Stack::new(i0.clone(), 1.0));
+        undertest.add(Stack::new(i0.clone(), -4.0));
+        undertest.add(Stack::new(i1.clone(), 7.0));
+
+        assert_eq!(undertest.sum(&i0).quantity, -3.0);
+    }
+
+    #[test]
+    fn stackset_sums_missing() {
+        let mut undertest = StackSet::new();
+        let i0 = Rc::new(Item::new("id0".to_string()));
+        let i1 = Rc::new(Item::new("id1".to_string()));
+        let i2 = Rc::new(Item::new("id2".to_string()));
+        undertest.add(Stack::new(i0.clone(), 1.0));
+        undertest.add(Stack::new(i1.clone(), 3.0));
+
+        assert_eq!(undertest.sum(&i2).quantity, 0.0);
+    }
+
+    #[test]
+    fn stackset_sums_negative() {
+        let mut undertest = StackSet::new();
+        let i0 = Rc::new(Item::new("id0".to_string()));
+        let i1 = Rc::new(Item::new("id1".to_string()));
+        undertest.add(Stack::new(i0.clone(), -1.0));
+        undertest.add(Stack::new(i0.clone(), -7.0));
+        undertest.add(Stack::new(i0.clone(), 3.0));
+        undertest.add(Stack::new(i1.clone(), 5.0));
+
+        assert_eq!(undertest.sum_negative(&i0).quantity, -8.0);
+    }
+
+    #[test]
+    fn stackset_sums_positive() {
+        let mut undertest = StackSet::new();
+        let i0 = Rc::new(Item::new("id0".to_string()));
+        let i1 = Rc::new(Item::new("id1".to_string()));
+        undertest.add(Stack::new(i0.clone(), 5.0));
+        undertest.add(Stack::new(i0.clone(), 3.0));
+        undertest.add(Stack::new(i0.clone(), -1.0));
+        undertest.add(Stack::new(i1.clone(), 7.0));
+
+        assert_eq!(undertest.sum_positive(&i0).quantity, 8.0);
+    }
+
 }
