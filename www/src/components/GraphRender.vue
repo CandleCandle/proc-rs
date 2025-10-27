@@ -1,36 +1,10 @@
 <script setup>
-import { ref, shallowRef, triggerRef, watch, defineProps, toRefs } from 'vue';
+import { watch, defineProps, toRefs } from 'vue';
 
 const props = defineProps(['cfg', 'cfg_fu']);
 const { _0, cfg_fu } = toRefs(props);
 const { cfg, _1 } = props;
 
-
-
-const sample = `digraph sample {
-  bgcolor = transparent
-
-  A [
-    class="net-consumer"
-  ]
-  B [
-    class="net-equal"
-  ]
-  D [
-    class="net-equal"
-  ]
-  C [
-    class="net-producer"
-  ]
-  E [
-    class="net-producer"
-  ]
-
-  A -> B
-  B -> C
-  B -> D
-  D -> E
-}`
 
 watch(cfg_fu, (value) => {
     if (cfg.can_render()) {

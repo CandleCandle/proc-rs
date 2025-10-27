@@ -1,5 +1,5 @@
 <script setup>
-import { ref, toRefs, watch, reactive } from 'vue';
+import { ref } from 'vue';
 import { Collapse } from 'vue-collapsed';
 import CurrentCfgItem from './CurrentCfgItem.vue';
 import CurrentCfgProc from './CurrentCfgProc.vue';

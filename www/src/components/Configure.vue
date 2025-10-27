@@ -3,7 +3,7 @@ import SearchResultsItem from './SearchResultsItem.vue';
 import CurrentConfiguration from './current_configuration/CurrentConfiguration.vue';
 import SearchResultsProcess from './SearchResultsProcess.vue';
 import { Collapse } from 'vue-collapsed';
-import { ref, watch, defineProps, toRefs } from 'vue';
+import { ref, watch, toRefs } from 'vue';
 import { dataset_all } from 'proc-rs';
 
 
