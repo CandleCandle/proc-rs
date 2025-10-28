@@ -149,7 +149,7 @@ impl GraphConfiguration {
 
         let parser = self.current_data_set.as_ref().unwrap().style.parser();
 
-        let files = parser.files_to_fetch_list(&self.current_data_set.as_ref().unwrap());
+        let files = parser.files_to_fetch_list(self.current_data_set.as_ref().unwrap());
         let mut jsons = BTreeMap::new();
         for (key, path) in files {
             jsons.insert(key, fetcher.fetch(&path).await.unwrap());

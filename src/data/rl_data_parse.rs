@@ -66,7 +66,7 @@ impl DataParserRecipeLister {
                         .ok_or(format!("missing crafting_categories in {k:?}"))?
                         .keys()
                         .map(group_mapper)
-                        .map(|id| (id.clone(), Rc::new(FactoryGroup{id: id}))
+                        .map(|id| (id.clone(), Rc::new(FactoryGroup{id}))
                 ));
             }
         }
@@ -190,16 +190,16 @@ impl DataParserRecipeLister {
                             group: factory_groups.get(map.get("category").unwrap().as_str().unwrap()).unwrap().clone(),
                             inputs: Self::extract_mod(
                                 map.get("ingredients").ok_or(format!("missing [{id}].\"ingredients\" from {k:?}"))?,
-                                items, &id, &k)?,
+                                items, id, &k)?,
                             outputs: Self::extract_mod(
                                 map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                items, &id, &k)?,
+                                items, id, &k)?,
                             inputs_unmod: Self::extract_unmod(
                                 map.get("ingredients").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                items, &id, &k)?,
+                                items, id, &k)?,
                             outputs_unmod: Self::extract_unmod(
                                 map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                items, &id, &k)?,
+                                items, id, &k)?,
                         }
                     )))
                 })
@@ -214,9 +214,9 @@ impl DataParserRecipeLister {
                 .into_iter()
                 .map(|(id, val)| -> Result<(String, Rc<Process>), String> {
                     Ok((
-                        format!("resource-{}", id),
+                        format!("resource-{id}"),
                         Rc::new(Process{
-                            id: format!("resource-{}", id),
+                            id: format!("resource-{id}"),
                             display: val.get("name").unwrap().as_str().unwrap().to_string(),
                             duration: val.get("mineable_properties").unwrap()
                                 .as_object().unwrap()
@@ -324,7 +324,7 @@ impl DataParser for DataParserRecipeLister {
     fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String> {
         let mut parsed: BTreeMap<String, Value> = BTreeMap::new();
         for (k, v) in jsons.iter() {
-            parsed.insert(k.clone(), serde_json::from_str(&v).map_err(|e| format!("{e}"))?);
+            parsed.insert(k.clone(), serde_json::from_str(v).map_err(|e| format!("{e}"))?);
         }
 
         let factory_groups = Self::extract_factory_groups(&parsed)?;
