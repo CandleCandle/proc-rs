@@ -25,10 +25,22 @@ cargo run -- --help
 
 ### Compile and Minify for Production
 
+
+1. what was the way to direct it at a specific dir?
+2. is it `doc` or `docs`?
+3. DNS needs configuring - just follow the GH guide again.
 ```sh
+git checkout doc
+cp -r www/data dist/
 cd www
 npm run build
 ```
+
+Test Locally
+```
+python3 -m http.server -b 127.0.0.1
+```
+
 
 # Adding a Data Set
 
