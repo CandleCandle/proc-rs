@@ -1,0 +1,78 @@
+{
+    "items": [
+        {
+            "id": "part_a",
+            "group": "thing",
+            "i18n": {
+                "en": "Part A"
+            }
+        },
+        {
+            "id": "part_b",
+            "group": "thing",
+            "i18n": {
+                "en": "Part B"
+            }
+        },
+        {
+            "id": "part_c",
+            "group": "thing",
+            "i18n": {
+                "en": "Part C"
+            }
+        },
+        {
+            "id": "part_d",
+            "group": "thing",
+            "i18n": {
+                "en": "Part D"
+            }
+        }
+    ],
+    "processes": [
+        {
+            "id": "make_c",
+            "i18n": {
+                "en": "Make C"
+            },
+            "duration": 5,
+            "group": "default",
+            "inputs": {
+                "part_a": 5,
+                "part_b": 3
+            },
+            "outputs": {
+                "part_c": 2
+            }
+        },
+        {
+            "id": "make_d",
+            "i18n": {
+                "en": "Make D"
+            },
+            "duration": 5,
+            "group": "default",
+            "inputs": {
+                "part_c": 5,
+                "part_a": 3
+            },
+            "outputs": {
+                "part_d": 1,
+                "part_b": 1
+            }
+        }
+    ],
+    "factories": [
+        {
+            "id": "main",
+            "i18n": {
+                "en": "Main"
+            },
+            "factory_groups": [
+                "default"
+            ],
+            "duration_modifier": 1,
+            "output_modifier": 1
+        }
+    ]
+}

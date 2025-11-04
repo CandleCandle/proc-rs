@@ -1,0 +1,488 @@
+{
+  "items": [
+    {
+      "id": "acid",
+      "group": "item",
+      "i18n": {
+        "en": "acid"
+      }
+    },
+    {
+      "id": "aluminium",
+      "group": "item",
+      "i18n": {
+        "en": "aluminium"
+      }
+    },
+    {
+      "id": "carbon",
+      "group": "item",
+      "i18n": {
+        "en": "carbon"
+      }
+    },
+    {
+      "id": "ceramic",
+      "group": "item",
+      "i18n": {
+        "en": "ceramic"
+      }
+    },
+    {
+      "id": "circuit",
+      "group": "item",
+      "i18n": {
+        "en": "circuit"
+      }
+    },
+    {
+      "id": "copper",
+      "group": "item",
+      "i18n": {
+        "en": "copper"
+      }
+    },
+    {
+      "id": "glass",
+      "group": "item",
+      "i18n": {
+        "en": "glass"
+      }
+    },
+    {
+      "id": "gold",
+      "group": "item",
+      "i18n": {
+        "en": "gold"
+      }
+    },
+    {
+      "id": "hydrocarbon",
+      "group": "item",
+      "i18n": {
+        "en": "hydrocarbon"
+      }
+    },
+    {
+      "id": "iron",
+      "group": "item",
+      "i18n": {
+        "en": "iron"
+      }
+    },
+    {
+      "id": "laser",
+      "group": "item",
+      "i18n": {
+        "en": "laser"
+      }
+    },
+    {
+      "id": "light_alloy",
+      "group": "item",
+      "i18n": {
+        "en": "light alloy"
+      }
+    },
+    {
+      "id": "methane",
+      "group": "item",
+      "i18n": {
+        "en": "methane"
+      }
+    },
+    {
+      "id": "mirror",
+      "group": "item",
+      "i18n": {
+        "en": "mirror"
+      }
+    },
+    {
+      "id": "oxygen",
+      "group": "item",
+      "i18n": {
+        "en": "oxygen"
+      }
+    },
+    {
+      "id": "plastic",
+      "group": "item",
+      "i18n": {
+        "en": "plastic"
+      }
+    },
+    {
+      "id": "quartz",
+      "group": "item",
+      "i18n": {
+        "en": "quartz"
+      }
+    },
+    {
+      "id": "silicon",
+      "group": "item",
+      "i18n": {
+        "en": "silicon"
+      }
+    },
+    {
+      "id": "strong_alloy",
+      "group": "item",
+      "i18n": {
+        "en": "strong alloy"
+      }
+    },
+    {
+      "id": "sulphur",
+      "group": "item",
+      "i18n": {
+        "en": "sulphur"
+      }
+    },
+    {
+      "id": "titanium",
+      "group": "item",
+      "i18n": {
+        "en": "titanium"
+      }
+    },
+    {
+      "id": "uranium",
+      "group": "item",
+      "i18n": {
+        "en": "uranium"
+      }
+    },
+    {
+      "id": "water",
+      "group": "item",
+      "i18n": {
+        "en": "water"
+      }
+    }
+  ],
+  "processes": [
+    {
+      "id": "glass",
+      "i18n": {
+        "en": "glass"
+      },
+      "duration": 1,
+      "group": "refiner",
+      "inputs": {
+        "quartz": 1
+      },
+      "outputs": {
+        "glass": 1
+      }
+    },
+    {
+      "id": "laser",
+      "i18n": {
+        "en": "laser"
+      },
+      "duration": 1,
+      "group": "optics_factory",
+      "inputs": {
+        "glass": 1,
+        "uranium": 1
+      },
+      "outputs": {
+        "laser": 1
+      }
+    },
+    {
+      "id": "light_alloy",
+      "i18n": {
+        "en": "light_alloy"
+      },
+      "duration": 1,
+      "group": "crucible",
+      "inputs": {
+        "aluminium": 1,
+        "silicon": 1
+      },
+      "outputs": {
+        "light_alloy": 1
+      }
+    },
+    {
+      "id": "mirror",
+      "i18n": {
+        "en": "mirror"
+      },
+      "duration": 1,
+      "group": "optics_factory",
+      "inputs": {
+        "glass": 1,
+        "light_alloy": 1
+      },
+      "outputs": {
+        "mirror": 1
+      }
+    },
+    {
+      "id": "oxygen",
+      "i18n": {
+        "en": "oxygen"
+      },
+      "duration": 1,
+      "group": "refiner",
+      "inputs": {
+        "water": 1
+      },
+      "outputs": {
+        "oxygen": 1
+      }
+    },
+    {
+      "id": "quartz",
+      "i18n": {
+        "en": "quartz"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "silicon": 1,
+        "water": 1
+      },
+      "outputs": {
+        "quartz": 1
+      }
+    },
+    {
+      "id": "hydrocarbon_w",
+      "i18n": {
+        "en": "hydrocarbon"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "water": 1,
+        "carbon": 1
+      },
+      "outputs": {
+        "hydrocarbon": 1
+      }
+    },
+    {
+      "id": "carbon",
+      "i18n": {
+        "en": "carbon"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "methane": 1,
+        "oxygen": 1
+      },
+      "outputs": {
+        "carbon": 1
+      }
+    },
+    {
+      "id": "hydrocarbon_m",
+      "i18n": {
+        "en": "hydrocarbon_m"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "methane": 1,
+        "carbon": 1
+      },
+      "outputs": {
+        "hydrocarbon": 1
+      }
+    },
+    {
+      "id": "plastic",
+      "i18n": {
+        "en": "plastic"
+      },
+      "duration": 1,
+      "group": "refiner",
+      "inputs": {
+        "hydrocarbon": 1
+      },
+      "outputs": {
+        "plastic": 1
+      }
+    },
+    {
+      "id": "ceramic",
+      "i18n": {
+        "en": "ceramic"
+      },
+      "duration": 1,
+      "group": "crucible",
+      "inputs": {
+        "aluminium": 1,
+        "carbon": 1
+      },
+      "outputs": {
+        "ceramic": 1
+      }
+    },
+    {
+      "id": "acid",
+      "i18n": {
+        "en": "acid"
+      },
+      "duration": 1,
+      "group": "chemical_lab",
+      "inputs": {
+        "sulphur": 1,
+        "water": 1
+      },
+      "outputs": {
+        "acid": 1
+      }
+    },
+    {
+      "id": "circuit",
+      "i18n": {
+        "en": "circuit"
+      },
+      "duration": 1,
+      "group": "component_lab",
+      "inputs": {
+        "silicon": 1,
+        "acid": 1
+      },
+      "outputs": {
+        "circuit": 1
+      }
+    },
+    {
+      "id": "strong_alloy_titanium",
+      "i18n": {
+        "en": "strong_alloy_titanium"
+      },
+      "duration": 1,
+      "group": "crucible",
+      "inputs": {
+        "titanium": 1,
+        "iron": 1
+      },
+      "outputs": {
+        "strong_alloy": 1
+      }
+    },
+    {
+      "id": "strong_alloy_carbon",
+      "i18n": {
+        "en": "strong_alloy_carbon"
+      },
+      "duration": 1,
+      "group": "crucible",
+      "inputs": {
+        "iron": 1,
+        "carbon": 1
+      },
+      "outputs": {
+        "strong_alloy": 1
+      }
+    }
+  ],
+  "factory_groups": [],
+  "factories": [
+    {
+      "id": "optics_factory",
+      "i18n": {
+        "en": "optics_factory"
+      },
+      "name": "optics_factory",
+      "factory_groups": [
+        "optics_factory"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "crucible",
+      "i18n": {
+        "en": "crucible"
+      },
+      "name": "crucible",
+      "factory_groups": [
+        "crucible"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "refiner",
+      "i18n": {
+        "en": "refiner"
+      },
+      "name": "refiner",
+      "factory_groups": [
+        "refiner"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "chemical_lab",
+      "i18n": {
+        "en": "chemical_lab"
+      },
+      "name": "chemical_lab",
+      "factory_groups": [
+        "chemical_lab"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "component_lab",
+      "i18n": {
+        "en": "component_lab"
+      },
+      "name": "component_lab",
+      "factory_groups": [
+        "component_lab"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "stuff_factory",
+      "i18n": {
+        "en": "stuff_factory"
+      },
+      "name": "stuff_factory",
+      "factory_groups": [
+        "stuff_factory"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "habitat",
+      "i18n": {
+        "en": "habitat"
+      },
+      "name": "habitat",
+      "factory_groups": [
+        "habitat"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    },
+    {
+      "id": "electronics_factory",
+      "i18n": {
+        "en": "electronics_factory"
+      },
+      "name": "electronics_factory",
+      "factory_groups": [
+        "electronics_factory"
+      ],
+      "duration_modifier": 1,
+      "output_modifier": 1
+    }
+  ]
+}
