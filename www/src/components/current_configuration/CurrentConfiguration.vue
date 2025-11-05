@@ -88,13 +88,13 @@ function map_items(cfg) {
     display: grid;
     grid-template-columns: auto auto;
     gap: 10px;
+    place-items: center stretch;
 }
 .items_fw, :deep(.items_fw) {
     grid-column-start: 1;
-    grid-column-end: span 2;
+    grid-column-end: span 3;
     place-items: center stretch;
 }
-
 
 .proc_header_d {
     grid-column: 2;
