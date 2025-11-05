@@ -49,7 +49,12 @@ watch(cfg_fu, (value) => {
     --item-net-equal-bg: light-dark(#fff, #333);
 }
 
+.graph {
+    fill-opacity: 0.0;
+}
+
 .node {
+    fill-opacity: 1.0;
     stroke: var(--fg);
     fill: var(--bg);
 }
@@ -70,10 +75,12 @@ watch(cfg_fu, (value) => {
     fill-opacity: 0.0;
     stroke: var(--fg);
 }
+.edge>polygon {
+    fill-opacity: 1.0;
+    fill: var(--fg);
+}
 
 g text {
-    /* fill: inherit;
-    stroke: inherit; */
     font-family: inherit;
     font-size: 70%;
 }

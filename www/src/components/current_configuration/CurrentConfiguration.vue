@@ -2,8 +2,8 @@
 import { ref } from 'vue';
 import { Collapse } from 'vue-collapsed';
 import CurrentCfgItem from './CurrentCfgItem.vue';
-import CurrentCfgProc from './CurrentCfgProc.vue';
 import { DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
+import ProcDisplay from '../ProcDisplay.vue';
 
 const emit = defineEmits(['cfg_update', 'make_item', 'use_item']);
 const { cfg } = defineProps(['cfg']);
@@ -53,6 +53,13 @@ function map_items(cfg) {
         .sort((a, b) => a.display().localeCompare(b.display()));
     return result;
 }
+
+function remove_process(cfg, id) {
+  console.log("removing", id);
+  cfg.remove_process(id);
+  emit('cfg_update');
+}
+
 </script>
 
 
@@ -77,7 +84,11 @@ function map_items(cfg) {
             <div class="proc_header_i">Inputs</div>
             <div class="proc_header_o">Outputs</div>
             <hr class="proc_fw" />
-            <CurrentCfgProc @cfg_update="handle_cfg_update()" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" />
+            <ProcDisplay @cfg_update="handle_cfg_update()" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" :emit_on_change="true" >
+                <template #action_button="{ factory_id, modifiers }">
+                    <button @click="remove_process(cfg, proc.id, factory_id, modifiers)">Remove</button>
+                </template>
+            </ProcDisplay>
         </div>
     </Collapse>
 </template>
@@ -88,13 +99,13 @@ function map_items(cfg) {
     display: grid;
     grid-template-columns: auto auto;
     gap: 10px;
+    place-items: center stretch;
 }
 .items_fw, :deep(.items_fw) {
     grid-column-start: 1;
-    grid-column-end: span 2;
+    grid-column-end: span 3;
     place-items: center stretch;
 }
-
 
 .proc_header_d {
     grid-column: 2;

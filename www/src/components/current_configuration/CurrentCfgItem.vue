@@ -10,12 +10,10 @@ const type = ref(stack.type);
 
 if (stack.is_req()) {
     console.log("stack quantity", stack);
-    // requirement_value.value = ;
 }
 console.log("stack", stack, stack.is_req(), stack.is_io(), stack.is_intermediate());
 
 watch(type, (value) => {
-    // TODO add debounce
     console.log('change in type', type, stack.id(), 'req val', requirement_value.value);
     switch (value) {
         case DisplayItem.REQUIREMENT:
@@ -56,22 +54,29 @@ watch(requirement_value, (value) => {
     <div>
         <button @click="emit('make_item', stack.id())" v-tooltip="'Search for processes that have ' + stack.display() + ' as an output.'">Make</button>
         <button @click="emit('use_item', stack.id())" v-tooltip="'Search for processes that have ' + stack.display() + ' as an input.'">Use</button>
-        &nbsp;
-        <input type="text" size="5" v-model.lazy.number="requirement_value" :disabled="type != DisplayItem.REQUIREMENT"
-            v-tooltip="'Set a requirement of X per second for ' + stack.display() + (type == DisplayItem.REQUIREMENT ? '' : ' (disabled because ' + stack.display() + ' is not marked as a requirement)')"
-        />
-        &nbsp;
-        <input type="radio" id="requirement" value="requirement" v-model="type"/>
-        <label for="requirement" v-tooltip="'Set ' + stack.display() + ' as a requirement'" > Requirement</label>
-        &nbsp;
-        <input type="radio" id="import_export" value="import_export" v-model="type" />
-        <label for="import_export" v-tooltip="'Use an infinite source or sink for ' + stack.display()" > Import/Export</label>
-        &nbsp;
-        <span>
-        <input type="radio" id="intermediate" value="intermediate" v-model="type" />
-        <label for="intermediate" v-tooltip="stack.display() + ' should have a net zero produce & consume'"> Intermediate</label>
-        </span>
     </div>
+    <div>
+        <div>
+            <input type="radio" id="requirement" value="requirement" v-model="type"/>
+            <label for="requirement" v-tooltip="'Set ' + stack.display() + ' as a requirement'" > Requirement</label>
+            <span v-if="stack.is_req()">
+                &nbsp;
+                <input type="text" size="5" v-model.lazy.number="requirement_value" :disabled="type != DisplayItem.REQUIREMENT"
+                    v-tooltip="'Set a requirement of X per second for ' + stack.display() + (type == DisplayItem.REQUIREMENT ? '' : ' (disabled because ' + stack.display() + ' is not marked as a requirement)')"
+                />
+                per second
+            </span>
+        </div>
+        <div>
+            <input type="radio" id="import_export" value="import_export" v-model="type" />
+            <label for="import_export" v-tooltip="'Use an infinite source or sink for ' + stack.display()" > Import/Export</label>
+        </div>
+        <div>
+            <input type="radio" id="intermediate" value="intermediate" v-model="type" />
+            <label for="intermediate" v-tooltip="stack.display() + ' should have a net zero produce & consume'"> Intermediate</label>
+        </div>
+    </div>
+    <div class="items_fw"><hr /></div>
 </template>
 
 
