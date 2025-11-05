@@ -1,10 +1,10 @@
 <script setup>
 import SearchResultsItem from './SearchResultsItem.vue';
 import CurrentConfiguration from './current_configuration/CurrentConfiguration.vue';
-import SearchResultsProcess from './SearchResultsProcess.vue';
 import { Collapse } from 'vue-collapsed';
 import { ref, watch, toRefs } from 'vue';
 import { dataset_all } from 'proc-rs';
+import ProcDisplay from './ProcDisplay.vue';
 
 
 const emit = defineEmits(['cfg_update']);
@@ -71,6 +71,14 @@ function handle_use_item(item_id) {
     searchResultsProcesses.value = cfg.search_processes_by_input(item_id);
 }
 
+function add_process(cfg, proc_id, factory_id, modifiers) {
+    console.log("adding process", proc_id, modifiers, cfg);
+    searchResultsProcesses.value = [];
+    let result = cfg.add_process(proc_id, factory_id, modifiers.duration, modifiers.input, modifiers.output);
+    console.log("add process result", result, cfg, cfg.get_processes());
+    emit('cfg_update');
+}
+
 </script>
 
 <template>
@@ -99,11 +107,15 @@ function handle_use_item(item_id) {
                 <div class="proc_header_i" v-if="searchResultsProcesses.length > 0">Inputs</div>
                 <div class="proc_header_o" v-if="searchResultsProcesses.length > 0">Outputs</div>
                 <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
-                <SearchResultsProcess @cfg_update="handle_cfg_update" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" />
+                <ProcDisplay @cfg_update="handle_cfg_update()" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" :emit_on_change="false" >
+                    <template #action_button="{ factory_id, modifiers }">
+                        <button @click="add_process(cfg, proc.id, factory_id, modifiers)">Add</button>
+                    </template>
+                </ProcDisplay>
             </div>
         </div>
     </Collapse>
-    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" :key="cfg_fu" :cfg="cfg" />
+    <CurrentConfiguration @cfg_update="handle_cfg_update()" @use_item="handle_use_item" @make_item="handle_make_item" :key="cfg_fu" :cfg="cfg" />
 </template>
 
 
