@@ -84,9 +84,9 @@ function remove_process(cfg, id) {
             <div class="proc_header_i">Inputs</div>
             <div class="proc_header_o">Outputs</div>
             <hr class="proc_fw" />
-            <ProcDisplay @cfg_update="handle_cfg_update()" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" :emit_on_change="true" >
-                <template #action_button="{ factory_id, modifiers }">
-                    <button @click="remove_process(cfg, proc.id, factory_id, modifiers)">Remove</button>
+            <ProcDisplay @cfg_update="handle_cfg_update" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" :emit_on_change="true" >
+                <template #action_button>
+                    <button @click="remove_process(cfg, proc.process.id)">Remove</button>
                 </template>
             </ProcDisplay>
         </div>

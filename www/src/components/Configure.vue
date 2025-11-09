@@ -48,6 +48,7 @@ watch(searchResultsItems, (value) => {
     searchResultsIsExpanded.value = searchResultsProcesses.value.length > 0 || value.length > 0
 });
 watch(searchResultsProcesses, (value) => {
+    console.log("proc results changed", value);
     searchResultsIsExpanded.value = searchResultsItems.value.length > 0 || value.length > 0
 });
 
@@ -107,7 +108,7 @@ function add_process(cfg, proc_id, factory_id, modifiers) {
                 <div class="proc_header_i" v-if="searchResultsProcesses.length > 0">Inputs</div>
                 <div class="proc_header_o" v-if="searchResultsProcesses.length > 0">Outputs</div>
                 <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
-                <ProcDisplay @cfg_update="handle_cfg_update()" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" :emit_on_change="false" >
+                <ProcDisplay @cfg_update="handle_cfg_update" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" :emit_on_change="false" >
                     <template #action_button="{ factory_id, modifiers }">
                         <button @click="add_process(cfg, proc.id, factory_id, modifiers)">Add</button>
                     </template>
@@ -115,7 +116,7 @@ function add_process(cfg, proc_id, factory_id, modifiers) {
             </div>
         </div>
     </Collapse>
-    <CurrentConfiguration @cfg_update="handle_cfg_update()" @use_item="handle_use_item" @make_item="handle_make_item" :key="cfg_fu" :cfg="cfg" />
+    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" :key="cfg_fu" :cfg="cfg" />
 </template>
 
 

@@ -272,7 +272,6 @@ impl DataParserRecipeLister {
         stacks.as_array().ok_or(format!("[{id}].\"ingredients|products\" from {k:?} was not an array or empty object"))?
             .iter().enumerate()
             .map(|(idx, stack)| {
-                // XXX work out how "extra_count_fraction" impacts this calculation.
                 // XXX add an example where the probability is not 1.
                 // XXX handle amount_(min|max)
                 let obj = stack.as_object().ok_or(format!("[{id}].\"ingredients|products\"[{idx}] from {k:?} was not an object"))?;
@@ -289,9 +288,12 @@ impl DataParserRecipeLister {
                 let probability = obj.get("probability")
                     .map(|v| -> Result<f64, &str> { v.as_f64().ok_or("todo!7") })
                     .unwrap_or(Ok(1.0))?;
+                let extra_count_fraction = obj.get("extra_count_fraction")
+                    .map(|v| -> Result<f64, &str> { v.as_f64().ok_or("todo!8") })
+                    .unwrap_or(Ok(0.0))?;
                 Ok(Stack{
                     item,
-                    quantity: quantity_calc(quantity, ignored, probability),
+                    quantity: quantity_calc(quantity + extra_count_fraction, ignored, probability),
                 })
             })
             .collect::<Result<Vec<Stack>, String>>()
@@ -550,6 +552,27 @@ mod test {
         assert_eq!(process.inputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0]);
         assert_eq!(process.outputs_unmod.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["uranium-235", "uranium-238"]);
         assert_eq!(process.outputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0, 0.0]);
+    }
+
+    #[test]
+    fn it_understands_recycling_processes() {
+        setup_tracing();
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        let process = r.processes.get("big-mining-drill-recycling").unwrap();
+        assert_eq!(process.id, "big-mining-drill-recycling");
+        assert_eq!(process.display, "big-mining-drill-recycling");
+        assert_eq!(process.duration, 1.875);
+        assert_eq!(process.group.id, "recycling");
+        assert_eq!(process.inputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["big-mining-drill"]);
+        assert_eq!(process.inputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[1.0]);
+        assert_eq!(process.inputs_unmod.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["big-mining-drill"]);
+        assert_eq!(process.inputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0]);
+        assert_eq!(process.outputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["advanced-circuit", "electric-engine-unit", "electric-mining-drill", "tungsten-carbide"]);
+        assert_eq!(process.outputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[2.5, 2.5, 0.25, 5.0]);
+        assert_eq!(process.outputs_unmod.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["advanced-circuit", "electric-engine-unit", "electric-mining-drill", "tungsten-carbide"]);
+        assert_eq!(process.outputs_unmod.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[0.0, 0.0, 0.0, 0.0]);
     }
 
     #[test]
