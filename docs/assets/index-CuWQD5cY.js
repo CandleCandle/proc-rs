@@ -3908,7 +3908,7 @@ var require_stdin = __commonJS({
           "__scopeId",
           "data-v-a8ccc359"
         ]
-      ]), Fu = "/assets/proc_rs_bg-B1HCmJtH.wasm", zu = async (e = {}, t) => {
+      ]), Fu = "/assets/proc_rs_bg-BJ5uAtwQ.wasm", zu = async (e = {}, t) => {
         let n;
         if (t.startsWith("data:")) {
           const i = t.replace(/^data:.*?base64,/, "");
