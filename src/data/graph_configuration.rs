@@ -206,17 +206,17 @@ impl GraphConfiguration {
     }
 
     pub fn search_processes_by_output(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
-        self.search_proc(search, |matcher, proc| {
+        self.search_proc(search, |_matcher, proc| {
             proc.outputs.iter().any(|output| {
-                matcher.is_match(&output.item.id) || matcher.is_match(&output.item.display)
+                search == output.item.id && output.quantity > 0.0
             })
         })
     }
 
     pub fn search_processes_by_input(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
-        self.search_proc(search, |matcher, proc| {
+        self.search_proc(search, |_matcher, proc| {
             proc.inputs.iter().any(|input| {
-                matcher.is_match(&input.item.id) || matcher.is_match(&input.item.display)
+                search == input.item.id && input.quantity > 0.0
             })
         })
     }
@@ -347,11 +347,18 @@ mod test {
     }
 
     #[test]
-    fn it_searches_processes_by_input_display() {
+    fn it_searches_processes_by_fixed_input_id() {
         let gc = fixtures::create_config();
-        let result = gc.search_processes_by_input("Part 3").unwrap();
-        assert_eq!(result.len(), 1);
-        assert_eq!(result.get(0).unwrap().id, "make_b");
+        let result = gc.search_processes_by_input("par").unwrap();
+        assert_eq!(result.len(), 0);
+    }
+
+    #[test]
+    fn it_searches_processes_by_output_id_zeros_are_excluded() {
+        let gc = fixtures::create_config();
+        let result = gc.search_processes_by_output("part_3").unwrap();
+        assert_eq!(result.len(), 2);
+        assert_eq!(result.iter().map(|i| i.id.clone()).collect::<Vec<String>>(), ["slow_a_maker", "make_a"]);
     }
 
     #[test]
@@ -363,11 +370,17 @@ mod test {
     }
 
     #[test]
-    fn it_searches_processes_by_output_display() {
+    fn it_searches_processes_by_input_id_zeros_are_excluded() {
         let gc = fixtures::create_config();
-        let result = gc.search_processes_by_output("Part 4").unwrap();
-        assert_eq!(result.len(), 1);
-        assert_eq!(result.get(0).unwrap().id, "make_b");
+        let result = gc.search_processes_by_input("part_4").unwrap();
+        assert_eq!(result.len(), 0);
+    }
+
+    #[test]
+    fn it_searches_processes_by_fixed_output_id() {
+        let gc = fixtures::create_config();
+        let result = gc.search_processes_by_output("par").unwrap();
+        assert_eq!(result.len(), 0);
     }
 
     #[test]

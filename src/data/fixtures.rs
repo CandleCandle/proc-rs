@@ -112,7 +112,23 @@ pub fn simple_data_fixture() -> Data {
         ],
         outputs_unmod: Vec::new(),
     };
-    let processes = vec![p1, p1_slow, p2, p3].iter()
+    let p4 = Process {
+        id: "zero_output_input".to_string(),
+        display: "zero output or zero input".to_string(),
+        duration: 1.0,
+        group: factory_groups.get(&"basic".to_string()).unwrap().clone(),
+        inputs: vec![
+            Stack::new(items.get("part_1").unwrap().clone(), 5.0),
+            Stack::new(items.get("part_4").unwrap().clone(), 0.0),
+        ],
+        inputs_unmod: Vec::new(),
+        outputs: vec![
+            Stack::new(items.get("part_2").unwrap().clone(), 1.0),
+            Stack::new(items.get("part_3").unwrap().clone(), 0.0),
+        ],
+        outputs_unmod: Vec::new(),
+    };
+    let processes = vec![p1, p1_slow, p2, p3, p4].iter()
         .map(|p| (p.id.clone(), Rc::new(p.to_owned())))
         .collect()
         ;
