@@ -180,16 +180,14 @@ impl GraphConfiguration {
         }
     }
 
-    fn search_proc<P>(&self, search: &str, mut predicate: P) -> Result<Vec<Rc<Process>>, String>
+    fn search_proc<P>(&self, mut predicate: P) -> Result<Vec<Rc<Process>>, String>
     where
-        P: FnMut(&Regex, &Rc<Process>) -> bool,
+        P: FnMut(&Rc<Process>) -> bool,
     {
         match &self.current_data {
             Some(d) => {
-                let matcher = Regex::new(search)
-                    .map_err(|e| format!("{e:?}").clone())?;
                 let mut v = d.processes.iter()
-                    .filter(|(_id, proc)| predicate(&matcher, proc))
+                    .filter(|(_id, proc)| predicate(proc))
                     .map(|(_id, i)| i.clone())
                     .collect::<Vec<Rc<Process>>>();
                 v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
@@ -200,13 +198,15 @@ impl GraphConfiguration {
     }
 
     pub fn search_processes(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
-        self.search_proc(search, |matcher, proc| {
+        let matcher = Regex::new(search)
+            .map_err(|e| format!("{e:?}").clone())?;
+        self.search_proc(|proc| {
             matcher.is_match(&proc.id) || matcher.is_match(&proc.display)
         })
     }
 
     pub fn search_processes_by_output(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
-        self.search_proc(search, |_matcher, proc| {
+        self.search_proc(|proc| {
             proc.outputs.iter().any(|output| {
                 search == output.item.id && output.quantity > 0.0
             })
@@ -214,7 +214,7 @@ impl GraphConfiguration {
     }
 
     pub fn search_processes_by_input(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
-        self.search_proc(search, |_matcher, proc| {
+        self.search_proc(|proc| {
             proc.inputs.iter().any(|input| {
                 search == input.item.id && input.quantity > 0.0
             })
