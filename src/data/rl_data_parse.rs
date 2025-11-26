@@ -312,14 +312,14 @@ impl DataParserRecipeLister {
 impl DataParser for DataParserRecipeLister {
     fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<String, String> {
         let mut result = BTreeMap::new();
-        result.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), format!("{}/assembling-machine.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::Furnace.to_key(), format!("{}/furnace.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::RocketSilo.to_key(), format!("{}/rocket-silo.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::MiningDrill.to_key(), format!("{}/mining-drill.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::Items.to_key(), format!("{}/item.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::Fluids.to_key(), format!("{}/fluid.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::Recipe.to_key(), format!("{}/recipe.json", conf.id()));
-        result.insert(DataParserRecipeListerFiles::Resource.to_key(), format!("{}/resource.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::AssemblingMachines.to_key(), format!("data/{}/assembling-machine.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Furnace.to_key(), format!("data/{}/furnace.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::RocketSilo.to_key(), format!("data/{}/rocket-silo.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::MiningDrill.to_key(), format!("data/{}/mining-drill.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Items.to_key(), format!("data/{}/item.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Fluids.to_key(), format!("data/{}/fluid.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Recipe.to_key(), format!("data/{}/recipe.json", conf.id()));
+        result.insert(DataParserRecipeListerFiles::Resource.to_key(), format!("data/{}/resource.json", conf.id()));
         result
     }
 
