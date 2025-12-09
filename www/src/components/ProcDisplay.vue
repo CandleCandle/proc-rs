@@ -50,32 +50,55 @@ const modifiers = computed({
         return modifiers_stash.value;
     },
     set(value) {
+      console.log("modifier update 1", value, modifiers_stash.value);
         if (emit_on_change) {
-            cfg.update_modifiers(active_process.value.process.id, factory_id.value, Number(value.duration), Number(value.input), Number(value.output));
+            cfg.update_modifiers(active_process.value.process.id, factory_id_stash.value, Number(value.duration), Number(value.input), Number(value.output));
             emit('cfg_update');
         }
+        console.log("modifier update 2", value, modifiers_stash.value);
         modifiers_stash.value = value;
     }
 });
 const modifiersAreExpanded = ref(false);
 
 const factories_for_proc = computed(() => cfg.factories_for_process(process.value.id));
+// The elements are re-used when search results change
+// and therefore the factory_id_stash is preserved; this
+// means that if the set of potential factories change, the
+// previously visible set is no longer valid.
+// by checking that the proc_id is the same, it can
+// detect this change and act accordingly.
+// (I don't think I've quite understood the state management, I
+// probably need to clone enough state, then modify the cloned state
+// then finally udate using the cloned.)
 const factory_id_stash = ref(null);
+const proc_id_stash = ref(null);
 const factory_id = computed({
   get() {
-    if (factory_id_stash.value == null) {
+    console.log('factory_id 1', factory_id_stash.value, proc_id_stash.value, active_process.value.process.display, active_process.value.factory.id, factories_for_proc.value);
+    if (factory_id_stash.value == null || active_process.value.process.id != proc_id_stash.value) {
         if (active_process.value.factory.id != null) {
             factory_id_stash.value = active_process.value.factory.id;
         } else if (factories_for_proc.value.length > 0) {
             factory_id_stash.value = factories_for_proc.value[0].id;
         }
     }
+    proc_id_stash.value = active_process.value.process.id;
+    console.log('factory_id 2', factory_id_stash.value, proc_id_stash.value, active_process.value.factory.id, factories_for_proc.value);
     return factory_id_stash.value;
   },
   set(value) { // fills the role of the "watch" function for "factory_id"
-    console.log(value, process.value.id, factories_for_proc.value, cfg.factories_for_process(process.value.id));
+    console.log('factory_id change 1', value, factory_id_stash.value, process.value.id, factories_for_proc.value, cfg.factories_for_process(process.value.id));
     factory_id_stash.value = value;
-    if (emit_on_change) emit('cfg_update');
+    if (emit_on_change) {
+      cfg.update_modifiers(active_process.value.process.id, factory_id_stash.value,
+        modifiers_stash.value.duration,
+        modifiers_stash.value.input,
+        modifiers_stash.value.output,
+      )
+      emit('cfg_update');
+    }
+    console.log('factory_id change 2', value, factory_id_stash.value, process.value.id, factories_for_proc.value, cfg.factories_for_process(process.value.id));
   }
 });
 
