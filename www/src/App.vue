@@ -15,8 +15,29 @@ const cfg_fu = ref(0);
 
 function handle_cfg_update() {
     console.log("A handle_cfg_update");
+    handle_fold_update('get-started', !cfg.value.can_render());
+    handle_fold_update('current-configuration', cfg.value.can_render());
     triggerRef(cfg);
     cfg_fu.value++;
+}
+
+const folds = ref({
+  'get-started': !cfg.value.can_render(),
+  'current-configuration': cfg.value.can_render(),
+});
+
+function handle_fold_update(event_or_id, forced) {
+  if (event_or_id.target) {
+    name = event_or_id.target.id;
+  } else {
+    name = event_or_id;
+  }
+  console.log("fold update", name, forced, folds.value, event_or_id);
+  if ((typeof forced) != 'undefined' && forced != null) {
+    folds.value[name] = forced;
+  } else {
+    folds[name] = !folds[name];
+  }
 }
 
 </script>
@@ -29,7 +50,7 @@ function handle_cfg_update() {
   <main>
     <vue-splitter>
       <template #left-pane>
-        <Configure :cfg="cfg" :cfg_fu="cfg_fu" @cfg_update="handle_cfg_update()" />
+        <Configure :cfg="cfg" :cfg_fu="cfg_fu" :folds="folds" @cfg_update="handle_cfg_update" @fold_update="handle_fold_update" />
       </template>
       <template #right-pane>
         <GraphRender :cfg="cfg" :cfg_fu="cfg_fu"/>

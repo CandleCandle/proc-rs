@@ -1,7 +1,6 @@
 <script setup>
 import { reactive, ref, computed, watch } from 'vue';
 import { ModifierValues } from './proc_modifiers';
-import { Collapse } from 'vue-collapsed';
 const emit = defineEmits(['cfg_update']);
 /**
  * We can be passed either a `process` or an `active_process`. This means that
@@ -102,6 +101,11 @@ const factory_id = computed({
   }
 });
 
+function toggle_modifiers(event) {
+  console.log(event);
+  modifiersAreExpanded.value = event.newState == 'open';
+}
+
 </script>
 
 <template>
@@ -126,25 +130,27 @@ const factory_id = computed({
   <div class="proc_buttons">
     <slot name="action_button" :factory_id="factory_id_stash" :modifiers="modifiers"></slot>
 </div>
-  <div>modifiers <button @click="modifiersAreExpanded = !modifiersAreExpanded">{{ modifiersAreExpanded ? '\\/' : '>' }}</button></div>
-  <Collapse class="input_options" :when="modifiersAreExpanded">
+  <details @toggle="toggle_modifiers($event)">
+    <summary>modifiers</summary>
+  </details>
+  <div class="input_options" v-show="modifiersAreExpanded">
     <input type="text" size="4" v-model.lazy.number="modifiers.duration"/>
-  </Collapse>
-  <Collapse class="input_options" :when="modifiersAreExpanded">
+  </div>
+  <div class="input_options" v-show="modifiersAreExpanded">
     <input type="text" size="4" v-model.lazy.number="modifiers.input"/>
-  </Collapse>
-  <Collapse class="input_options" :when="modifiersAreExpanded">
+  </div>
+  <div class="input_options" v-show="modifiersAreExpanded">
     <input type="text" size="4" v-model.lazy.number="modifiers.output"/>
-  </Collapse>
-  <Collapse class="input_options" :when="modifiersAreExpanded">
+  </div>
+  <div class="input_options" v-show="modifiersAreExpanded">
     <span>factory</span>
-  </Collapse>
-  <Collapse class="factory_select" :when="modifiersAreExpanded">
+  </div>
+  <div class="factory_select" v-show="modifiersAreExpanded">
     <select v-model="factory_id">
       <option disabled value="">Select a factory type</option>
       <option v-for="v in factories_for_proc" :key="v.id" :value="v.id" >{{ v.display }}</option>
     </select>
-  </Collapse>
+  </div>
   <hr class="proc_fw" />
 </template>
 
