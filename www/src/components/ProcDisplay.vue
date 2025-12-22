@@ -10,7 +10,9 @@ const emit = defineEmits(['modifier_update', 'fold_update']);
  * like the first row saying that it is process Y but after an update, the internal
  * data is process X; and then the wrong process is added to the cfg.
  *
- * various fields need to trigger a cfg update. some use-cases don't want to continually trigger updates. Either
+ * various fields need to trigger a cfg update. some use-cases don't want to continually
+ * trigger updates. if the use case requires auto-updating, then perform the action
+ * on the 'modifier_update' event
  *
  * cfg: wasm interface object
  * proc: bare process
