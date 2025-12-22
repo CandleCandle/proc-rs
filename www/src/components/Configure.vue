@@ -82,6 +82,10 @@ function add_process(cfg, proc_id, factory_id, modifiers) {
     emit('cfg_update');
 }
 
+function handle_fold_update(event_or_id, forced) {
+    emit("fold_update", event_or_id, forced);
+}
+
 </script>
 
 <template>
@@ -113,7 +117,7 @@ function add_process(cfg, proc_id, factory_id, modifiers) {
                     <div class="proc_header_i" v-if="searchResultsProcesses.length > 0">Inputs</div>
                     <div class="proc_header_o" v-if="searchResultsProcesses.length > 0">Outputs</div>
                     <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
-                    <ProcDisplay @cfg_update="handle_cfg_update" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" :emit_on_change="false" >
+                    <ProcDisplay v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" :folds="folds" @fold_update="handle_fold_update" :id_prefix="'search'">
                         <template #action_button="{ factory_id, modifiers }">
                             <button @click="add_process(cfg, proc.id, factory_id, modifiers)">Add</button>
                         </template>
@@ -122,7 +126,7 @@ function add_process(cfg, proc_id, factory_id, modifiers) {
             </div>
         </div>
     </details>
-    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" :key="cfg_fu" :cfg="cfg" :folds="folds"/>
+    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" @fold_update="handle_fold_update" :key="cfg_fu" :cfg="cfg" :folds="folds"/>
 </template>
 
 <style>

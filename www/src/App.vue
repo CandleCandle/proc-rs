@@ -4,7 +4,7 @@
 import VueSplitter from '@rmp135/vue-splitter';
 import Configure from './components/Configure.vue';
 import GraphRender from './components/GraphRender.vue';
-import { ref, shallowRef, triggerRef, watch, toRefs } from 'vue';
+import { ref, shallowRef, triggerRef, watch, toRefs, computed } from 'vue';
 import { GraphConfiguration } from 'proc-rs';
 
 const cfg = shallowRef(new GraphConfiguration());
@@ -27,17 +27,19 @@ const folds = ref({
 });
 
 function handle_fold_update(event_or_id, forced) {
+  console.log("fold update 1", event_or_id, forced, folds.value, event_or_id);
+  let name = null;
   if (event_or_id.target) {
     name = event_or_id.target.id;
   } else {
     name = event_or_id;
   }
-  console.log("fold update", name, forced, folds.value, event_or_id);
   if ((typeof forced) != 'undefined' && forced != null) {
     folds.value[name] = forced;
   } else {
     folds[name] = !folds[name];
   }
+  console.log("fold update 2", name, forced, folds.value, event_or_id);
 }
 
 </script>
