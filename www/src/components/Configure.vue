@@ -1,24 +1,20 @@
 <script setup>
 import SearchResultsItem from './SearchResultsItem.vue';
 import CurrentConfiguration from './current_configuration/CurrentConfiguration.vue';
-import { Collapse } from 'vue-collapsed';
 import { ref, watch, toRefs } from 'vue';
 import { dataset_all } from 'proc-rs';
 import ProcDisplay from './ProcDisplay.vue';
 
 
-const emit = defineEmits(['cfg_update']);
-const props = defineProps(['cfg', 'cfg_fu']);
+const emit = defineEmits(['cfg_update', 'fold_update']);
+const props = defineProps(['cfg', 'cfg_fu', 'folds']);
 const { _0, cfg_fu } = toRefs(props);
-const { cfg, _1 } = props;
-
-const getStartedIsExpanded = ref(!cfg.can_render());
-const searchResultsIsExpanded = ref(false);
+const { cfg, _1, folds } = props;
 
 let available = dataset_all();
 console.log("available data", available);
 
-const dataSetId = ref("");
+const dataSetId = ref('');
 watch(dataSetId, (id) => {
     console.log("Updating config with", id);
     cfg.update_data_set(id);
@@ -45,11 +41,16 @@ watch(searchProcess, (value) => {
     }
 });
 watch(searchResultsItems, (value) => {
-    searchResultsIsExpanded.value = searchResultsProcesses.value.length > 0 || value.length > 0
+    console.log("item results changed", value);
+    if (searchResultsProcesses.value.length > 0 || value.length > 0) {
+        emit('fold_update', 'search-results', true);
+    }
 });
 watch(searchResultsProcesses, (value) => {
     console.log("proc results changed", value);
-    searchResultsIsExpanded.value = searchResultsItems.value.length > 0 || value.length > 0
+    if (searchResultsItems.value.length > 0 || value.length > 0) {
+        emit('fold_update', 'search-results', true);
+    }
 });
 
 function handle_cfg_update() {
@@ -58,7 +59,6 @@ function handle_cfg_update() {
     searchResultsProcesses.value = [];
     searchItem.value = '';
     searchResultsItems.value = [];
-    getStartedIsExpanded.value = false;
     emit('cfg_update');
 }
 
@@ -74,51 +74,66 @@ function handle_use_item(item_id) {
 
 function add_process(cfg, proc_id, factory_id, modifiers) {
     console.log("adding process", proc_id, modifiers, cfg);
+    searchProcess.value = '';
     searchResultsProcesses.value = [];
     let result = cfg.add_process(proc_id, factory_id, modifiers.duration, modifiers.input, modifiers.output);
     console.log("add process result", result, cfg, cfg.get_processes());
+    emit('fold_update', 'search-results', false);
     emit('cfg_update');
+}
+
+function handle_fold_update(event_or_id, forced) {
+    emit("fold_update", event_or_id, forced);
 }
 
 </script>
 
 <template>
-    <div><h2>Get Started <button @click="getStartedIsExpanded = !getStartedIsExpanded">{{ getStartedIsExpanded ? '\\/' : '>' }}</button></h2></div>
-    <Collapse class="input_options" :when="getStartedIsExpanded">
-        <div v-tooltip="'Start here, find the game and version that you need'"><label for="selectDataSet">Data Set:</label></div>
-        <div v-tooltip="'Start here, find the game and version that you need'">
-            <select v-model="dataSetId">
-                <option disabled value="">Select a data set</option>
-                <option v-for="v in available" :value="v.id()" >{{ v.description() }}</option>
-            </select>
+    <details id="get-started" v-bind:open="folds['get-started']" @toggle="emit('fold_update', $event, null)">
+        <summary class="header">Get Started</summary>
+        <div class="input_options">
+            <div v-tooltip="'Start here, find the game and version that you need'"><label for="selectDataSet">Data Set:</label></div>
+            <div v-tooltip="'Start here, find the game and version that you need'">
+                <select v-model="dataSetId">
+                    <option disabled value="">Select a data set</option>
+                    <option v-for="v in available" :value="v.id()" >{{ v.description() }}</option>
+                </select>
+            </div>
+            <div v-tooltip="'Start by looking for an output item that you need'"><label for="item_search"> Item Search:</label></div>
+            <div v-tooltip="'Start by looking for an output item that you need'"><input id="item_search" type="text" :disabled="dataSetId == ''" v-model="searchItem" /></div>
+            <div v-tooltip="'Start by looking for a process that you want to use'"><label for="process_search"> Process Search:</label></div>
+            <div v-tooltip="'Start by looking for a process that you want to use'"><input id="process_search" type="text" :disabled="dataSetId == ''" v-model="searchProcess" /></div>
         </div>
-        <div v-tooltip="'Start by looking for an output item that you need'"><label for="item_search"> Item Search:</label></div>
-        <div v-tooltip="'Start by looking for an output item that you need'"><input id="item_search" type="text" :disabled="dataSetId == ''" v-model="searchItem" /></div>
-        <div v-tooltip="'Start by looking for a process that you want to use'"><label for="process_search"> Process Search:</label></div>
-        <div v-tooltip="'Start by looking for a process that you want to use'"><input id="process_search" type="text" :disabled="dataSetId == ''" v-model="searchProcess" /></div>
-    </Collapse>
+    </details>
 
-    <Collapse class="input_options" :when="searchResultsIsExpanded">
-        <h2 class="input_options_fw">Search Results</h2>
-        <SearchResultsItem @cfg_update="handle_cfg_update" v-for="item in searchResultsItems" :item="item" :cfg="cfg" />
-        <div class="search_results">
-            <div class="proc">
-                <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
-                <div class="proc_header_d" v-if="searchResultsProcesses.length > 0">Duration</div>
-                <div class="proc_header_i" v-if="searchResultsProcesses.length > 0">Inputs</div>
-                <div class="proc_header_o" v-if="searchResultsProcesses.length > 0">Outputs</div>
-                <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
-                <ProcDisplay @cfg_update="handle_cfg_update" v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" :emit_on_change="false" >
-                    <template #action_button="{ factory_id, modifiers }">
-                        <button @click="add_process(cfg, proc.id, factory_id, modifiers)">Add</button>
-                    </template>
-                </ProcDisplay>
+    <details v-bind:open="folds['search-results']" @toggle="emit('fold_update', 'search-results')">
+        <summary class="header">Search Results</summary>
+        <div class="input_options">
+            <SearchResultsItem @cfg_update="handle_cfg_update" v-for="item in searchResultsItems" :item="item" :cfg="cfg" />
+            <div class="search_results">
+                <div class="proc">
+                    <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
+                    <div class="proc_header_d" v-if="searchResultsProcesses.length > 0">Duration</div>
+                    <div class="proc_header_i" v-if="searchResultsProcesses.length > 0">Inputs</div>
+                    <div class="proc_header_o" v-if="searchResultsProcesses.length > 0">Outputs</div>
+                    <hr class="proc_fw" v-if="searchResultsProcesses.length > 0" />
+                    <ProcDisplay v-for="proc in searchResultsProcesses" :proc="proc" :cfg="cfg" :folds="folds" @fold_update="handle_fold_update" :id_prefix="'search'">
+                        <template #action_button="{ factory_id, modifiers }">
+                            <button @click="add_process(cfg, proc.id, factory_id, modifiers)">Add</button>
+                        </template>
+                    </ProcDisplay>
+                </div>
             </div>
         </div>
-    </Collapse>
-    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" :key="cfg_fu" :cfg="cfg" />
+    </details>
+    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" @fold_update="handle_fold_update" :key="cfg_fu" :cfg="cfg" :folds="folds"/>
 </template>
 
+<style>
+details > summary.header {
+    font-size: 150%;
+}
+</style>
 
 <style scoped>
 .input_options {

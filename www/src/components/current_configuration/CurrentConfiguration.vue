@@ -1,18 +1,27 @@
 <script setup>
 import { ref } from 'vue';
-import { Collapse } from 'vue-collapsed';
 import CurrentCfgItem from './CurrentCfgItem.vue';
 import { DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
 import ProcDisplay from '../ProcDisplay.vue';
 
-const emit = defineEmits(['cfg_update', 'make_item', 'use_item']);
-const { cfg } = defineProps(['cfg']);
+const emit = defineEmits(['cfg_update', 'make_item', 'use_item', 'fold_update']);
+const { cfg, folds } = defineProps(['cfg', 'folds']);
 
-const currentConfigurationIsExpanded = ref(cfg.can_render() || cfg.get_requirements().length > 0);
+// const currentConfigurationIsExpanded = ref(cfg.can_render() || cfg.get_requirements().length > 0);
 
 function handle_cfg_update() {
     console.log("CC handle_cfg_update");
     emit('cfg_update');
+}
+
+function handle_modifier_update(proc_id, factory_id, duration, input, output) {
+    console.log("CC handle_modifier_update", proc_id, factory_id, duration, input, output);
+    cfg.update_modifiers(proc_id, factory_id, duration, input, output);
+    emit('cfg_update');
+}
+
+function handle_fold_update(event_or_id, forced) {
+    emit("fold_update", event_or_id, forced);
 }
 
 function handle_make_item(item_id) {
@@ -64,33 +73,35 @@ function remove_process(cfg, id) {
 
 
 <template>
-    <div><h2>Current Configuration <button @click="currentConfigurationIsExpanded = !currentConfigurationIsExpanded">{{ currentConfigurationIsExpanded ? '\\/' : '>' }}</button></h2></div>
+    <details id="current-configuration" v-bind:open="folds['current-configuration']" @toggle="emit('fold_update', $event)">
+        <summary class="header">Current Configuration</summary>
 
-    <Collapse class="input_options" :when="currentConfigurationIsExpanded">
-        <h3>Data Set</h3>
-        <hr />
-        <span>{{ cfg.get_current_data_set() ? cfg.get_current_data_set().description() : "" }}</span>
-        <br /><br />
-        <h3>Items</h3>
-        <div class="items">
-            <hr class="items_fw" v-if="map_items(cfg).length > 0" />
-            <CurrentCfgItem @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
+        <div class="input_options">
+            <h3>Data Set</h3>
+            <hr />
+            <span>{{ cfg.get_current_data_set() ? cfg.get_current_data_set().description() : "" }}</span>
+            <br /><br />
+            <h3>Items</h3>
+            <div class="items">
+                <hr class="items_fw" v-if="map_items(cfg).length > 0" />
+                <CurrentCfgItem @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
+            </div>
+            <br /><br />
+            <h3>Processes</h3>
+            <div class="proc" v-if="cfg.get_processes().length > 0">
+                <hr class="proc_fw" />
+                <div class="proc_header_d">Duration</div>
+                <div class="proc_header_i">Inputs</div>
+                <div class="proc_header_o">Outputs</div>
+                <hr class="proc_fw" />
+                <ProcDisplay @modifier_update="handle_modifier_update" @fold_update="handle_fold_update" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" :folds="folds" :id_prefix="'search'">
+                    <template #action_button>
+                        <button @click="remove_process(cfg, proc.process.id)">Remove</button>
+                    </template>
+                </ProcDisplay>
+            </div>
         </div>
-        <br /><br />
-        <h3>Processes</h3>
-        <div class="proc" v-if="cfg.get_processes().length > 0">
-            <hr class="proc_fw" />
-            <div class="proc_header_d">Duration</div>
-            <div class="proc_header_i">Inputs</div>
-            <div class="proc_header_o">Outputs</div>
-            <hr class="proc_fw" />
-            <ProcDisplay @cfg_update="handle_cfg_update" v-for="proc in cfg.get_processes()" :active_proc="proc" :cfg="cfg" :emit_on_change="true" >
-                <template #action_button>
-                    <button @click="remove_process(cfg, proc.process.id)">Remove</button>
-                </template>
-            </ProcDisplay>
-        </div>
-    </Collapse>
+    </details>
 </template>
 
 <style scoped>
