@@ -2,8 +2,9 @@ use std::{collections::{BTreeMap, HashSet}, rc::Rc};
 
 use itertools::Itertools;
 use regex::Regex;
+use serde::{Deserialize, Serialize};
 
-use crate::data::model::Factory;
+use crate::data::{dataset::DehydratedDataSetConf, hydration::Dehydrate, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory}};
 
 use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
 
@@ -26,6 +27,31 @@ pub struct GraphConfiguration {
     requirements: Vec<Stack>,
     import_export: Vec<Rc<Item>>,
     processes: Vec<ActiveProcess>,
+}
+
+impl Dehydrate<DehydratedGraphConfiguration> for GraphConfiguration {
+    fn dehydrate(&self) -> DehydratedGraphConfiguration {
+        DehydratedGraphConfiguration {
+            current_data_set: self.current_data_set.as_ref().map(|d| d.dehydrate()),
+            requirements: self.requirements.iter()
+                .map(|s| s.dehydrate())
+                .collect(),
+            import_export: self.import_export.iter().map(|io| io.dehydrate()).collect(),
+            processes: self.processes.iter().map(|p| p.dehydrate()).collect(),
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+pub struct DehydratedGraphConfiguration {
+    #[serde(rename = "d")]
+    current_data_set: Option<DehydratedDataSetConf>,
+    #[serde(rename = "r")]
+    requirements: Vec<DehydratedStack>,
+    #[serde(rename = "io")]
+    import_export: Vec<DehydratedItem>,
+    #[serde(rename = "p")]
+    processes: Vec<DehydratedActiveProcess>,
 }
 
 impl GraphConfiguration {

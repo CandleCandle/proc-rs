@@ -1,12 +1,15 @@
 use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use clap::{command, Parser};
+
 use proc_rs::data::{
     basic_data_parse::DataParserBasicFiles, calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::StackSet};
+use proc_rs::data::hydration::Dehydrate;
 
 use tabled::{builder::Builder, settings::object::Cell, Table};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
+use serde_json;
 
 /// Examples:
 /// cargo run -- -s 'fac-2.0.0' -f www/data/fac-2.0.0.json -r 5:part_d -p make_d:1:1:1 -g sample.gv
@@ -120,6 +123,7 @@ fn main() -> Result<(), String> {
 
     let calc = Calculator::generate(&gc);
     // calc.to_gv();
+    tracing::info!("serialised configuration {}", serde_json::to_string(&gc.dehydrate()).unwrap());
     tracing::info!("initial matrix {}", calc.initial_matrix());
     tracing::info!("reduced matrix {}", calc.reduced_matrix());
     tracing::info!("process counts \n{}", make_process_count_table(&calc.process_counts()));

@@ -3,7 +3,7 @@ use std::{collections::{BTreeMap, BTreeSet, HashMap}, hash::{Hash, Hasher}, ops,
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
-use crate::data::dataset::DataSetConf;
+use crate::data::{dataset::DataSetConf, hydration::Dehydrate};
 
 pub trait DataParser {
     fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String>;
@@ -234,6 +234,33 @@ impl ActiveProcess {
     }
 }
 
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+pub struct DehydratedActiveProcess {
+    #[serde(rename = "p")]
+    process: String,
+    #[serde(rename = "f")]
+    factory: String,
+    #[serde(rename = "d")]
+    duration_multiplier: f64,
+    #[serde(rename = "i")]
+    inputs_multiplier: f64,
+    #[serde(rename = "o")]
+    outputs_multiplier: f64,
+}
+
+impl Dehydrate<DehydratedActiveProcess> for ActiveProcess {
+    fn dehydrate(&self) -> DehydratedActiveProcess {
+        DehydratedActiveProcess {
+            process: self.process.id.clone(),
+            factory: self.factory.id.clone(),
+            duration_multiplier: self.duration_multiplier,
+            inputs_multiplier: self.inputs_multiplier,
+            outputs_multiplier: self.outputs_multiplier,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Stack {
     pub item: Rc<Item>,
@@ -244,6 +271,19 @@ impl Stack {
         Stack {
             item, quantity
         }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+pub struct DehydratedStack {
+    #[serde(rename = "i")]
+    item: String,
+    #[serde(rename = "q")]
+    quantity:f64,
+}
+impl Dehydrate<DehydratedStack> for Stack {
+    fn dehydrate(&self) -> DehydratedStack {
+        DehydratedStack { item: self.item.id.clone(), quantity: self.quantity, }
     }
 }
 
@@ -301,6 +341,16 @@ impl Hash for Item {
     }
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+pub struct DehydratedItem {
+    #[serde(rename = "i")]
+    item: String,
+}
+impl Dehydrate<DehydratedItem> for Item {
+    fn dehydrate(&self) -> DehydratedItem {
+        DehydratedItem { item: self.id.clone() }
+    }
+}
 // // XXX possible to derive a Display using the enum names?
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum Classification {

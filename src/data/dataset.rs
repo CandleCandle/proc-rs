@@ -2,9 +2,7 @@ use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::data::{
-    basic_data_parse::DataParserBasic,
-    model::DataParser,
-    rl_data_parse::DataParserRecipeLister,
+    basic_data_parse::DataParserBasic, hydration::Dehydrate, model::DataParser, rl_data_parse::DataParserRecipeLister
 };
 
 
@@ -71,6 +69,17 @@ impl DataSetConf {
             Some(m) => format!("{} ({}) [{} ({})]", self.base.id, self.base.version, m.id, m.version),
             None => format!("{} ({})", self.base.id, self.base.version),
         }
+    }
+}
+
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+pub struct DehydratedDataSetConf {
+    id: String,
+}
+impl Dehydrate<DehydratedDataSetConf> for DataSetConf {
+    fn dehydrate(&self) -> DehydratedDataSetConf {
+        DehydratedDataSetConf { id: self.id() }
     }
 }
 
