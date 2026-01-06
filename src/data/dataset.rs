@@ -1,8 +1,10 @@
+use std::collections::BTreeMap;
+
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::data::{
-    basic_data_parse::DataParserBasic, hydration::Dehydrate, model::DataParser, rl_data_parse::DataParserRecipeLister
+    basic_data_parse::DataParserBasic, graph_configuration::FetchDataSet, hydration::Dehydrate, model::{Data, DataParser}, rl_data_parse::DataParserRecipeLister
 };
 
 
@@ -72,10 +74,24 @@ impl DataSetConf {
     }
 }
 
+impl DataSetConf {
+    // XXX moce to DataSetConf
+    pub async fn into_data<F>(&self, fetcher: F) -> Result<Data, String>
+        where F: FetchDataSet
+    {
+        let parser = self.style.parser();
+        let files = parser.files_to_fetch_list(self);
+        let mut jsons = BTreeMap::new();
+        for (key, path) in files {
+            jsons.insert(key, fetcher.fetch(&path).await.unwrap());
+        }
+        parser.parse(&mut jsons)
+    }
+}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct DehydratedDataSetConf {
-    id: String,
+    pub id: String,
 }
 impl Dehydrate<DehydratedDataSetConf> for DataSetConf {
     fn dehydrate(&self) -> DehydratedDataSetConf {

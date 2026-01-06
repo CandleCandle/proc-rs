@@ -4,7 +4,7 @@ use itertools::Itertools;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 
-use crate::data::{dataset::DehydratedDataSetConf, hydration::Dehydrate, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory}};
+use crate::data::{dataset::DehydratedDataSetConf, hydration::{Dehydrate, Rehydrate}, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory}};
 
 use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
 
@@ -15,7 +15,6 @@ pub trait FetchDataSet {
     async fn fetch(&self, relative_path: &str) ->  Result<String, String>;
     // fn fetch(&self, dataset_id: &String) -> impl Future<Output = Result<String, String>> + Send;
 }
-
 
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct GraphConfiguration {
@@ -39,6 +38,31 @@ impl Dehydrate<DehydratedGraphConfiguration> for GraphConfiguration {
             import_export: self.import_export.iter().map(|io| io.dehydrate()).collect(),
             processes: self.processes.iter().map(|p| p.dehydrate()).collect(),
         }
+    }
+}
+
+impl <T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfiguration
+    where T: FetchDataSet
+ {
+    async fn rehydrate(&self, fetcher: T) -> Result<GraphConfiguration, String> {
+        let current_data_set = self.clone().current_data_set
+                .map(|s| DataSet::find(&s.id)).unwrap();
+        // let current_data = match current_data_set.clone() {
+        //     None => None,
+        //     Some(conf) => Some(conf.into_data(fetcher).await?)
+        // };
+        let current_data = if current_data_set.is_some() {
+            Some(current_data_set.clone().unwrap().into_data(fetcher).await?)
+        } else {
+            None
+        };
+        Ok(GraphConfiguration {
+            current_data_set,
+            current_data,
+            requirements: Vec::new(),
+            import_export: Vec::new(),
+            processes: Vec::new(),
+        })
     }
 }
 
