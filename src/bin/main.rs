@@ -15,7 +15,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 use serde_json;
 use rmp_serde;
-use base64::prelude::*;
+use base64::prelude::BASE64_STANDARD_NO_PAD;
 
 
 #[derive(Parser, Debug, Clone)]

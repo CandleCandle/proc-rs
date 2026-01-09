@@ -13,10 +13,31 @@ const cfg = shallowRef(new GraphConfiguration());
 // this Forces an Update as it is the :key on the CurrentConfiguration.
 const cfg_fu = ref(0);
 
+if (window.location.hash) {
+  let params = new URLSearchParams(window.location.hash.substring(1));
+  console.log('params', params);
+  var script = document.querySelector('#viz');
+  script.addEventListener('load', function() {
+    if (params.has('s0')) {
+      cfg.value.rehydrate(params.get('s0')).then((r) => {
+        console.log('rehydrate result', r);
+        handle_fold_update('get-started', !cfg.value.can_render()),
+        handle_fold_update('current-configuration', cfg.value.can_render()),
+        cfg_fu.value++;
+      });
+    }
+  });
+}
+
 function handle_cfg_update() {
     console.log("A handle_cfg_update");
     handle_fold_update('get-started', !cfg.value.can_render());
     handle_fold_update('current-configuration', cfg.value.can_render());
+    let seialised = cfg.value.dehydrate();
+    console.log('serialised', seialised);
+    if (seialised) {
+      window.location.replace("#s0=" + seialised);
+    }
     triggerRef(cfg);
     cfg_fu.value++;
 }
@@ -46,7 +67,7 @@ function handle_fold_update(event_or_id, forced) {
 
 <template>
   <header>
-    <h1>Process Calculator</h1>
+    <h1><a href="#">Process Calculator</a></h1>
   </header>
   <br />
   <main>
