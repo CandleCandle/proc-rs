@@ -3,17 +3,52 @@ use std::io::Read;
 use std::str::FromStr;
 use std::{collections::BTreeMap, fs, path::PathBuf};
 
-use clap::{command, Parser};
+use clap::{command, Parser, Subcommand, ValueEnum};
 
-use proc_rs::data::graph_configuration::FetchDataSet;
+use proc_rs::data::graph_configuration::{DehydratedGraphConfiguration, FetchDataSet};
 use proc_rs::data::{
     calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::StackSet};
-use proc_rs::data::hydration::Dehydrate;
+use proc_rs::data::hydration::{Dehydrate, Rehydrate};
 
 use tabled::{builder::Builder, settings::object::Cell, Table};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 use serde_json;
+use rmp_serde;
+use base64::prelude::*;
+
+
+#[derive(Parser, Debug, Clone)]
+#[command(version, about, verbatim_doc_comment)]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Debug, Clone, Subcommand)]
+enum Commands {
+    Generate(GenerateArgs),
+    Serial(SerialArgs)
+}
+
+#[derive(Parser, Debug, Clone)]
+#[command(version, about, verbatim_doc_comment)]
+struct SerialArgs {
+    /// File path to data contents
+    #[arg(short='f', long)]
+    data_location: String,
+    #[arg(short='v', long)]
+    value: String,
+    #[arg(short='m', long)]
+    mode: SerialMode,
+}
+
+#[derive(ValueEnum, Copy, Clone, Debug, PartialEq, Eq)]
+enum SerialMode {
+    Json,
+    MessagePack
+}
+
 
 /// Examples:
 /// cargo run -- -s 'fac-2.0.0' -f www/data/fac-2.0.0.json -r 5:part_d -p make_d:1:1:1 -g sample.gv
@@ -27,7 +62,7 @@ use serde_json;
 ///
 #[derive(Parser, Debug, Clone)]
 #[command(version, about, verbatim_doc_comment)]
-struct Args {
+struct GenerateArgs {
     /// Data Style ID; as produced by DataSetStyle
     #[arg(short='s', long)]
     style: String,
@@ -88,7 +123,7 @@ fn main() -> Result<(), String> {
 #[cfg(feature = "main")]
 #[tokio::main]
 async fn main() -> Result<(), String> {
-    let args = Args::parse();
+    let args = Cli::parse();
     println!("Args: {args:?}");
 
     tracing_subscriber::registry()
@@ -98,6 +133,26 @@ async fn main() -> Result<(), String> {
             .compact())
         .try_init().map_err(|e| e.to_string())?;
 
+    match args.command {
+        Commands::Generate(args) => generate(args).await,
+        Commands::Serial(args) => serial(args).await,
+    }
+}
+
+async fn serial(args: SerialArgs) -> Result<(), String> {
+    let dgc: DehydratedGraphConfiguration = match args.mode {
+        SerialMode::Json => serde_json::from_str(&args.value).map_err(|e| e.to_string())?,
+        SerialMode::MessagePack => rmp_serde::decode::from_slice(
+                BASE64_STANDARD_NO_PAD.decode(args.value).map_err(|e| e.to_string())?.as_slice()
+            ).map_err(|e| e.to_string())?
+    };
+
+    let ff = FileFetcher{base_dir: args.data_location};
+    let gc = dgc.rehydrate(ff).await?;
+    report_gc(gc, None)
+}
+
+async fn generate(args: GenerateArgs) -> Result<(), String> {
     let current_data_conf = DataSet::find(&args.style).ok_or(format!("no dataset conf for {}", &args.style))?;
 
     let ff = FileFetcher{base_dir: args.data_location};
@@ -138,20 +193,22 @@ async fn main() -> Result<(), String> {
         tracing::warn!("Found unsatisfied item, adding as import/export: {}", i.id);
         gc.add_import_export(&i.id);
     }
+    report_gc(gc, args.graph)
+}
 
-    // println!("{:?}", gc);
+fn report_gc(gc: GraphConfiguration, graph: Option<PathBuf>) -> Result<(), String> {
 
     let calc = Calculator::generate(&gc);
-    // calc.to_gv();
     tracing::info!("serialised configuration {}", serde_json::to_string(&gc.dehydrate()).unwrap());
+    tracing::info!("serialised configuration {}", BASE64_STANDARD_NO_PAD.encode(rmp_serde::encode::to_vec(&gc.dehydrate()).unwrap()));
     tracing::info!("initial matrix {}", calc.initial_matrix());
     tracing::info!("reduced matrix {}", calc.reduced_matrix());
     tracing::info!("process counts \n{}", make_process_count_table(&calc.process_counts()));
     tracing::info!("materials\n{}", make_materials_count_table(&calc.materials()));
     tracing::info!("graph\n{}", calc.to_digraph());
 
-    if args.graph.is_some() {
-        fs::write(args.graph.unwrap(), calc.to_digraph())
+    if graph.is_some() {
+        fs::write(graph.unwrap(), calc.to_digraph())
             .map_err(|e| e.to_string())?;
     }
     Ok(())

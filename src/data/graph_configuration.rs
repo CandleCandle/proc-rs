@@ -47,21 +47,36 @@ impl <T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfigurati
     async fn rehydrate(&self, fetcher: T) -> Result<GraphConfiguration, String> {
         let current_data_set = self.clone().current_data_set
                 .map(|s| DataSet::find(&s.id)).unwrap();
-        // let current_data = match current_data_set.clone() {
-        //     None => None,
-        //     Some(conf) => Some(conf.into_data(fetcher).await?)
-        // };
-        let current_data = if current_data_set.is_some() {
-            Some(current_data_set.clone().unwrap().into_data(fetcher).await?)
-        } else {
-            None
+        // let current_data = current_data_set.map(|d| d.clone().into_data(fetcher));
+        let current_data = match current_data_set.clone() {
+            Some(d) => Some(d.into_data(fetcher).await?),
+            None => None,
         };
+        let mut requirements = Vec::with_capacity(self.requirements.len());
+        if current_data.is_some() {
+            for req in &self.requirements {
+                requirements.push(req.rehydrate(current_data.as_ref().unwrap()).await.unwrap());
+            }
+        };
+        let mut import_export = Vec::with_capacity(self.import_export.len());
+        if current_data.is_some() {
+            for io in &self.import_export {
+                import_export.push(io.rehydrate(current_data.as_ref().unwrap()).await.unwrap());
+            }
+        };
+        let mut processes = Vec::with_capacity(self.processes.len());
+        if current_data.is_some() {
+            for proc in &self.processes {
+                processes.push(proc.rehydrate(&current_data.as_ref().unwrap()).await.unwrap());
+            }
+        };
+
         Ok(GraphConfiguration {
             current_data_set,
             current_data,
-            requirements: Vec::new(),
-            import_export: Vec::new(),
-            processes: Vec::new(),
+            requirements,
+            import_export,
+            processes,
         })
     }
 }

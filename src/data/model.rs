@@ -3,7 +3,7 @@ use std::{collections::{BTreeMap, BTreeSet, HashMap}, hash::{Hash, Hasher}, ops,
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
-use crate::data::{dataset::DataSetConf, hydration::Dehydrate};
+use crate::data::{dataset::DataSetConf, hydration::{Dehydrate, Rehydrate}};
 
 pub trait DataParser {
     fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String>;
@@ -260,6 +260,17 @@ impl Dehydrate<DehydratedActiveProcess> for ActiveProcess {
         }
     }
 }
+impl Rehydrate<&Data, ActiveProcess, String> for DehydratedActiveProcess {
+    async fn rehydrate(&self, data: &Data) -> Result<ActiveProcess, String> {
+        Ok(ActiveProcess{
+            process: data.processes.get(&self.process).cloned().ok_or_else(|| format!("missing process {} in data", self.process))?,
+            factory: data.factories.get(&self.factory).cloned().ok_or_else(|| format!("missing factory {} in data", self.factory))?,
+            duration_multiplier: self.duration_multiplier,
+            inputs_multiplier: self.inputs_multiplier,
+            outputs_multiplier: self.outputs_multiplier,
+        })
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Stack {
@@ -284,6 +295,14 @@ pub struct DehydratedStack {
 impl Dehydrate<DehydratedStack> for Stack {
     fn dehydrate(&self) -> DehydratedStack {
         DehydratedStack { item: self.item.id.clone(), quantity: self.quantity, }
+    }
+}
+impl Rehydrate<&Data, Stack, String> for DehydratedStack {
+    async fn rehydrate(&self, data: &Data) -> Result<Stack, String> {
+        Ok(Stack{
+            item: data.items.get(&self.item).cloned().ok_or_else(|| format!("missing item {} in data", self.item))?,
+            quantity: self.quantity
+        })
     }
 }
 
@@ -349,6 +368,11 @@ pub struct DehydratedItem {
 impl Dehydrate<DehydratedItem> for Item {
     fn dehydrate(&self) -> DehydratedItem {
         DehydratedItem { item: self.id.clone() }
+    }
+}
+impl Rehydrate<&Data, Rc<Item>, String> for DehydratedItem {
+    async fn rehydrate(&self, data: &Data) -> Result<Rc<Item>, String> {
+        data.items.get(&self.item).cloned().ok_or_else(|| format!("missing item {} in data", self.item))
     }
 }
 // // XXX possible to derive a Display using the enum names?
