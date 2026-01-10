@@ -89,6 +89,12 @@ impl GraphConfiguration {
         }
     }
 
+    pub fn reset(&mut self) -> Result<JsValue, JsValue> {
+        self.calculator = None;
+        self.wrapped = GraphConfigurationLib::new();
+        Ok(JsValue::null())
+    }
+
     pub async fn rehydrate(&mut self, serialised: String) -> Result<JsValue, JsValue> {
         let dgc: DehydratedGraphConfiguration = rmp_serde::decode::from_slice(
             BASE64_STANDARD_NO_PAD.decode(serialised).map_err(|e| e.to_string())?.as_slice()

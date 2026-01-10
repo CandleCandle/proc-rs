@@ -6,7 +6,8 @@ import FloatingVue from 'floating-vue'
 import 'floating-vue/dist/style.css'
 
 
-const scripts = {'viz':'https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.8.0/viz-lite.js'}
+const scripts = {'viz':'viz-lite.js'}
+// const scripts = {'viz':'https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.8.0/viz-lite.js'}
 Object.entries(scripts).forEach(entry => {
             let tag = document.head.querySelector(`[src="${ entry[1] }"`);
             if (!tag) {
