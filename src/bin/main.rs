@@ -15,7 +15,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 use serde_json;
 use rmp_serde;
-use base64::prelude::BASE64_STANDARD_NO_PAD;
+use base64::{Engine, prelude::BASE64_STANDARD_NO_PAD};
 
 
 #[derive(Parser, Debug, Clone)]
@@ -108,6 +108,7 @@ struct FileFetcher {
 }
 impl FetchDataSet for FileFetcher {
     async fn fetch(&self, relative_path: &str) ->  Result<String, String> {
+        tracing::debug!("fetching {}/{relative_path}", self.base_dir);
         let mut file = File::open(PathBuf::from_str(&self.base_dir).unwrap().join(relative_path)).map_err(|e| format!("{} ({})", e, relative_path))?;
         let mut contents = String::new();
         file.read_to_string(&mut contents).map_err(|e| format!("{}, ({})", e, relative_path))?;
@@ -124,7 +125,6 @@ fn main() -> Result<(), String> {
 #[tokio::main]
 async fn main() -> Result<(), String> {
     let args = Cli::parse();
-    println!("Args: {args:?}");
 
     tracing_subscriber::registry()
         .with(tracing_subscriber::fmt::Layer::default()
@@ -132,6 +132,8 @@ async fn main() -> Result<(), String> {
             .with_writer(std::io::stdout)
             .compact())
         .try_init().map_err(|e| e.to_string())?;
+
+    tracing::debug!("args {args:?}");
 
     match args.command {
         Commands::Generate(args) => generate(args).await,
@@ -214,7 +216,7 @@ fn report_gc(gc: GraphConfiguration, graph: Option<PathBuf>) -> Result<(), Strin
     Ok(())
 }
 
-#[cfg(feature = "main")]
+// #[cfg(feature = "main")]
 fn make_process_count_table(process_counts: &BTreeMap<String, f64>) -> String {
     Table::new(process_counts)
         .modify(Cell::new(0, 0), "id")
@@ -222,7 +224,7 @@ fn make_process_count_table(process_counts: &BTreeMap<String, f64>) -> String {
         .to_string()
 }
 
-#[cfg(feature = "main")]
+// #[cfg(feature = "main")]
 fn make_materials_count_table(materials: &StackSet) -> String {
     let all_items = materials.contained_items();
 

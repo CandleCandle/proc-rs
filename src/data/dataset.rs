@@ -4,7 +4,12 @@ use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::data::{
-    basic_data_parse::DataParserBasic, graph_configuration::FetchDataSet, hydration::Dehydrate, model::{Data, DataParser}, rl_data_parse::DataParserRecipeLister
+    basic_data_parse::DataParserBasic,
+    graph_configuration::FetchDataSet,
+    hydration::Dehydrate,
+    model::{Data, DataParser},
+    rl_data_parse::DataParserRecipeLister,
+    fl_data_parse::DataParserFLab,
 };
 
 
@@ -14,6 +19,7 @@ use crate::data::{
 pub enum DataSet {
     Starbirds012,
     Factorio2066Sa2066,
+    Foundry200,
 }
 
 pub enum ModifierStyle {
@@ -27,6 +33,7 @@ impl DataSet {
         match self {
             DataSet::Starbirds012 => DataSetConf::new(DataSetStyle::Basic, "starbirds".into(), "0.1.2".into()),
             DataSet::Factorio2066Sa2066 => DataSetConf::modded(DataSetStyle::RecipeLister, Versioned::new("factorio".into(), "2.0.66".into()), Versioned::new("sa".into(), "2.0.66".into())),
+            DataSet::Foundry200 => DataSetConf::new(DataSetStyle::FLab, "foundry".into(), "2.0.0".into()),
         }
     }
 
@@ -34,6 +41,7 @@ impl DataSet {
         vec!(
             DataSet::params(DataSet::Starbirds012),
             DataSet::params(DataSet::Factorio2066Sa2066),
+            DataSet::params(DataSet::Foundry200),
         )
     }
 
@@ -104,12 +112,14 @@ impl Dehydrate<DehydratedDataSetConf> for DataSetConf {
 pub enum DataSetStyle {
     Basic,
     RecipeLister,
+    FLab,
 }
 impl DataSetStyle {
     pub fn parser(&self) -> Box<dyn DataParser> {
         match self {
             Self::Basic => Box::new(DataParserBasic{}),
             Self::RecipeLister => Box::new(DataParserRecipeLister{}),
+            Self::FLab => Box::new(DataParserFLab{}),
         }
     }
 }

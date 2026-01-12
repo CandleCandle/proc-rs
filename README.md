@@ -65,7 +65,7 @@ The "basic data" structure can not cope with the complications that Factorio con
 3. "Catalysts"; where there is an input and an output from a process that is not modified by output modifiers.
 
 Given these, and that the data is split into several files, we need:
-1. a manifest describing which files contain the items, processes, etc. The manifest follows the same naming convetions as the basic data.
+1. -a manifest describing which files contain the items, processes, etc. The manifest follows the same naming convetions as the basic data.- The manifest is hard-coded as each file needs some form of different parsing.
 2. Use `DataSetStyle::RecipeLister`
 3. the various files.
 
