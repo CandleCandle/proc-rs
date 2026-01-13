@@ -105,8 +105,8 @@ impl FLabDataItem {
 struct FLabDataItemMachine {
     speed: f64,
     #[serde(rename="type")]
-    ftype: String,
-    usage: f64,
+    ftype: Option<String>,
+    usage: Option<f64>,
 }
 impl FLabDataItem {
     fn new_factory_from(&self, fg_sets: &Vec<String>, fgs: &HashMap<String, Rc<FactoryGroup>>) -> Result<Factory, String> {
