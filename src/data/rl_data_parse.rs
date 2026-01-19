@@ -1,5 +1,6 @@
 use std::{collections::{BTreeMap, HashMap}, rc::Rc};
 
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 use crate::data::{dataset::DataSetConf, model::{Classification, Stack}};
@@ -37,39 +38,31 @@ impl DataParserRecipeListerFiles {
 pub struct DataParserRecipeLister {}
 impl DataParserRecipeLister {
 
-    fn extract_factory_groups(parsed: &BTreeMap<String, Value>) -> Result<HashMap<String, Rc<FactoryGroup>>, String> {
+    fn extract_factory_groups(
+            assembling_machines: &HashMap<String, AssemblingMachine>,
+            furnaces: &HashMap<String, AssemblingMachine>,
+            rocket_silo: &HashMap<String, AssemblingMachine>,
+            mining_drill: &HashMap<String, MiningMachine>
+            ) -> Result<HashMap<String, Rc<FactoryGroup>>, String> {
         let mut factory_groups: HashMap<String, Rc<FactoryGroup>> = HashMap::new();
 
-        for k in &[
-            DataParserRecipeListerFiles::AssemblingMachines,
-            DataParserRecipeListerFiles::Furnace,
-            DataParserRecipeListerFiles::RocketSilo,
-            DataParserRecipeListerFiles::MiningDrill,
-            ] {
-            let groups_key = match &k {
-                DataParserRecipeListerFiles::MiningDrill => "resource_categories",
-                _ => "crafting_categories"
-            };
-            let group_mapper = match &k {
-                DataParserRecipeListerFiles::MiningDrill => |g_key: &String| format!("resource-{g_key}"),
-                _ => |g_key: &String| g_key.to_owned(),
-            };
-            for (_, am) in parsed.get(&k.to_key())
-                .ok_or(format!("missing json {k:?}"))?
-                .as_object()
-                .ok_or(format!("missing root object in {k:?}"))? {
-                factory_groups.extend(
-                    am.as_object()
-                        .ok_or(format!("missing root object in {k:?}"))?
-                        [groups_key]
-                        .as_object()
-                        .ok_or(format!("missing crafting_categories in {k:?}"))?
-                        .keys()
-                        .map(group_mapper)
-                        .map(|id| (id.clone(), Rc::new(FactoryGroup{id}))
-                ));
-            }
+        for m in [assembling_machines, furnaces, rocket_silo] {
+            factory_groups.extend(m.iter()
+                .flat_map(|m|
+                    m.1.crafting_categories.iter()
+                        .map(|c| (c.0.clone(), Rc::new(FactoryGroup{id: c.0.clone() })))
+                )
+            );
         }
+        factory_groups.extend(mining_drill.iter()
+            .flat_map(|m|
+                m.1.resource_categories.iter()
+                    .map(|c| {
+                        let n = format!("resource-{}", c.0);
+                        (n.clone(), Rc::new(FactoryGroup{id: n }))
+                    })
+            )
+        );
 
         Ok(factory_groups)
     }
@@ -180,14 +173,20 @@ impl DataParserRecipeLister {
             parsed.get(&k.to_key()).ok_or(format!("missing json {k:?}"))?
                 .as_object().ok_or(format!("missing root object in {k:?}"))?
                 .into_iter()
-                .map(|(id, val)| -> Result<(String, Rc<Process>), String> {
+                .map(|(id, val)| -> Result<Option<(String, Rc<Process>)>, String> {
                     let map = val.as_object().ok_or(format!("item at {id} in {k:?} was not an object"))?;
-                    Ok((id.clone(), Rc::new(
+                    let fg_key = map.get("category").ok_or_else(|| format!("missing category in {id}"))?
+                        .as_str().ok_or_else(|| format!("can't convert category in {id}"))?;
+                    let group = factory_groups.get(fg_key);
+                    if group.is_none() {
+                        return Ok(None);
+                    }
+                    Ok(Some((id.clone(), Rc::new(
                         Process{
                             id: id.clone(),
                             display: map.get("name").unwrap().as_str().unwrap().to_string(),
                             duration: map.get("energy").ok_or(format!("missing [{id}.\"energy\"] in {k:?}"))?.as_f64().unwrap(),
-                            group: factory_groups.get(map.get("category").unwrap().as_str().unwrap()).unwrap().clone(),
+                            group: group.unwrap().clone(),
                             inputs: Self::extract_mod(
                                 map.get("ingredients").ok_or(format!("missing [{id}].\"ingredients\" from {k:?}"))?,
                                 items, id, &k)?,
@@ -201,7 +200,13 @@ impl DataParserRecipeLister {
                                 map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
                                 items, id, &k)?,
                         }
-                    )))
+                    ))))
+                })
+                .filter(|r| {
+                    r.as_ref().is_ok_and(|o| o.is_some())
+                })
+                .map(|r| {
+                    r.map(|o| o.unwrap())
                 })
                 .collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
             );
@@ -213,6 +218,7 @@ impl DataParserRecipeLister {
                 .as_object().ok_or(format!("missing root object in {k:?}"))?
                 .into_iter()
                 .map(|(id, val)| -> Result<(String, Rc<Process>), String> {
+                    tracing::info!("{:?} --> ", id);
                     Ok((
                         format!("resource-{id}"),
                         Rc::new(Process{
@@ -263,7 +269,8 @@ impl DataParserRecipeLister {
         mut quantity_calc: F,
     ) -> Result<Vec<Stack>, String>
     where
-        F: FnMut(f64, f64, f64) -> f64,
+        // quantity / ignored_by_productivity / probability / amount_min / amount_max
+        F: FnMut(Option<f64>, Option<f64>, Option<f64>, Option<f64>, Option<f64>, Option<f64>) -> Result<f64, String>,
     {
         if stacks.as_object().is_some() {
             return Ok(Vec::new())
@@ -281,30 +288,61 @@ impl DataParserRecipeLister {
                         .as_str().ok_or("todo!2")?
                     ).ok_or(format!("unable to find item at [{id}].\"ingredients|products\"[{idx}] from {k:?}"))?
                     .clone();
-                let quantity = obj.get("amount").ok_or("todo!4")?.as_f64().ok_or("todo!5")?;
-                let ignored = obj.get("ignored_by_productivity")
-                    .map(|v| -> Result<f64, &str> { v.as_f64().ok_or("todo!6") })
-                    .unwrap_or(Ok(0.0))?;
+                let quantity = obj.get("amount")
+                    .map(|v| v.as_f64()).flatten();
                 let probability = obj.get("probability")
-                    .map(|v| -> Result<f64, &str> { v.as_f64().ok_or("todo!7") })
-                    .unwrap_or(Ok(1.0))?;
+                    .map(|v| v.as_f64()).flatten();
+                let ignored = obj.get("ignored_by_productivity")
+                    .map(|v| v.as_f64()).flatten();
                 let extra_count_fraction = obj.get("extra_count_fraction")
-                    .map(|v| -> Result<f64, &str> { v.as_f64().ok_or("todo!8") })
-                    .unwrap_or(Ok(0.0))?;
+                    .map(|v| v.as_f64()).flatten();
+                let min = obj.get("amount_min")
+                    .map(|v| v.as_f64()).flatten();
+                let max = obj.get("amount_max")
+                    .map(|v| v.as_f64()).flatten();
+
                 Ok(Stack{
                     item,
-                    quantity: quantity_calc(quantity + extra_count_fraction, ignored, probability),
+                    quantity: quantity_calc(quantity, extra_count_fraction, ignored, probability, min, max)?,
                 })
             })
             .collect::<Result<Vec<Stack>, String>>()
     }
 
     fn extract_unmod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
-        Self::extract_io(stacks, items, id, k, |q, i, p| i.min(q) * p)
+        Self::extract_io(stacks, items, id, k, |q, e, i, p, min, max| {
+            match q {
+                Some(q) => {
+                    let e = e.unwrap_or(0.0);
+                    let i = i.unwrap_or(0.0);
+                    let p = p.unwrap_or(1.0);
+                    Ok(i.min(q + e) * p)
+                },
+                None => {
+                    Ok(min.zip(max)
+                        .map(|(min, max)| min + ( (max-min)/2.0 ))
+                        .ok_or_else(|| format!("unable to calculate a quantity for {id}"))?)
+                }
+            }
+        })
     }
 
     fn extract_mod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
-        Self::extract_io(stacks, items, id, k, |q, i, p| (q-i).max(0.0) * p)
+        Self::extract_io(stacks, items, id, k, |q, e, i, p, min, max| {
+            match q {
+                Some(q) => {
+                    let e = e.unwrap_or(0.0);
+                    let i = i.unwrap_or(0.0);
+                    let p = p.unwrap_or(1.0);
+                    Ok((q+e-i).max(0.0) * p)
+                },
+                None => {
+                    Ok(min.zip(max)
+                        .map(|(min, max)| min + ( (max-min)/2.0 ))
+                        .ok_or_else(|| format!("unable to calculate a quantity for {id}"))?)
+                }
+            }
+        })
     }
 }
 
@@ -324,18 +362,43 @@ impl DataParser for DataParserRecipeLister {
     }
 
     fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String> {
+        let assembling_machines = serde_json::from_str::<HashMap<String, AssemblingMachine>>(
+            jsons.get(&DataParserRecipeListerFiles::AssemblingMachines.to_key()).unwrap()
+        ).map_err(|e| e.to_string())?;
+        let furnaces = serde_json::from_str::<HashMap<String, AssemblingMachine>>(
+            jsons.get(&DataParserRecipeListerFiles::Furnace.to_key()).unwrap()
+        ).map_err(|e| e.to_string())?;
+        let rocket_silo = serde_json::from_str::<HashMap<String, AssemblingMachine>>(
+            jsons.get(&DataParserRecipeListerFiles::RocketSilo.to_key()).unwrap()
+        ).map_err(|e| e.to_string())?;
+        let mining_drill = serde_json::from_str::<HashMap<String, MiningMachine>>(
+            jsons.get(&DataParserRecipeListerFiles::MiningDrill.to_key()).unwrap()
+        ).map_err(|e| e.to_string())?;
+
         let mut parsed: BTreeMap<String, Value> = BTreeMap::new();
         for (k, v) in jsons.iter() {
             parsed.insert(k.clone(), serde_json::from_str(v).map_err(|e| format!("{e}"))?);
         }
 
-        let factory_groups = Self::extract_factory_groups(&parsed)?;
+        let factory_groups = Self::extract_factory_groups(&assembling_machines, &furnaces, &rocket_silo,  &mining_drill)?;
         let factories = Self::extract_factories(&parsed, &factory_groups)?;
         let items = Self::extract_items(&parsed)?;
         let processes = Self::extract_processes(&parsed, &factory_groups, &items)?;
 
         Ok(Data{items, factory_groups, factories, processes})
     }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+struct AssemblingMachine {
+    name: String,
+    crafting_categories: HashMap<String, bool>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+struct MiningMachine {
+    name: String,
+    resource_categories: HashMap<String, bool>,
 }
 
 #[cfg(test)]
@@ -499,6 +562,7 @@ mod test {
         let res = DataParserRecipeLister{}.parse(&mut jsons);
         let r = res.unwrap();
         assert_eq!(r.processes.values().map(|fg| fg.id.clone()).sorted().collect::<Vec<String>>(), &[
+            "Moss-1-without-sludge",
             "big-mining-drill-recycling",
             "kovarex-enrichment-process",
             "parameter-0",
@@ -610,4 +674,23 @@ mod test {
         assert_eq!(process.outputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["coal"]);
         assert_eq!(process.outputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[1.0]);
     }
+
+    #[test]
+    fn it_understands_resource_processes_with_probablistic_range_of_inputs() {
+        setup_tracing();
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister{}.parse(&mut jsons);
+        let r = res.unwrap();
+        let process = r.processes.get("Moss-1-without-sludge").unwrap();
+
+        assert_eq!(process.id, "Moss-1-without-sludge");
+        assert_eq!(process.display, "Moss-1-without-sludge");
+        assert_eq!(process.duration, 100.0);
+        assert_eq!(process.group.id, "centrifuging");
+        assert_eq!(process.inputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["crude-oil", "steam"]);
+        assert_eq!(process.inputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[100.0, 100.0]);
+        assert_eq!(process.outputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["scrap", "wood"]);
+        assert_eq!(process.outputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[5.5, 8.0]);
+    }
+
 }

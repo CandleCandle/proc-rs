@@ -223,5 +223,66 @@
         "extra_count_fraction" : 0.5
       }
     ]
+  },
+  "Moss-1-without-sludge" : {
+    "name" : "Moss-1-without-sludge",
+    "localised_name" : [
+      "?",
+      [
+        "recipe-name.Moss-1-without-sludge"
+      ],
+      [
+        "item-name.coarse"
+      ]
+    ],
+    "category" : "centrifuging",
+    "order" : "a",
+    "group" : {
+      "name" : "py-alienlife",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "py-alienlife-moss",
+      "type" : "item-subgroup"
+    },
+    "enabled" : false,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 100,
+    "ingredients" : [
+      {
+        "type" : "fluid",
+        "name" : "steam",
+        "amount" : 100
+      },
+      {
+        "type" : "fluid",
+        "name" : "crude-oil",
+        "amount" : 100
+      }
+    ],
+    "products" : [
+      {
+        "type" : "item",
+        "name" : "wood",
+        "probability" : 1,
+        "amount" : 8
+      },
+      {
+        "type" : "item",
+        "name" : "scrap",
+        "probability" : 1,
+        "amount_min" : 3,
+        "amount_max" : 8
+      }
+    ],
+    "main_product" : {
+      "type" : "item",
+      "name" : "scrap",
+      "probability" : 1,
+      "amount_min" : 3,
+      "amount_max" : 8
+    }
   }
 }
