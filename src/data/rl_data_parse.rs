@@ -67,61 +67,29 @@ impl DataParserRecipeLister {
         Ok(factory_groups)
     }
 
-    fn extract_factories(parsed: &BTreeMap<String, Value>, factory_groups: &HashMap<String, Rc<FactoryGroup>>) -> Result<HashMap<String, Rc<Factory>>, String> {
+    fn extract_factories(
+            assembling_machines: &HashMap<String, AssemblingMachine>,
+            furnaces: &HashMap<String, AssemblingMachine>,
+            rocket_silo: &HashMap<String, AssemblingMachine>,
+            mining_drill: &HashMap<String, MiningMachine>,
+            factory_groups: &HashMap<String, Rc<FactoryGroup>>
+            ) -> Result<HashMap<String, Rc<Factory>>, String> {
         let mut factories: HashMap<String, Rc<Factory>> = HashMap::new();
 
-        for k in &[
-            DataParserRecipeListerFiles::AssemblingMachines,
-            DataParserRecipeListerFiles::Furnace,
-            DataParserRecipeListerFiles::RocketSilo,
-            DataParserRecipeListerFiles::MiningDrill,
-            ] {
-            let duration_key = match &k {
-                DataParserRecipeListerFiles::MiningDrill => "mining_speed",
-                _ => "crafting_speed"
-            };
-            let groups_key = match &k {
-                DataParserRecipeListerFiles::MiningDrill => "resource_categories",
-                _ => "crafting_categories"
-            };
-            let group_mapper = match &k {
-                DataParserRecipeListerFiles::MiningDrill => |g_key: &String| format!("resource-{g_key}"),
-                _ => |g_key: &String| g_key.to_owned(),
-            };
+        for m in [assembling_machines, furnaces, rocket_silo] {
             factories.extend(
-                parsed.get(&k.to_key()).ok_or(format!("missing json {k:?}"))?
-                    .as_object().ok_or(format!("missing root object in {k:?}"))?
-                    .into_iter()
-                    .map(|(id, val)| -> Result<(String, Rc<Factory>), String> {
-                        let obj = val.as_object().unwrap();
-                        Ok((
-                            id.clone(),
-                            Rc::new(
-                                Factory{
-                                    id: obj.get("name").ok_or(format!("missing name in {k:?} at {id}"))?
-                                        .as_str().ok_or(format!("name in {k:?} from {id} was not a string"))?
-                                        .to_string(),
-                                    display: obj["name"].as_str().unwrap().to_string(), // TOOD import i18n
-                                    duration_multiplier: 1.0/obj[duration_key].as_f64().unwrap(),
-                                    inputs_multiplier: 1.0,
-                                    outputs_multiplier: 1.0,
-                                    groups: obj[groups_key].as_object().unwrap()
-                                        .keys()
-                                        .map(group_mapper)
-                                        .map(
-                                            |cc_key| -> Result<Rc<FactoryGroup>, String> {
-                                                Ok(factory_groups.get(&cc_key)
-                                                    .ok_or(format!("unable to find a factory group {cc_key} in {k:?} at {id}"))?
-                                                    .clone())
-                                        })
-                                        .collect::<Result<Vec<Rc<FactoryGroup>>, String>>()?
-                                }
-                            )
-                        ))
-                    })
-                    .collect::<Result<Vec<(String, Rc<Factory>)>, String>>()?
-            )
+                m.iter()
+                    .map(|m|
+                        (m.0.clone(), Rc::new(m.1.new_factory_from(factory_groups)))
+                    )
+            );
         }
+        factories.extend(
+            mining_drill.iter()
+                .map(|m|
+                    (m.0.clone(), Rc::new(m.1.new_factory_from(factory_groups)))
+                )
+        );
 
         Ok(factories)
     }
@@ -381,7 +349,7 @@ impl DataParser for DataParserRecipeLister {
         }
 
         let factory_groups = Self::extract_factory_groups(&assembling_machines, &furnaces, &rocket_silo,  &mining_drill)?;
-        let factories = Self::extract_factories(&parsed, &factory_groups)?;
+        let factories = Self::extract_factories(&assembling_machines, &furnaces, &rocket_silo,  &mining_drill, &factory_groups)?;
         let items = Self::extract_items(&parsed)?;
         let processes = Self::extract_processes(&parsed, &factory_groups, &items)?;
 
@@ -393,12 +361,42 @@ impl DataParser for DataParserRecipeLister {
 struct AssemblingMachine {
     name: String,
     crafting_categories: HashMap<String, bool>,
+    crafting_speed: f64,
+}
+impl AssemblingMachine {
+    fn new_factory_from(&self, factory_groups: &HashMap<String, Rc<FactoryGroup>>) -> Factory {
+        Factory{
+            id: self.name.clone(),
+            display: self.name.clone(),
+            duration_multiplier: 1.0/self.crafting_speed,
+            inputs_multiplier: 1.0,
+            outputs_multiplier: 1.0,
+            groups: self.crafting_categories.iter().map(|c|
+                factory_groups.get(c.0.as_str()).cloned().unwrap()
+            ).collect(),
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 struct MiningMachine {
     name: String,
     resource_categories: HashMap<String, bool>,
+    mining_speed: f64,
+}
+impl MiningMachine {
+    fn new_factory_from(&self, factory_groups: &HashMap<String, Rc<FactoryGroup>>) -> Factory {
+        Factory{
+            id: self.name.clone(),
+            display: self.name.clone(),
+            duration_multiplier: 1.0/self.mining_speed,
+            inputs_multiplier: 1.0,
+            outputs_multiplier: 1.0,
+            groups: self.resource_categories.iter().map(|c|
+                factory_groups.get(&format!("resource-{}", c.0)).cloned().unwrap()
+            ).collect(),
+        }
+    }
 }
 
 #[cfg(test)]
@@ -497,7 +495,7 @@ mod test {
         assert_eq!(factory.duration_multiplier, 0.8);
         assert_eq!(factory.inputs_multiplier, 1.0);
         assert_eq!(factory.outputs_multiplier, 1.0);
-        assert_eq!(factory.groups.iter().map(|g| g.id.clone()).collect::<Vec<String>>(), &[
+        assert_eq!(factory.groups.iter().map(|g| g.id.clone()).sorted().collect::<Vec<String>>(), &[
             "advanced-crafting",
             "basic-crafting",
             "crafting",
