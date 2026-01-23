@@ -1,6 +1,7 @@
+use core::fmt;
 use std::{collections::{BTreeMap, HashMap}, rc::Rc};
 
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize, de::{self, MapAccess, Visitor, value:: SeqAccessDeserializer}};
 use serde_json::Value;
 
 use crate::data::{dataset::DataSetConf, model::{Classification, Stack}};
@@ -342,6 +343,9 @@ impl DataParser for DataParserRecipeLister {
         let mining_drill = serde_json::from_str::<HashMap<String, MiningMachine>>(
             jsons.get(&DataParserRecipeListerFiles::MiningDrill.to_key()).unwrap()
         ).map_err(|e| e.to_string())?;
+        let recipe = serde_json::from_str::<HashMap<String, Recipe>>(
+            jsons.get(&DataParserRecipeListerFiles::Recipe.to_key()).unwrap()
+        ).map_err(|e| e.to_string())?;
 
         let mut parsed: BTreeMap<String, Value> = BTreeMap::new();
         for (k, v) in jsons.iter() {
@@ -397,6 +401,68 @@ impl MiningMachine {
             ).collect(),
         }
     }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+struct Recipe {
+    name: String,
+    category: String,
+    #[serde(deserialize_with = "vec_or_empty")]
+    ingredients: Vec<Ingredient>,
+    #[serde(deserialize_with = "vec_or_empty")]
+    products: Vec<Product>,
+}
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+struct Ingredient {
+
+}
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+struct Product {
+
+}
+
+struct VecOrEmpty<T>(Vec<T>);
+impl<T> VecOrEmpty<T> {
+     fn into_inner(self) -> Vec<T> {
+        self.0
+    }
+}
+impl<'de, T> Deserialize<'de> for VecOrEmpty<T>
+where
+    T: Deserialize<'de>,
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: Deserializer<'de> {
+        struct VecOrEmptyVisitor<T>(std::marker::PhantomData<T>);
+        impl<'de, T> Visitor<'de> for VecOrEmptyVisitor<T>
+        where
+            T: Deserialize<'de>,
+        {
+            type Value = VecOrEmpty<T>;
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("list or (empty)map")
+            }
+            fn visit_seq<A>(self, seq: A) -> Result<Self::Value, A::Error>
+                where
+                    A: de::SeqAccess<'de>, {
+                Ok(VecOrEmpty(Deserialize::deserialize(SeqAccessDeserializer::new(seq))?))
+            }
+            fn visit_map<A>(self, _map: A) -> Result<Self::Value, A::Error>
+                where
+                    A: MapAccess<'de>, {
+                Ok(VecOrEmpty(Vec::new()))
+            }
+        }
+        deserializer.deserialize_any(VecOrEmptyVisitor(std::marker::PhantomData))
+    }
+}
+fn vec_or_empty<'de, T, D>(deserializer: D) -> Result<Vec<T>, D::Error>
+where
+    T: Deserialize<'de>,
+    D: Deserializer<'de>,
+{
+    VecOrEmpty::deserialize(deserializer).map(|sov| sov.into_inner())
 }
 
 #[cfg(test)]
@@ -518,7 +584,7 @@ mod test {
         assert_eq!(factory.duration_multiplier, 0.4);
         assert_eq!(factory.inputs_multiplier, 1.0);
         assert_eq!(factory.outputs_multiplier, 1.0);
-        assert_eq!(factory.groups.iter().map(|g| g.id.clone()).collect::<Vec<String>>(), &[
+        assert_eq!(factory.groups.iter().map(|g| g.id.clone()).sorted().collect::<Vec<String>>(), &[
             "resource-basic-solid",
             "resource-hard-solid",
         ]);
