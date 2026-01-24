@@ -132,53 +132,23 @@ impl DataParserRecipeLister {
 
     fn extract_processes(
             parsed: &BTreeMap<String, Value>,
+            recipes: &HashMap<String, Recipe>,
             factory_groups: &HashMap<String, Rc<FactoryGroup>>,
             items: &HashMap<String, Rc<Item>>
         ) -> Result<HashMap<String, Rc<Process>>, String> {
         let mut processes: HashMap<String, Rc<Process>> = HashMap::new();
 
-        let k = DataParserRecipeListerFiles::Recipe;
         processes.extend(
-            parsed.get(&k.to_key()).ok_or(format!("missing json {k:?}"))?
-                .as_object().ok_or(format!("missing root object in {k:?}"))?
-                .into_iter()
-                .map(|(id, val)| -> Result<Option<(String, Rc<Process>)>, String> {
-                    let map = val.as_object().ok_or(format!("item at {id} in {k:?} was not an object"))?;
-                    let fg_key = map.get("category").ok_or_else(|| format!("missing category in {id}"))?
-                        .as_str().ok_or_else(|| format!("can't convert category in {id}"))?;
-                    let group = factory_groups.get(fg_key);
-                    if group.is_none() {
-                        return Ok(None);
-                    }
-                    Ok(Some((id.clone(), Rc::new(
-                        Process{
-                            id: id.clone(),
-                            display: map.get("name").unwrap().as_str().unwrap().to_string(),
-                            duration: map.get("energy").ok_or(format!("missing [{id}.\"energy\"] in {k:?}"))?.as_f64().unwrap(),
-                            group: group.unwrap().clone(),
-                            inputs: Self::extract_mod(
-                                map.get("ingredients").ok_or(format!("missing [{id}].\"ingredients\" from {k:?}"))?,
-                                items, id, &k)?,
-                            outputs: Self::extract_mod(
-                                map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                items, id, &k)?,
-                            inputs_unmod: Self::extract_unmod(
-                                map.get("ingredients").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                items, id, &k)?,
-                            outputs_unmod: Self::extract_unmod(
-                                map.get("products").ok_or(format!("missing [{id}].\"products\" from {k:?}"))?,
-                                items, id, &k)?,
-                        }
-                    ))))
-                })
-                .filter(|r| {
-                    r.as_ref().is_ok_and(|o| o.is_some())
-                })
-                .map(|r| {
-                    r.map(|o| o.unwrap())
-                })
-                .collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
-            );
+            recipes.iter()
+                .map(|(k, v)| -> Result<(String, Rc<Process>), String> {
+                Ok(
+                    (
+                        k.clone(),
+                        Rc::new(v.new_process_from(factory_groups, items)?)
+                    )
+                )}
+            ).collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
+        );
 
         let k = DataParserRecipeListerFiles::Resource;
 
@@ -278,23 +248,6 @@ impl DataParserRecipeLister {
             .collect::<Result<Vec<Stack>, String>>()
     }
 
-    fn extract_unmod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
-        Self::extract_io(stacks, items, id, k, |q, e, i, p, min, max| {
-            match q {
-                Some(q) => {
-                    let e = e.unwrap_or(0.0);
-                    let i = i.unwrap_or(0.0);
-                    let p = p.unwrap_or(1.0);
-                    Ok(i.min(q + e) * p)
-                },
-                None => {
-                    Ok(min.zip(max)
-                        .map(|(min, max)| min + ( (max-min)/2.0 ))
-                        .ok_or_else(|| format!("unable to calculate a quantity for {id}"))?)
-                }
-            }
-        })
-    }
 
     fn extract_mod(stacks: &Value, items: &HashMap<String, Rc<Item>>, id: &String, k: &DataParserRecipeListerFiles) -> Result<Vec<Stack>, String> {
         Self::extract_io(stacks, items, id, k, |q, e, i, p, min, max| {
@@ -355,7 +308,7 @@ impl DataParser for DataParserRecipeLister {
         let factory_groups = Self::extract_factory_groups(&assembling_machines, &furnaces, &rocket_silo,  &mining_drill)?;
         let factories = Self::extract_factories(&assembling_machines, &furnaces, &rocket_silo,  &mining_drill, &factory_groups)?;
         let items = Self::extract_items(&parsed)?;
-        let processes = Self::extract_processes(&parsed, &factory_groups, &items)?;
+        let processes = Self::extract_processes(&parsed, &recipe, &factory_groups, &items)?;
 
         Ok(Data{items, factory_groups, factories, processes})
     }
@@ -407,18 +360,89 @@ impl MiningMachine {
 struct Recipe {
     name: String,
     category: String,
+    energy: f64,
     #[serde(deserialize_with = "vec_or_empty")]
     ingredients: Vec<Ingredient>,
     #[serde(deserialize_with = "vec_or_empty")]
     products: Vec<Product>,
 }
+impl Recipe {
+    fn new_process_from(&self,
+        factory_groups: &HashMap<String, Rc<FactoryGroup>>,
+        items: &HashMap<String, Rc<Item>>
+    ) -> Result<Process, String> {
+        Ok(Process {
+            id: self.name.clone(),
+            display: self.name.clone(),
+            duration: self.energy,
+            group: factory_groups.get(&self.category).cloned().ok_or_else(|| format!("missing factory group: {}", self.category))?,
+            inputs: self.ingredients.iter()
+                .map(|i| i.new_input_from(items) )
+                .collect::<Result<Vec<Stack>, String>>()?,
+            inputs_unmod: self.ingredients.iter()
+                .map(|i| i.new_input_unmod_from(items) )
+                .collect::<Result<Vec<Stack>, String>>()?,
+            outputs: self.products.iter()
+                .map(|o| o.new_output_from(items))
+                .collect::<Result<Vec<Stack>, String>>()?,
+            outputs_unmod: self.products.iter()
+                .map(|o| o.new_output_unmod_from(items))
+                .collect::<Result<Vec<Stack>, String>>()?,
+        })
+    }
+}
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 struct Ingredient {
+    name: String,
+    amount: Option<f64>,
 
+}
+impl Ingredient {
+    fn new_input_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
+        Ok(Stack {
+            item: items.get(&self.name).cloned().ok_or_else(|| format!("failed to find item {}", self.name))?,
+            quantity: self.amount.unwrap_or(0.0),
+        })
+    }
+    fn new_input_unmod_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
+        Ok(Stack {
+            item: items.get(&self.name).cloned().ok_or_else(|| format!("failed to find item {}", self.name))?,
+            quantity: 0.0,
+        })
+    }
 }
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 struct Product {
-
+    name: String,
+    amount: Option<f64>,
+    probability: Option<f64>,
+    extra_count_fraction: Option<f64>,
+    amount_min: Option<f64>,
+    amount_max: Option<f64>,
+    ignored_by_productivity: Option<f64>,
+}
+impl Product {
+    fn new_output_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
+        Ok(Stack {
+            item: items.get(&self.name).cloned().ok_or_else(|| format!("failed to find item {}", self.name))?,
+            quantity: self.calculate_quantity(),
+        })
+    }
+    fn new_output_unmod_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
+        Ok(Stack {
+            item: items.get(&self.name).cloned().ok_or_else(|| format!("failed to find item {}", self.name))?,
+            quantity: self.calculate_unmod_quantity(),
+        })
+    }
+    fn calculate_quantity(&self) -> f64 {
+        ((self.amount.unwrap_or(0.0) * self.probability.unwrap_or(1.0))
+            + self.extra_count_fraction.unwrap_or(0.0))
+        + (self.amount_min.zip(self.amount_max).map(|(i, a)| i + ((a - i) / 2.0))).unwrap_or(0.0)
+        - self.ignored_by_productivity.unwrap_or(0.0)
+    }
+    fn calculate_unmod_quantity(&self) -> f64 {
+        self.ignored_by_productivity.unwrap_or(0.0)
+    }
 }
 
 struct VecOrEmpty<T>(Vec<T>);
@@ -755,6 +779,36 @@ mod test {
         assert_eq!(process.inputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[100.0, 100.0]);
         assert_eq!(process.outputs.iter().map(|s| s.item.id.clone()).sorted().collect::<Vec<String>>(), &["scrap", "wood"]);
         assert_eq!(process.outputs.iter().sorted_by(|a, b| a.item.id.cmp(&b.item.id)).map(|s| s.quantity).collect::<Vec<f64>>(), &[5.5, 8.0]);
+    }
+
+    #[test]
+    fn calculates_basic_output_count() {
+        let p = Product{name: "a".to_string(), amount: Some(1.0), ..Default::default() };
+        assert_eq!(1.0, p.calculate_quantity());
+    }
+
+    #[test]
+    fn calculates_probablistic_output_count() {
+        let p = Product{name: "a".to_string(), amount: Some(1.0), probability: Some(0.5), ..Default::default()};
+        assert_eq!(0.5, p.calculate_quantity());
+    }
+
+    #[test]
+    fn calculates_recycling_output_count() {
+        let p = Product{name: "a".to_string(), amount: Some(1.0), extra_count_fraction: Some(0.25), ..Default::default() };
+        assert_eq!(1.25, p.calculate_quantity());
+    }
+
+    #[test]
+    fn calculates_probablistic_range_output_count() {
+        let p = Product{name: "a".to_string(), amount_min: Some(3.0), amount_max: Some(6.0), ..Default::default() };
+        assert_eq!(4.5, p.calculate_quantity());
+    }
+
+    #[test]
+    fn calculates_output_with_unmod_count() {
+        let p = Product{name: "a".to_string(), amount: Some(1.0), ignored_by_productivity: Some(1.0), ..Default::default() };
+        assert_eq!(0.0, p.calculate_quantity());
     }
 
 }
