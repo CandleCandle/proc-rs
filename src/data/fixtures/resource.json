@@ -159,5 +159,29 @@
     "energy_source" : {
 
     }
+  },
+  "bitumen-seep" : {
+    "name" : "bitumen-seep",
+    "localised_name" : [
+      "entity-name.bitumen-seep"
+    ],
+    "resource_category" : "bitumen-seep",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "bitumen-seep",
+      "probability_expression" : "py_bitumen_seep",
+      "richness_expression" : "py_bitumen_seep_richness",
+      "order" : "c-bitumen-seep",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+
+    }
   }
 }

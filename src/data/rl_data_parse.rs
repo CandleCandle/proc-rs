@@ -152,14 +152,18 @@ impl DataParserRecipeLister {
 
         processes.extend(
             resources.iter()
-                .map(|(k, v)| -> Result<(String, Rc<Process>), String> {
-                Ok(
-                    (
-                        format!("resource-{}", k.clone()),
-                        Rc::new(v.new_process_from(factory_groups, items)?)
-                    )
-                )}
-            ).collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
+                .map(|(k, v)| -> Result<Option<(String, Rc<Process>)>, String> {
+                    match v.new_process_from(factory_groups, items)? {
+                        None => Ok(None),
+                        Some(proc) => Ok(Some((
+                            format!("resource-{}", k.clone()),
+                            Rc::new(proc)
+                        )))
+                    }
+                })
+                .filter(|v| v.as_ref().is_ok_and(|t| t.is_some()))
+                .map(|v| v.map(|t| t.unwrap()))
+                .collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
         );
 
         Ok(processes)
@@ -258,10 +262,10 @@ struct Recipe {
     name: String,
     category: String,
     energy: f64,
-    #[serde(deserialize_with = "vec_or_empty")]
-    ingredients: Vec<Ingredient>,
-    #[serde(deserialize_with = "vec_or_empty")]
-    products: Vec<Product>,
+    #[serde(default, deserialize_with = "vec_or_empty")]
+    ingredients: Option<Vec<Ingredient>>,
+    #[serde(default, deserialize_with = "vec_or_empty")]
+    products: Option<Vec<Product>>,
 }
 impl Recipe {
     fn new_process_from(&self,
@@ -273,16 +277,16 @@ impl Recipe {
             display: self.name.clone(),
             duration: self.energy,
             group: factory_groups.get(&self.category).cloned().ok_or_else(|| format!("missing factory group: {}", self.category))?,
-            inputs: self.ingredients.iter()
+            inputs: self.ingredients.as_ref().unwrap().iter()
                 .map(|i| i.new_input_from(items) )
                 .collect::<Result<Vec<Stack>, String>>()?,
-            inputs_unmod: self.ingredients.iter()
+            inputs_unmod: self.ingredients.as_ref().unwrap().iter()
                 .map(|i| i.new_input_unmod_from(items) )
                 .collect::<Result<Vec<Stack>, String>>()?,
-            outputs: self.products.iter()
+            outputs: self.products.as_ref().unwrap().iter()
                 .map(|o| o.new_output_from(items))
                 .collect::<Result<Vec<Stack>, String>>()?,
-            outputs_unmod: self.products.iter()
+            outputs_unmod: self.products.as_ref().unwrap().iter()
                 .map(|o| o.new_output_unmod_from(items))
                 .collect::<Result<Vec<Stack>, String>>()?,
         })
@@ -351,8 +355,8 @@ struct Resource {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 struct MineableProps {
     mining_time: f64,
-    #[serde(deserialize_with = "vec_or_empty")]
-    products: Vec<Product>,
+    #[serde(default, deserialize_with = "vec_or_empty")]
+    products: Option<Vec<Product>>,
     fluid_amount: Option<f64>,
     required_fluid: Option<String>,
 }
@@ -360,8 +364,11 @@ impl Resource {
     fn new_process_from(&self,
         factory_groups: &HashMap<String, Rc<FactoryGroup>>,
         items: &HashMap<String, Rc<Item>>
-    ) -> Result<Process, String> {
-        Ok(Process {
+    ) -> Result<Option<Process>, String> {
+        if self.mineable_properties.products.is_none() {
+            return Ok(None);
+        }
+        Ok(Some(Process {
             id: format!("resource-{}", self.name),
             display: self.name.clone(),
             duration: self.mineable_properties.mining_time,
@@ -372,13 +379,13 @@ impl Resource {
                     quantity: q,
                 }).into_iter().collect(),
             inputs_unmod: vec![],
-            outputs: self.mineable_properties.products.iter()
+            outputs: self.mineable_properties.products.as_ref().unwrap().iter()
                 .map(|o| o.new_output_from(items))
                 .collect::<Result<Vec<Stack>, String>>()?,
-            outputs_unmod: self.mineable_properties.products.iter()
+            outputs_unmod: self.mineable_properties.products.as_ref().unwrap().iter()
                 .map(|o| o.new_output_unmod_from(items))
                 .collect::<Result<Vec<Stack>, String>>()?,
-        })
+        }))
     }
 }
 
@@ -419,12 +426,12 @@ where
         deserializer.deserialize_any(VecOrEmptyVisitor(std::marker::PhantomData))
     }
 }
-fn vec_or_empty<'de, T, D>(deserializer: D) -> Result<Vec<T>, D::Error>
+fn vec_or_empty<'de, T, D>(deserializer: D) -> Result<Option<Vec<T>>, D::Error>
 where
     T: Deserialize<'de>,
     D: Deserializer<'de>,
 {
-    VecOrEmpty::deserialize(deserializer).map(|sov| sov.into_inner())
+    Ok(Some(VecOrEmpty::deserialize(deserializer).map(|sov| sov.into_inner())?))
 }
 
 #[cfg(test)]
