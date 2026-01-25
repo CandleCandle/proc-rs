@@ -140,14 +140,19 @@ impl DataParserRecipeLister {
 
         processes.extend(
             recipes.iter()
-                .map(|(k, v)| -> Result<(String, Rc<Process>), String> {
-                Ok(
-                    (
-                        k.clone(),
-                        Rc::new(v.new_process_from(factory_groups, items)?)
-                    )
-                )}
-            ).collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
+                .map(|(k, v)| -> Result<Option<(String, Rc<Process>)>, String> {
+                    match v.new_process_from(factory_groups, items)? {
+                        None => Ok(None),
+                        Some(proc) => Ok(Some((
+                            k.clone(),
+                            Rc::new(proc)
+                        )))
+                    }
+                }
+            )
+            .filter(|v| v.as_ref().is_ok_and(|t| t.is_some()))
+            .map(|v| v.map(|t| t.unwrap()))
+            .collect::<Result<Vec<(String, Rc<Process>)>, String>>()?
         );
 
         processes.extend(
@@ -271,12 +276,16 @@ impl Recipe {
     fn new_process_from(&self,
         factory_groups: &HashMap<String, Rc<FactoryGroup>>,
         items: &HashMap<String, Rc<Item>>
-    ) -> Result<Process, String> {
-        Ok(Process {
+    ) -> Result<Option<Process>, String> {
+        let group = factory_groups.get(&self.category).cloned();
+        if group.is_none() {
+            return Ok(None);
+        }
+        Ok(Some(Process {
             id: self.name.clone(),
             display: self.name.clone(),
             duration: self.energy,
-            group: factory_groups.get(&self.category).cloned().ok_or_else(|| format!("missing factory group: {}", self.category))?,
+            group: group.unwrap(),
             inputs: self.ingredients.as_ref().unwrap().iter()
                 .map(|i| i.new_input_from(items) )
                 .collect::<Result<Vec<Stack>, String>>()?,
@@ -289,7 +298,7 @@ impl Recipe {
             outputs_unmod: self.products.as_ref().unwrap().iter()
                 .map(|o| o.new_output_unmod_from(items))
                 .collect::<Result<Vec<Stack>, String>>()?,
-        })
+        }))
     }
 }
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]

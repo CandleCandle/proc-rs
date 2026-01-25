@@ -284,5 +284,47 @@
       "amount_min" : 3,
       "amount_max" : 8
     }
+  },
+  "category_does_not_exist" : {
+    "name" : "category_does_not_exist",
+    "localised_name" : [
+      "entity-name.wooden-chest"
+    ],
+    "category" : "does_not_exist",
+    "order" : "a[items]-a[wooden-chest]",
+    "group" : {
+      "name" : "logistics",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "storage",
+      "type" : "item-subgroup"
+    },
+    "enabled" : true,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 0.5,
+    "ingredients" : [
+      {
+        "type" : "item",
+        "name" : "wood",
+        "amount" : 2
+      }
+    ],
+    "products" : [
+      {
+        "type" : "item",
+        "name" : "wooden-chest",
+        "probability" : 1,
+        "amount" : 1
+      }
+    ],
+    "main_product" : {
+      "type" : "item",
+      "name" : "wooden-chest",
+      "probability" : 1,
+      "amount" : 1
+    }
   }
 }
