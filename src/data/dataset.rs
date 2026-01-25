@@ -19,6 +19,7 @@ use crate::data::{
 pub enum DataSet {
     Starbirds012,
     Factorio2066Sa2066,
+    Factorio2074Pyanodons3062,
     Foundry200,
     Factorio11109Py2417,
 }
@@ -34,6 +35,7 @@ impl DataSet {
         match self {
             DataSet::Starbirds012 => DataSetConf::new(DataSetStyle::Basic, "starbirds".into(), "0.1.2".into()),
             DataSet::Factorio2066Sa2066 => DataSetConf::modded(DataSetStyle::RecipeLister, Versioned::new("factorio".into(), "2.0.66".into()), Versioned::new("sa".into(), "2.0.66".into())),
+            DataSet::Factorio2074Pyanodons3062 => DataSetConf::modded(DataSetStyle::RecipeLister, Versioned::new("factorio".into(), "2.0.74".into()), Versioned::new("pyanodons".into(), "3.0.62".into())),
             DataSet::Foundry200 => DataSetConf::new(DataSetStyle::FLab, "foundry".into(), "2.0.0".into()),
             DataSet::Factorio11109Py2417 => DataSetConf::modded(DataSetStyle::FLab, Versioned::new("factorio".into(), "1.1.109".into()), Versioned::new("pyanodons".into(), "2.4.17".into())),
         }
@@ -43,6 +45,7 @@ impl DataSet {
         vec!(
             DataSet::params(DataSet::Starbirds012),
             DataSet::params(DataSet::Factorio2066Sa2066),
+            DataSet::params(DataSet::Factorio2074Pyanodons3062),
             DataSet::params(DataSet::Foundry200),
             DataSet::params(DataSet::Factorio11109Py2417),
         )
