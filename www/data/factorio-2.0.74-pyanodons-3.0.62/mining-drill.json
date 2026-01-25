@@ -1,0 +1,2575 @@
+{
+  "burner-mining-drill" : {
+    "name" : "burner-mining-drill",
+    "localised_name" : [
+      "entity-name.burner-mining-drill"
+    ],
+    "energy_usage" : 500000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true,
+          "biomass" : true
+        }
+      }
+    }
+  },
+  "electric-mining-drill" : {
+    "name" : "electric-mining-drill",
+    "localised_name" : [
+      "entity-name.electric-mining-drill"
+    ],
+    "energy_usage" : 1000000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "pumpjack" : {
+    "name" : "pumpjack",
+    "localised_name" : [
+      "entity-name.pumpjack"
+    ],
+    "energy_usage" : 90000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "basic-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "borax-mine" : {
+    "name" : "borax-mine",
+    "localised_name" : [
+      "entity-name.borax-mine"
+    ],
+    "energy_usage" : 420000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "borax" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "fluid-drill-mk01" : {
+    "name" : "fluid-drill-mk01",
+    "localised_name" : [
+      "entity-name.fluid-drill-mk01"
+    ],
+    "energy_usage" : 400000,
+    "mining_speed" : 0.5,
+    "resource_categories" : {
+      "basic-with-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true,
+          "biomass" : true
+        }
+      }
+    }
+  },
+  "borax-mine-mk02" : {
+    "name" : "borax-mine-mk02",
+    "localised_name" : [
+      "entity-name.borax-mine-mk02"
+    ],
+    "energy_usage" : 2550000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "borax" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "fluid-drill-mk02" : {
+    "name" : "fluid-drill-mk02",
+    "localised_name" : [
+      "entity-name.fluid-drill-mk02"
+    ],
+    "energy_usage" : 900000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "basic-with-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "borax-mine-mk03" : {
+    "name" : "borax-mine-mk03",
+    "localised_name" : [
+      "entity-name.borax-mine-mk03"
+    ],
+    "energy_usage" : 3000000,
+    "mining_speed" : 6,
+    "resource_categories" : {
+      "borax" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "fluid-drill-mk03" : {
+    "name" : "fluid-drill-mk03",
+    "localised_name" : [
+      "entity-name.fluid-drill-mk03"
+    ],
+    "energy_usage" : 1200000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "basic-with-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "borax-mine-mk04" : {
+    "name" : "borax-mine-mk04",
+    "localised_name" : [
+      "entity-name.borax-mine-mk04"
+    ],
+    "energy_usage" : 4000000,
+    "mining_speed" : 8,
+    "resource_categories" : {
+      "borax" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "fluid-drill-mk04" : {
+    "name" : "fluid-drill-mk04",
+    "localised_name" : [
+      "entity-name.fluid-drill-mk04"
+    ],
+    "energy_usage" : 1400000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "basic-with-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "niobium-mine" : {
+    "name" : "niobium-mine",
+    "localised_name" : [
+      "entity-name.niobium-mine"
+    ],
+    "energy_usage" : 550000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "niobium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 4,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "diamond-mine" : {
+    "name" : "diamond-mine",
+    "localised_name" : [
+      "entity-name.diamond-mine"
+    ],
+    "energy_usage" : 2000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "volcanic-pipe" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "mo-mine" : {
+    "name" : "mo-mine",
+    "localised_name" : [
+      "entity-name.mo-mine"
+    ],
+    "energy_usage" : 550000,
+    "mining_speed" : 3.5,
+    "resource_categories" : {
+      "molybdenum" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 8,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "regolite-mine" : {
+    "name" : "regolite-mine",
+    "localised_name" : [
+      "entity-name.regolite-mine"
+    ],
+    "energy_usage" : 770000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "regolite" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "antimony-drill-mk01" : {
+    "name" : "antimony-drill-mk01",
+    "localised_name" : [
+      "entity-name.antimony-drill-mk01"
+    ],
+    "energy_usage" : 1000000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "antimonium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input",
+          "volume" : 100
+        }
+      }
+    }
+  },
+  "ree-mining-drill-mk01" : {
+    "name" : "ree-mining-drill-mk01",
+    "localised_name" : [
+      "entity-name.ree-mining-drill-mk01"
+    ],
+    "energy_usage" : 600000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "ree" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "antimony-drill-mk02" : {
+    "name" : "antimony-drill-mk02",
+    "localised_name" : [
+      "entity-name.antimony-drill-mk02"
+    ],
+    "energy_usage" : 3000000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "antimonium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input",
+          "volume" : 100
+        }
+      }
+    }
+  },
+  "ree-mining-drill-mk02" : {
+    "name" : "ree-mining-drill-mk02",
+    "localised_name" : [
+      "entity-name.ree-mining-drill-mk02"
+    ],
+    "energy_usage" : 800000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "ree" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "antimony-drill-mk03" : {
+    "name" : "antimony-drill-mk03",
+    "localised_name" : [
+      "entity-name.antimony-drill-mk03"
+    ],
+    "energy_usage" : 6000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "antimonium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input",
+          "volume" : 100
+        }
+      }
+    }
+  },
+  "ree-mining-drill-mk03" : {
+    "name" : "ree-mining-drill-mk03",
+    "localised_name" : [
+      "entity-name.ree-mining-drill-mk03"
+    ],
+    "energy_usage" : 1000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "ree" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "antimony-drill-mk04" : {
+    "name" : "antimony-drill-mk04",
+    "localised_name" : [
+      "entity-name.antimony-drill-mk04"
+    ],
+    "energy_usage" : 10000000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "antimonium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input",
+          "volume" : 100
+        }
+      }
+    }
+  },
+  "ree-mining-drill-mk04" : {
+    "name" : "ree-mining-drill-mk04",
+    "localised_name" : [
+      "entity-name.ree-mining-drill-mk04"
+    ],
+    "energy_usage" : 1200000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "ree" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "geothermal-plant-mk01" : {
+    "name" : "geothermal-plant-mk01",
+    "localised_name" : [
+      "entity-name.geothermal-plant-mk01"
+    ],
+    "energy_usage" : 1000000,
+    "mining_speed" : 2.5,
+    "resource_categories" : {
+      "geothermal-crack" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "uranium-mining-drill" : {
+    "name" : "uranium-mining-drill",
+    "localised_name" : [
+      "entity-name.uranium-mining-drill"
+    ],
+    "energy_usage" : 180000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "uranium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "uranium-mine" : {
+    "name" : "uranium-mine",
+    "localised_name" : [
+      "entity-name.uranium-mine"
+    ],
+    "energy_usage" : 900000000,
+    "mining_speed" : 15,
+    "resource_categories" : {
+      "uranium-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "flora-collector-mk01" : {
+    "name" : "flora-collector-mk01",
+    "localised_name" : [
+      "entity-name.flora-collector-mk01"
+    ],
+    "energy_usage" : 100000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "ore-bioreserve" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "flora-collector-mk02" : {
+    "name" : "flora-collector-mk02",
+    "localised_name" : [
+      "entity-name.flora-collector-mk02"
+    ],
+    "energy_usage" : 2000000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "ore-bioreserve" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "flora-collector-mk03" : {
+    "name" : "flora-collector-mk03",
+    "localised_name" : [
+      "entity-name.flora-collector-mk03"
+    ],
+    "energy_usage" : 3000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "ore-bioreserve" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "flora-collector-mk04" : {
+    "name" : "flora-collector-mk04",
+    "localised_name" : [
+      "entity-name.flora-collector-mk04"
+    ],
+    "energy_usage" : 4000000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "ore-bioreserve" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "harvester" : {
+    "name" : "harvester",
+    "localised_name" : [
+      "entity-name.harvester"
+    ],
+    "energy_usage" : 600000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "ralesia-flowers" : true,
+      "rennea-flowers" : true,
+      "tuuphra-tuber" : true,
+      "grod-flower" : true,
+      "yotoi-tree" : true,
+      "yotoi-tree-fruit" : true,
+      "kicalk-tree" : true,
+      "arum" : true,
+      "mova" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "phosphate-mine" : {
+    "name" : "phosphate-mine",
+    "localised_name" : [
+      "entity-name.phosphate-mine"
+    ],
+    "energy_usage" : 500000,
+    "mining_speed" : 8,
+    "resource_categories" : {
+      "phosphate" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 3,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "rare-earth-mine" : {
+    "name" : "rare-earth-mine",
+    "localised_name" : [
+      "entity-name.rare-earth-mine"
+    ],
+    "energy_usage" : 30000000,
+    "mining_speed" : 5,
+    "resource_categories" : {
+      "rare-earth" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "natural-gas-derrick-mk01" : {
+    "name" : "natural-gas-derrick-mk01",
+    "localised_name" : [
+      "entity-name.natural-gas-derrick-mk01"
+    ],
+    "energy_usage" : 3000000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "bitumen-seep" : true,
+      "natural-gas" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "oil-derrick-mk01" : {
+    "name" : "oil-derrick-mk01",
+    "localised_name" : [
+      "entity-name.oil-derrick-mk01"
+    ],
+    "energy_usage" : 3000000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "bitumen-seep" : true,
+      "oil-derrick" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "oil-sand-extractor-mk01" : {
+    "name" : "oil-sand-extractor-mk01",
+    "localised_name" : [
+      "entity-name.oil-sand-extractor-mk01"
+    ],
+    "energy_usage" : 500000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "oil-sand" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "tar-extractor-mk01" : {
+    "name" : "tar-extractor-mk01",
+    "localised_name" : [
+      "entity-name.tar-extractor-mk01"
+    ],
+    "energy_usage" : 3000000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "tar-patch" : true,
+      "bitumen-seep" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "natural-gas-derrick-mk02" : {
+    "name" : "natural-gas-derrick-mk02",
+    "localised_name" : [
+      "entity-name.natural-gas-derrick-mk02"
+    ],
+    "energy_usage" : 6000000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "bitumen-seep" : true,
+      "natural-gas" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "oil-derrick-mk02" : {
+    "name" : "oil-derrick-mk02",
+    "localised_name" : [
+      "entity-name.oil-derrick-mk02"
+    ],
+    "energy_usage" : 6000000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "bitumen-seep" : true,
+      "oil-derrick" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "oil-sand-extractor-mk02" : {
+    "name" : "oil-sand-extractor-mk02",
+    "localised_name" : [
+      "entity-name.oil-sand-extractor-mk02"
+    ],
+    "energy_usage" : 1000000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "oil-sand" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "tar-extractor-mk02" : {
+    "name" : "tar-extractor-mk02",
+    "localised_name" : [
+      "entity-name.tar-extractor-mk02"
+    ],
+    "energy_usage" : 6000000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "tar-patch" : true,
+      "bitumen-seep" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "natural-gas-derrick-mk03" : {
+    "name" : "natural-gas-derrick-mk03",
+    "localised_name" : [
+      "entity-name.natural-gas-derrick-mk03"
+    ],
+    "energy_usage" : 9000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "bitumen-seep" : true,
+      "natural-gas" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "oil-derrick-mk03" : {
+    "name" : "oil-derrick-mk03",
+    "localised_name" : [
+      "entity-name.oil-derrick-mk03"
+    ],
+    "energy_usage" : 9000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "bitumen-seep" : true,
+      "oil-derrick" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "oil-sand-extractor-mk03" : {
+    "name" : "oil-sand-extractor-mk03",
+    "localised_name" : [
+      "entity-name.oil-sand-extractor-mk03"
+    ],
+    "energy_usage" : 2000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "oil-sand" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "tar-extractor-mk03" : {
+    "name" : "tar-extractor-mk03",
+    "localised_name" : [
+      "entity-name.tar-extractor-mk03"
+    ],
+    "energy_usage" : 9000000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "tar-patch" : true,
+      "bitumen-seep" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "natural-gas-derrick-mk04" : {
+    "name" : "natural-gas-derrick-mk04",
+    "localised_name" : [
+      "entity-name.natural-gas-derrick-mk04"
+    ],
+    "energy_usage" : 12000000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "bitumen-seep" : true,
+      "natural-gas" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "oil-derrick-mk04" : {
+    "name" : "oil-derrick-mk04",
+    "localised_name" : [
+      "entity-name.oil-derrick-mk04"
+    ],
+    "energy_usage" : 12000000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "bitumen-seep" : true,
+      "oil-derrick" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "oil-sand-extractor-mk04" : {
+    "name" : "oil-sand-extractor-mk04",
+    "localised_name" : [
+      "entity-name.oil-sand-extractor-mk04"
+    ],
+    "energy_usage" : 3000000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "oil-sand" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "tar-extractor-mk04" : {
+    "name" : "tar-extractor-mk04",
+    "localised_name" : [
+      "entity-name.tar-extractor-mk04"
+    ],
+    "energy_usage" : 12000000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "tar-patch" : true,
+      "bitumen-seep" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "sulfur-mine" : {
+    "name" : "sulfur-mine",
+    "localised_name" : [
+      "entity-name.sulfur-mine"
+    ],
+    "energy_usage" : 3000000,
+    "mining_speed" : 5,
+    "resource_categories" : {
+      "sulfur-patch" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input",
+          "volume" : 3000
+        }
+      }
+    }
+  },
+  "aluminium-mine" : {
+    "name" : "aluminium-mine",
+    "localised_name" : [
+      "entity-name.aluminium-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "aluminium-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "chromium-mine" : {
+    "name" : "chromium-mine",
+    "localised_name" : [
+      "entity-name.chromium-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "chromium-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 0.4,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "coal-mine" : {
+    "name" : "coal-mine",
+    "localised_name" : [
+      "entity-name.coal-mine"
+    ],
+    "energy_usage" : 1000000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "coal-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "copper-mine" : {
+    "name" : "copper-mine",
+    "localised_name" : [
+      "entity-name.copper-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "copper-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "iron-mine" : {
+    "name" : "iron-mine",
+    "localised_name" : [
+      "entity-name.iron-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "iron-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "lead-mine" : {
+    "name" : "lead-mine",
+    "localised_name" : [
+      "entity-name.lead-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "lead-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "nexelit-mine" : {
+    "name" : "nexelit-mine",
+    "localised_name" : [
+      "entity-name.nexelit-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 8,
+    "resource_categories" : {
+      "nexelit-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "nickel-mine" : {
+    "name" : "nickel-mine",
+    "localised_name" : [
+      "entity-name.nickel-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "nickel-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "phosphate-mine-02" : {
+    "name" : "phosphate-mine-02",
+    "localised_name" : [
+      "entity-name.phosphate-mine-02"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "phosphate-rock-02" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "quartz-mine" : {
+    "name" : "quartz-mine",
+    "localised_name" : [
+      "entity-name.quartz-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "quartz-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "salt-mine" : {
+    "name" : "salt-mine",
+    "localised_name" : [
+      "entity-name.salt-mine"
+    ],
+    "energy_usage" : 2000000,
+    "mining_speed" : 10,
+    "resource_categories" : {
+      "salt-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input",
+          "volume" : 3000
+        }
+      }
+    }
+  },
+  "tin-mine" : {
+    "name" : "tin-mine",
+    "localised_name" : [
+      "entity-name.tin-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "tin-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "titanium-mine" : {
+    "name" : "titanium-mine",
+    "localised_name" : [
+      "entity-name.titanium-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "titanium-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "zinc-mine" : {
+    "name" : "zinc-mine",
+    "localised_name" : [
+      "entity-name.zinc-mine"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 20,
+    "resource_categories" : {
+      "zinc-rock" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "drill" : true
+        }
+      }
+    }
+  },
+  "pipette-dino-dig-site" : {
+    "name" : "pipette-dino-dig-site",
+    "localised_name" : [
+      "entity-name.dino-dig-site"
+    ],
+    "energy_usage" : 1,
+    "mining_speed" : 0,
+    "resource_categories" : {
+      "ore-nexelit" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 400000
+      }
+    }
+  },
+  "antimonium-drill-mk01" : {
+    "name" : "antimonium-drill-mk01",
+    "localised_name" : [
+      "",
+      [
+        "entity-name.antimony-drill-mk01"
+      ],
+      " (Legacy)"
+    ],
+    "energy_usage" : 500000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "antimonium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "jerry" : true
+        }
+      }
+    }
+  },
+  "antimonium-drill-mk02" : {
+    "name" : "antimonium-drill-mk02",
+    "localised_name" : [
+      "",
+      [
+        "entity-name.antimony-drill-mk02"
+      ],
+      " (Legacy)"
+    ],
+    "energy_usage" : 1000000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "antimonium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "jerry" : true
+        }
+      }
+    }
+  },
+  "antimonium-drill-mk03" : {
+    "name" : "antimonium-drill-mk03",
+    "localised_name" : [
+      "",
+      [
+        "entity-name.antimony-drill-mk03"
+      ],
+      " (Legacy)"
+    ],
+    "energy_usage" : 1500000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "antimonium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "jerry" : true
+        }
+      }
+    }
+  },
+  "antimonium-drill-mk04" : {
+    "name" : "antimonium-drill-mk04",
+    "localised_name" : [
+      "",
+      [
+        "entity-name.antimony-drill-mk04"
+      ],
+      " (Legacy)"
+    ],
+    "energy_usage" : 2000000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "antimonium" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : false,
+      "productivity" : true,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "jerry" : true
+        }
+      }
+    }
+  }
+}
