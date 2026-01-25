@@ -119,7 +119,7 @@ impl FLabDataItem {
                     Ok(fgs.get(&format!("fg-{}", v.0)).cloned().ok_or_else(|| format!("unable for find a factory group containing {}", self.id))?)
                 })
                 .collect::<Result<Vec<Rc<FactoryGroup>>, String>>()?,
-            duration_multiplier: self.machine.as_ref().unwrap().speed.clone(),
+            duration_multiplier: 1.0/self.machine.as_ref().unwrap().speed.clone(),
             inputs_multiplier: 1.0,
             outputs_multiplier: 1.0, // XXX factorio has machine.baseEffect.productivity
         })
@@ -235,7 +235,7 @@ mod test {
         let factory = r.factories.get("assembler-1").unwrap();
         assert_eq!(factory.id, "assembler-1");
         assert_eq!(factory.display, "Assembler 1");
-        assert_eq!(factory.duration_multiplier, 1.0);
+        assert_eq!(factory.duration_multiplier, 0.5);
         assert_eq!(factory.inputs_multiplier, 1.0);
         assert_eq!(factory.outputs_multiplier, 1.0);
     }

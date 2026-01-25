@@ -72,7 +72,7 @@
             "row": 9,
             "stack": 10,
             "machine": {
-                "speed": 1,
+                "speed": 2,
                 "type": "electric",
                 "usage": 50,
                 "size": [
