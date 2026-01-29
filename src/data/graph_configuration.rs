@@ -2,8 +2,9 @@ use std::{collections::{BTreeMap, HashSet}, rc::Rc};
 
 use itertools::Itertools;
 use regex::Regex;
+use serde::{Deserialize, Serialize};
 
-use crate::data::model::Factory;
+use crate::data::{dataset::DehydratedDataSetConf, hydration::{Dehydrate, Rehydrate}, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory}};
 
 use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
 
@@ -15,7 +16,6 @@ pub trait FetchDataSet {
     // fn fetch(&self, dataset_id: &String) -> impl Future<Output = Result<String, String>> + Send;
 }
 
-
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct GraphConfiguration {
     // everything needed in order to make a graph, mutable so that the UI can make changes.
@@ -26,6 +26,71 @@ pub struct GraphConfiguration {
     requirements: Vec<Stack>,
     import_export: Vec<Rc<Item>>,
     processes: Vec<ActiveProcess>,
+}
+
+impl Dehydrate<DehydratedGraphConfiguration> for GraphConfiguration {
+    fn dehydrate(&self) -> DehydratedGraphConfiguration {
+        DehydratedGraphConfiguration {
+            current_data_set: self.current_data_set.as_ref().map(|d| d.dehydrate()),
+            requirements: self.requirements.iter()
+                .map(|s| s.dehydrate())
+                .collect(),
+            import_export: self.import_export.iter().map(|io| io.dehydrate()).collect(),
+            processes: self.processes.iter().map(|p| p.dehydrate()).collect(),
+        }
+    }
+}
+
+impl <T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfiguration
+    where T: FetchDataSet
+ {
+    async fn rehydrate(&self, fetcher: T) -> Result<GraphConfiguration, String> {
+        let current_data_set = self.clone().current_data_set
+                .map(|s| DataSet::find(&s.id)).unwrap();
+        // let current_data = current_data_set.map(|d| d.clone().into_data(fetcher));
+        let current_data = match current_data_set.clone() {
+            Some(d) => Some(d.into_data(fetcher).await?),
+            None => None,
+        };
+        let mut requirements = Vec::with_capacity(self.requirements.len());
+        if current_data.is_some() {
+            for req in &self.requirements {
+                requirements.push(req.rehydrate(current_data.as_ref().unwrap()).await.unwrap());
+            }
+        };
+        let mut import_export = Vec::with_capacity(self.import_export.len());
+        if current_data.is_some() {
+            for io in &self.import_export {
+                import_export.push(io.rehydrate(current_data.as_ref().unwrap()).await.unwrap());
+            }
+        };
+        let mut processes = Vec::with_capacity(self.processes.len());
+        if current_data.is_some() {
+            for proc in &self.processes {
+                processes.push(proc.rehydrate(&current_data.as_ref().unwrap()).await.unwrap());
+            }
+        };
+
+        Ok(GraphConfiguration {
+            current_data_set,
+            current_data,
+            requirements,
+            import_export,
+            processes,
+        })
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+pub struct DehydratedGraphConfiguration {
+    #[serde(rename = "d")]
+    current_data_set: Option<DehydratedDataSetConf>,
+    #[serde(rename = "r")]
+    requirements: Vec<DehydratedStack>,
+    #[serde(rename = "io")]
+    import_export: Vec<DehydratedItem>,
+    #[serde(rename = "p")]
+    processes: Vec<DehydratedActiveProcess>,
 }
 
 impl GraphConfiguration {

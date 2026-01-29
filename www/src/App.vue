@@ -1,6 +1,4 @@
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
-// import TheWelcome from './components/TheWelcome.vue'
 import VueSplitter from '@rmp135/vue-splitter';
 import Configure from './components/Configure.vue';
 import GraphRender from './components/GraphRender.vue';
@@ -13,10 +11,45 @@ const cfg = shallowRef(new GraphConfiguration());
 // this Forces an Update as it is the :key on the CurrentConfiguration.
 const cfg_fu = ref(0);
 
+// XXX This behaviour needs to run when location.hash is changed
+// by something that isn't the contents of the graph config changing?
+// at the moment, it's only run on actual page load. There's a forced
+// reload in the main "reset" link.
+if (window.location.hash) {
+  let params = new URLSearchParams(window.location.hash.substring(1));
+  console.log('params', params);
+  // Scripts are loaded after this runs, if viz has not been
+  // loaded then it errors when trying to render the graph.
+  var script = document.querySelector('#viz');
+  script.addEventListener('load', function() {
+    if (params.has('s0')) {
+      cfg.value.rehydrate(params.get('s0')).then((r) => {
+        console.log('rehydrate result', r);
+        handle_fold_update('get-started', !cfg.value.can_render()),
+        handle_fold_update('current-configuration', cfg.value.can_render()),
+        cfg_fu.value++;
+      });
+    } else {
+      console.log("reset: no parameter");
+      cfg.value.reset();
+      cfg_fu.value++;
+    }
+  });
+} else {
+  console.log("reset: no fragment");
+  cfg.value.reset();
+  cfg_fu.value++;
+}
+
 function handle_cfg_update() {
     console.log("A handle_cfg_update");
     handle_fold_update('get-started', !cfg.value.can_render());
     handle_fold_update('current-configuration', cfg.value.can_render());
+    let seialised = cfg.value.dehydrate();
+    console.log('serialised', seialised);
+    if (seialised) {
+      window.location.replace("#s0=" + seialised);
+    }
     triggerRef(cfg);
     cfg_fu.value++;
 }
@@ -46,7 +79,7 @@ function handle_fold_update(event_or_id, forced) {
 
 <template>
   <header>
-    <h1>Process Calculator</h1>
+    <h1><a href="#" onclick="window.location.assign('#'); window.location.reload()">Process Calculator</a></h1>
   </header>
   <br />
   <main>

@@ -17,7 +17,11 @@ use data::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigu
 
 use crate::data::calculator::Calculator;
 use crate::data::dataset::{DataSet, DataSetConf};
+use crate::data::graph_configuration::DehydratedGraphConfiguration;
 use crate::data::model::{ActiveProcess, Factory};
+
+use base64::{Engine,prelude::BASE64_STANDARD_NO_PAD};
+use crate::data::hydration::{Rehydrate,Dehydrate};
 
 #[wasm_bindgen]
 extern "C" {
@@ -73,6 +77,31 @@ impl GraphConfiguration {
             wrapped: GraphConfigurationLib::new(),
             calculator: None,
         }
+    }
+
+    pub fn dehydrate(&self) -> Result<JsValue, JsValue> {
+        if self.wrapped.can_render() {
+            Ok(JsValue::from_str(
+                &BASE64_STANDARD_NO_PAD.encode(rmp_serde::encode::to_vec(&self.wrapped.dehydrate()).unwrap())
+            ))
+        } else {
+            Ok(JsValue::null())
+        }
+    }
+
+    pub fn reset(&mut self) -> Result<JsValue, JsValue> {
+        self.calculator = None;
+        self.wrapped = GraphConfigurationLib::new();
+        Ok(JsValue::null())
+    }
+
+    pub async fn rehydrate(&mut self, serialised: String) -> Result<JsValue, JsValue> {
+        let dgc: DehydratedGraphConfiguration = rmp_serde::decode::from_slice(
+            BASE64_STANDARD_NO_PAD.decode(serialised).map_err(|e| e.to_string())?.as_slice()
+        ).map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        self.wrapped = dgc.rehydrate(RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Ok(JsValue::null()) // XXX err result required.
     }
 
     pub fn get_current_data_set(&self) -> Option<DataSetConf> {

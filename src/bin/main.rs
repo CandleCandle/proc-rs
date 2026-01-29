@@ -1,11 +1,53 @@
+use std::fs::File;
+use std::io::Read;
+use std::str::FromStr;
 use std::{collections::BTreeMap, fs, path::PathBuf};
 
-use clap::{command, Parser};
+use clap::{command, Parser, Subcommand, ValueEnum};
+
+use proc_rs::data::graph_configuration::{DehydratedGraphConfiguration, FetchDataSet};
 use proc_rs::data::{
-    basic_data_parse::DataParserBasicFiles, calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::StackSet};
+    calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::StackSet};
+use proc_rs::data::hydration::{Dehydrate, Rehydrate};
 
 use tabled::{builder::Builder, settings::object::Cell, Table};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
+use serde_json;
+use rmp_serde;
+use base64::{Engine, prelude::BASE64_STANDARD_NO_PAD};
+
+
+#[derive(Parser, Debug, Clone)]
+#[command(version, about, verbatim_doc_comment)]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Debug, Clone, Subcommand)]
+enum Commands {
+    Generate(GenerateArgs),
+    Serial(SerialArgs)
+}
+
+#[derive(Parser, Debug, Clone)]
+#[command(version, about, verbatim_doc_comment)]
+struct SerialArgs {
+    /// File path to data contents
+    #[arg(short='f', long)]
+    data_location: String,
+    #[arg(short='v', long)]
+    value: String,
+    #[arg(short='m', long)]
+    mode: SerialMode,
+}
+
+#[derive(ValueEnum, Copy, Clone, Debug, PartialEq, Eq)]
+enum SerialMode {
+    Json,
+    MessagePack
+}
 
 
 /// Examples:
@@ -20,14 +62,15 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 ///
 #[derive(Parser, Debug, Clone)]
 #[command(version, about, verbatim_doc_comment)]
-struct Args {
+struct GenerateArgs {
     /// Data Style ID; as produced by DataSetStyle
     #[arg(short='s', long)]
     style: String,
 
     /// File path to data contents
     #[arg(short='f', long)]
-    data_location: PathBuf,
+    // data_location: PathBuf,
+    data_location: String,
 
     /// Requirements, in the form F:id
     ///
@@ -60,9 +103,28 @@ struct Args {
     graph: Option<PathBuf>,
 }
 
+struct FileFetcher {
+    base_dir: String,
+}
+impl FetchDataSet for FileFetcher {
+    async fn fetch(&self, relative_path: &str) ->  Result<String, String> {
+        tracing::debug!("fetching {}/{relative_path}", self.base_dir);
+        let mut file = File::open(PathBuf::from_str(&self.base_dir).unwrap().join(relative_path)).map_err(|e| format!("{} ({})", e, relative_path))?;
+        let mut contents = String::new();
+        file.read_to_string(&mut contents).map_err(|e| format!("{}, ({})", e, relative_path))?;
+        Ok(contents)
+    }
+}
+
+#[cfg(not(feature = "main"))]
 fn main() -> Result<(), String> {
-    let args = Args::parse();
-    println!("Args: {args:?}");
+    Err("enabled with the 'main' feature".to_string())
+}
+
+#[cfg(feature = "main")]
+#[tokio::main]
+async fn main() -> Result<(), String> {
+    let args = Cli::parse();
 
     tracing_subscriber::registry()
         .with(tracing_subscriber::fmt::Layer::default()
@@ -71,14 +133,32 @@ fn main() -> Result<(), String> {
             .compact())
         .try_init().map_err(|e| e.to_string())?;
 
+    tracing::debug!("args {args:?}");
+
+    match args.command {
+        Commands::Generate(args) => generate(args).await,
+        Commands::Serial(args) => serial(args).await,
+    }
+}
+
+async fn serial(args: SerialArgs) -> Result<(), String> {
+    let dgc: DehydratedGraphConfiguration = match args.mode {
+        SerialMode::Json => serde_json::from_str(&args.value).map_err(|e| e.to_string())?,
+        SerialMode::MessagePack => rmp_serde::decode::from_slice(
+                BASE64_STANDARD_NO_PAD.decode(args.value).map_err(|e| e.to_string())?.as_slice()
+            ).map_err(|e| e.to_string())?
+    };
+
+    let ff = FileFetcher{base_dir: args.data_location};
+    let gc = dgc.rehydrate(ff).await?;
+    report_gc(gc, None)
+}
+
+async fn generate(args: GenerateArgs) -> Result<(), String> {
     let current_data_conf = DataSet::find(&args.style).ok_or(format!("no dataset conf for {}", &args.style))?;
 
-
-    let json = fs::read(args.data_location)
-        .map(|vec| String::from_utf8(vec).map_err(|e| e.to_string())).map_err(|e| e.to_string())??;
-    let mut jsons = BTreeMap::new();
-    jsons.insert(DataParserBasicFiles::Main.to_key(), json.to_string());
-    let current_data = current_data_conf.style.parser().parse(&mut jsons)?;
+    let ff = FileFetcher{base_dir: args.data_location};
+    let current_data = current_data_conf.into_data(ff).await?;
 
     let mut gc = GraphConfiguration::new();
     gc.set_data(current_data, current_data_conf);
@@ -115,24 +195,28 @@ fn main() -> Result<(), String> {
         tracing::warn!("Found unsatisfied item, adding as import/export: {}", i.id);
         gc.add_import_export(&i.id);
     }
+    report_gc(gc, args.graph)
+}
 
-    // println!("{:?}", gc);
+fn report_gc(gc: GraphConfiguration, graph: Option<PathBuf>) -> Result<(), String> {
 
     let calc = Calculator::generate(&gc);
-    // calc.to_gv();
+    tracing::info!("serialised configuration {}", serde_json::to_string(&gc.dehydrate()).unwrap());
+    tracing::info!("serialised configuration {}", BASE64_STANDARD_NO_PAD.encode(rmp_serde::encode::to_vec(&gc.dehydrate()).unwrap()));
     tracing::info!("initial matrix {}", calc.initial_matrix());
     tracing::info!("reduced matrix {}", calc.reduced_matrix());
     tracing::info!("process counts \n{}", make_process_count_table(&calc.process_counts()));
     tracing::info!("materials\n{}", make_materials_count_table(&calc.materials()));
     tracing::info!("graph\n{}", calc.to_digraph());
 
-    if args.graph.is_some() {
-        fs::write(args.graph.unwrap(), calc.to_digraph())
+    if graph.is_some() {
+        fs::write(graph.unwrap(), calc.to_digraph())
             .map_err(|e| e.to_string())?;
     }
     Ok(())
 }
 
+// #[cfg(feature = "main")]
 fn make_process_count_table(process_counts: &BTreeMap<String, f64>) -> String {
     Table::new(process_counts)
         .modify(Cell::new(0, 0), "id")
@@ -140,6 +224,7 @@ fn make_process_count_table(process_counts: &BTreeMap<String, f64>) -> String {
         .to_string()
 }
 
+// #[cfg(feature = "main")]
 fn make_materials_count_table(materials: &StackSet) -> String {
     let all_items = materials.contained_items();
 

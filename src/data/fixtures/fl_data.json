@@ -1,0 +1,139 @@
+{
+    "version": {
+        "base": 42
+    },
+    "categories": [
+        {
+            "id": "structures",
+            "name": "Structures"
+        }
+    ],
+    "icons": [
+        {
+            "id": "building-block",
+            "position": "-66px -0px",
+            "color": "#607284"
+        }
+    ],
+    "items": [
+        {
+            "id": "building-block",
+            "name": "Building Block",
+            "category": "structures",
+            "row": 0,
+            "stack": 200
+        },
+        {
+            "id": "stairs",
+            "name": "Stairs",
+            "category": "structures",
+            "row": 0,
+            "stack": 10
+        },
+        {
+            "id": "mineral-rocks",
+            "name": "Mineral Rocks",
+            "category": "metallurgy",
+            "row": 4,
+            "stack": 200
+        },
+        {
+            "id": "technum-rod",
+            "name": "Technum Rod",
+            "category": "metallurgy",
+            "row": 1,
+            "stack": 200
+        },
+        {
+            "id": "cement",
+            "name": "Cement",
+            "category": "components",
+            "row": 4,
+            "stack": 10
+        },
+        {
+            "id": "xenoferrite-ore-rubble",
+            "name": "Xenoferrite Ore Rubble",
+            "category": "metallurgy",
+            "row": 0,
+            "stack": 200
+        },
+        {
+            "id": "xenoferrite-plates",
+            "name": "Xenoferrite Plates",
+            "category": "metallurgy",
+            "row": 0,
+            "stack": 200
+        },
+        {
+            "id": "assembler-1",
+            "name": "Assembler 1",
+            "category": "structures",
+            "row": 9,
+            "stack": 10,
+            "machine": {
+                "speed": 2,
+                "type": "electric",
+                "usage": 50,
+                "size": [
+                    3,
+                    3
+                ]
+            }
+        }
+    ],
+    "recipes": [
+        {
+            "id": "building-block",
+            "name": "Building Block",
+            "category": "structures",
+            "producers": [
+                "assembler-1",
+                "assembler-2",
+                "assembler-3"
+            ],
+            "time": 5,
+            "out": {
+                "building-block": 20
+            },
+            "in": {
+                "xenoferrite-plates": 6,
+                "technum-rod": 4
+            }
+        },
+        {
+            "id": "stairs",
+            "name": "Stairs",
+            "category": "structures",
+            "producers": [
+                "assembler-1",
+                "assembler-2",
+                "assembler-3"
+            ],
+            "time": 1.5,
+            "out": {
+                "stairs": 1
+            },
+            "in": {
+                "xenoferrite-plates": 2
+            }
+        },
+        {
+            "id": "cement",
+            "name": "Cement",
+            "category": "components",
+            "producers": [
+                "crusher-1",
+                "crusher-2"
+            ],
+            "time": 12,
+            "out": {
+                "cement": 2
+            },
+            "in": {
+                "mineral-rocks": 2,
+                "xenoferrite-ore-rubble": 1
+            }
+        }
+    ]
+}

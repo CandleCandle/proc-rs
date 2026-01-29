@@ -1,10 +1,15 @@
+use std::collections::BTreeMap;
+
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::data::{
     basic_data_parse::DataParserBasic,
-    model::DataParser,
+    graph_configuration::FetchDataSet,
+    hydration::Dehydrate,
+    model::{Data, DataParser},
     rl_data_parse::DataParserRecipeLister,
+    fl_data_parse::DataParserFLab,
 };
 
 
@@ -14,6 +19,9 @@ use crate::data::{
 pub enum DataSet {
     Starbirds012,
     Factorio2066Sa2066,
+    Factorio2074Pyanodons3062,
+    Foundry200,
+    Factorio11109Py2417,
 }
 
 pub enum ModifierStyle {
@@ -27,6 +35,9 @@ impl DataSet {
         match self {
             DataSet::Starbirds012 => DataSetConf::new(DataSetStyle::Basic, "starbirds".into(), "0.1.2".into()),
             DataSet::Factorio2066Sa2066 => DataSetConf::modded(DataSetStyle::RecipeLister, Versioned::new("factorio".into(), "2.0.66".into()), Versioned::new("sa".into(), "2.0.66".into())),
+            DataSet::Factorio2074Pyanodons3062 => DataSetConf::modded(DataSetStyle::RecipeLister, Versioned::new("factorio".into(), "2.0.74".into()), Versioned::new("pyanodons".into(), "3.0.62".into())),
+            DataSet::Foundry200 => DataSetConf::new(DataSetStyle::FLab, "foundry".into(), "2.0.0".into()),
+            DataSet::Factorio11109Py2417 => DataSetConf::modded(DataSetStyle::FLab, Versioned::new("factorio".into(), "1.1.109".into()), Versioned::new("pyanodons".into(), "2.4.17".into())),
         }
     }
 
@@ -34,6 +45,9 @@ impl DataSet {
         vec!(
             DataSet::params(DataSet::Starbirds012),
             DataSet::params(DataSet::Factorio2066Sa2066),
+            DataSet::params(DataSet::Factorio2074Pyanodons3062),
+            DataSet::params(DataSet::Foundry200),
+            DataSet::params(DataSet::Factorio11109Py2417),
         )
     }
 
@@ -74,17 +88,44 @@ impl DataSetConf {
     }
 }
 
+impl DataSetConf {
+    // XXX moce to DataSetConf
+    pub async fn into_data<F>(&self, fetcher: F) -> Result<Data, String>
+        where F: FetchDataSet
+    {
+        let parser = self.style.parser();
+        let files = parser.files_to_fetch_list(self);
+        let mut jsons = BTreeMap::new();
+        for (key, path) in files {
+            jsons.insert(key, fetcher.fetch(&path).await.unwrap());
+        }
+        parser.parse(&mut jsons)
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+pub struct DehydratedDataSetConf {
+    pub id: String,
+}
+impl Dehydrate<DehydratedDataSetConf> for DataSetConf {
+    fn dehydrate(&self) -> DehydratedDataSetConf {
+        DehydratedDataSetConf { id: self.id() }
+    }
+}
+
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum DataSetStyle {
     Basic,
     RecipeLister,
+    FLab,
 }
 impl DataSetStyle {
     pub fn parser(&self) -> Box<dyn DataParser> {
         match self {
             Self::Basic => Box::new(DataParserBasic{}),
             Self::RecipeLister => Box::new(DataParserRecipeLister{}),
+            Self::FLab => Box::new(DataParserFLab{}),
         }
     }
 }
