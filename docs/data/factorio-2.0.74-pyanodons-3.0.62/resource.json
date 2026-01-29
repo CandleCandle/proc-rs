@@ -1,0 +1,1856 @@
+{
+  "crude-oil" : {
+    "name" : "crude-oil",
+    "localised_name" : [
+      "entity-name.crude-oil"
+    ],
+    "resource_category" : "basic-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "crude-oil",
+          "probability" : 1,
+          "amount" : 10
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:crude-oil:size') > 0) * (clamp(var('default-crude-oil-patches'), 0, 1)* random_penalty{x = x, y = y, source = 1, amplitude = 1 \/0.020833333333333})",
+      "richness_expression" : "(var('control:crude-oil:size') > 0) * (1*var('control:crude-oil:richness')*(var('default-crude-oil-patches')\/0.020833333333333+220000)*max((1000+distance)\/2600,1))",
+      "order" : "c",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "natural-gas-mk01" : {
+    "name" : "natural-gas-mk01",
+    "localised_name" : [
+      "entity-name.natural-gas-mk01"
+    ],
+    "resource_category" : "natural-gas",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "raw-gas",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "natural-gas-mk02" : {
+    "name" : "natural-gas-mk02",
+    "localised_name" : [
+      "entity-name.natural-gas-mk02"
+    ],
+    "resource_category" : "natural-gas",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "raw-gas",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "natural-gas-mk03" : {
+    "name" : "natural-gas-mk03",
+    "localised_name" : [
+      "entity-name.natural-gas-mk03"
+    ],
+    "resource_category" : "natural-gas",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "raw-gas",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "natural-gas-mk04" : {
+    "name" : "natural-gas-mk04",
+    "localised_name" : [
+      "entity-name.natural-gas-mk04"
+    ],
+    "resource_category" : "natural-gas",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "raw-gas",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "coal" : {
+    "name" : "coal",
+    "localised_name" : [
+      "entity-name.coal"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "coal-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "coal",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:coal:size') > 0) * (clamp(var('default-coal-patches'), 0, 1))",
+      "richness_expression" : "(var('control:coal:size') > 0) * (1*var('control:coal:richness')*(var('default-coal-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "borax" : {
+    "name" : "borax",
+    "localised_name" : [
+      "entity-name.borax"
+    ],
+    "resource_category" : "borax",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1.5,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "raw-borax",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 25,
+      "required_fluid" : "syngas"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:borax:size') > 0) * (clamp(var('default-borax-patches'), 0, 1))",
+      "richness_expression" : "(var('control:borax:size') > 0) * (1*var('control:borax:richness')*(var('default-borax-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "nexelit-rock" : {
+    "name" : "nexelit-rock",
+    "localised_name" : [
+      "entity-name.nexelit-rock"
+    ],
+    "resource_category" : "nexelit-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "nexelit-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-nexelit" : {
+    "name" : "ore-nexelit",
+    "localised_name" : [
+      "entity-name.ore-nexelit"
+    ],
+    "resource_category" : "ore-nexelit",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "nexelit-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-nexelit:size') > 0) * (clamp(var('default-ore-nexelit-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-nexelit:size') > 0) * (1*var('control:ore-nexelit:richness')*(var('default-ore-nexelit-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "sulfur-patch" : {
+    "name" : "sulfur-patch",
+    "localised_name" : [
+      "entity-name.sulfur-patch"
+    ],
+    "resource_category" : "sulfur-patch",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "sulfur",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "sulfur-patch",
+      "probability_expression" : "py_sulfur_patch",
+      "richness_expression" : "py_sulfur_patch_richness",
+      "order" : "b-sulfur-patch",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "molybdenum-ore" : {
+    "name" : "molybdenum-ore",
+    "localised_name" : [
+      "entity-name.molybdenum-ore"
+    ],
+    "resource_category" : "molybdenum",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 3,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "molybdenum-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:molybdenum-ore:size') > 0) * (clamp(var('default-molybdenum-ore-patches'), 0, 1))",
+      "richness_expression" : "(var('control:molybdenum-ore:size') > 0) * (1*var('control:molybdenum-ore:richness')*(var('default-molybdenum-ore-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "regolites" : {
+    "name" : "regolites",
+    "localised_name" : [
+      "entity-name.regolites"
+    ],
+    "resource_category" : "regolite",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 4,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "regolite-rock",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "regolites",
+      "probability_expression" : "py_regolites",
+      "richness_expression" : "py_regolites_richness",
+      "order" : "b-regolites",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "volcanic-pipe" : {
+    "name" : "volcanic-pipe",
+    "localised_name" : [
+      "entity-name.volcanic-pipe"
+    ],
+    "resource_category" : "volcanic-pipe",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 4,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "kimberlite-rock",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "volcanic-pipe",
+      "probability_expression" : "py_volcanic_pipe",
+      "richness_expression" : "py_volcanic_pipe_richness",
+      "order" : "b-volcanic-pipe",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-bioreserve" : {
+    "name" : "ore-bioreserve",
+    "localised_name" : [
+      "entity-name.ore-bioreserve"
+    ],
+    "resource_category" : "ore-bioreserve",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "native-flora",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-bioreserve:size') > 0) * (clamp(var('default-ore-bioreserve-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-bioreserve:size') > 0) * (1*var('control:ore-bioreserve:richness')*(var('default-ore-bioreserve-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ralesia-flowers" : {
+    "name" : "ralesia-flowers",
+    "localised_name" : [
+      "entity-name.ralesia-flowers"
+    ],
+    "resource_category" : "ralesia-flowers",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ralesia",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "rennea-flowers" : {
+    "name" : "rennea-flowers",
+    "localised_name" : [
+      "entity-name.rennea-flowers"
+    ],
+    "resource_category" : "rennea-flowers",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "rennea",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "yotoi-tree" : {
+    "name" : "yotoi-tree",
+    "localised_name" : [
+      "entity-name.yotoi-tree"
+    ],
+    "resource_category" : "yotoi-tree",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "yotoi",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "yotoi-tree-fruit" : {
+    "name" : "yotoi-tree-fruit",
+    "localised_name" : [
+      "entity-name.yotoi-tree-fruit"
+    ],
+    "resource_category" : "yotoi-tree-fruit",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "yotoi-fruit",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "tuuphra-tuber" : {
+    "name" : "tuuphra-tuber",
+    "localised_name" : [
+      "entity-name.tuuphra-tuber"
+    ],
+    "resource_category" : "tuuphra-tuber",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "tuuphra",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "grod-flower" : {
+    "name" : "grod-flower",
+    "localised_name" : [
+      "entity-name.grod-flower"
+    ],
+    "resource_category" : "grod-flower",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "grod",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "kicalk-tree" : {
+    "name" : "kicalk-tree",
+    "localised_name" : [
+      "entity-name.kicalk-tree"
+    ],
+    "resource_category" : "kicalk-tree",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "kicalk",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "arum" : {
+    "name" : "arum",
+    "localised_name" : [
+      "entity-name.arum"
+    ],
+    "resource_category" : "arum",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "cadaveric-arum",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "mova" : {
+    "name" : "mova",
+    "localised_name" : [
+      "entity-name.mova"
+    ],
+    "resource_category" : "mova",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "mova",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "phosphate-rock" : {
+    "name" : "phosphate-rock",
+    "localised_name" : [
+      "entity-name.phosphate-rock"
+    ],
+    "resource_category" : "phosphate",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "phosphate-rock",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 50,
+      "required_fluid" : "syngas"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "phosphate-rock",
+      "probability_expression" : "py_phosphate_rock",
+      "richness_expression" : "py_phosphate_rock_richness",
+      "order" : "b-phosphate-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "phosphate-rock-02" : {
+    "name" : "phosphate-rock-02",
+    "localised_name" : [
+      "entity-name.phosphate-rock-02"
+    ],
+    "resource_category" : "phosphate-rock-02",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "phosphate-rock",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "phosphate-rock-02",
+      "probability_expression" : "py_phosphate_rock_02",
+      "richness_expression" : "py_phosphate_rock_02_richness",
+      "order" : "b-phosphate-rock-02",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "oil-sand" : {
+    "name" : "oil-sand",
+    "localised_name" : [
+      "entity-name.oil-sand"
+    ],
+    "resource_category" : "oil-sand",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "oil-sand",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:oil-sand:size') > 0) * (clamp(var('default-oil-sand-patches'), 0, 1))",
+      "richness_expression" : "(var('control:oil-sand:size') > 0) * (1*var('control:oil-sand:richness')*(var('default-oil-sand-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "coal-rock" : {
+    "name" : "coal-rock",
+    "localised_name" : [
+      "entity-name.coal-rock"
+    ],
+    "resource_category" : "coal-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "raw-coal",
+          "probability" : 1,
+          "amount" : 2
+        }
+      ],
+      "fluid_amount" : 30,
+      "required_fluid" : "kerosene"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "coal-rock",
+      "probability_expression" : "py_coal_rock",
+      "richness_expression" : "py_coal_rock_richness",
+      "order" : "b-coal-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "raw-coal" : {
+    "name" : "raw-coal",
+    "localised_name" : [
+      "entity-name.raw-coal"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 0.5,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "raw-coal",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:raw-coal:size') > 0) * (clamp(var('default-raw-coal-patches'), 0, 1))",
+      "richness_expression" : "(var('control:raw-coal:size') > 0) * (1*var('control:raw-coal:richness')*(var('default-raw-coal-patches')+10000)*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "copper-rock" : {
+    "name" : "copper-rock",
+    "localised_name" : [
+      "entity-name.copper-rock"
+    ],
+    "resource_category" : "copper-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "copper-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "copper-rock",
+      "probability_expression" : "py_copper_rock",
+      "richness_expression" : "py_copper_rock_richness",
+      "order" : "b-copper-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "copper-ore" : {
+    "name" : "copper-ore",
+    "localised_name" : [
+      "entity-name.copper-ore"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "copper-ore-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "copper-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:copper-ore:size') > 0) * (clamp(var('default-copper-ore-patches'), 0, 1))",
+      "richness_expression" : "(var('control:copper-ore:size') > 0) * (1*var('control:copper-ore:richness')*(var('default-copper-ore-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "iron-rock" : {
+    "name" : "iron-rock",
+    "localised_name" : [
+      "entity-name.iron-rock"
+    ],
+    "resource_category" : "iron-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "iron-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "iron-rock",
+      "probability_expression" : "py_iron_rock",
+      "richness_expression" : "py_iron_rock_richness",
+      "order" : "b-iron-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "iron-ore" : {
+    "name" : "iron-ore",
+    "localised_name" : [
+      "entity-name.iron-ore"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "iron-ore-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "iron-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:iron-ore:size') > 0) * (clamp(var('default-iron-ore-patches'), 0, 1))",
+      "richness_expression" : "(var('control:iron-ore:size') > 0) * (1*var('control:iron-ore:richness')*(var('default-iron-ore-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "uranium-rock" : {
+    "name" : "uranium-rock",
+    "localised_name" : [
+      "entity-name.uranium-rock"
+    ],
+    "resource_category" : "uranium-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "uranium-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "uranium-rock",
+      "probability_expression" : "py_uranium_rock",
+      "richness_expression" : "py_uranium_rock_richness",
+      "order" : "b-uranium-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "uranium-ore" : {
+    "name" : "uranium-ore",
+    "localised_name" : [
+      "entity-name.uranium-ore"
+    ],
+    "resource_category" : "uranium",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "stone-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "uranium-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:uranium-ore:size') > 0) * (clamp(var('default-uranium-ore-patches'), 0, 1))",
+      "richness_expression" : "(var('control:uranium-ore:size') > 0) * (1*var('control:uranium-ore:richness')*(var('default-uranium-ore-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "c",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "antimonium" : {
+    "name" : "antimonium",
+    "localised_name" : [
+      "entity-name.antimonium"
+    ],
+    "resource_category" : "antimonium",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "antimonium-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:antimonium:size') > 0) * (clamp(var('default-antimonium-patches'), 0, 1))",
+      "richness_expression" : "(var('control:antimonium:size') > 0) * (1*var('control:antimonium:richness')*(var('default-antimonium-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "niobium" : {
+    "name" : "niobium",
+    "localised_name" : [
+      "entity-name.niobium"
+    ],
+    "resource_category" : "niobium",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 3,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "niobium-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 60,
+      "required_fluid" : "refsyngas"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:niobium:size') > 0) * (clamp(var('default-niobium-patches'), 0, 1))",
+      "richness_expression" : "(var('control:niobium:size') > 0) * (1*var('control:niobium:richness')*(var('default-niobium-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "rare-earth-bolide" : {
+    "name" : "rare-earth-bolide",
+    "localised_name" : [
+      "entity-name.rare-earth-bolide"
+    ],
+    "resource_category" : "rare-earth",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "rare-earth-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "rare-earth-bolide",
+      "probability_expression" : "py_rare_earth",
+      "richness_expression" : "py_rare_earth_richness",
+      "order" : "b-rare-earth-bolide",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ree" : {
+    "name" : "ree",
+    "localised_name" : [
+      "entity-name.ree"
+    ],
+    "resource_category" : "ree",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "rare-earth-ore",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 100,
+      "required_fluid" : "naphtha"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ree:size') > 0) * (clamp(var('default-ree-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ree:size') > 0) * (1*var('control:ree:richness')*(var('default-ree-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "aluminium-rock" : {
+    "name" : "aluminium-rock",
+    "localised_name" : [
+      "entity-name.aluminium-rock"
+    ],
+    "resource_category" : "aluminium-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-aluminium",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "aluminium-rock",
+      "probability_expression" : "py_aluminium_rock",
+      "richness_expression" : "py_aluminium_rock_richness",
+      "order" : "b-aluminium-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "chromium-rock" : {
+    "name" : "chromium-rock",
+    "localised_name" : [
+      "entity-name.chromium-rock"
+    ],
+    "resource_category" : "chromium-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-chromium",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "chromium-rock",
+      "probability_expression" : "py_chromium_rock",
+      "richness_expression" : "py_chromium_rock_richness",
+      "order" : "b-chromium-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "lead-rock" : {
+    "name" : "lead-rock",
+    "localised_name" : [
+      "entity-name.lead-rock"
+    ],
+    "resource_category" : "lead-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-lead",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "lead-rock",
+      "probability_expression" : "py_lead_rock",
+      "richness_expression" : "py_lead_rock_richness",
+      "order" : "b-lead-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "nickel-rock" : {
+    "name" : "nickel-rock",
+    "localised_name" : [
+      "entity-name.nickel-rock"
+    ],
+    "resource_category" : "nickel-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-nickel",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "nickel-rock",
+      "probability_expression" : "py_nickel_rock",
+      "richness_expression" : "py_nickel_rock_richness",
+      "order" : "b-nickel-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-aluminium" : {
+    "name" : "ore-aluminium",
+    "localised_name" : [
+      "entity-name.ore-aluminium"
+    ],
+    "resource_category" : "basic-with-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-aluminium",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 100,
+      "required_fluid" : "coal-gas"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-aluminium:size') > 0) * (clamp(var('default-ore-aluminium-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-aluminium:size') > 0) * (1*var('control:ore-aluminium:richness')*(var('default-ore-aluminium-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-chromium" : {
+    "name" : "ore-chromium",
+    "localised_name" : [
+      "entity-name.ore-chromium"
+    ],
+    "resource_category" : "basic-with-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-chromium",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 40,
+      "required_fluid" : "syngas"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-chromium:size') > 0) * (clamp(var('default-ore-chromium-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-chromium:size') > 0) * (1*var('control:ore-chromium:richness')*(var('default-ore-chromium-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-lead" : {
+    "name" : "ore-lead",
+    "localised_name" : [
+      "entity-name.ore-lead"
+    ],
+    "resource_category" : "basic-with-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-lead",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 100,
+      "required_fluid" : "acetylene"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-lead:size') > 0) * (clamp(var('default-ore-lead-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-lead:size') > 0) * (1*var('control:ore-lead:richness')*(var('default-ore-lead-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-nickel" : {
+    "name" : "ore-nickel",
+    "localised_name" : [
+      "entity-name.ore-nickel"
+    ],
+    "resource_category" : "basic-with-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-nickel",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 40,
+      "required_fluid" : "syngas"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-nickel:size') > 0) * (clamp(var('default-ore-nickel-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-nickel:size') > 0) * (1*var('control:ore-nickel:richness')*(var('default-ore-nickel-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-quartz" : {
+    "name" : "ore-quartz",
+    "localised_name" : [
+      "entity-name.ore-quartz"
+    ],
+    "resource_category" : "borax",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-quartz",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-quartz:size') > 0) * (clamp(var('default-ore-quartz-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-quartz:size') > 0) * (1*var('control:ore-quartz:richness')*(var('default-ore-quartz-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-tin" : {
+    "name" : "ore-tin",
+    "localised_name" : [
+      "entity-name.ore-tin"
+    ],
+    "resource_category" : "basic-with-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-tin",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 100,
+      "required_fluid" : "steam"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-tin:size') > 0) * (clamp(var('default-ore-tin-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-tin:size') > 0) * (1*var('control:ore-tin:richness')*(var('default-ore-tin-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-titanium" : {
+    "name" : "ore-titanium",
+    "localised_name" : [
+      "entity-name.ore-titanium"
+    ],
+    "resource_category" : "basic-with-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-titanium",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 40,
+      "required_fluid" : "acetylene"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-titanium:size') > 0) * (clamp(var('default-ore-titanium-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-titanium:size') > 0) * (1*var('control:ore-titanium:richness')*(var('default-ore-titanium-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "ore-zinc" : {
+    "name" : "ore-zinc",
+    "localised_name" : [
+      "entity-name.ore-zinc"
+    ],
+    "resource_category" : "basic-with-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-zinc",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 40,
+      "required_fluid" : "aromatics"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:ore-zinc:size') > 0) * (clamp(var('default-ore-zinc-patches'), 0, 1))",
+      "richness_expression" : "(var('control:ore-zinc:size') > 0) * (1*var('control:ore-zinc:richness')*(var('default-ore-zinc-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "quartz-rock" : {
+    "name" : "quartz-rock",
+    "localised_name" : [
+      "entity-name.quartz-rock"
+    ],
+    "resource_category" : "quartz-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-quartz",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 30,
+      "required_fluid" : "acetylene"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "quartz-rock",
+      "probability_expression" : "py_quartz_rock",
+      "richness_expression" : "py_quartz_rock_richness",
+      "order" : "b-quartz-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "salt-rock" : {
+    "name" : "salt-rock",
+    "localised_name" : [
+      "entity-name.salt-rock"
+    ],
+    "resource_category" : "salt-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "salt",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "salt-rock",
+      "probability_expression" : "py_salt_rock",
+      "richness_expression" : "py_salt_rock_richness",
+      "order" : "b-salt-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "tin-rock" : {
+    "name" : "tin-rock",
+    "localised_name" : [
+      "entity-name.tin-rock"
+    ],
+    "resource_category" : "tin-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-tin",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "tin-rock",
+      "probability_expression" : "py_tin_rock",
+      "richness_expression" : "py_tin_rock_richness",
+      "order" : "b-tin-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "titanium-rock" : {
+    "name" : "titanium-rock",
+    "localised_name" : [
+      "entity-name.titanium-rock"
+    ],
+    "resource_category" : "titanium-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-titanium",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "titanium-rock",
+      "probability_expression" : "py_titanium_rock",
+      "richness_expression" : "py_titanium_rock_richness",
+      "order" : "b-titanium-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "zinc-rock" : {
+    "name" : "zinc-rock",
+    "localised_name" : [
+      "entity-name.zinc-rock"
+    ],
+    "resource_category" : "zinc-rock",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "ore-zinc",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "zinc-rock",
+      "probability_expression" : "py_zinc_rock",
+      "richness_expression" : "py_zinc_rock_richness",
+      "order" : "b-zinc-rock",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "bitumen-seep" : {
+    "name" : "bitumen-seep",
+    "localised_name" : [
+      "entity-name.bitumen-seep"
+    ],
+    "resource_category" : "bitumen-seep",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "bitumen-seep",
+      "probability_expression" : "py_bitumen_seep",
+      "richness_expression" : "py_bitumen_seep_richness",
+      "order" : "c-bitumen-seep",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "geothermal-crack" : {
+    "name" : "geothermal-crack",
+    "localised_name" : [
+      "entity-name.geothermal-crack"
+    ],
+    "resource_category" : "geothermal-crack",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "geothermal-water",
+          "probability" : 1,
+          "amount" : 100,
+          "temperature" : 3000
+        }
+      ],
+      "fluid_amount" : 100,
+      "required_fluid" : "pressured-water"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "control" : "geothermal-crack",
+      "probability_expression" : "py_geothermal_crack",
+      "richness_expression" : "py_geothermal_crack_richness",
+      "order" : "b-geothermal-crac",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "oil-mk01" : {
+    "name" : "oil-mk01",
+    "localised_name" : [
+      "entity-name.oil-mk01"
+    ],
+    "resource_category" : "oil-derrick",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "crude-oil",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "oil-mk02" : {
+    "name" : "oil-mk02",
+    "localised_name" : [
+      "entity-name.oil-mk02"
+    ],
+    "resource_category" : "oil-derrick",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "crude-oil",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "oil-mk03" : {
+    "name" : "oil-mk03",
+    "localised_name" : [
+      "entity-name.oil-mk03"
+    ],
+    "resource_category" : "oil-derrick",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "crude-oil",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "oil-mk04" : {
+    "name" : "oil-mk04",
+    "localised_name" : [
+      "entity-name.oil-mk04"
+    ],
+    "resource_category" : "oil-derrick",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "crude-oil",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "tar-patch" : {
+    "name" : "tar-patch",
+    "localised_name" : [
+      "entity-name.tar-patch"
+    ],
+    "resource_category" : "tar-patch",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "tar",
+          "probability" : 1,
+          "amount" : 100
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "stone" : {
+    "name" : "stone",
+    "localised_name" : [
+      "entity-name.stone"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "stone-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "stone",
+          "probability" : 1,
+          "amount" : 1
+        },
+        {
+          "type" : "item",
+          "name" : "kerogen",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:stone:size') > 0) * (clamp(var('default-stone-patches'), 0, 1))",
+      "richness_expression" : "(var('control:stone:size') > 0) * (1*var('control:stone:richness')*(var('default-stone-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  }
+}
