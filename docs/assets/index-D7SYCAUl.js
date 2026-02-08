@@ -3745,7 +3745,7 @@ var require_stdin = __commonJS({
           "__scopeId",
           "data-v-8c8954f8"
         ]
-      ]), zu = "/assets/proc_rs_bg-BTR1-VjL.wasm", Bu = async (e = {}, t) => {
+      ]), zu = "/assets/proc_rs_bg-DY7iq2wG.wasm", Bu = async (e = {}, t) => {
         let n;
         if (t.startsWith("data:")) {
           const o = t.replace(/^data:.*?base64,/, "");
@@ -4280,9 +4280,9 @@ ${e.stack}` : o;
         "./proc_rs_bg.js": {
           __wbg_log_c235e79815fc436a: rf,
           __wbindgen_string_new: Df,
-          __wbindgen_string_get: Nf,
           __wbindgen_number_new: If,
           __wbg_datasetconf_new: tf,
+          __wbindgen_string_get: Nf,
           __wbindgen_bigint_from_u64: Cf,
           __wbg_set_3f1d0b984ed272ed: gf,
           __wbg_instanceof_Window_def73ea0955fc569: sf,
