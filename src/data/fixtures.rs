@@ -53,6 +53,26 @@ pub fn simple_data_fixture() -> Data {
         inputs_multiplier: 1.0,
         outputs_multiplier: 1.0
     }));
+    factories.insert("output_modifier".to_string(), Rc::new(Factory {
+        id: "output_modifier".to_string(),
+        display: "output_modifier".to_string(),
+        groups: vec![
+            factory_groups.get(&"basic".to_string()).unwrap().clone()
+        ],
+        duration_multiplier: 1.0,
+        inputs_multiplier: 1.0,
+        outputs_multiplier: 2.0
+    }));
+    factories.insert("input_modifier".to_string(), Rc::new(Factory {
+        id: "input_modifier".to_string(),
+        display: "input_modifier".to_string(),
+        groups: vec![
+            factory_groups.get(&"basic".to_string()).unwrap().clone()
+        ],
+        duration_multiplier: 1.0,
+        inputs_multiplier: 2.0,
+        outputs_multiplier: 1.0
+    }));
     let p1 = Process {
         id: "make_a".to_string(),
         display: "Make A".to_string(),
