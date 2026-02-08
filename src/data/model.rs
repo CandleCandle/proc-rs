@@ -183,10 +183,10 @@ impl ActiveProcess {
     }
 
     pub fn duration(&self) -> f64 {
-        self.process.duration * self.duration_multiplier
+        self.process.duration * self.factory.duration_multiplier * self.duration_multiplier
     }
 
-    fn io_calc(modifiable: &[Stack], unmodifiable: &[Stack], multiplier: &f64, duration: &f64) -> Vec<Stack> {
+    fn io_calc(modifiable: &[Stack], unmodifiable: &[Stack], multiplier: f64, duration: f64) -> Vec<Stack> {
       let unmodified = unmodifiable
             .iter()
             .map(|s| Stack::new(s.item.clone(), s.quantity / duration));
@@ -221,16 +221,16 @@ impl ActiveProcess {
         Self::io_calc(
             &self.process.inputs,
             &self.process.inputs_unmod,
-            &self.inputs_multiplier,
-            &self.duration())
+            self.inputs_multiplier * self.factory.inputs_multiplier,
+            self.duration())
     }
 
     pub fn outputs(&self) -> Vec<Stack> {
         Self::io_calc(
             &self.process.outputs,
             &self.process.outputs_unmod,
-            &self.outputs_multiplier,
-            &self.duration())
+            self.outputs_multiplier * self.factory.outputs_multiplier,
+            self.duration())
     }
 }
 
@@ -513,6 +513,15 @@ mod test {
     }
 
     #[test]
+    fn active_process_duration_is_modified_with_factory_modifier() {
+        let data = simple_data_fixture();
+        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("just_basic2").unwrap().clone(), 3.0, 1.0, 1.0);
+        let actual = ap.duration();
+        let expected = 1.5;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
     fn active_process_inputs_are_scaled_by_duration_with_duration_modifier() {
         let data = simple_data_fixture();
         let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 2.0, 1.0, 1.0);
@@ -527,6 +536,27 @@ mod test {
         let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 2.0, 1.0, 1.0);
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 2.5)];
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn active_process_outputs_are_scaled_by_output_modifier() {
+        let data = simple_data_fixture();
+        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("output_modifier").unwrap().clone(), 1.0, 1.0, 1.0);
+        let actual = ap.outputs();
+        let expected = vec![Stack::new(data.item("part_3").unwrap(), 10.0)];
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn active_process_inputs_are_scaled_by_input_modifier() {
+        let data = simple_data_fixture();
+        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("input_modifier").unwrap().clone(), 1.0, 1.0, 1.0);
+        let actual = ap.inputs();
+        let expected = vec![
+            Stack::new(data.item("part_1").unwrap(), 10.0),
+            Stack::new(data.item("part_2").unwrap(), 4.0),
+            ];
         assert_eq!(expected, actual);
     }
 
