@@ -19,7 +19,7 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
+@media (fit-content) {
   body {
     display: flex;
     place-items: center;
