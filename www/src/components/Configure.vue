@@ -11,13 +11,59 @@ const props = defineProps(['cfg', 'cfg_fu', 'folds']);
 const { _0, cfg_fu } = toRefs(props);
 const { cfg, _1, folds } = props;
 
-let available = dataset_all();
-console.log("available data", available);
+class DataSetConf {
+    constructor(dataset) {
+        this._raw = dataset
+    }
+    id() {
+        return this._raw['main']['name']
+                + '-'
+                + this._raw['main']['version']
+                + (this._raw['mod'] ?
+                    '-'
+                        + this._raw['mod'][0]['name']
+                        + '-'
+                        + this._raw['mod'][0]['version']
+                 : "");
+    }
+    description() {
+        return this._raw['main']['name']
+                + ' (' + this._raw['main']['version'] + ')'
+                + (this._raw['mod'] ?
+                    ' [' + this._raw['mod'][0]['name']
+                        + ' (' + this._raw['mod'][0]['version'] + ')'
+                        + ']'
+                 : "");
+    }
+    style() {
+        return this._raw['style'];
+    }
+}
+
+let datasets = await fetch('data/datasets.json')
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("failed to fetch the list of data sets")
+        }
+        return response.json()
+    })
+    .then((json) => {
+        console.log(json);
+        return json.datasets.map(set => new DataSetConf(set))
+    });
+console.log('fetched datasets', datasets.map(v => {
+    return {
+        style: v.style(),
+        id: v.id(),
+        description: v.description(),
+    };
+}));
 
 const dataSetId = ref('');
 watch(dataSetId, (id) => {
-    console.log("Updating config with", id);
-    cfg.update_data_set(id);
+    let dataset = datasets.find(e => e.id() == id)
+    console.log("Updating config with", id, dataset);
+    cfg.update_data_set(id, dataset.style());
 });
 
 const searchItem = ref('');
@@ -96,7 +142,7 @@ function handle_fold_update(event_or_id, forced) {
             <div v-tooltip="'Start here, find the game and version that you need'">
                 <select v-model="dataSetId">
                     <option disabled value="">Select a data set</option>
-                    <option v-for="v in available" :value="v.id()" >{{ v.description() }}</option>
+                    <option v-for="v in datasets" :value="v.id()" >{{ v.description() }}</option>
                 </select>
             </div>
             <div v-tooltip="'Start by looking for an output item that you need'"><label for="item_search"> Item Search:</label></div>

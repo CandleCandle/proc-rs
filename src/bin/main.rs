@@ -5,9 +5,10 @@ use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use clap::{command, Parser, Subcommand, ValueEnum};
 
+use proc_rs::data::dataset::DataSetConf;
 use proc_rs::data::graph_configuration::{DehydratedGraphConfiguration, FetchDataSet};
 use proc_rs::data::{
-    calculator::Calculator, dataset::DataSet, graph_configuration::GraphConfiguration, model::StackSet};
+    calculator::Calculator, graph_configuration::GraphConfiguration, model::StackSet};
 use proc_rs::data::hydration::{Dehydrate, Rehydrate};
 
 use tabled::{builder::Builder, settings::object::Cell, Table};
@@ -54,7 +55,8 @@ enum SerialMode {
 /// cargo run -- -s 'fac-2.0.0' -f www/data/fac-2.0.0.json -r 5:part_d -p make_d:1:1:1 -g sample.gv
 /// or
 /// cargo run -- \
-///     --style 'fac-2.0.0' \
+///     --dataset_id 'fac-2.0.0' \
+///     --dataset_style 'basic|flab|recipelister' \
 ///     --data-location www/data/fac-2.0.0.json \
 ///     --requirement 5:part_d \
 ///     --process make_d:1:1:1 \
@@ -63,9 +65,13 @@ enum SerialMode {
 #[derive(Parser, Debug, Clone)]
 #[command(version, about, verbatim_doc_comment)]
 struct GenerateArgs {
-    /// Data Style ID; as produced by DataSetStyle
+    /// Data ID
+    #[arg(short='i', long)]
+    dataset_id: String,
+
+    /// Data Style
     #[arg(short='s', long)]
-    style: String,
+    dataset_style: String,
 
     /// File path to data contents
     #[arg(short='f', long)]
@@ -155,7 +161,7 @@ async fn serial(args: SerialArgs) -> Result<(), String> {
 }
 
 async fn generate(args: GenerateArgs) -> Result<(), String> {
-    let current_data_conf = DataSet::find(&args.style).ok_or(format!("no dataset conf for {}", &args.style))?;
+    let current_data_conf = DataSetConf{id: args.dataset_id, style: args.dataset_style.try_into()?};
 
     let ff = FileFetcher{base_dir: args.data_location};
     let current_data = current_data_conf.into_data(ff).await?;

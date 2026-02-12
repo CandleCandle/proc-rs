@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::data::{dataset::DehydratedDataSetConf, hydration::{Dehydrate, Rehydrate}, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory}};
 
-use super::{dataset::{DataSet, DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
+use super::{dataset::{DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
 
 ///
 /// Provide a way to fetch the blob of json that represents the data contents
@@ -46,7 +46,7 @@ impl <T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfigurati
  {
     async fn rehydrate(&self, fetcher: T) -> Result<GraphConfiguration, String> {
         let current_data_set = self.clone().current_data_set
-                .map(|s| DataSet::find(&s.id)).unwrap();
+                .map(|s| -> Result<DataSetConf, String> { return Ok(DataSetConf{id: s.id, style: s.style.try_into()?})}).transpose()?;
         // let current_data = current_data_set.map(|d| d.clone().into_data(fetcher));
         let current_data = match current_data_set.clone() {
             Some(d) => Some(d.into_data(fetcher).await?),
@@ -209,8 +209,8 @@ impl GraphConfiguration {
         &self.processes
     }
 
-    pub async fn update_data_set(&mut self, id: &str, fetcher: impl FetchDataSet) -> Result<(), String> {
-        self.current_data_set = DataSet::find(id);
+    pub async fn update_data_set(&mut self, id: &str, style: &str, fetcher: impl FetchDataSet) -> Result<(), String> {
+        self.current_data_set = Some(DataSetConf{id: id.to_string(), style: style.to_string().try_into()?});
 
         let parser = self.current_data_set.as_ref().unwrap().style.parser();
 
