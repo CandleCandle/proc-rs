@@ -16,7 +16,6 @@ use data::model::{Item, Process};
 use data::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
 
 use crate::data::calculator::Calculator;
-use crate::data::dataset::{DataSet, DataSetConf};
 use crate::data::graph_configuration::DehydratedGraphConfiguration;
 use crate::data::model::{ActiveProcess, Factory};
 
@@ -36,11 +35,6 @@ extern "C" {
 pub fn stuff(input: String) -> Result<JsValue, JsValue> {
     log(format!("received {input} from JS").as_str());
     Ok(serde_wasm_bindgen::to_value(&input)?)
-}
-
-#[wasm_bindgen]
-pub fn dataset_all() -> Vec<DataSetConf> {
-    DataSet::all()
 }
 
 #[wasm_bindgen]
@@ -104,8 +98,8 @@ impl GraphConfiguration {
         Ok(JsValue::null()) // XXX err result required.
     }
 
-    pub fn get_current_data_set(&self) -> Option<DataSetConf> {
-        self.wrapped.get_current_data_set()
+    pub fn get_current_data_set(&self) -> JsValue {
+        self.wrapped.get_current_data_set().map(|v| JsValue::from_str(&v.id)).unwrap_or_else(|| JsValue::null())
     }
 
     pub fn can_render(&self) -> Result<JsValue, JsValue> {
@@ -182,8 +176,8 @@ impl GraphConfiguration {
         Ok(serde_wasm_bindgen::to_value(&self.wrapped.get_intermediate_items())?)
     }
 
-    pub async fn update_data_set(&mut self, id: String) -> Result<JsValue, JsValue> {
-        self.wrapped.update_data_set(&id, RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e))?;
+    pub async fn update_data_set(&mut self, id: String, style: String) -> Result<JsValue, JsValue> {
+        self.wrapped.update_data_set(&id, &style, RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e))?;
         Ok(JsValue::null())
     }
 

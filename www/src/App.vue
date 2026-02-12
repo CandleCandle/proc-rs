@@ -85,7 +85,9 @@ function handle_fold_update(event_or_id, forced) {
   <main>
     <vue-splitter>
       <template #left-pane>
-        <Configure :cfg="cfg" :cfg_fu="cfg_fu" :folds="folds" @cfg_update="handle_cfg_update" @fold_update="handle_fold_update" />
+        <Suspense>
+          <Configure :cfg="cfg" :cfg_fu="cfg_fu" :folds="folds" @cfg_update="handle_cfg_update" @fold_update="handle_fold_update" />
+        </Suspense>
       </template>
       <template #right-pane>
         <GraphRender :cfg="cfg" :cfg_fu="cfg_fu"/>

@@ -1,6 +1,6 @@
 use std::{collections::HashMap, fs, path::PathBuf, rc::Rc};
 
-use crate::data::{dataset::DataSet, graph_configuration::GraphConfiguration, model::{Classification, Data, Factory, FactoryGroup, Item, Process, Stack}};
+use crate::data::{dataset::DataSetConf, graph_configuration::GraphConfiguration, model::{Classification, Data, Factory, FactoryGroup, Item, Process, Stack}};
 
 
 pub fn load_fixture(path: &str) -> String {
@@ -162,6 +162,6 @@ pub fn simple_data_fixture() -> Data {
 
 pub fn create_config() -> GraphConfiguration {
     let mut gc = GraphConfiguration::new();
-    gc.set_data(simple_data_fixture(), DataSet::Starbirds012.params());
+    gc.set_data(simple_data_fixture(), DataSetConf{id: "".to_string(), style: "basic".to_string().try_into().unwrap()});
     gc
 }

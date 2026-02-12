@@ -28,7 +28,7 @@ impl DataParserFLab {
 impl DataParser for DataParserFLab {
     fn files_to_fetch_list(&self, conf: &super::dataset::DataSetConf) -> std::collections::BTreeMap<String, String> {
         let mut result = BTreeMap::new();
-        result.insert(DataParserFLabFiles::Data.to_key(), format!("data/vendor/{}/data.json", conf.id()));
+        result.insert(DataParserFLabFiles::Data.to_key(), format!("data/vendor/{}/data.json", conf.id));
         result
     }
 

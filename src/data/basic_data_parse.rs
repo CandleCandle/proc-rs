@@ -22,7 +22,7 @@ pub struct DataParserBasic {}
 impl DataParser for DataParserBasic {
     fn files_to_fetch_list(&self, conf: &DataSetConf) -> BTreeMap<String, String> {
         let mut result = BTreeMap::new();
-        result.insert(DataParserBasicFiles::Main.to_key(), format!("data/{}.json", conf.id()));
+        result.insert(DataParserBasicFiles::Main.to_key(), format!("data/{}.json", conf.id));
         result
     }
 

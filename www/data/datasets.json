@@ -1,0 +1,27 @@
+{
+    "datasets": [
+        {
+            "main": { "name": "starbirds", "version": "0.1.2" },
+            "style": "basic"
+        },
+        {
+            "main": { "name": "factorio", "version": "2.0.66" },
+            "mod": [{ "name": "sa", "version": "2.0.66" }],
+            "style": "recipelister"
+        },
+        {
+            "main": { "name": "factorio", "version": "2.0.74" },
+            "mod": [{ "name": "pyanodons", "version": "3.0.62" }],
+            "style": "recipelister"
+        },
+        {
+            "main": { "name": "foundry", "version": "2.0.0" },
+            "style": "flab"
+        },
+        {
+            "main": { "name": "factorio", "version": "1.1.109" },
+            "mod": [{ "name": "pyanodons", "version": "2.4.17" }],
+            "style": "flab"
+        }
+    ]
+}
