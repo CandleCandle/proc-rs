@@ -2,7 +2,6 @@
 import SearchResultsItem from './SearchResultsItem.vue';
 import CurrentConfiguration from './current_configuration/CurrentConfiguration.vue';
 import { ref, watch, toRefs } from 'vue';
-import { dataset_all } from 'proc-rs';
 import ProcDisplay from './ProcDisplay.vue';
 
 
@@ -60,10 +59,12 @@ console.log('fetched datasets', datasets.map(v => {
 }));
 
 const dataSetId = ref('');
+const dataset = ref(null);
 watch(dataSetId, (id) => {
-    let dataset = datasets.find(e => e.id() == id)
-    console.log("Updating config with", id, dataset);
-    cfg.update_data_set(id, dataset.style());
+    let found_dataset = datasets.find(e => e.id() == id);
+    dataset.value = found_dataset;
+    console.log("Updating config with", id, found_dataset);
+    cfg.update_data_set(id, found_dataset.style());
 });
 
 const searchItem = ref('');
@@ -172,7 +173,7 @@ function handle_fold_update(event_or_id, forced) {
             </div>
         </div>
     </details>
-    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" @fold_update="handle_fold_update" :key="cfg_fu" :cfg="cfg" :folds="folds"/>
+    <CurrentConfiguration @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" @fold_update="handle_fold_update" :dataset="dataset" :key="cfg_fu" :cfg="cfg" :folds="folds"/>
 </template>
 
 <style>
