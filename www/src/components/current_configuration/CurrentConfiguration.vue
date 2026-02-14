@@ -5,7 +5,7 @@ import { DisplayReq, DisplayIO, DisplayIntermediate } from './display_item';
 import ProcDisplay from '../ProcDisplay.vue';
 
 const emit = defineEmits(['cfg_update', 'make_item', 'use_item', 'fold_update']);
-const { cfg, folds } = defineProps(['cfg', 'folds']);
+const { cfg, dataset, folds } = defineProps(['cfg', 'dataset', 'folds']);
 
 // const currentConfigurationIsExpanded = ref(cfg.can_render() || cfg.get_requirements().length > 0);
 
@@ -79,7 +79,7 @@ function remove_process(cfg, id) {
         <div class="input_options">
             <h3>Data Set</h3>
             <hr />
-            <span>{{ cfg.get_current_data_set() ? cfg.get_current_data_set().description() : "" }}</span>
+            <span>{{ dataset ? dataset.description() : "" }}</span>
             <br /><br />
             <h3>Items</h3>
             <div class="items">
