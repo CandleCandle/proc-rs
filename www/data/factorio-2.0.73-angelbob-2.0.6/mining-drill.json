@@ -1,0 +1,785 @@
+{
+  "burner-mining-drill" : {
+    "name" : "burner-mining-drill",
+    "localised_name" : [
+      "entity-name.burner-mining-drill"
+    ],
+    "energy_usage" : 150000,
+    "mining_speed" : 0.25,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "bob-steam-mining-drill" : {
+    "name" : "bob-steam-mining-drill",
+    "localised_name" : [
+      "entity-name.bob-steam-mining-drill"
+    ],
+    "energy_usage" : 600000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : false,
+        "scale_fluid_usage" : false,
+        "fluid_usage_per_tick" : 0.066666662693024,
+        "maximum_temperature" : 765,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input-output",
+          "volume" : 200,
+          "filter" : "steam"
+        }
+      }
+    }
+  },
+  "electric-mining-drill" : {
+    "name" : "electric-mining-drill",
+    "localised_name" : [
+      "entity-name.electric-mining-drill"
+    ],
+    "energy_usage" : 90000,
+    "mining_speed" : 0.5,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-mining-drill-1" : {
+    "name" : "bob-mining-drill-1",
+    "localised_name" : [
+      "entity-name.bob-mining-drill-1"
+    ],
+    "energy_usage" : 160000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-mining-drill-2" : {
+    "name" : "bob-mining-drill-2",
+    "localised_name" : [
+      "entity-name.bob-mining-drill-2"
+    ],
+    "energy_usage" : 300000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-mining-drill-3" : {
+    "name" : "bob-mining-drill-3",
+    "localised_name" : [
+      "entity-name.bob-mining-drill-3"
+    ],
+    "energy_usage" : 580000,
+    "mining_speed" : 4,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-mining-drill-4" : {
+    "name" : "bob-mining-drill-4",
+    "localised_name" : [
+      "entity-name.bob-mining-drill-4"
+    ],
+    "energy_usage" : 1100000,
+    "mining_speed" : 8,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-area-mining-drill-1" : {
+    "name" : "bob-area-mining-drill-1",
+    "localised_name" : [
+      "entity-name.bob-area-mining-drill-1"
+    ],
+    "energy_usage" : 170000,
+    "mining_speed" : 0.75,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-area-mining-drill-2" : {
+    "name" : "bob-area-mining-drill-2",
+    "localised_name" : [
+      "entity-name.bob-area-mining-drill-2"
+    ],
+    "energy_usage" : 270000,
+    "mining_speed" : 1.25,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-area-mining-drill-3" : {
+    "name" : "bob-area-mining-drill-3",
+    "localised_name" : [
+      "entity-name.bob-area-mining-drill-3"
+    ],
+    "energy_usage" : 380000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-area-mining-drill-4" : {
+    "name" : "bob-area-mining-drill-4",
+    "localised_name" : [
+      "entity-name.bob-area-mining-drill-4"
+    ],
+    "energy_usage" : 500000,
+    "mining_speed" : 3.25,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "pumpjack" : {
+    "name" : "pumpjack",
+    "localised_name" : [
+      "entity-name.pumpjack"
+    ],
+    "energy_usage" : 90000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "basic-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-pumpjack-1" : {
+    "name" : "bob-pumpjack-1",
+    "localised_name" : [
+      "entity-name.bob-pumpjack-1"
+    ],
+    "energy_usage" : 171000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "basic-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-pumpjack-2" : {
+    "name" : "bob-pumpjack-2",
+    "localised_name" : [
+      "entity-name.bob-pumpjack-2"
+    ],
+    "energy_usage" : 243000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "basic-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-pumpjack-3" : {
+    "name" : "bob-pumpjack-3",
+    "localised_name" : [
+      "entity-name.bob-pumpjack-3"
+    ],
+    "energy_usage" : 360000,
+    "mining_speed" : 5,
+    "resource_categories" : {
+      "basic-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-water-miner-1" : {
+    "name" : "bob-water-miner-1",
+    "localised_name" : [
+      "entity-name.bob-water-miner-1"
+    ],
+    "energy_usage" : 45000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "water" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-water-miner-2" : {
+    "name" : "bob-water-miner-2",
+    "localised_name" : [
+      "entity-name.bob-water-miner-2"
+    ],
+    "energy_usage" : 85000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "water" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-water-miner-3" : {
+    "name" : "bob-water-miner-3",
+    "localised_name" : [
+      "entity-name.bob-water-miner-3"
+    ],
+    "energy_usage" : 121000,
+    "mining_speed" : 3,
+    "resource_categories" : {
+      "water" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "bob-water-miner-4" : {
+    "name" : "bob-water-miner-4",
+    "localised_name" : [
+      "entity-name.bob-water-miner-4"
+    ],
+    "energy_usage" : 180000,
+    "mining_speed" : 5,
+    "resource_categories" : {
+      "water" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "angels-thermal-bore" : {
+    "name" : "angels-thermal-bore",
+    "localised_name" : [
+      "entity-name.angels-thermal-bore"
+    ],
+    "energy_usage" : 90000,
+    "mining_speed" : 0.75,
+    "resource_categories" : {
+      "angels-fissure" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "angels-thermal-extractor" : {
+    "name" : "angels-thermal-extractor",
+    "localised_name" : [
+      "entity-name.angels-thermal-extractor"
+    ],
+    "energy_usage" : 90000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "angels-fissure" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "angels-sea-pump" : {
+    "name" : "angels-sea-pump",
+    "localised_name" : [
+      "entity-name.angels-sea-pump"
+    ],
+    "energy_usage" : 250000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "angels-sea-pump" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  }
+}

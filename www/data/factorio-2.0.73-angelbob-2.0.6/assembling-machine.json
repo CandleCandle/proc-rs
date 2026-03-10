@@ -1,0 +1,6615 @@
+{
+  "bob-air-pump" : {
+    "name" : "bob-air-pump",
+    "localised_name" : [
+      "entity-name.bob-air-pump"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 50000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "bob-air-pump" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 1666.6666666667
+      }
+    }
+  },
+  "bob-air-pump-2" : {
+    "name" : "bob-air-pump-2",
+    "localised_name" : [
+      "entity-name.bob-air-pump-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "bob-air-pump" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3000
+      }
+    }
+  },
+  "bob-air-pump-3" : {
+    "name" : "bob-air-pump-3",
+    "localised_name" : [
+      "entity-name.bob-air-pump-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 140000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3.5,
+    "crafting_categories" : {
+      "bob-air-pump" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4666.6666666667
+      }
+    }
+  },
+  "bob-air-pump-4" : {
+    "name" : "bob-air-pump-4",
+    "localised_name" : [
+      "entity-name.bob-air-pump-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 175000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 5,
+    "crafting_categories" : {
+      "bob-air-pump" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 6,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5833.3333333333
+      }
+    }
+  },
+  "bob-water-pump" : {
+    "name" : "bob-water-pump",
+    "localised_name" : [
+      "entity-name.bob-water-pump"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 50000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "bob-water-pump" : true,
+      "barrelling" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 1666.6666666667
+      }
+    }
+  },
+  "bob-water-pump-2" : {
+    "name" : "bob-water-pump-2",
+    "localised_name" : [
+      "entity-name.bob-water-pump-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "bob-water-pump" : true,
+      "barrelling" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3000
+      }
+    }
+  },
+  "bob-water-pump-3" : {
+    "name" : "bob-water-pump-3",
+    "localised_name" : [
+      "entity-name.bob-water-pump-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 140000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3.5,
+    "crafting_categories" : {
+      "bob-water-pump" : true,
+      "barrelling" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4666.6666666667
+      }
+    }
+  },
+  "bob-water-pump-4" : {
+    "name" : "bob-water-pump-4",
+    "localised_name" : [
+      "entity-name.bob-water-pump-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 175000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 5,
+    "crafting_categories" : {
+      "bob-water-pump" : true,
+      "barrelling" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 6,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5833.3333333333
+      }
+    }
+  },
+  "bob-stone-chemical-furnace" : {
+    "name" : "bob-stone-chemical-furnace",
+    "localised_name" : [
+      "entity-name.bob-stone-chemical-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "bob-chemical-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "bob-steel-chemical-furnace" : {
+    "name" : "bob-steel-chemical-furnace",
+    "localised_name" : [
+      "entity-name.bob-steel-chemical-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "bob-chemical-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "bob-fluid-chemical-furnace" : {
+    "name" : "bob-fluid-chemical-furnace",
+    "localised_name" : [
+      "entity-name.bob-fluid-chemical-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "bob-chemical-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input-output",
+          "volume" : 100
+        }
+      }
+    }
+  },
+  "bob-stone-mixing-furnace" : {
+    "name" : "bob-stone-mixing-furnace",
+    "localised_name" : [
+      "entity-name.angels-stone-ingredient-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "smelting" : true,
+      "bob-mixing-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "bob-steel-mixing-furnace" : {
+    "name" : "bob-steel-mixing-furnace",
+    "localised_name" : [
+      "entity-name.angels-steel-ingredient-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "smelting" : true,
+      "bob-mixing-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "bob-fluid-mixing-furnace" : {
+    "name" : "bob-fluid-mixing-furnace",
+    "localised_name" : [
+      "entity-name.angels-fluid-ingredient-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "smelting" : true,
+      "bob-mixing-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input-output",
+          "volume" : 100
+        }
+      }
+    }
+  },
+  "bob-electric-mixing-furnace" : {
+    "name" : "bob-electric-mixing-furnace",
+    "localised_name" : [
+      "entity-name.angels-electric-ingredient-furnace-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 180000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "smelting" : true,
+      "bob-mixing-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6000
+      }
+    }
+  },
+  "bob-electric-chemical-furnace" : {
+    "name" : "bob-electric-chemical-furnace",
+    "localised_name" : [
+      "entity-name.bob-electric-chemical-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 180000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "bob-chemical-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6000
+      }
+    }
+  },
+  "bob-electric-chemical-mixing-furnace" : {
+    "name" : "bob-electric-chemical-mixing-furnace",
+    "localised_name" : [
+      "entity-name.angels-electric-ingredient-furnace-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "smelting" : true,
+      "bob-mixing-furnace" : true,
+      "bob-chemical-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "bob-electric-chemical-mixing-furnace-2" : {
+    "name" : "bob-electric-chemical-mixing-furnace-2",
+    "localised_name" : [
+      "entity-name.angels-electric-ingredient-furnace-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 4,
+    "crafting_categories" : {
+      "smelting" : true,
+      "bob-mixing-furnace" : true,
+      "bob-chemical-furnace" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 6,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "bob-electrolyser" : {
+    "name" : "bob-electrolyser",
+    "localised_name" : [
+      "entity-name.bob-electrolyser"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 960000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "bob-electrolysis" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11000
+      }
+    }
+  },
+  "centrifuge" : {
+    "name" : "centrifuge",
+    "localised_name" : [
+      "entity-name.centrifuge"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "centrifuging" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  },
+  "bob-centrifuge-2" : {
+    "name" : "bob-centrifuge-2",
+    "localised_name" : [
+      "entity-name.bob-centrifuge-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 750000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.25,
+    "crafting_categories" : {
+      "centrifuging" : true,
+      "angels-centrifuging-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 25000
+      }
+    }
+  },
+  "bob-centrifuge-3" : {
+    "name" : "bob-centrifuge-3",
+    "localised_name" : [
+      "entity-name.bob-centrifuge-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 1050000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3.5,
+    "crafting_categories" : {
+      "centrifuging" : true,
+      "angels-centrifuging-2" : true,
+      "angels-centrifuging-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 6,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 35000
+      }
+    }
+  },
+  "assembling-machine-1" : {
+    "name" : "assembling-machine-1",
+    "localised_name" : [
+      "entity-name.assembling-machine-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "crafting" : true,
+      "basic-crafting" : true,
+      "advanced-crafting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "assembling-machine-2" : {
+    "name" : "assembling-machine-2",
+    "localised_name" : [
+      "entity-name.assembling-machine-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 135000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "basic-crafting" : true,
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4500
+      }
+    }
+  },
+  "assembling-machine-3" : {
+    "name" : "assembling-machine-3",
+    "localised_name" : [
+      "entity-name.assembling-machine-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 210000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.25,
+    "crafting_categories" : {
+      "basic-crafting" : true,
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 7000
+      }
+    }
+  },
+  "bob-assembling-machine-4" : {
+    "name" : "bob-assembling-machine-4",
+    "localised_name" : [
+      "entity-name.bob-assembling-machine-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "basic-crafting" : true,
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "bob-assembling-machine-5" : {
+    "name" : "bob-assembling-machine-5",
+    "localised_name" : [
+      "entity-name.bob-assembling-machine-5"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 390000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.75,
+    "crafting_categories" : {
+      "basic-crafting" : true,
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 5,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 13000
+      }
+    }
+  },
+  "bob-assembling-machine-6" : {
+    "name" : "bob-assembling-machine-6",
+    "localised_name" : [
+      "entity-name.bob-assembling-machine-6"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 480000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3.5,
+    "crafting_categories" : {
+      "basic-crafting" : true,
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 6,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 16000
+      }
+    }
+  },
+  "bob-electronics-machine-1" : {
+    "name" : "bob-electronics-machine-1",
+    "localised_name" : [
+      "entity-name.bob-electronics-machine-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "electronics" : true,
+      "electronics-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "bob-electronics-machine-2" : {
+    "name" : "bob-electronics-machine-2",
+    "localised_name" : [
+      "entity-name.bob-electronics-machine-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 213750,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.25,
+    "crafting_categories" : {
+      "electronics" : true,
+      "electronics-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 7125
+      }
+    }
+  },
+  "bob-electronics-machine-3" : {
+    "name" : "bob-electronics-machine-3",
+    "localised_name" : [
+      "entity-name.bob-electronics-machine-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 360000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 4,
+    "crafting_categories" : {
+      "electronics" : true,
+      "electronics-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 6,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 12000
+      }
+    }
+  },
+  "bob-greenhouse" : {
+    "name" : "bob-greenhouse",
+    "localised_name" : [
+      "entity-name.bob-greenhouse"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "bob-greenhouse" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-ore-sorting-facility" : {
+    "name" : "angels-ore-sorting-facility",
+    "localised_name" : [
+      "entity-name.angels-ore-sorting-facility"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "angels-ore-sorting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-ore-sorting-facility-2" : {
+    "name" : "angels-ore-sorting-facility-2",
+    "localised_name" : [
+      "entity-name.angels-ore-sorting-facility-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "angels-ore-sorting" : true,
+      "angels-ore-sorting-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-ore-sorting-facility-3" : {
+    "name" : "angels-ore-sorting-facility-3",
+    "localised_name" : [
+      "entity-name.angels-ore-sorting-facility-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-ore-sorting" : true,
+      "angels-ore-sorting-2" : true,
+      "angels-ore-sorting-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-ore-sorting-facility-4" : {
+    "name" : "angels-ore-sorting-facility-4",
+    "localised_name" : [
+      "entity-name.angels-ore-sorting-facility-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-ore-sorting" : true,
+      "angels-ore-sorting-2" : true,
+      "angels-ore-sorting-3" : true,
+      "angels-ore-sorting-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-ore-sorting-facility-5" : {
+    "name" : "angels-ore-sorting-facility-5",
+    "localised_name" : [
+      "entity-name.angels-ore-sorting-facility-5"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-ore-sorting" : true,
+      "angels-ore-sorting-2" : true,
+      "angels-ore-sorting-3" : true,
+      "angels-ore-sorting-4" : true,
+      "angels-ore-sorting-5" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  },
+  "angels-burner-ore-crusher" : {
+    "name" : "angels-burner-ore-crusher",
+    "localised_name" : [
+      "entity-name.angels-burner-ore-crusher"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-ore-refining-t1" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "angels-ore-crusher" : {
+    "name" : "angels-ore-crusher",
+    "localised_name" : [
+      "entity-name.angels-ore-crusher"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-ore-refining-t1" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-ore-crusher-2" : {
+    "name" : "angels-ore-crusher-2",
+    "localised_name" : [
+      "entity-name.angels-ore-crusher-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-ore-refining-t1" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "angels-ore-crusher-3" : {
+    "name" : "angels-ore-crusher-3",
+    "localised_name" : [
+      "entity-name.angels-ore-crusher-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-ore-refining-t1" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-ore-floatation-cell" : {
+    "name" : "angels-ore-floatation-cell",
+    "localised_name" : [
+      "entity-name.angels-ore-floatation-cell"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "angels-ore-refining-t2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-ore-floatation-cell-2" : {
+    "name" : "angels-ore-floatation-cell-2",
+    "localised_name" : [
+      "entity-name.angels-ore-floatation-cell-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-ore-refining-t2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-ore-floatation-cell-3" : {
+    "name" : "angels-ore-floatation-cell-3",
+    "localised_name" : [
+      "entity-name.angels-ore-floatation-cell-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-ore-refining-t2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-ore-leaching-plant" : {
+    "name" : "angels-ore-leaching-plant",
+    "localised_name" : [
+      "entity-name.angels-ore-leaching-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "angels-ore-refining-t3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-ore-leaching-plant-2" : {
+    "name" : "angels-ore-leaching-plant-2",
+    "localised_name" : [
+      "entity-name.angels-ore-leaching-plant-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-ore-refining-t3" : true,
+      "angels-ore-refining-t3b" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-ore-leaching-plant-3" : {
+    "name" : "angels-ore-leaching-plant-3",
+    "localised_name" : [
+      "entity-name.angels-ore-leaching-plant-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-ore-refining-t3" : true,
+      "angels-ore-refining-t3b" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-ore-refinery" : {
+    "name" : "angels-ore-refinery",
+    "localised_name" : [
+      "entity-name.angels-ore-refinery"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "angels-ore-refining-t4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-ore-refinery-2" : {
+    "name" : "angels-ore-refinery-2",
+    "localised_name" : [
+      "entity-name.angels-ore-refinery-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-ore-refining-t4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  },
+  "angels-powderizer" : {
+    "name" : "angels-powderizer",
+    "localised_name" : [
+      "entity-name.angels-powderizer"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-powderizing-1" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-powderizer-2" : {
+    "name" : "angels-powderizer-2",
+    "localised_name" : [
+      "entity-name.angels-powderizer-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-powderizing-1" : true,
+      "angels-powderizing-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "angels-powderizer-3" : {
+    "name" : "angels-powderizer-3",
+    "localised_name" : [
+      "entity-name.angels-powderizer-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-powderizing-1" : true,
+      "angels-powderizing-2" : true,
+      "angels-powderizing-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-electro-whinning-cell" : {
+    "name" : "angels-electro-whinning-cell",
+    "localised_name" : [
+      "entity-name.angels-electro-whinning-cell"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-ore-refining-t3-5" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-electro-whinning-cell-2" : {
+    "name" : "angels-electro-whinning-cell-2",
+    "localised_name" : [
+      "entity-name.angels-electro-whinning-cell-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-ore-refining-t3-5" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-filtration-unit" : {
+    "name" : "angels-filtration-unit",
+    "localised_name" : [
+      "entity-name.angels-filtration-unit"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-filtering" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-filtration-unit-2" : {
+    "name" : "angels-filtration-unit-2",
+    "localised_name" : [
+      "entity-name.angels-filtration-unit-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-filtering" : true,
+      "angels-filtering-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-filtration-unit-3" : {
+    "name" : "angels-filtration-unit-3",
+    "localised_name" : [
+      "entity-name.angels-filtration-unit-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "angels-filtering" : true,
+      "angels-filtering-2" : true,
+      "angels-filtering-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-crystallizer" : {
+    "name" : "angels-crystallizer",
+    "localised_name" : [
+      "entity-name.angels-crystallizer"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-crystallizing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-crystallizer-2" : {
+    "name" : "angels-crystallizer-2",
+    "localised_name" : [
+      "entity-name.angels-crystallizer-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-crystallizing" : true,
+      "angels-crystallizing-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-crystallizer-3" : {
+    "name" : "angels-crystallizer-3",
+    "localised_name" : [
+      "entity-name.angels-crystallizer-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "angels-crystallizing" : true,
+      "angels-crystallizing-2" : true,
+      "angels-crystallizing-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-ore-processing-machine" : {
+    "name" : "angels-ore-processing-machine",
+    "localised_name" : [
+      "entity-name.angels-ore-processing-machine"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-ore-processing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-ore-processing-machine-2" : {
+    "name" : "angels-ore-processing-machine-2",
+    "localised_name" : [
+      "entity-name.angels-ore-processing-machine-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-ore-processing" : true,
+      "angels-ore-processing-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-ore-processing-machine-3" : {
+    "name" : "angels-ore-processing-machine-3",
+    "localised_name" : [
+      "entity-name.angels-ore-processing-machine-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-ore-processing" : true,
+      "angels-ore-processing-2" : true,
+      "angels-ore-processing-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-ore-processing-machine-4" : {
+    "name" : "angels-ore-processing-machine-4",
+    "localised_name" : [
+      "entity-name.angels-ore-processing-machine-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-ore-processing" : true,
+      "angels-ore-processing-2" : true,
+      "angels-ore-processing-3" : true,
+      "angels-ore-processing-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-pellet-press" : {
+    "name" : "angels-pellet-press",
+    "localised_name" : [
+      "entity-name.angels-pellet-press"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-pellet-pressing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-pellet-press-2" : {
+    "name" : "angels-pellet-press-2",
+    "localised_name" : [
+      "entity-name.angels-pellet-press-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-pellet-pressing" : true,
+      "angels-pellet-pressing-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-pellet-press-3" : {
+    "name" : "angels-pellet-press-3",
+    "localised_name" : [
+      "entity-name.angels-pellet-press-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-pellet-pressing" : true,
+      "angels-pellet-pressing-2" : true,
+      "angels-pellet-pressing-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-pellet-press-4" : {
+    "name" : "angels-pellet-press-4",
+    "localised_name" : [
+      "entity-name.angels-pellet-press-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-pellet-pressing" : true,
+      "angels-pellet-pressing-2" : true,
+      "angels-pellet-pressing-3" : true,
+      "angels-pellet-pressing-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  },
+  "angels-powder-mixer" : {
+    "name" : "angels-powder-mixer",
+    "localised_name" : [
+      "entity-name.angels-powder-mixer"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-powder-mixing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-powder-mixer-2" : {
+    "name" : "angels-powder-mixer-2",
+    "localised_name" : [
+      "entity-name.angels-powder-mixer-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-powder-mixing" : true,
+      "angels-powder-mixing-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "angels-powder-mixer-3" : {
+    "name" : "angels-powder-mixer-3",
+    "localised_name" : [
+      "entity-name.angels-powder-mixer-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-powder-mixing" : true,
+      "angels-powder-mixing-2" : true,
+      "angels-powder-mixing-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-powder-mixer-4" : {
+    "name" : "angels-powder-mixer-4",
+    "localised_name" : [
+      "entity-name.angels-powder-mixer-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 175000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-powder-mixing" : true,
+      "angels-powder-mixing-2" : true,
+      "angels-powder-mixing-3" : true,
+      "angels-powder-mixing-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5833.3333333333
+      }
+    }
+  },
+  "angels-blast-furnace" : {
+    "name" : "angels-blast-furnace",
+    "localised_name" : [
+      "entity-name.angels-blast-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-blast-smelting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "angels-blast-furnace-2" : {
+    "name" : "angels-blast-furnace-2",
+    "localised_name" : [
+      "entity-name.angels-blast-furnace-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-blast-smelting" : true,
+      "angels-blast-smelting-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "angels-blast-furnace-3" : {
+    "name" : "angels-blast-furnace-3",
+    "localised_name" : [
+      "entity-name.angels-blast-furnace-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-blast-smelting" : true,
+      "angels-blast-smelting-2" : true,
+      "angels-blast-smelting-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "angels-blast-furnace-4" : {
+    "name" : "angels-blast-furnace-4",
+    "localised_name" : [
+      "entity-name.angels-blast-furnace-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-blast-smelting" : true,
+      "angels-blast-smelting-2" : true,
+      "angels-blast-smelting-3" : true,
+      "angels-blast-smelting-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "angels-chemical-furnace" : {
+    "name" : "angels-chemical-furnace",
+    "localised_name" : [
+      "entity-name.angels-chemical-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-chemical-smelting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-chemical-furnace-2" : {
+    "name" : "angels-chemical-furnace-2",
+    "localised_name" : [
+      "entity-name.angels-chemical-furnace-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-chemical-smelting" : true,
+      "angels-chemical-smelting-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-chemical-furnace-3" : {
+    "name" : "angels-chemical-furnace-3",
+    "localised_name" : [
+      "entity-name.angels-chemical-furnace-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-chemical-smelting" : true,
+      "angels-chemical-smelting-2" : true,
+      "angels-chemical-smelting-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-chemical-furnace-4" : {
+    "name" : "angels-chemical-furnace-4",
+    "localised_name" : [
+      "entity-name.angels-chemical-furnace-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-chemical-smelting" : true,
+      "angels-chemical-smelting-2" : true,
+      "angels-chemical-smelting-3" : true,
+      "angels-chemical-smelting-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-induction-furnace" : {
+    "name" : "angels-induction-furnace",
+    "localised_name" : [
+      "entity-name.angels-induction-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-induction-smelting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-induction-furnace-2" : {
+    "name" : "angels-induction-furnace-2",
+    "localised_name" : [
+      "entity-name.angels-induction-furnace-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-induction-smelting" : true,
+      "angels-induction-smelting-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-induction-furnace-3" : {
+    "name" : "angels-induction-furnace-3",
+    "localised_name" : [
+      "entity-name.angels-induction-furnace-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-induction-smelting" : true,
+      "angels-induction-smelting-2" : true,
+      "angels-induction-smelting-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-induction-furnace-4" : {
+    "name" : "angels-induction-furnace-4",
+    "localised_name" : [
+      "entity-name.angels-induction-furnace-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-induction-smelting" : true,
+      "angels-induction-smelting-2" : true,
+      "angels-induction-smelting-3" : true,
+      "angels-induction-smelting-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-casting-machine" : {
+    "name" : "angels-casting-machine",
+    "localised_name" : [
+      "entity-name.angels-casting-machine"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-casting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-casting-machine-2" : {
+    "name" : "angels-casting-machine-2",
+    "localised_name" : [
+      "entity-name.angels-casting-machine-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-casting" : true,
+      "angels-casting-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-casting-machine-3" : {
+    "name" : "angels-casting-machine-3",
+    "localised_name" : [
+      "entity-name.angels-casting-machine-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-casting" : true,
+      "angels-casting-2" : true,
+      "angels-casting-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-casting-machine-4" : {
+    "name" : "angels-casting-machine-4",
+    "localised_name" : [
+      "entity-name.angels-casting-machine-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-casting" : true,
+      "angels-casting-2" : true,
+      "angels-casting-3" : true,
+      "angels-casting-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-strand-casting-machine" : {
+    "name" : "angels-strand-casting-machine",
+    "localised_name" : [
+      "entity-name.angels-strand-casting-machine"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-strand-casting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-strand-casting-machine-2" : {
+    "name" : "angels-strand-casting-machine-2",
+    "localised_name" : [
+      "entity-name.angels-strand-casting-machine-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-strand-casting" : true,
+      "angels-strand-casting-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-strand-casting-machine-3" : {
+    "name" : "angels-strand-casting-machine-3",
+    "localised_name" : [
+      "entity-name.angels-strand-casting-machine-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-strand-casting" : true,
+      "angels-strand-casting-2" : true,
+      "angels-strand-casting-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-strand-casting-machine-4" : {
+    "name" : "angels-strand-casting-machine-4",
+    "localised_name" : [
+      "entity-name.angels-strand-casting-machine-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-strand-casting" : true,
+      "angels-strand-casting-2" : true,
+      "angels-strand-casting-3" : true,
+      "angels-strand-casting-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-sintering-oven" : {
+    "name" : "angels-sintering-oven",
+    "localised_name" : [
+      "entity-name.angels-sintering-oven"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "angels-sintering" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-sintering-oven-2" : {
+    "name" : "angels-sintering-oven-2",
+    "localised_name" : [
+      "entity-name.angels-sintering-oven-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-sintering" : true,
+      "angels-sintering-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-sintering-oven-3" : {
+    "name" : "angels-sintering-oven-3",
+    "localised_name" : [
+      "entity-name.angels-sintering-oven-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-sintering" : true,
+      "angels-sintering-2" : true,
+      "angels-sintering-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-sintering-oven-4" : {
+    "name" : "angels-sintering-oven-4",
+    "localised_name" : [
+      "entity-name.angels-sintering-oven"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-sintering" : true,
+      "angels-sintering-2" : true,
+      "angels-sintering-3" : true,
+      "angels-sintering-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-sintering-oven-5" : {
+    "name" : "angels-sintering-oven-5",
+    "localised_name" : [
+      "entity-name.angels-sintering-oven-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-sintering" : true,
+      "angels-sintering-2" : true,
+      "angels-sintering-3" : true,
+      "angels-sintering-4" : true,
+      "angels-sintering-5" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-hydro-plant" : {
+    "name" : "angels-hydro-plant",
+    "localised_name" : [
+      "entity-name.angels-hydro-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-water-treatment" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-hydro-plant-2" : {
+    "name" : "angels-hydro-plant-2",
+    "localised_name" : [
+      "entity-name.angels-hydro-plant-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-water-treatment" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-hydro-plant-3" : {
+    "name" : "angels-hydro-plant-3",
+    "localised_name" : [
+      "entity-name.angels-hydro-plant-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-water-treatment" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-salination-plant" : {
+    "name" : "angels-salination-plant",
+    "localised_name" : [
+      "entity-name.angels-salination-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-salination-plant" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-salination-plant-2" : {
+    "name" : "angels-salination-plant-2",
+    "localised_name" : [
+      "entity-name.angels-salination-plant-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-salination-plant" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-washing-plant" : {
+    "name" : "angels-washing-plant",
+    "localised_name" : [
+      "entity-name.angels-washing-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-washing-plant" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-washing-plant-2" : {
+    "name" : "angels-washing-plant-2",
+    "localised_name" : [
+      "entity-name.angels-washing-plant-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.25,
+    "crafting_categories" : {
+      "angels-washing-plant" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-electric-boiler" : {
+    "name" : "angels-electric-boiler",
+    "localised_name" : [
+      "entity-name.angels-electric-boiler"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 1210000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-petrochem-boiler" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 40000
+      }
+    }
+  },
+  "angels-electric-boiler-2" : {
+    "name" : "angels-electric-boiler-2",
+    "localised_name" : [
+      "entity-name.angels-electric-boiler-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 1815000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-petrochem-boiler" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 60000
+      }
+    }
+  },
+  "angels-electric-boiler-3" : {
+    "name" : "angels-electric-boiler-3",
+    "localised_name" : [
+      "entity-name.angels-electric-boiler-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 2420000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-petrochem-boiler" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 80000
+      }
+    }
+  },
+  "angels-cooling-tower" : {
+    "name" : "angels-cooling-tower",
+    "localised_name" : [
+      "entity-name.angels-cooling-tower"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 30000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-cooling" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 1000
+      }
+    }
+  },
+  "angels-electrolyser" : {
+    "name" : "angels-electrolyser",
+    "localised_name" : [
+      "entity-name.angels-electrolyser"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-petrochem-electrolyser" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-electrolyser-2" : {
+    "name" : "angels-electrolyser-2",
+    "localised_name" : [
+      "entity-name.angels-electrolyser-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-petrochem-electrolyser" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  },
+  "angels-electrolyser-3" : {
+    "name" : "angels-electrolyser-3",
+    "localised_name" : [
+      "entity-name.angels-electrolyser-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 400000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-petrochem-electrolyser" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 13333.333333333
+      }
+    }
+  },
+  "angels-electrolyser-4" : {
+    "name" : "angels-electrolyser-4",
+    "localised_name" : [
+      "entity-name.angels-electrolyser-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 450000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "angels-petrochem-electrolyser" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 15000
+      }
+    }
+  },
+  "angels-air-filter" : {
+    "name" : "angels-air-filter",
+    "localised_name" : [
+      "entity-name.angels-air-filter"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-petrochem-air-filtering" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-air-filter-2" : {
+    "name" : "angels-air-filter-2",
+    "localised_name" : [
+      "entity-name.angels-air-filter-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 175000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-petrochem-air-filtering" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5833.3333333333
+      }
+    }
+  },
+  "angels-air-filter-3" : {
+    "name" : "angels-air-filter-3",
+    "localised_name" : [
+      "entity-name.angels-air-filter-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 225000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.25,
+    "crafting_categories" : {
+      "angels-petrochem-air-filtering" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 7500
+      }
+    }
+  },
+  "angels-liquifier" : {
+    "name" : "angels-liquifier",
+    "localised_name" : [
+      "entity-name.angels-liquifier"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-liquifying" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "angels-liquifier-2" : {
+    "name" : "angels-liquifier-2",
+    "localised_name" : [
+      "entity-name.angels-liquifier-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.25,
+    "crafting_categories" : {
+      "angels-liquifying" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-liquifier-3" : {
+    "name" : "angels-liquifier-3",
+    "localised_name" : [
+      "entity-name.angels-liquifier-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-liquifying" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-liquifier-4" : {
+    "name" : "angels-liquifier-4",
+    "localised_name" : [
+      "entity-name.angels-liquifier-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3.75,
+    "crafting_categories" : {
+      "angels-liquifying" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "chemical-plant" : {
+    "name" : "chemical-plant",
+    "localised_name" : [
+      "entity-name.chemical-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.75,
+    "crafting_categories" : {
+      "chemistry" : true,
+      "bob-distillery" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-chemical-plant-2" : {
+    "name" : "angels-chemical-plant-2",
+    "localised_name" : [
+      "entity-name.angels-chemical-plant-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.25,
+    "crafting_categories" : {
+      "chemistry" : true,
+      "bob-distillery" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-chemical-plant-3" : {
+    "name" : "angels-chemical-plant-3",
+    "localised_name" : [
+      "entity-name.angels-chemical-plant-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.75,
+    "crafting_categories" : {
+      "chemistry" : true,
+      "bob-distillery" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  },
+  "angels-chemical-plant-4" : {
+    "name" : "angels-chemical-plant-4",
+    "localised_name" : [
+      "entity-name.angels-chemical-plant-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 400000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3.25,
+    "crafting_categories" : {
+      "chemistry" : true,
+      "bob-distillery" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 13333.333333333
+      }
+    }
+  },
+  "angels-advanced-chemical-plant" : {
+    "name" : "angels-advanced-chemical-plant",
+    "localised_name" : [
+      "entity-name.angels-advanced-chemical-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-advanced-chemistry" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-advanced-chemical-plant-2" : {
+    "name" : "angels-advanced-chemical-plant-2",
+    "localised_name" : [
+      "entity-name.angels-advanced-chemical-plant-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 400000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "angels-advanced-chemistry" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 13333.333333333
+      }
+    }
+  },
+  "angels-gas-refinery-small" : {
+    "name" : "angels-gas-refinery-small",
+    "localised_name" : [
+      "entity-name.angels-gas-refinery-small"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-gas-refining" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-gas-refinery-small-2" : {
+    "name" : "angels-gas-refinery-small-2",
+    "localised_name" : [
+      "entity-name.angels-gas-refinery-small-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-gas-refining" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  },
+  "angels-gas-refinery-small-3" : {
+    "name" : "angels-gas-refinery-small-3",
+    "localised_name" : [
+      "entity-name.angels-gas-refinery-small-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 400000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "angels-gas-refining" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 13333.333333333
+      }
+    }
+  },
+  "angels-gas-refinery-small-4" : {
+    "name" : "angels-gas-refinery-small-4",
+    "localised_name" : [
+      "entity-name.angels-gas-refinery-small-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 425000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "angels-gas-refining" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 14166.666666667
+      }
+    }
+  },
+  "angels-gas-refinery" : {
+    "name" : "angels-gas-refinery",
+    "localised_name" : [
+      "entity-name.angels-gas-refinery"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 400000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-advanced-gas-refining" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 13333.333333333
+      }
+    }
+  },
+  "angels-gas-refinery-2" : {
+    "name" : "angels-gas-refinery-2",
+    "localised_name" : [
+      "entity-name.angels-gas-refinery-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 450000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-advanced-gas-refining" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 15000
+      }
+    }
+  },
+  "angels-gas-refinery-3" : {
+    "name" : "angels-gas-refinery-3",
+    "localised_name" : [
+      "entity-name.angels-gas-refinery-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 500000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-advanced-gas-refining" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 16666.666666667
+      }
+    }
+  },
+  "angels-gas-refinery-4" : {
+    "name" : "angels-gas-refinery-4",
+    "localised_name" : [
+      "entity-name.angels-gas-refinery-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 600000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "angels-advanced-gas-refining" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 20000
+      }
+    }
+  },
+  "angels-separator" : {
+    "name" : "angels-separator",
+    "localised_name" : [
+      "entity-name.angels-separator"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-petrochem-separation" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-separator-2" : {
+    "name" : "angels-separator-2",
+    "localised_name" : [
+      "entity-name.angels-separator-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-petrochem-separation" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-separator-3" : {
+    "name" : "angels-separator-3",
+    "localised_name" : [
+      "entity-name.angels-separator-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 300000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-petrochem-separation" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "angels-separator-4" : {
+    "name" : "angels-separator-4",
+    "localised_name" : [
+      "entity-name.angels-separator-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 325000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "angels-petrochem-separation" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10833.333333333
+      }
+    }
+  },
+  "oil-refinery" : {
+    "name" : "oil-refinery",
+    "localised_name" : [
+      "entity-name.oil-refinery"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 420000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "oil-processing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 14000
+      }
+    }
+  },
+  "angels-oil-refinery-2" : {
+    "name" : "angels-oil-refinery-2",
+    "localised_name" : [
+      "entity-name.angels-oil-refinery-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 500000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "oil-processing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 16666.666666667
+      }
+    }
+  },
+  "angels-oil-refinery-3" : {
+    "name" : "angels-oil-refinery-3",
+    "localised_name" : [
+      "entity-name.angels-oil-refinery-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 600000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "oil-processing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 20000
+      }
+    }
+  },
+  "angels-oil-refinery-4" : {
+    "name" : "angels-oil-refinery-4",
+    "localised_name" : [
+      "entity-name.angels-oil-refinery-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 700000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "oil-processing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 23333.333333333
+      }
+    }
+  },
+  "angels-steam-cracker" : {
+    "name" : "angels-steam-cracker",
+    "localised_name" : [
+      "entity-name.angels-steam-cracker"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-steam-cracking" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "angels-steam-cracker-2" : {
+    "name" : "angels-steam-cracker-2",
+    "localised_name" : [
+      "entity-name.angels-steam-cracker-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 225000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-steam-cracking" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 7500
+      }
+    }
+  },
+  "angels-steam-cracker-3" : {
+    "name" : "angels-steam-cracker-3",
+    "localised_name" : [
+      "entity-name.angels-steam-cracker-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-steam-cracking" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "angels-steam-cracker-4" : {
+    "name" : "angels-steam-cracker-4",
+    "localised_name" : [
+      "entity-name.angels-steam-cracker-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 275000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2.5,
+    "crafting_categories" : {
+      "angels-steam-cracking" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 9166.6666666667
+      }
+    }
+  },
+  "angels-barreling-pump" : {
+    "name" : "angels-barreling-pump",
+    "localised_name" : [
+      "entity-name.angels-barreling-pump"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 60000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-barreling-pump" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 2000
+      }
+    }
+  },
+  "angels-algae-farm" : {
+    "name" : "angels-algae-farm",
+    "localised_name" : [
+      "entity-name.angels-algae-farm"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "angels-bio-processing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-algae-farm-2" : {
+    "name" : "angels-algae-farm-2",
+    "localised_name" : [
+      "entity-name.angels-algae-farm-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-bio-processing" : true,
+      "angels-bio-processing-2" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "angels-algae-farm-3" : {
+    "name" : "angels-algae-farm-3",
+    "localised_name" : [
+      "entity-name.angels-algae-farm-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "angels-bio-processing" : true,
+      "angels-bio-processing-2" : true,
+      "angels-bio-processing-3" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-algae-farm-4" : {
+    "name" : "angels-algae-farm-4",
+    "localised_name" : [
+      "entity-name.angels-algae-farm-4"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 175000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-bio-processing" : true,
+      "angels-bio-processing-2" : true,
+      "angels-bio-processing-3" : true,
+      "angels-bio-processing-4" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5833.3333333333
+      }
+    }
+  },
+  "angels-bio-generator-temperate-1" : {
+    "name" : "angels-bio-generator-temperate-1",
+    "localised_name" : [
+      "entity-name.angels-bio-generator-temperate-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "angels-tree-temperate" : true,
+      "angels-tree" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-bio-generator-swamp-1" : {
+    "name" : "angels-bio-generator-swamp-1",
+    "localised_name" : [
+      "entity-name.angels-bio-generator-swamp-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "angels-tree-swamp" : true,
+      "angels-tree" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-bio-generator-desert-1" : {
+    "name" : "angels-bio-generator-desert-1",
+    "localised_name" : [
+      "entity-name.angels-bio-generator-desert-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "angels-tree-desert" : true,
+      "angels-tree" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-bio-arboretum-1" : {
+    "name" : "angels-bio-arboretum-1",
+    "localised_name" : [
+      "entity-name.angels-bio-arboretum-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "angels-arboretum" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-crop-farm" : {
+    "name" : "angels-crop-farm",
+    "localised_name" : [
+      "entity-name.angels-crop-farm"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 100000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-temperate-farming" : true,
+      "angels-desert-farming" : true,
+      "angels-swamp-farming" : true,
+      "angels-basic-farming" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "angels-temperate-farm" : {
+    "name" : "angels-temperate-farm",
+    "localised_name" : [
+      "entity-name.angels-temperate-farm"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-temperate-farming" : true,
+      "angels-advanced-temperate-farming" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "angels-swamp-farm" : {
+    "name" : "angels-swamp-farm",
+    "localised_name" : [
+      "entity-name.angels-swamp-farm"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-swamp-farming" : true,
+      "angels-advanced-swamp-farming" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "angels-desert-farm" : {
+    "name" : "angels-desert-farm",
+    "localised_name" : [
+      "entity-name.angels-desert-farm"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-desert-farming" : true,
+      "angels-advanced-desert-farming" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "angels-seed-extractor" : {
+    "name" : "angels-seed-extractor",
+    "localised_name" : [
+      "entity-name.angels-seed-extractor"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "angels-seed-extractor" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-bio-processor" : {
+    "name" : "angels-bio-processor",
+    "localised_name" : [
+      "entity-name.angels-bio-processor"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-bio-processor" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-bio-press" : {
+    "name" : "angels-bio-press",
+    "localised_name" : [
+      "entity-name.angels-bio-press"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-bio-pressing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-nutrient-extractor" : {
+    "name" : "angels-nutrient-extractor",
+    "localised_name" : [
+      "entity-name.angels-nutrient-extractor"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "angels-nutrient-extractor" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-bio-refugium-fish" : {
+    "name" : "angels-bio-refugium-fish",
+    "localised_name" : [
+      "entity-name.angels-bio-refugium-fish"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "angels-bio-refugium-fish" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-bio-refugium-puffer" : {
+    "name" : "angels-bio-refugium-puffer",
+    "localised_name" : [
+      "entity-name.angels-bio-refugium-puffer"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "angels-bio-refugium-puffer" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-bio-refugium-biter" : {
+    "name" : "angels-bio-refugium-biter",
+    "localised_name" : [
+      "entity-name.angels-bio-refugium-biter"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 150000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-bio-refugium-biter" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  }
+}

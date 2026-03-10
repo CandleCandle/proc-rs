@@ -1,0 +1,580 @@
+{
+  "angels-sea-pump-resource" : {
+    "name" : "angels-sea-pump-resource",
+    "localised_name" : [
+      "fluid-name.water"
+    ],
+    "resource_category" : "angels-sea-pump",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "water",
+          "probability" : 1,
+          "amount" : 1500
+        }
+      ]
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "crude-oil" : {
+    "name" : "crude-oil",
+    "localised_name" : [
+      "entity-name.crude-oil"
+    ],
+    "resource_category" : "basic-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "angels-liquid-multi-phase-oil",
+          "probability" : 1,
+          "amount" : 10
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:crude-oil:size') > 0) * (clamp(var('default-crude-oil-patches'), 0, 1)* random_penalty{x = x, y = y, source = 1, amplitude = 1 \/0.020833333333333})",
+      "richness_expression" : "(var('control:crude-oil:size') > 0) * (1*var('control:crude-oil:richness')*(var('default-crude-oil-patches')\/0.020833333333333+220000)*max((1000+distance)\/2600,1))",
+      "order" : "c",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "angels-fissure" : {
+    "name" : "angels-fissure",
+    "localised_name" : [
+      "entity-name.angels-fissure"
+    ],
+    "resource_category" : "angels-fissure",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2.5,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "angels-thermal-water",
+          "probability" : 1,
+          "amount" : 20
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:angels-fissure:size') > 0) * (clamp(var('default-angels-fissure-patches'), 0, 1)* random_penalty{x = x, y = y, source = 1, amplitude = 1 \/0.020833333333333})",
+      "richness_expression" : "(var('control:angels-fissure:size') > 0) * (1*var('control:angels-fissure:richness')*(var('default-angels-fissure-patches')\/0.020833333333333+2500)*max((1000+distance)\/2600,1))",
+      "order" : "c",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "angels-natural-gas" : {
+    "name" : "angels-natural-gas",
+    "localised_name" : [
+      "entity-name.angels-natural-gas"
+    ],
+    "resource_category" : "basic-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "type" : "fluid",
+          "name" : "angels-gas-natural-1",
+          "probability" : 1,
+          "amount" : 20
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:angels-natural-gas:size') > 0) * (clamp(var('default-angels-natural-gas-patches'), 0, 1)* random_penalty{x = x, y = y, source = 1, amplitude = 1 \/0.020833333333333})",
+      "richness_expression" : "(var('control:angels-natural-gas:size') > 0) * (0.03*var('control:angels-natural-gas:richness')*(var('default-angels-natural-gas-patches')\/0.020833333333333+10000)*max((1000+distance)\/2600,1))",
+      "order" : "c-b-b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "infinite-angels-ore1" : {
+    "name" : "infinite-angels-ore1",
+    "localised_name" : [
+      "entity-name.infinite-angels-ore1"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore1-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore1",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 10,
+      "required_fluid" : "angels-liquid-sulfuric-acid"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:infinite-angels-ore1:size') > 0) * (clamp(var('default-infinite-angels-ore1-patches'), 0, 1))",
+      "richness_expression" : "(var('control:infinite-angels-ore1:size') > 0) * (1*var('control:infinite-angels-ore1:richness')*(var('default-infinite-angels-ore1-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "infinite-angels-ore2" : {
+    "name" : "infinite-angels-ore2",
+    "localised_name" : [
+      "entity-name.infinite-angels-ore2"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore2-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore2",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 10,
+      "required_fluid" : "angels-liquid-hydrofluoric-acid"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:infinite-angels-ore2:size') > 0) * (clamp(var('default-infinite-angels-ore2-patches'), 0, 1))",
+      "richness_expression" : "(var('control:infinite-angels-ore2:size') > 0) * (1*var('control:infinite-angels-ore2:richness')*(var('default-infinite-angels-ore2-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "infinite-angels-ore3" : {
+    "name" : "infinite-angels-ore3",
+    "localised_name" : [
+      "entity-name.infinite-angels-ore3"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1.5,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore3-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore3",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 10,
+      "required_fluid" : "angels-liquid-sulfuric-acid"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:infinite-angels-ore3:size') > 0) * (clamp(var('default-infinite-angels-ore3-patches'), 0, 1))",
+      "richness_expression" : "(var('control:infinite-angels-ore3:size') > 0) * (1*var('control:infinite-angels-ore3:richness')*(var('default-infinite-angels-ore3-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "infinite-angels-ore4" : {
+    "name" : "infinite-angels-ore4",
+    "localised_name" : [
+      "entity-name.infinite-angels-ore4"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2.5,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore4-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore4",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 10,
+      "required_fluid" : "angels-liquid-hydrochloric-acid"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:infinite-angels-ore4:size') > 0) * (clamp(var('default-infinite-angels-ore4-patches'), 0, 1))",
+      "richness_expression" : "(var('control:infinite-angels-ore4:size') > 0) * (1*var('control:infinite-angels-ore4:richness')*(var('default-infinite-angels-ore4-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "infinite-angels-ore5" : {
+    "name" : "infinite-angels-ore5",
+    "localised_name" : [
+      "entity-name.infinite-angels-ore5"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2.5,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore5-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore5",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 10,
+      "required_fluid" : "angels-liquid-nitric-acid"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:infinite-angels-ore5:size') > 0) * (clamp(var('default-infinite-angels-ore5-patches'), 0, 1))",
+      "richness_expression" : "(var('control:infinite-angels-ore5:size') > 0) * (1*var('control:infinite-angels-ore5:richness')*(var('default-infinite-angels-ore5-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "infinite-angels-ore6" : {
+    "name" : "infinite-angels-ore6",
+    "localised_name" : [
+      "entity-name.infinite-angels-ore6"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2.5,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore6-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore6",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 10,
+      "required_fluid" : "angels-liquid-sulfuric-acid"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:infinite-angels-ore6:size') > 0) * (clamp(var('default-infinite-angels-ore6-patches'), 0, 1))",
+      "richness_expression" : "(var('control:infinite-angels-ore6:size') > 0) * (1*var('control:infinite-angels-ore6:richness')*(var('default-infinite-angels-ore6-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "angels-ore1" : {
+    "name" : "angels-ore1",
+    "localised_name" : [
+      "entity-name.angels-ore1"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore1-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore1",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:angels-ore1:size') > 0) * (clamp(var('default-angels-ore1-patches'), 0, 1))",
+      "richness_expression" : "(var('control:angels-ore1:size') > 0) * (1*var('control:angels-ore1:richness')*(var('default-angels-ore1-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b-da",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "angels-ore2" : {
+    "name" : "angels-ore2",
+    "localised_name" : [
+      "entity-name.angels-ore2"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore2-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore2",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:angels-ore2:size') > 0) * (clamp(var('default-angels-ore2-patches'), 0, 1))",
+      "richness_expression" : "(var('control:angels-ore2:size') > 0) * (1*var('control:angels-ore2:richness')*(var('default-angels-ore2-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b-db",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "angels-ore3" : {
+    "name" : "angels-ore3",
+    "localised_name" : [
+      "entity-name.angels-ore3"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1.5,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore3-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore3",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:angels-ore3:size') > 0) * (clamp(var('default-angels-ore3-patches'), 0, 1))",
+      "richness_expression" : "(var('control:angels-ore3:size') > 0) * (1*var('control:angels-ore3:richness')*(var('default-angels-ore3-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b-dc",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "angels-ore4" : {
+    "name" : "angels-ore4",
+    "localised_name" : [
+      "entity-name.angels-ore4"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2.5,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore4-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore4",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:angels-ore4:size') > 0) * (clamp(var('default-angels-ore4-patches'), 0, 1))",
+      "richness_expression" : "(var('control:angels-ore4:size') > 0) * (1*var('control:angels-ore4:richness')*(var('default-angels-ore4-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b-dd",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "angels-ore5" : {
+    "name" : "angels-ore5",
+    "localised_name" : [
+      "entity-name.angels-ore5"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore5-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore5",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:angels-ore5:size') > 0) * (clamp(var('default-angels-ore5-patches'), 0, 1))",
+      "richness_expression" : "(var('control:angels-ore5:size') > 0) * (1*var('control:angels-ore5:richness')*(var('default-angels-ore5-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b-de",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "angels-ore6" : {
+    "name" : "angels-ore6",
+    "localised_name" : [
+      "entity-name.angels-ore6"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2.5,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "angels-ore6-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "angels-ore6",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:angels-ore6:size') > 0) * (clamp(var('default-angels-ore6-patches'), 0, 1))",
+      "richness_expression" : "(var('control:angels-ore6:size') > 0) * (1*var('control:angels-ore6:richness')*(var('default-angels-ore6-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b-df",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "infinite-coal" : {
+    "name" : "infinite-coal",
+    "localised_name" : [
+      "entity-name.infinite-coal"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "coal-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "coal",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ],
+      "fluid_amount" : 10,
+      "required_fluid" : "water"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:infinite-coal:size') > 0) * (clamp(var('default-infinite-coal-patches'), 0, 1))",
+      "richness_expression" : "(var('control:infinite-coal:size') > 0) * (1*var('control:infinite-coal:richness')*(var('default-infinite-coal-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "coal" : {
+    "name" : "coal",
+    "localised_name" : [
+      "entity-name.coal"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "coal-particle",
+      "products" : [
+        {
+          "type" : "item",
+          "name" : "coal",
+          "probability" : 1,
+          "amount" : 1
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:coal:size') > 0) * (clamp(var('default-coal-patches'), 0, 1))",
+      "richness_expression" : "(var('control:coal:size') > 0) * (1*var('control:coal:richness')*(var('default-coal-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  }
+}

@@ -1,0 +1,511 @@
+{
+  "bob-void-pump" : {
+    "name" : "bob-void-pump",
+    "localised_name" : [
+      "entity-name.bob-void-pump"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 30000,
+    "ingredient_count" : 0,
+    "crafting_speed" : 5,
+    "crafting_categories" : {
+      "bob-void-fluid" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 1000
+      }
+    }
+  },
+  "stone-furnace" : {
+    "name" : "stone-furnace",
+    "localised_name" : [
+      "entity-name.stone-furnace"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 90000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "smelting" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "steel-furnace" : {
+    "name" : "steel-furnace",
+    "localised_name" : [
+      "entity-name.steel-furnace"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 90000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "smelting" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true
+        }
+      }
+    }
+  },
+  "bob-fluid-furnace" : {
+    "name" : "bob-fluid-furnace",
+    "localised_name" : [
+      "entity-name.bob-fluid-furnace"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 90000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "smelting" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "fluid" : {
+        "effectivity" : 1,
+        "burns_fluid" : true,
+        "scale_fluid_usage" : true,
+        "fluid_usage_per_tick" : 0,
+        "maximum_temperature" : 0,
+        "fluid_box" : {
+          "index" : 1,
+          "production_type" : "input-output",
+          "volume" : 100
+        }
+      }
+    }
+  },
+  "electric-furnace" : {
+    "name" : "electric-furnace",
+    "localised_name" : [
+      "entity-name.electric-furnace"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 180000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "smelting" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6000
+      }
+    }
+  },
+  "bob-electric-furnace-2" : {
+    "name" : "bob-electric-furnace-2",
+    "localised_name" : [
+      "entity-name.bob-electric-furnace-2"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 250000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "smelting" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "bob-electric-furnace-3" : {
+    "name" : "bob-electric-furnace-3",
+    "localised_name" : [
+      "entity-name.bob-electric-furnace-3"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 300000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 4,
+    "crafting_categories" : {
+      "smelting" : true
+    },
+    "module_inventory_size" : 6,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 10000
+      }
+    }
+  },
+  "bob-distillery" : {
+    "name" : "bob-distillery",
+    "localised_name" : [
+      "entity-name.bob-distillery"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 120000,
+    "ingredient_count" : 0,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "bob-distillery" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4000
+      }
+    }
+  },
+  "angels-clarifier" : {
+    "name" : "angels-clarifier",
+    "localised_name" : [
+      "entity-name.angels-clarifier"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 30000,
+    "ingredient_count" : 0,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-water-void" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 1000
+      }
+    }
+  },
+  "angels-flare-stack" : {
+    "name" : "angels-flare-stack",
+    "localised_name" : [
+      "entity-name.angels-flare-stack"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 30000,
+    "ingredient_count" : 0,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-chemical-void" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 1000
+      }
+    }
+  },
+  "angels-composter" : {
+    "name" : "angels-composter",
+    "localised_name" : [
+      "entity-name.angels-composter"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 30000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-bio-void" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 1000
+      }
+    }
+  },
+  "angels-bio-butchery" : {
+    "name" : "angels-bio-butchery",
+    "localised_name" : [
+      "entity-name.angels-bio-butchery"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 150000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-bio-butchery" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  },
+  "angels-bio-hatchery" : {
+    "name" : "angels-bio-hatchery",
+    "localised_name" : [
+      "entity-name.angels-bio-hatchery"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 150000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "angels-bio-hatchery" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 5000
+      }
+    }
+  }
+}
