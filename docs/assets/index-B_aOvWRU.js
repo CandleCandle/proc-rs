@@ -4782,7 +4782,7 @@ ${e.stack}` : i;
             console.log("params", l);
             var i = document.querySelector("#viz");
             i.addEventListener("load", function() {
-              l.has("s0") ? t.value.rehydrate(l.get("s0")).then((a) => {
+              l.has("s0") ? t.value.rehydrate(l.get("s0").replace(" ", "+")).then((a) => {
                 console.log("rehydrate result", a), r("get-started", !t.value.can_render()), r("current-configuration", t.value.can_render()), n.value++;
               }) : (console.log("reset: no parameter"), t.value.reset(), n.value++);
             });
@@ -4848,7 +4848,7 @@ ${e.stack}` : i;
       }, tp = Ni(ep, [
         [
           "__scopeId",
-          "data-v-5e4ac74a"
+          "data-v-c7c676c2"
         ]
       ]), np = [
         "top",
