@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import { DisplayItem } from './display_item';
 
 const emit = defineEmits(['cfg_update', 'make_item', 'use_item']);
-const { cfg, stack } = defineProps(['cfg', 'stack']);
+const { cfg, stack, dataset } = defineProps(['cfg', 'stack', 'dataset']);
 
 const requirement_value = ref(stack.req_quantity());
 const type = ref(stack.type);
@@ -62,9 +62,9 @@ watch(requirement_value, (value) => {
             <span v-if="stack.is_req()">
                 &nbsp;
                 <input type="text" size="5" v-model.lazy.number="requirement_value" :disabled="type != DisplayItem.REQUIREMENT"
-                    v-tooltip="'Set a requirement of X per second for ' + stack.display() + (type == DisplayItem.REQUIREMENT ? '' : ' (disabled because ' + stack.display() + ' is not marked as a requirement)')"
+                    v-tooltip="'Set a requirement of X per ' + (dataset ? dataset.units() : '(no units yet)') + ' for ' + stack.display() + (type == DisplayItem.REQUIREMENT ? '' : ' (disabled because ' + stack.display() + ' is not marked as a requirement)')"
                 />
-                per second
+                per {{ dataset ? dataset.units() : '(no units yet)' }}
             </span>
         </div>
         <div>

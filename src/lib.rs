@@ -146,6 +146,15 @@ impl GraphConfiguration {
         Ok(JsValue::null()) // XXX err result required.
     }
 
+    pub fn get_units(&mut self) -> Result<JsValue, JsValue> {
+        Ok(JsValue::from_str(self.wrapped.get_units()))
+    }
+
+    pub fn update_units(&mut self, units: String) -> Result<JsValue, JsValue> {
+        self.wrapped.update_units(&units);
+        Ok(JsValue::null()) // XXX err result required.
+    }
+
     pub fn remove_process(&mut self, id: String) -> Result<JsValue, JsValue> {
         self.wrapped.remove_process(&id);
         Ok(JsValue::null()) // XXX err result required.
