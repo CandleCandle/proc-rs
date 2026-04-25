@@ -1,0 +1,68 @@
+{
+  "machines": {
+    "advanced_smelter@1": {
+      "name": "advanced_smelter Tier I",
+      "craftingTags": [
+        "advanced_smelter"
+      ],
+      "craftingSpeedMultiplier": 1.0,
+      "derivedFrom": "recipe_infobox_speed_markers"
+    },
+    "advanced_smelter@1.5": {
+      "name": "advanced_smelter Tier II",
+      "craftingTags": [
+        "advanced_smelter"
+      ],
+      "craftingSpeedMultiplier": 1.5,
+      "derivedFrom": "recipe_infobox_speed_markers"
+    },
+    "advanced_smelter@2": {
+      "name": "advanced_smelter Tier III",
+      "craftingTags": [
+        "advanced_smelter"
+      ],
+      "craftingSpeedMultiplier": 2.0,
+      "derivedFrom": "recipe_infobox_speed_markers"
+    },
+    "assembler@1": {
+      "name": "assembler Tier I",
+      "craftingTags": [
+        "assembler"
+      ],
+      "craftingSpeedMultiplier": 1.0,
+      "derivedFrom": "recipe_infobox_speed_markers"
+    },
+    "assembler@1.5": {
+      "name": "assembler Tier II",
+      "craftingTags": [
+        "assembler"
+      ],
+      "craftingSpeedMultiplier": 1.5,
+      "derivedFrom": "recipe_infobox_speed_markers"
+    },
+    "assembler@2": {
+      "name": "assembler Tier III",
+      "craftingTags": [
+        "assembler"
+      ],
+      "craftingSpeedMultiplier": 2.0,
+      "derivedFrom": "recipe_infobox_speed_markers"
+    },
+    "assembler_fluid@1": {
+      "name": "assembler_fluid Tier I",
+      "craftingTags": [
+        "assembler_fluid"
+      ],
+      "craftingSpeedMultiplier": 1.0,
+      "derivedFrom": "recipe_infobox_speed_markers"
+    },
+    "base_station@1.5": {
+      "name": "base_station Tier II",
+      "craftingTags": [
+        "base_station"
+      ],
+      "craftingSpeedMultiplier": 1.5,
+      "derivedFrom": "recipe_infobox_speed_markers"
+    }
+  }
+}
