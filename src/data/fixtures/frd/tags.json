@@ -1,0 +1,30 @@
+{
+    "count": 15,
+    "tags": [
+        {
+            "identifier": "crusher",
+            "name": "Crusher",
+            "icon_identifier": ""
+        },
+        {
+            "identifier": "assembler",
+            "name": "Assembler",
+            "icon_identifier": ""
+        },
+        {
+            "identifier": "assembler_fluid",
+            "name": "Fluid Assembler",
+            "icon_identifier": ""
+        },
+        {
+            "identifier": "advanced_smelter",
+            "name": "Advanced Smelter",
+            "icon_identifier": ""
+        },
+        {
+            "identifier": "character",
+            "name": "Character",
+            "icon_identifier": ""
+        }
+    ]
+}

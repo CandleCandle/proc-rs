@@ -1,0 +1,108 @@
+{
+  "count": 300,
+  "recipes": [
+        {
+      "identifier": "_base_ore_xenoferrite",
+      "name": "Xenoferrite Ore",
+      "timeMs": 1500,
+      "inputs": [
+        {
+          "identifier": "_base_rubble_xenoferrite",
+          "amount": 1
+        }
+      ],
+      "outputs": [
+        {
+          "identifier": "_base_ore_xenoferrite",
+          "amount": 1
+        }
+      ],
+      "tags": [
+        "crusher"
+      ],
+      "rates_per_min_speed1": {
+        "inputs": [
+          {
+            "identifier": "_base_rubble_xenoferrite",
+            "perMin": 40.0
+          }
+        ],
+        "outputs": [
+          {
+            "identifier": "_base_ore_xenoferrite",
+            "perMin": 40.0
+          }
+        ]
+      }
+    },
+    {
+      "identifier": "_base_xf_plates_t1_primitive",
+      "name": "Xenoferrite Plates",
+      "timeMs": 3000,
+      "inputs": [
+        {
+          "identifier": "_base_rubble_xenoferrite",
+          "amount": 2
+        }
+      ],
+      "outputs": [
+        {
+          "identifier": "_base_xenoferrite_plates",
+          "amount": 1
+        }
+      ],
+      "tags": [
+        "base_station"
+      ],
+      "rates_per_min_speed1": {
+        "inputs": [
+          {
+            "identifier": "_base_rubble_xenoferrite",
+            "perMin": 40.0
+          }
+        ],
+        "outputs": [
+          {
+            "identifier": "_base_xenoferrite_plates",
+            "perMin": 20.0
+          }
+        ]
+      }
+    },
+    {
+      "identifier": "_base_power_line",
+      "name": "Power Line",
+      "timeMs": 4000,
+      "inputs": [
+        {
+          "identifier": "_base_wire_coil",
+          "amount": 2
+        }
+      ],
+      "outputs": [
+        {
+          "identifier": "_base_power_line_i",
+          "amount": 2
+        }
+      ],
+      "tags": [
+        "character",
+        "assembler"
+      ],
+      "rates_per_min_speed1": {
+        "inputs": [
+          {
+            "identifier": "_base_wire_coil",
+            "perMin": 30.0
+          }
+        ],
+        "outputs": [
+          {
+            "identifier": "_base_power_line_i",
+            "perMin": 30.0
+          }
+        ]
+      }
+    }
+  ]
+}
