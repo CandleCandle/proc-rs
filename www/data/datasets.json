@@ -33,6 +33,12 @@
             "mod": [{ "name": "angelbob", "version": "2.0.6" }],
             "style": "recipelister",
             "units": "second"
+        },
+        {
+            "main": { "name": "foundry", "version": "3.0.0" },
+            "mod": [{ "name": "wip", "version": "0.0.1" }],
+            "style": "frd",
+            "units": "second"
         }
     ]
 }
