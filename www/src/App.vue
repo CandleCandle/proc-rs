@@ -23,7 +23,7 @@ if (window.location.hash) {
   var script = document.querySelector('#viz');
   script.addEventListener('load', function() {
     if (params.has('s0')) {
-      cfg.value.rehydrate(params.get('s0').replace(' ', '+')).then((r) => {
+      cfg.value.rehydrate(params.get('s0')).then((r) => {
         console.log('rehydrate result', r);
         handle_fold_update('get-started', !cfg.value.can_render()),
         handle_fold_update('current-configuration', cfg.value.can_render()),
