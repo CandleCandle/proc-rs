@@ -17,21 +17,45 @@ pub trait FetchDataSet {
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-enum Units {
+pub enum Units {
     #[default]
     Second,
     Minute,
     Belt(u32),
 }
 impl From<String> for Units {
+    /*
+     * plain "minute", "second"
+     * int + m
+     * int + s
+     */
     fn from(value: String) -> Self {
         match value.to_ascii_lowercase().as_str() {
             "second" => Units::Second,
             "minute" => Units::Minute,
-            _ => Units::Belt(15),
+            _ => Units::Belt(15), // attempt to parse as int
         }
     }
 }
+impl ToString for Units {
+    fn to_string(&self) -> String {
+        match &self {
+            Units::Second => "second".to_string(),
+            Units::Minute=> "minute".to_string(),
+            Units::Belt(n) => format!("{n}s"),
+        }
+    }
+}
+impl Units {
+    pub fn to_short_string(&self) -> String {
+        match &self {
+            Units::Second => "s".to_string(),
+            Units::Minute=> "m".to_string(),
+            Units::Belt(n) => format!("{n}"),
+        }
+    }
+}
+
 // XXX (re-)hydrate this attribute
 
 #[derive(Debug, Clone, PartialEq, Default)]
@@ -142,6 +166,14 @@ impl GraphConfiguration {
                 item: self.current_data.as_ref().unwrap().items.get(id).unwrap().clone(),
                 quantity
         });
+    }
+
+    pub fn get_units(&self) -> &Units {
+        &self.units
+    }
+
+    pub fn update_units(&mut self, units: Units) {
+        self.units = units;
     }
 
     pub fn remove_requirement(&mut self, id: &str) {

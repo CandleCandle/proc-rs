@@ -1,6 +1,7 @@
 use core::fmt;
 use std::{collections::{BTreeMap, HashMap}, rc::Rc};
 
+use enum_id_derive::EnumId;
 use serde::{Deserialize, Deserializer, Serialize, de::{self, MapAccess, Visitor, value:: SeqAccessDeserializer}};
 use serde_json::Value;
 
@@ -10,7 +11,7 @@ use super::model::{Data, DataParser, Factory, FactoryGroup, Item, Process};
 
 
 
-#[derive(Debug)]
+#[derive(Debug, EnumId)]
 pub enum DataParserRecipeListerFiles {
     AssemblingMachines,
     Furnace,
@@ -23,16 +24,7 @@ pub enum DataParserRecipeListerFiles {
 }
 impl DataParserRecipeListerFiles {
     pub fn to_key(&self) -> String {
-        match &self {
-            Self::AssemblingMachines => "AssemblingMachines".to_string(),
-            Self::Furnace => "Furnace".to_string(),
-            Self::RocketSilo => "RocketSilo".to_string(),
-            Self::MiningDrill => "MiningDrill".to_string(),
-            Self::Items => "Items".to_string(),
-            Self::Fluids => "Fluids".to_string(),
-            Self::Recipe => "Recipe".to_string(),
-            Self::Resource => "Resource".to_string(),
-        }
+        self.name()
     }
 }
 
