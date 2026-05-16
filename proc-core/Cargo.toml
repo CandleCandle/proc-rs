@@ -14,3 +14,7 @@ serde_json = { version = "1.0.149", default-features = false, features = ["alloc
 enum-id = {path = "../enum-id"}
 enum-id-derive = {path = "../enum-id-derive"}
 regex = "1.12.3"
+
+[dev-dependencies]
+approx = { version = "0.5.1" }
+tracing-subscriber = { version = "0.3.23" }

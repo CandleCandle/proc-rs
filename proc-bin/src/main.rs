@@ -5,11 +5,11 @@ use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use clap::{Parser, Subcommand, ValueEnum};
 
-use proc_rs::data::dataset::DataSetConf;
-use proc_rs::data::graph_configuration::{DehydratedGraphConfiguration, FetchDataSet};
-use proc_rs::data::{
+use proc_core::dataset::DataSetConf;
+use proc_core::graph_configuration::{DehydratedGraphConfiguration, FetchDataSet};
+use proc_core::{
     calculator::Calculator, graph_configuration::GraphConfiguration, model::StackSet};
-use proc_rs::data::hydration::{Dehydrate, Rehydrate};
+use proc_core::hydration::{Dehydrate, Rehydrate};
 
 use tabled::{builder::Builder, settings::object::Cell, Table};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -122,12 +122,6 @@ impl FetchDataSet for FileFetcher {
     }
 }
 
-#[cfg(not(feature = "main"))]
-fn main() -> Result<(), String> {
-    Err("enabled with the 'main' feature".to_string())
-}
-
-#[cfg(feature = "main")]
 #[tokio::main]
 async fn main() -> Result<(), String> {
     let args = Cli::parse();
@@ -222,7 +216,6 @@ fn report_gc(gc: GraphConfiguration, graph: Option<PathBuf>) -> Result<(), Strin
     Ok(())
 }
 
-// #[cfg(feature = "main")]
 fn make_process_count_table(process_counts: &BTreeMap<String, f64>) -> String {
     Table::new(process_counts)
         .modify(Cell::new(0, 0), "id")
@@ -230,7 +223,6 @@ fn make_process_count_table(process_counts: &BTreeMap<String, f64>) -> String {
         .to_string()
 }
 
-// #[cfg(feature = "main")]
 fn make_materials_count_table(materials: &StackSet) -> String {
     let all_items = materials.contained_items();
 

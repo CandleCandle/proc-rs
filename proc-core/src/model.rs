@@ -431,7 +431,7 @@ impl StackSet {
 #[cfg(test)]
 mod test {
 
-    use crate::data::fixtures::{simple_data_fixture};
+    use crate::fixtures::{simple_data_fixture};
 
     use super::*;
 

@@ -347,7 +347,7 @@ mod test {
 
     use approx::assert_abs_diff_eq;
 
-    use crate::data::{fixtures};
+    use crate::{fixtures};
     use super::*;
 
     #[test]

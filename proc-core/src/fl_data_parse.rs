@@ -164,7 +164,7 @@ impl FLabRecipe {
 #[cfg(test)]
 mod test {
     use itertools::Itertools;
-    use crate::data::{fixtures::load_fixture};
+    use crate::{fixtures::load_fixture};
     use super::*;
 
     fn create_input_fixture() -> BTreeMap<String, String> {
