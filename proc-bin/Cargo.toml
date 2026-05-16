@@ -1,6 +1,7 @@
 [package]
-name = "enum_id"
+name = "proc-bin"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+proc-core = {path = "../proc-core"}

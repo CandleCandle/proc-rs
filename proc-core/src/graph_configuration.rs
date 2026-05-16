@@ -4,9 +4,9 @@ use itertools::Itertools;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 
-use crate::data::{dataset::DehydratedDataSetConf, hydration::{Dehydrate, Rehydrate}, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory}};
+use crate::{dataset::DehydratedDataSetConf, hydration::{Dehydrate, Rehydrate}, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory}};
 
-use super::{dataset::{DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
+use crate::{dataset::{DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
 
 ///
 /// Provide a way to fetch the blob of json that represents the data contents

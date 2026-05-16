@@ -3,7 +3,7 @@ use std::{collections::{BTreeMap, BTreeSet, HashMap}, hash::{Hash, Hasher}, ops,
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
-use crate::data::{dataset::DataSetConf, hydration::{Dehydrate, Rehydrate}};
+use crate::{dataset::DataSetConf, hydration::{Dehydrate, Rehydrate}};
 
 pub trait DataParser {
     fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String>;

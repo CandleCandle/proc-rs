@@ -3,7 +3,7 @@ use std::{collections::{BTreeMap, HashMap}, rc::Rc};
 use enum_id_derive::EnumId;
 use serde_json::Value;
 
-use crate::data::dataset::DataSetConf;
+use crate::dataset::DataSetConf;
 
 use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
 

@@ -11,16 +11,14 @@ use web_sys::{Request, RequestInit, RequestMode, Response};
 
 use serde::{Deserialize, Serialize};
 
-pub mod data;
-use data::model::{Item, Process};
-use data::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
-
-use crate::data::calculator::Calculator;
-use crate::data::graph_configuration::{DehydratedGraphConfiguration, Units};
-use crate::data::model::{ActiveProcess, Factory};
+use proc_core::model::{Item, Process};
+use proc_core::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
+use proc_core::calculator::Calculator;
+use proc_core::graph_configuration::{DehydratedGraphConfiguration, Units};
+use proc_core::model::{ActiveProcess, Factory};
+use proc_core::hydration::{Rehydrate,Dehydrate};
 
 use base64::{Engine,prelude::BASE64_URL_SAFE_NO_PAD};
-use crate::data::hydration::{Rehydrate,Dehydrate};
 
 #[wasm_bindgen]
 extern "C" {
@@ -51,7 +49,7 @@ impl FetchDataSet for RequestFetcher {
         opts.set_method("GET");
         opts.set_mode(RequestMode::Cors);
 
-        let request = Request::new_with_str_and_init(&url, &opts).map_err(|e| e.as_string().unwrap())?;
+        let request = Request::new_with_str_and_init(url, &opts).map_err(|e| e.as_string().unwrap())?;
 
         let window = web_sys::window().unwrap();
         let resp_value = JsFuture::from(window.fetch_with_request(&request)).await.map_err(|e| e.as_string().unwrap())?;
@@ -99,7 +97,7 @@ impl GraphConfiguration {
     }
 
     pub fn get_current_data_set(&self) -> JsValue {
-        self.wrapped.get_current_data_set().map(|v| JsValue::from_str(&v.id)).unwrap_or_else(|| JsValue::null())
+        self.wrapped.get_current_data_set().map(|v| JsValue::from_str(&v.id)).unwrap_or_else(JsValue::null)
     }
 
     pub fn can_render(&self) -> Result<JsValue, JsValue> {

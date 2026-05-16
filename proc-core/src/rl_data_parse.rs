@@ -5,7 +5,7 @@ use enum_id_derive::EnumId;
 use serde::{Deserialize, Deserializer, Serialize, de::{self, MapAccess, Visitor, value:: SeqAccessDeserializer}};
 use serde_json::Value;
 
-use crate::data::{dataset::DataSetConf, model::{Classification, Stack}};
+use crate::{dataset::DataSetConf, model::{Classification, Stack}};
 
 use super::model::{Data, DataParser, Factory, FactoryGroup, Item, Process};
 
