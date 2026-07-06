@@ -11,7 +11,7 @@
   "dependencies": {
     "@rmp135/vue-splitter": "^2.0.2",
     "floating-vue": "^5.2.2",
-    "proc-rs": "file:../pkg",
+    "proc-web": "file:../proc-web/pkg",
     "vite-plugin-top-level-await": "^1.5.0",
     "vite-plugin-wasm": "^3.4.1",
     "vue": "^3.5.13"

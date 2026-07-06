@@ -3,7 +3,7 @@ import VueSplitter from '@rmp135/vue-splitter';
 import Configure from './components/Configure.vue';
 import GraphRender from './components/GraphRender.vue';
 import { ref, shallowRef, triggerRef, watch, toRefs, computed } from 'vue';
-import { GraphConfiguration } from 'proc-rs';
+import { GraphConfiguration } from 'proc-web';
 
 const cfg = shallowRef(new GraphConfiguration());
 // The GraphConfiguration is a WASM object. There is no property

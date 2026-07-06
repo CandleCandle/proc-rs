@@ -68,6 +68,7 @@ console.log('fetched datasets', datasets.map(v => {
         style: v.style(),
         id: v.id(),
         description: v.description(),
+        units: v.units(),
     };
 }));
 
@@ -76,6 +77,7 @@ watch(dataSetId, (id) => {
     dataset.value = found_dataset;
     console.log("Updating config with", id, found_dataset);
     cfg.update_data_set(id, found_dataset.style());
+    cfg.update_units(found_dataset.units());
 });
 
 const searchItem = ref('');
