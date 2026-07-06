@@ -1,24 +1,23 @@
-use std::{rc::Rc};
-
+use std::rc::Rc;
 
 use itertools::Itertools;
 use nalgebra::{DMatrix, Scalar};
 use wasm_bindgen::prelude::wasm_bindgen;
-use wasm_bindgen::{prelude::JsValue, JsCast};
+use wasm_bindgen::{JsCast, prelude::JsValue};
 
 use wasm_bindgen_futures::JsFuture;
 use web_sys::{Request, RequestInit, RequestMode, Response};
 
 use serde::{Deserialize, Serialize};
 
-use proc_core::model::{Item, Process};
-use proc_core::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
 use proc_core::calculator::Calculator;
 use proc_core::graph_configuration::{DehydratedGraphConfiguration, Units};
+use proc_core::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
+use proc_core::hydration::{Dehydrate, Rehydrate};
 use proc_core::model::{ActiveProcess, Factory};
-use proc_core::hydration::{Rehydrate,Dehydrate};
+use proc_core::model::{Item, Process};
 
-use base64::{Engine,prelude::BASE64_URL_SAFE_NO_PAD};
+use base64::{Engine, prelude::BASE64_URL_SAFE_NO_PAD};
 
 #[wasm_bindgen]
 extern "C" {
@@ -49,14 +48,21 @@ impl FetchDataSet for RequestFetcher {
         opts.set_method("GET");
         opts.set_mode(RequestMode::Cors);
 
-        let request = Request::new_with_str_and_init(url, &opts).map_err(|e| e.as_string().unwrap())?;
+        let request =
+            Request::new_with_str_and_init(url, &opts).map_err(|e| e.as_string().unwrap())?;
 
         let window = web_sys::window().unwrap();
-        let resp_value = JsFuture::from(window.fetch_with_request(&request)).await.map_err(|e| e.as_string().unwrap())?;
+        let resp_value = JsFuture::from(window.fetch_with_request(&request))
+            .await
+            .map_err(|e| e.as_string().unwrap())?;
 
         let resp: Response = resp_value.dyn_into().unwrap();
         // log(format!("resp: {:?}, {:?}", resp, resp.status()).as_str());
-        Ok(JsFuture::from(resp.text().unwrap()).await.unwrap().as_string().unwrap())
+        Ok(JsFuture::from(resp.text().unwrap())
+            .await
+            .unwrap()
+            .as_string()
+            .unwrap())
     }
 }
 
@@ -73,9 +79,9 @@ impl GraphConfiguration {
 
     pub fn dehydrate(&self) -> Result<JsValue, JsValue> {
         if self.wrapped.can_render() {
-            Ok(JsValue::from_str(
-                &BASE64_URL_SAFE_NO_PAD.encode(rmp_serde::encode::to_vec(&self.wrapped.dehydrate()).unwrap())
-            ))
+            Ok(JsValue::from_str(&BASE64_URL_SAFE_NO_PAD.encode(
+                rmp_serde::encode::to_vec(&self.wrapped.dehydrate()).unwrap(),
+            )))
         } else {
             Ok(JsValue::null())
         }
@@ -89,15 +95,25 @@ impl GraphConfiguration {
 
     pub async fn rehydrate(&mut self, serialised: String) -> Result<JsValue, JsValue> {
         let dgc: DehydratedGraphConfiguration = rmp_serde::decode::from_slice(
-            BASE64_URL_SAFE_NO_PAD.decode(serialised).map_err(|e| e.to_string())?.as_slice()
-        ).map_err(|e| JsValue::from_str(&e.to_string()))?;
+            BASE64_URL_SAFE_NO_PAD
+                .decode(serialised)
+                .map_err(|e| e.to_string())?
+                .as_slice(),
+        )
+        .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        self.wrapped = dgc.rehydrate(RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e.to_string()))?;
+        self.wrapped = dgc
+            .rehydrate(RequestFetcher {})
+            .await
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
         Ok(JsValue::null()) // XXX err result required.
     }
 
     pub fn get_current_data_set(&self) -> JsValue {
-        self.wrapped.get_current_data_set().map(|v| JsValue::from_str(&v.id)).unwrap_or_else(JsValue::null)
+        self.wrapped
+            .get_current_data_set()
+            .map(|v| JsValue::from_str(&v.id))
+            .unwrap_or_else(JsValue::null)
     }
 
     pub fn can_render(&self) -> Result<JsValue, JsValue> {
@@ -121,7 +137,9 @@ impl GraphConfiguration {
     }
 
     pub fn get_requirements(&self) -> Result<JsValue, JsValue> {
-        Ok(serde_wasm_bindgen::to_value(self.wrapped.get_requirements())?)
+        Ok(serde_wasm_bindgen::to_value(
+            self.wrapped.get_requirements(),
+        )?)
     }
 
     pub fn add_import_export(&mut self, id: String) -> Result<JsValue, JsValue> {
@@ -135,17 +153,34 @@ impl GraphConfiguration {
     }
 
     pub fn get_imports_exports(&self) -> Result<JsValue, JsValue> {
-        Ok(serde_wasm_bindgen::to_value(self.wrapped.get_imports_exports())?)
+        Ok(serde_wasm_bindgen::to_value(
+            self.wrapped.get_imports_exports(),
+        )?)
     }
 
-    pub fn add_process(&mut self, proc_id: String, factory_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
+    pub fn add_process(
+        &mut self,
+        proc_id: String,
+        factory_id: String,
+        duration_multiplier: f64,
+        inputs_multiplier: f64,
+        outputs_multiplier: f64,
+    ) -> Result<JsValue, JsValue> {
         // let factory_id = self.wrapped.get_fastest_factory_for_process(&proc_id);
-        self.wrapped.add_process(&proc_id, &factory_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+        self.wrapped.add_process(
+            &proc_id,
+            &factory_id,
+            duration_multiplier,
+            inputs_multiplier,
+            outputs_multiplier,
+        );
         Ok(JsValue::null()) // XXX err result required.
     }
 
     pub fn get_units(&mut self) -> Result<JsValue, JsValue> {
-        Ok(JsValue::from_str(self.wrapped.get_units().to_string().as_str()))
+        Ok(JsValue::from_str(
+            self.wrapped.get_units().to_string().as_str(),
+        ))
     }
 
     pub fn update_units(&mut self, units: String) -> Result<JsValue, JsValue> {
@@ -158,55 +193,92 @@ impl GraphConfiguration {
         Ok(JsValue::null()) // XXX err result required.
     }
 
-    pub fn update_modifiers(&mut self, proc_id: String, factory_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) -> Result<JsValue, JsValue> {
-        self.wrapped.update_modifiers(proc_id, factory_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+    pub fn update_modifiers(
+        &mut self,
+        proc_id: String,
+        factory_id: String,
+        duration_multiplier: f64,
+        inputs_multiplier: f64,
+        outputs_multiplier: f64,
+    ) -> Result<JsValue, JsValue> {
+        self.wrapped.update_modifiers(
+            proc_id,
+            factory_id,
+            duration_multiplier,
+            inputs_multiplier,
+            outputs_multiplier,
+        );
         Ok(JsValue::null()) // XXX err result required.
     }
 
     pub fn get_processes(&self) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value(
-            &self.wrapped.get_processes().iter().sorted_by(
-                |a, b| a.id().cmp(b.id())
-            ).collect::<Vec<&ActiveProcess>>()
+            &self
+                .wrapped
+                .get_processes()
+                .iter()
+                .sorted_by(|a, b| a.id().cmp(b.id()))
+                .collect::<Vec<&ActiveProcess>>(),
         )?)
     }
 
     pub fn factories_for_process(&mut self, id: String) -> Result<JsValue, JsValue> {
-        Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Factory>>>(&self.wrapped.factories_for_process(&id))?) // TODO list factories for the given process id
+        Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Factory>>>(
+            &self.wrapped.factories_for_process(&id),
+        )?) // TODO list factories for the given process id
     }
 
     pub fn get_defaulted_items(&self) -> Result<JsValue, JsValue> {
-        Ok(serde_wasm_bindgen::to_value(&self.wrapped.get_defaulted_items())?)
+        Ok(serde_wasm_bindgen::to_value(
+            &self.wrapped.get_defaulted_items(),
+        )?)
     }
 
     pub fn get_intermediate_items(&self) -> Result<JsValue, JsValue> {
-        Ok(serde_wasm_bindgen::to_value(&self.wrapped.get_intermediate_items())?)
+        Ok(serde_wasm_bindgen::to_value(
+            &self.wrapped.get_intermediate_items(),
+        )?)
     }
 
     pub async fn update_data_set(&mut self, id: String, style: String) -> Result<JsValue, JsValue> {
-        self.wrapped.update_data_set(&id, &style, RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e))?;
+        self.wrapped
+            .update_data_set(&id, &style, RequestFetcher {})
+            .await
+            .map_err(|e| JsValue::from_str(&e))?;
         Ok(JsValue::null())
     }
 
     pub fn search_items(&self, search: String) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Item>>>(
-            &self.wrapped.search_items(&search).map_err(|e| JsValue::from_str(&e))?
+            &self
+                .wrapped
+                .search_items(&search)
+                .map_err(|e| JsValue::from_str(&e))?,
         )?)
     }
 
     pub fn search_processes(&self, search: String) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Process>>>(
-            &self.wrapped.search_processes(&search).map_err(|e| JsValue::from_str(&e))?
+            &self
+                .wrapped
+                .search_processes(&search)
+                .map_err(|e| JsValue::from_str(&e))?,
         )?)
     }
     pub fn search_processes_by_output(&self, search: String) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Process>>>(
-            &self.wrapped.search_processes_by_output(&search).map_err(|e| JsValue::from_str(&e))?
+            &self
+                .wrapped
+                .search_processes_by_output(&search)
+                .map_err(|e| JsValue::from_str(&e))?,
         )?)
     }
     pub fn search_processes_by_input(&self, search: String) -> Result<JsValue, JsValue> {
         Ok(serde_wasm_bindgen::to_value::<Vec<Rc<Process>>>(
-            &self.wrapped.search_processes_by_input(&search).map_err(|e| JsValue::from_str(&e))?
+            &self
+                .wrapped
+                .search_processes_by_input(&search)
+                .map_err(|e| JsValue::from_str(&e))?,
         )?)
     }
 
@@ -216,19 +288,23 @@ impl GraphConfiguration {
     pub fn to_digraph(&self) -> Result<JsValue, JsValue> {
         match &self.calculator {
             Some(c) => Ok(serde_wasm_bindgen::to_value(&c.to_digraph())?),
-            None => Err(serde_wasm_bindgen::to_value("no calculator")?)
+            None => Err(serde_wasm_bindgen::to_value("no calculator")?),
         }
     }
     pub fn get_initial_matrix(&self) -> Result<JsValue, JsValue> {
         match &self.calculator {
-            Some(c) => Ok(serde_wasm_bindgen::to_value(&SendableMatrix::from(c.initial_matrix()))?),
-            None => Err(serde_wasm_bindgen::to_value("no calculator")?)
+            Some(c) => Ok(serde_wasm_bindgen::to_value(&SendableMatrix::from(
+                c.initial_matrix(),
+            ))?),
+            None => Err(serde_wasm_bindgen::to_value("no calculator")?),
         }
     }
     pub fn get_reduced_matrix(&self) -> Result<JsValue, JsValue> {
         match &self.calculator {
-            Some(c) => Ok(serde_wasm_bindgen::to_value(&SendableMatrix::from(c.reduced_matrix()))?),
-            None => Err(serde_wasm_bindgen::to_value("no calculator")?)
+            Some(c) => Ok(serde_wasm_bindgen::to_value(&SendableMatrix::from(
+                c.reduced_matrix(),
+            ))?),
+            None => Err(serde_wasm_bindgen::to_value("no calculator")?),
         }
     }
 }
@@ -237,11 +313,12 @@ impl GraphConfiguration {
 struct SendableMatrix<T> {
     r: usize,
     c: usize,
-    data: Vec<T>
+    data: Vec<T>,
 }
-impl <T> From<&DMatrix<T>> for SendableMatrix<T>
-    where T: Scalar
-    {
+impl<T> From<&DMatrix<T>> for SendableMatrix<T>
+where
+    T: Scalar,
+{
     fn from(m: &DMatrix<T>) -> SendableMatrix<T> {
         SendableMatrix {
             r: m.nrows(),

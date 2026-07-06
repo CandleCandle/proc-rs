@@ -1,22 +1,22 @@
 use std::collections::BTreeMap;
 
-use serde::{Deserialize, Serialize};
 use enum_id_derive::EnumId;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     basic_data_parse::DataParserBasic,
+    fl_data_parse::DataParserFLab,
+    frd_data_parse::DataParserFrd,
     graph_configuration::FetchDataSet,
     hydration::Dehydrate,
     model::{Data, DataParser},
     rl_data_parse::DataParserRecipeLister,
-    fl_data_parse::DataParserFLab,
-    frd_data_parse::DataParserFrd,
 };
 
 pub enum ModifierStyle {
-    Multiplier, // same: 1; faster: 0.3; slower: 1.4; more output: 1.5, less output: 0.4
+    Multiplier,      // same: 1; faster: 0.3; slower: 1.4; more output: 1.5, less output: 0.4
     PercentAddition, // same: 0; faster: 20%; slower: -30%; more output: 10%, less output: -5%
-    Percent, // same: 100%; faster: 110%; slower: 90%; more output: 150%, less output: 80%
+    Percent,         // same: 100%; faster: 110%; slower: 90%; more output: 150%, less output: 80%
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -28,7 +28,8 @@ pub struct DataSetConf {
 
 impl DataSetConf {
     pub async fn into_data<F>(&self, fetcher: F) -> Result<Data, String>
-        where F: FetchDataSet
+    where
+        F: FetchDataSet,
     {
         let parser = self.style.parser();
         let files = parser.files_to_fetch_list(self);
@@ -47,7 +48,10 @@ pub struct DehydratedDataSetConf {
 }
 impl Dehydrate<DehydratedDataSetConf> for DataSetConf {
     fn dehydrate(&self) -> DehydratedDataSetConf {
-        DehydratedDataSetConf { id: self.id.clone(), style: self.style.id() }
+        DehydratedDataSetConf {
+            id: self.id.clone(),
+            style: self.style.id(),
+        }
     }
 }
 
@@ -61,20 +65,26 @@ pub enum DataSetStyle {
 impl DataSetStyle {
     pub fn parser(&self) -> Box<dyn DataParser> {
         match self {
-            Self::Basic => Box::new(DataParserBasic{}),
-            Self::RecipeLister => Box::new(DataParserRecipeLister{}),
-            Self::FLab => Box::new(DataParserFLab{}),
-            Self::Frd => Box::new(DataParserFrd{}),
+            Self::Basic => Box::new(DataParserBasic {}),
+            Self::RecipeLister => Box::new(DataParserRecipeLister {}),
+            Self::FLab => Box::new(DataParserFLab {}),
+            Self::Frd => Box::new(DataParserFrd {}),
         }
     }
     pub fn id(&self) -> String {
         self.name().to_lowercase()
     }
 }
-impl TryFrom<String> for DataSetStyle { // derive this
+impl TryFrom<String> for DataSetStyle {
+    // derive this
     type Error = String;
     fn try_from(value: String) -> Result<Self, Self::Error> {
-        for v in [DataSetStyle::Basic, DataSetStyle::FLab, DataSetStyle::RecipeLister, DataSetStyle::Frd] {
+        for v in [
+            DataSetStyle::Basic,
+            DataSetStyle::FLab,
+            DataSetStyle::RecipeLister,
+            DataSetStyle::Frd,
+        ] {
             if v.id() == value {
                 return Ok(v);
             }

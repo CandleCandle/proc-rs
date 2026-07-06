@@ -1,14 +1,10 @@
-
-
 use enum_id_derive::EnumId;
-
 
 #[derive(EnumId, Debug, PartialEq)]
 enum SomethingToTest {
     ThisIsTesting,
     SomeOtherTest,
 }
-
 
 #[test]
 fn it_creates_name() {
@@ -22,5 +18,11 @@ fn it_creates_another_name() {
 
 #[test]
 fn it_enumerates_values() {
-    assert_eq!(SomethingToTest::values(), vec!(SomethingToTest::ThisIsTesting, SomethingToTest::SomeOtherTest));
+    assert_eq!(
+        SomethingToTest::values(),
+        vec!(
+            SomethingToTest::ThisIsTesting,
+            SomethingToTest::SomeOtherTest
+        )
+    );
 }

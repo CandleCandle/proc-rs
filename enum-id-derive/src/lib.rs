@@ -3,8 +3,6 @@ use quote::quote;
 // use quote::ToTokens;
 use syn::{self, Data};
 
-
-
 #[proc_macro_derive(EnumId)]
 pub fn enum_id_derive(input: TokenStream) -> TokenStream {
     // Construct a representation of Rust code as a syntax tree
@@ -37,7 +35,7 @@ fn impl_macro_enumid(ast: &syn::DeriveInput) -> TokenStream {
                 }
             };
             generated.into()
-        },
+        }
         Data::Struct(_) => panic!(),
         Data::Union(_) => panic!(),
     }
