@@ -9,6 +9,7 @@ use crate::data::{
     model::{Data, DataParser},
     rl_data_parse::DataParserRecipeLister,
     fl_data_parse::DataParserFLab,
+    frd_data_parse::DataParserFrd,
 };
 
 pub enum ModifierStyle {
@@ -54,6 +55,7 @@ pub enum DataSetStyle {
     Basic,
     RecipeLister,
     FLab,
+    Frd,
 }
 impl DataSetStyle {
     pub fn parser(&self) -> Box<dyn DataParser> {
@@ -61,6 +63,7 @@ impl DataSetStyle {
             Self::Basic => Box::new(DataParserBasic{}),
             Self::RecipeLister => Box::new(DataParserRecipeLister{}),
             Self::FLab => Box::new(DataParserFLab{}),
+            Self::Frd => Box::new(DataParserFrd{}),
         }
     }
     pub fn id(&self) -> String {
@@ -68,13 +71,14 @@ impl DataSetStyle {
             Self::Basic => "basic".to_string(),
             Self::FLab => "flab".to_string(),
             Self::RecipeLister => "recipelister".to_string(),
+            Self::Frd => "frd".to_string(),
         }
     }
 }
 impl TryFrom<String> for DataSetStyle {
     type Error = String;
     fn try_from(value: String) -> Result<Self, Self::Error> {
-        for v in [DataSetStyle::Basic, DataSetStyle::FLab, DataSetStyle::RecipeLister] {
+        for v in [DataSetStyle::Basic, DataSetStyle::FLab, DataSetStyle::RecipeLister, DataSetStyle::Frd] {
             if v.id() == value {
                 return Ok(v);
             }
