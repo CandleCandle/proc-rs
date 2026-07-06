@@ -373,6 +373,7 @@ impl Recipe {
         items: &HashMap<String, Rc<Item>>,
         items_with_temperatures: &HashMap<String, Vec<(f64, Rc<Item>)>>
     ) -> Result<Vec<Process>, String> {
+        println!("new temperature process: {}", self.name);
         let mut input_options: Vec<Vec<Stack>> = Vec::new();
         for ingredient in self.ingredients.as_ref().unwrap_or(&Vec::new()) {
             input_options.push(ingredient.new_inputs_from(items, items_with_temperatures).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e))?);
@@ -422,6 +423,7 @@ impl Recipe {
         factory_group: Rc<FactoryGroup>,
         items: &HashMap<String, Rc<Item>>,
     ) -> Result<Vec<Process>, String> {
+        println!("new basic process: {}", self.name);
         Ok(vec![Process {
             id: self.name.clone(),
             display: self.name.clone(),
@@ -554,6 +556,7 @@ impl Product {
     }
     fn create_id(&self) -> String {
         if self.temperature.is_some() {
+            println!("  creating output id for {}, {}--{}", self.name, self.name, self.temperature.unwrap());
             format!("{}--{}", self.name, self.temperature.unwrap() as i64)
         } else {
             self.name.clone()

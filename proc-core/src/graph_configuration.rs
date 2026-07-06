@@ -423,12 +423,20 @@ impl GraphConfiguration {
             proc.outputs
                 .iter()
                 .any(|output| search == output.item.id && output.quantity > 0.0)
+            ||
+            proc.outputs_unmod
+                .iter()
+                .any(|output| search == output.item.id && output.quantity > 0.0)
         })
     }
 
     pub fn search_processes_by_input(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
         self.search_proc(|proc| {
             proc.inputs
+                .iter()
+                .any(|input| search == input.item.id && input.quantity > 0.0)
+            ||
+            proc.inputs_unmod
                 .iter()
                 .any(|input| search == input.item.id && input.quantity > 0.0)
         })
@@ -609,6 +617,14 @@ mod test {
 
     #[test]
     fn it_searches_processes_by_output_id() {
+        let gc = fixtures::create_config();
+        let result = gc.search_processes_by_output("part_4").unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_b");
+    }
+
+    #[test]
+    fn it_searches_processes_by_output_id_with_temperature() {
         let gc = fixtures::create_config();
         let result = gc.search_processes_by_output("part_4").unwrap();
         assert_eq!(result.len(), 1);

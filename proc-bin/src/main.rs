@@ -24,6 +24,7 @@ struct Cli {
 enum Commands {
     Generate(GenerateArgs),
     Serial(SerialArgs),
+    Search(SearchArgs),
 }
 
 #[derive(Parser, Debug, Clone)]
@@ -38,6 +39,30 @@ struct SerialArgs {
     mode: SerialMode,
 }
 
+#[derive(Parser, Debug, Clone)]
+#[command(version, about, verbatim_doc_comment)]
+struct SearchArgs {
+    /// Data ID
+    #[arg(short = 'i', long)]
+    dataset_id: String,
+
+    /// Data Style
+    #[arg(short = 's', long)]
+    dataset_style: String,
+
+    /// File path to data contents
+    #[arg(short = 'f', long)]
+    // data_location: PathBuf,
+    data_location: String,
+
+    #[arg(short = 'p', long)]
+    process: Option<String>,
+    #[arg(short = 'n', long)]
+    input_id: Option<String>,
+    #[arg(short = 'o', long)]
+    output_id: Option<String>,
+}
+
 #[derive(ValueEnum, Copy, Clone, Debug, PartialEq, Eq)]
 enum SerialMode {
     Json,
@@ -45,12 +70,12 @@ enum SerialMode {
 }
 
 /// Examples:
-/// cargo run -- -s 'fac-2.0.0' -f www/data/fac-2.0.0.json -r 5:part_d -p make_d:1:1:1 -g sample.gv
+/// cargo run -- -i 'fac-2.0.0' -d www -r 5:part_d -p make_d:1:1:1 -g sample.gv
 /// or
 /// cargo run -- \
 ///     --dataset_id 'fac-2.0.0' \
 ///     --dataset_style 'basic|flab|recipelister' \
-///     --data-location www/data/fac-2.0.0.json \
+///     --data-location www \
 ///     --requirement 5:part_d \
 ///     --process make_d:1:1:1 \
 ///     --graph-out sample.gv
@@ -140,6 +165,7 @@ async fn main() -> Result<(), String> {
     match args.command {
         Commands::Generate(args) => generate(args).await,
         Commands::Serial(args) => serial(args).await,
+        Commands::Search(args) => search(args).await,
     }
 }
 
@@ -292,4 +318,53 @@ fn make_materials_count_table(materials: &StackSet) -> String {
     );
 
     result.build().to_string()
+}
+
+async fn search(args: SearchArgs) -> Result<(), String> {
+    let current_data_conf = DataSetConf {
+        id: args.dataset_id,
+        style: args.dataset_style.try_into()?,
+    };
+
+    let ff = FileFetcher {
+        base_dir: args.data_location,
+    };
+    let current_data = current_data_conf.into_data(ff).await?;
+
+    let mut gc = GraphConfiguration::new();
+    gc.set_data(current_data, current_data_conf);
+
+    if args.output_id.is_some() {
+        let result = gc.search_processes_by_output(args.output_id.unwrap().as_str());
+        for p in result.unwrap() {
+            println!("==================================");
+            println!("{} ({})", p.display, p.id);
+            println!("  -- inputs --");
+            for i in &p.inputs {
+                println!("  {} ({}) {}", i.item.display, i.item.id, i.quantity);
+            }
+            println!("  -- outputs --");
+            for o in &p.outputs {
+                println!("  {} ({}) {}", o.item.display, o.item.id, o.quantity);
+            }
+        }
+    }
+
+    if args.process.is_some() {
+        let result = gc.search_processes(args.process.unwrap().as_str());
+        for p in result.unwrap() {
+            println!("==================================");
+            println!("{} ({})", p.display, p.id);
+            println!("  -- inputs --");
+            for i in &p.inputs {
+                println!("  {} ({}) {}", i.item.display, i.item.id, i.quantity);
+            }
+            println!("  -- outputs --");
+            for o in &p.outputs {
+                println!("  {} ({}) {}", o.item.display, o.item.id, o.quantity);
+            }
+        }
+    }
+
+    Ok(())
 }
