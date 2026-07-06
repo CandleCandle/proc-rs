@@ -4,7 +4,7 @@ use graphviz_rust::{attributes::{NodeAttributes}, dot_generator::{attr, id}, dot
 use itertools::Itertools;
 use nalgebra::{DMatrix, DVector};
 
-use crate::data::{graph_configuration::{GraphConfiguration, Units}, model::{ActiveProcess, Item, StackSet}};
+use crate::{graph_configuration::{GraphConfiguration, Units}, model::{ActiveProcess, Item, StackSet}};
 
 use regex::{self, Regex};
 

@@ -1,6 +1,6 @@
 use std::{collections::HashMap, fs, path::PathBuf, rc::Rc};
 
-use crate::data::{dataset::DataSetConf, graph_configuration::GraphConfiguration, model::{Classification, Data, Factory, FactoryGroup, Item, Process, Stack}};
+use crate::{dataset::DataSetConf, graph_configuration::GraphConfiguration, model::{Classification, Data, Factory, FactoryGroup, Item, Process, Stack}};
 
 
 pub fn load_fixture(path: &str) -> String {

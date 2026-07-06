@@ -1,0 +1,16 @@
+[package]
+name = "proc-core"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+base64 = "0.22.1"
+graphviz-rust = "0.9.8"
+itertools = "0.14.0"
+nalgebra = "0.34.2"
+serde = { version = "1.0.228", features = ["derive", "rc"] }
+serde_json = { version = "1.0.149", default-features = false, features = ["alloc"] }
+
+enum-id = {path = "../enum-id"}
+enum-id-derive = {path = "../enum-id-derive"}
+regex = "1.12.3"

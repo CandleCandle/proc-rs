@@ -3,7 +3,7 @@ use std::{collections::{BTreeMap, HashMap}, rc::Rc};
 use enum_id_derive::EnumId;
 use serde::{Deserialize, Serialize};
 
-use crate::data::model::{Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
+use crate::model::{Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
 
 
 
