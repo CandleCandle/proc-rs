@@ -441,7 +441,7 @@ mod test {
 
     use itertools::Itertools;
 
-    use crate::data::{fixtures::load_fixture};
+    use crate::{fixtures::load_fixture};
 
     use super::*;
     static INIT: std::sync::Once = std::sync::Once::new();

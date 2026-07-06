@@ -383,7 +383,7 @@ impl GraphConfiguration {
 #[cfg(test)]
 mod test {
 
-    use crate::data::fixtures;
+    use crate::fixtures;
     use super::*;
 
     #[test]

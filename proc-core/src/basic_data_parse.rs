@@ -109,7 +109,7 @@ impl DataParser for DataParserBasic {
 mod test {
     use std::any::{Any, TypeId};
 
-    use crate::data::model::{Classification};
+    use crate::model::{Classification};
 
     use super::*;
 
