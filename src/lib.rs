@@ -29,11 +29,11 @@ extern "C" {
 }
 
 // "hello world" function to assert that we have bi-directional function calling
-#[wasm_bindgen]
-pub fn stuff(input: String) -> Result<JsValue, JsValue> {
-    log(format!("received {input} from JS").as_str());
-    Ok(serde_wasm_bindgen::to_value(&input)?)
-}
+// #[wasm_bindgen]
+// pub fn stuff(input: String) -> Result<JsValue, JsValue> {
+//     log(format!("received {input} from JS").as_str());
+//     Ok(serde_wasm_bindgen::to_value(&input)?)
+// }
 
 #[wasm_bindgen]
 #[derive(Default)]
