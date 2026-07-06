@@ -4,7 +4,7 @@ import { ref, watch, toRefs } from 'vue';
 const { cfg, item } = defineProps(['cfg', 'item']);
 const emit = defineEmits(['cfg_update']);
 
-const requirement_value = ref(null);
+const requirement_value = ref("1");
 
 function add_requirement(cfg, item_id, value) {
     console.log("adding requirement", item_id, value, cfg);
