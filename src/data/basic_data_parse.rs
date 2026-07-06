@@ -1,20 +1,19 @@
 use std::{collections::{BTreeMap, HashMap}, rc::Rc};
 
+use enum_id_derive::EnumId;
 use serde_json::Value;
 
 use crate::data::dataset::DataSetConf;
 
 use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
 
-#[derive(Debug)]
+#[derive(Debug, EnumId)]
 pub enum DataParserBasicFiles {
     Main,
 }
 impl DataParserBasicFiles {
     pub fn to_key(&self) -> String {
-        match &self {
-            Self::Main => "main".to_string(),
-        }
+        self.name()
     }
 }
 

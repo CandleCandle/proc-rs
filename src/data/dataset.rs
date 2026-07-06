@@ -1,6 +1,7 @@
 use std::collections::BTreeMap;
 
 use serde::{Deserialize, Serialize};
+use enum_id_derive::EnumId;
 
 use crate::data::{
     basic_data_parse::DataParserBasic,
@@ -50,7 +51,7 @@ impl Dehydrate<DehydratedDataSetConf> for DataSetConf {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, EnumId)]
 pub enum DataSetStyle {
     Basic,
     RecipeLister,
@@ -67,15 +68,10 @@ impl DataSetStyle {
         }
     }
     pub fn id(&self) -> String {
-        match self {
-            Self::Basic => "basic".to_string(),
-            Self::FLab => "flab".to_string(),
-            Self::RecipeLister => "recipelister".to_string(),
-            Self::Frd => "frd".to_string(),
-        }
+        self.name().to_lowercase()
     }
 }
-impl TryFrom<String> for DataSetStyle {
+impl TryFrom<String> for DataSetStyle { // derive this
     type Error = String;
     fn try_from(value: String) -> Result<Self, Self::Error> {
         for v in [DataSetStyle::Basic, DataSetStyle::FLab, DataSetStyle::RecipeLister, DataSetStyle::Frd] {

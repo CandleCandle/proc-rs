@@ -4,12 +4,13 @@ use graphviz_rust::{attributes::{NodeAttributes}, dot_generator::{attr, id}, dot
 use itertools::Itertools;
 use nalgebra::{DMatrix, DVector};
 
-use crate::data::{graph_configuration::GraphConfiguration, model::{ActiveProcess, Item, StackSet}};
+use crate::data::{graph_configuration::{GraphConfiguration, Units}, model::{ActiveProcess, Item, StackSet}};
 
 use regex::{self, Regex};
 
 pub struct Calculator {
     gc: GraphConfiguration,
+    units: Units,
     initial: DMatrix<f64>,
     reduced: DMatrix<f64>,
 }
@@ -21,6 +22,7 @@ impl Calculator {
 
         Calculator {
             gc: gc.clone(),
+            units: gc.get_units().clone(),
             initial,
             reduced,
         }
@@ -205,7 +207,7 @@ impl Calculator {
         )
     }
 
-    fn node_label(positive_sum: &f64, display: &str, negative_sum: &f64) -> String {
+    fn node_label(&self, positive_sum: &f64, display: &str, negative_sum: &f64) -> String {
         let negative_sum = if negative_sum.abs() < 1e-10 && negative_sum.is_sign_positive() {
             *negative_sum
         } else {
@@ -217,7 +219,7 @@ impl Calculator {
         let mut parts: Vec<String> = Vec::new();
         if positive_sum.abs() > 1e-10 {
             parts.push(
-                format!("\"{{ {{<produce> produce {positive_sum:.2}/s }}")
+                format!("\"{{ {{<produce> produce {positive_sum:.2}/{} }}", self.units.to_short_string())
             );
         } else {
             parts.push(format!("\"{{ {{<produce> {display} }}"))
@@ -227,7 +229,7 @@ impl Calculator {
         }
         if negative_sum.abs() > 1e-10 {
             parts.push(
-                format!("{{<consume> consume {negative_sum:.2}/s }} }}\"")
+                format!("{{<consume> consume {negative_sum:.2}/{} }} }}\"", self.units.to_short_string())
             );
         } else {
             parts.push(format!("{{<consume> {display} }} }}\""))
@@ -250,7 +252,7 @@ impl Calculator {
                         attr!("shape", "record"),
                         // net-consumer / net-producer / net-equal
                         NodeAttributes::class(class.to_string()),
-                        NodeAttributes::label(Self::node_label(
+                        NodeAttributes::label(self.node_label(
                             &materials.sum_positive(&mat).quantity,
                             &mat.display,
                             &materials.sum_negative(&mat).quantity))

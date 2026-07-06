@@ -3,11 +3,12 @@ use std::{
     rc::Rc,
 };
 
+use enum_id_derive::EnumId;
 use serde::{Deserialize, Serialize};
 
 use crate::data::model::{Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
 
-#[derive(Debug)]
+#[derive(Debug, EnumId)]
 pub enum DataParserFrdFiles {
     RecipesClean,
     Tags,
@@ -16,11 +17,7 @@ pub enum DataParserFrdFiles {
 
 impl DataParserFrdFiles {
     pub fn to_key(&self) -> String {
-        match &self {
-            Self::RecipesClean => "RecipesClean".to_string(),
-            Self::Tags => "Tags".to_string(),
-            Self::Machines => "Machines".to_string(),
-        }
+        self.name()
     }
 }
 

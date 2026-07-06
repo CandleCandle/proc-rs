@@ -3,7 +3,7 @@ use std::io::Read;
 use std::str::FromStr;
 use std::{collections::BTreeMap, fs, path::PathBuf};
 
-use clap::{command, Parser, Subcommand, ValueEnum};
+use clap::{Parser, Subcommand, ValueEnum};
 
 use proc_rs::data::dataset::DataSetConf;
 use proc_rs::data::graph_configuration::{DehydratedGraphConfiguration, FetchDataSet};

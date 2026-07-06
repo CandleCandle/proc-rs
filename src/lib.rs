@@ -16,10 +16,10 @@ use data::model::{Item, Process};
 use data::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
 
 use crate::data::calculator::Calculator;
-use crate::data::graph_configuration::DehydratedGraphConfiguration;
+use crate::data::graph_configuration::{DehydratedGraphConfiguration, Units};
 use crate::data::model::{ActiveProcess, Factory};
 
-use base64::{Engine,prelude::BASE64_STANDARD_NO_PAD};
+use base64::{Engine,prelude::BASE64_URL_SAFE_NO_PAD};
 use crate::data::hydration::{Rehydrate,Dehydrate};
 
 #[wasm_bindgen]
@@ -76,7 +76,7 @@ impl GraphConfiguration {
     pub fn dehydrate(&self) -> Result<JsValue, JsValue> {
         if self.wrapped.can_render() {
             Ok(JsValue::from_str(
-                &BASE64_STANDARD_NO_PAD.encode(rmp_serde::encode::to_vec(&self.wrapped.dehydrate()).unwrap())
+                &BASE64_URL_SAFE_NO_PAD.encode(rmp_serde::encode::to_vec(&self.wrapped.dehydrate()).unwrap())
             ))
         } else {
             Ok(JsValue::null())
@@ -91,7 +91,7 @@ impl GraphConfiguration {
 
     pub async fn rehydrate(&mut self, serialised: String) -> Result<JsValue, JsValue> {
         let dgc: DehydratedGraphConfiguration = rmp_serde::decode::from_slice(
-            BASE64_STANDARD_NO_PAD.decode(serialised).map_err(|e| e.to_string())?.as_slice()
+            BASE64_URL_SAFE_NO_PAD.decode(serialised).map_err(|e| e.to_string())?.as_slice()
         ).map_err(|e| JsValue::from_str(&e.to_string()))?;
 
         self.wrapped = dgc.rehydrate(RequestFetcher{}).await.map_err(|e| JsValue::from_str(&e.to_string()))?;
@@ -147,11 +147,11 @@ impl GraphConfiguration {
     }
 
     pub fn get_units(&mut self) -> Result<JsValue, JsValue> {
-        Ok(JsValue::from_str(self.wrapped.get_units()))
+        Ok(JsValue::from_str(self.wrapped.get_units().to_string().as_str()))
     }
 
     pub fn update_units(&mut self, units: String) -> Result<JsValue, JsValue> {
-        self.wrapped.update_units(&units);
+        self.wrapped.update_units(Units::from(units));
         Ok(JsValue::null()) // XXX err result required.
     }
 

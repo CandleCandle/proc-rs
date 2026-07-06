@@ -1,5 +1,6 @@
 use std::{collections::{BTreeMap, HashMap}, rc::Rc};
 
+use enum_id_derive::EnumId;
 use serde::{Deserialize, Serialize};
 
 use crate::data::model::{Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
@@ -7,16 +8,14 @@ use crate::data::model::{Data, DataParser, Factory, FactoryGroup, Item, Process,
 
 
 
-#[derive(Debug)]
+#[derive(Debug, EnumId)]
 pub enum DataParserFLabFiles {
     Data,
 }
 
 impl DataParserFLabFiles {
     pub fn to_key(&self) -> String {
-        match &self {
-            Self::Data => "Data".to_string(),
-        }
+        self.name()
     }
 }
 
