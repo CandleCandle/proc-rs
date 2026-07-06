@@ -42,5 +42,30 @@
     "max_temperature" : 25,
     "fuel_value" : 0,
     "emissions_multiplier" : 1
+  },
+
+  "angels-water-saline" : {
+    "name" : "angels-water-saline"
+  },
+  "angels-liquid-water-heavy" : {
+    "name" : "angels-liquid-water-heavy"
+  },
+  "angels-liquid-water-semiheavy-3" : {
+    "name" : "angels-liquid-water-semiheavy-3"
+  },
+  "angels-liquid-water-semiheavy-2" : {
+    "name" : "angels-liquid-water-semiheavy-2"
+  },
+  "angels-water-purified" : {
+    "name" : "angels-water-purified"
+  },
+  "angels-gas-hydrogen-sulfide" : {
+    "name" : "angels-gas-hydrogen-sulfide"
+  },
+  "angels-gas-enriched-hydrogen-sulfide" : {
+    "name" : "angels-gas-enriched-hydrogen-sulfide"
+  },
+  "angels-water-green-waste" : {
+    "name" : "angels-water-green-waste"
   }
 }

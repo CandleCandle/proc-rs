@@ -373,6 +373,8 @@ impl Recipe {
 struct Ingredient {
     name: String,
     amount: Option<f64>,
+    minimum_temperature: Option<f64>,
+    maximum_temperature: Option<f64>,
 }
 impl Ingredient {
     fn new_input_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
@@ -402,6 +404,7 @@ struct Product {
     extra_count_fraction: Option<f64>,
     amount_min: Option<f64>,
     amount_max: Option<f64>,
+    temperature: Option<f64>,
     ignored_by_productivity: Option<f64>,
 }
 impl Product {
@@ -635,6 +638,11 @@ mod test {
                 .collect::<Vec<String>>(),
             &[
                 "advanced-crafting",
+                "angels-advanced-chemistry",
+                "angels-cooling",
+                "angels-petrochem-boiler",
+                "angels-water-enrichment",
+                "angels-water-treatment",
                 "basic-crafting",
                 "centrifuging",
                 "crafting",
@@ -672,6 +680,7 @@ mod test {
                 "centrifuge",
                 "electric-furnace",
                 "electric-mining-drill",
+                "everything",
                 "pumpjack",
                 "recycler",
                 "rocket-silo",
@@ -749,6 +758,14 @@ mod test {
                 .collect::<Vec<String>>(),
             &[
                 "advanced-circuit",
+                "angels-gas-enriched-hydrogen-sulfide",
+                "angels-gas-hydrogen-sulfide",
+                "angels-liquid-water-heavy",
+                "angels-liquid-water-semiheavy-2",
+                "angels-liquid-water-semiheavy-3",
+                "angels-water-green-waste",
+                "angels-water-purified",
+                "angels-water-saline",
                 "big-mining-drill",
                 "coal",
                 "crude-oil",
@@ -785,6 +802,9 @@ mod test {
                 .collect::<Vec<String>>(),
             &[
                 "Moss-1-without-sludge",
+                "angels-heavy-water-cooling", // input between 26C and MAX_INT; output at 25C
+                "angels-liquid-water-heavy", // input between MIN_INT and 25C; output at 100C
+                "angels-liquid-water-semiheavy-3", // outputs at 100C
                 "big-mining-drill-recycling",
                 "kovarex-enrichment-process",
                 "parameter-0",

@@ -326,5 +326,199 @@
       "probability" : 1,
       "amount" : 1
     }
+  },
+
+  "angels-liquid-water-semiheavy-3" : {
+    "name" : "angels-liquid-water-semiheavy-3",
+    "localised_name" : [
+      "recipe-name.angels-water-enrichment",
+      "3",
+      "12.5",
+      "15"
+    ],
+    "category" : "angels-advanced-chemistry",
+    "order" : "k[water-enrichment]-a[enriching]-c[semiheavy-3]",
+    "group" : {
+      "name" : "angels-water-treatment",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "angels-water-enrichment",
+      "type" : "item-subgroup"
+    },
+    "enabled" : false,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 5,
+    "ingredients" : [
+      {
+        "type" : "fluid",
+        "name" : "angels-water-saline",
+        "amount" : 60
+      },
+      {
+        "type" : "fluid",
+        "name" : "angels-liquid-water-semiheavy-2",
+        "amount" : 50,
+        "minimum_temperature" : -3.4028234663853e+38,
+        "maximum_temperature" : 30
+      },
+      {
+        "type" : "fluid",
+        "name" : "angels-gas-enriched-hydrogen-sulfide",
+        "amount" : 100,
+        "minimum_temperature" : 95,
+        "maximum_temperature" : 3.4028234663853e+38
+      }
+    ],
+    "products" : [
+      {
+        "type" : "fluid",
+        "name" : "angels-gas-hydrogen-sulfide",
+        "probability" : 1,
+        "amount" : 100
+      },
+      {
+        "type" : "fluid",
+        "name" : "angels-liquid-water-semiheavy-3",
+        "probability" : 1,
+        "amount" : 50,
+        "temperature" : 100
+      },
+      {
+        "type" : "fluid",
+        "name" : "angels-water-green-waste",
+        "probability" : 1,
+        "amount" : 60
+      }
+    ],
+    "main_product" : {
+      "type" : "fluid",
+      "name" : "angels-liquid-water-semiheavy-3",
+      "probability" : 1,
+      "amount" : 50,
+      "temperature" : 100
+    }
+  },
+
+  "angels-heavy-water-cooling" : {
+    "name" : "angels-heavy-water-cooling",
+    "localised_name" : [
+      "recipe-name.angels-heavy-water-cooling"
+    ],
+    "category" : "angels-cooling",
+    "order" : "k[water-enrichment]-b[cooling]-d[heavy-water]",
+    "group" : {
+      "name" : "angels-water-treatment",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "angels-water-enrichment",
+      "type" : "item-subgroup"
+    },
+    "enabled" : false,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 4,
+    "ingredients" : [
+      {
+        "type" : "fluid",
+        "name" : "angels-liquid-water-heavy",
+        "amount" : 100,
+        "minimum_temperature" : 26,
+        "maximum_temperature" : 3.4028234663853e+38,
+        "ignored_by_stats" : 100
+      },
+      {
+        "type" : "fluid",
+        "name" : "angels-water-purified",
+        "amount" : 25
+      }
+    ],
+    "products" : [
+      {
+        "type" : "fluid",
+        "name" : "angels-liquid-water-heavy",
+        "probability" : 1,
+        "amount" : 100,
+        "temperature" : 25,
+        "ignored_by_stats" : 100,
+        "ignored_by_productivity" : 100
+      },
+      {
+        "type" : "fluid",
+        "name" : "steam",
+        "probability" : 1,
+        "amount" : 25,
+        "temperature" : 125
+      }
+    ],
+    "main_product" : {
+      "type" : "fluid",
+      "name" : "angels-liquid-water-heavy",
+      "probability" : 1,
+      "amount" : 100,
+      "temperature" : 25,
+      "ignored_by_stats" : 100,
+      "ignored_by_productivity" : 100
+    }
+  },
+    "angels-liquid-water-heavy" : {
+    "name" : "angels-liquid-water-heavy",
+    "localised_name" : [
+      "fluid-name.angels-liquid-water-heavy"
+    ],
+    "category" : "angels-petrochem-boiler",
+    "order" : "k[water-enrichment]-a[enriching]-d[heavy]",
+    "group" : {
+      "name" : "angels-water-treatment",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "angels-water-enrichment",
+      "type" : "item-subgroup"
+    },
+    "enabled" : false,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 2,
+    "ingredients" : [
+      {
+        "type" : "fluid",
+        "name" : "angels-liquid-water-semiheavy-3",
+        "amount" : 100,
+        "minimum_temperature" : -3.4028234663853e+38,
+        "maximum_temperature" : 30
+      }
+    ],
+    "products" : [
+      {
+        "type" : "fluid",
+        "name" : "angels-liquid-water-heavy",
+        "probability" : 1,
+        "amount" : 5,
+        "temperature" : 100,
+        "fluidbox_index" : 1
+      },
+      {
+        "type" : "fluid",
+        "name" : "steam",
+        "probability" : 1,
+        "amount" : 95,
+        "temperature" : 125,
+        "fluidbox_index" : 2
+      }
+    ],
+    "main_product" : {
+      "type" : "fluid",
+      "name" : "angels-liquid-water-heavy",
+      "probability" : 1,
+      "amount" : 5,
+      "temperature" : 100,
+      "fluidbox_index" : 1
+    }
   }
 }
