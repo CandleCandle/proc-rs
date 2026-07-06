@@ -1,11 +1,13 @@
-use std::{collections::HashMap, fs, path::PathBuf, rc::Rc};
+use std::{collections::HashMap, fs, path::PathBuf, rc::Rc, env};
 
 use crate::{dataset::DataSetConf, graph_configuration::GraphConfiguration, model::{Classification, Data, Factory, FactoryGroup, Item, Process, Stack}};
 
 
 pub fn load_fixture(path: &str) -> String {
-    println!("fixtures location: {:?}", PathBuf::from(file!()).parent().unwrap().join(PathBuf::from(path)));
-    fs::read_to_string(PathBuf::from(file!()).parent().unwrap().join(PathBuf::from(path))).unwrap()
+    println!("fixtures location cwd: {:?} {}", env::current_dir().unwrap(), env::current_dir().unwrap().exists());
+    let pb = PathBuf::from("..").join(PathBuf::from(file!()).parent().unwrap().join(PathBuf::from(path)));
+    println!("fixtures location: {:?} {}", pb, pb.exists());
+    fs::read_to_string(pb).unwrap()
 }
 
 pub fn simple_data_fixture() -> Data {
