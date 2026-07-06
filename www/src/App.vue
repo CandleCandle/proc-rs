@@ -29,6 +29,7 @@ if (window.location.hash) {
         handle_fold_update('current-configuration', cfg.value.can_render()),
         cfg_fu.value++;
       });
+      console.log("cfg units", cfg.value.get_units())
     } else {
       console.log("reset: no parameter");
       cfg.value.reset();

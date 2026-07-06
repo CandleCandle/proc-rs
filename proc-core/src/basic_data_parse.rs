@@ -6,8 +6,8 @@ use std::{
 use enum_id_derive::EnumId;
 use serde_json::Value;
 
-use crate::dataset::DataSetConf;
 use super::model::{Classification, Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
+use crate::dataset::DataSetConf;
 
 #[derive(Debug, EnumId)]
 pub enum DataParserBasicFiles {

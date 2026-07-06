@@ -106,7 +106,7 @@ impl GraphConfiguration {
             .rehydrate(RequestFetcher {})
             .await
             .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Ok(JsValue::null()) // XXX err result required.
+        Ok(self.get_current_data_set()) // XXX err result required.
     }
 
     pub fn get_current_data_set(&self) -> JsValue {

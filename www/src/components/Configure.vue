@@ -53,14 +53,15 @@ let datasets = await fetch('data/datasets.json')
         return response.json()
     })
     .then((json) => {
-        console.log(json);
+        console.log("datasets json", json);
         return json.datasets.map(set => new DataSetConf(set))
     })
     .then((datasets) => {
         var configured_dataset = cfg.get_current_data_set();
+        var units = cfg.get_units();
         dataSetId.value = configured_dataset;
         dataset.value = datasets.find(ds => ds.id() == configured_dataset);
-        console.log('CF', configured_dataset, dataSetId, dataset);
+        console.log('CF', units, configured_dataset, dataSetId, dataset);
         return datasets;
     });
 console.log('fetched datasets', datasets.map(v => {

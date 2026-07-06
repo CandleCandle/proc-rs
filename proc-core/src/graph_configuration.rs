@@ -31,7 +31,7 @@ pub enum Units {
     #[default]
     Second,
     Minute,
-    Belt(u32),
+    Custom(f64),
 }
 impl From<String> for Units {
     /*
@@ -43,7 +43,7 @@ impl From<String> for Units {
         match value.to_ascii_lowercase().as_str() {
             "second" => Units::Second,
             "minute" => Units::Minute,
-            _ => Units::Belt(15), // attempt to parse as int
+            _ => Units::Custom(15.0), // attempt to parse as f64 XXX
         }
     }
 }
@@ -52,7 +52,7 @@ impl ToString for Units {
         match &self {
             Units::Second => "second".to_string(),
             Units::Minute => "minute".to_string(),
-            Units::Belt(n) => format!("{n}s"),
+            Units::Custom(n) => format!("{n}/s"),
         }
     }
 }
@@ -61,8 +61,24 @@ impl Units {
         match &self {
             Units::Second => "s".to_string(),
             Units::Minute => "m".to_string(),
-            Units::Belt(n) => format!("{n}"),
+            Units::Custom(n) => format!("{n}"),
         }
+    }
+    pub fn normalise_to_second(&self, value: f64) -> f64 {
+        let m = match self {
+            Units::Second => 1.0,
+            Units::Minute => 60.0,
+            Units::Custom(m) => m.clone(),
+        };
+        value * m
+    }
+    pub fn normalise_from_second(&self, value: f64) -> f64 {
+        let m = match self {
+            Units::Second => 1.0,
+            Units::Minute => 60.0,
+            Units::Custom(m) => m.clone(),
+        };
+        value / m
     }
 }
 
@@ -88,6 +104,7 @@ impl Dehydrate<DehydratedGraphConfiguration> for GraphConfiguration {
             requirements: self.requirements.iter().map(|s| s.dehydrate()).collect(),
             import_export: self.import_export.iter().map(|io| io.dehydrate()).collect(),
             processes: self.processes.iter().map(|p| p.dehydrate()).collect(),
+            units: self.units.to_string(),
         }
     }
 }
@@ -137,7 +154,7 @@ where
         Ok(GraphConfiguration {
             current_data_set,
             current_data,
-            units: Units::Second,
+            units: Units::from(self.units.clone()),
             requirements,
             import_export,
             processes,
@@ -155,6 +172,9 @@ pub struct DehydratedGraphConfiguration {
     import_export: Vec<DehydratedItem>,
     #[serde(rename = "p")]
     processes: Vec<DehydratedActiveProcess>,
+    #[serde(rename = "u")]
+    units: String,
+
 }
 
 impl GraphConfiguration {
@@ -487,6 +507,8 @@ impl GraphConfiguration {
 #[cfg(test)]
 mod test {
 
+    use approx::relative_eq;
+
     use super::*;
     use crate::fixtures;
 
@@ -644,5 +666,44 @@ mod test {
             .map(|fg| fg.id.clone())
             .collect::<Vec<String>>();
         assert_eq!(result, vec!["all_basics", "just_basic2"]);
+    }
+
+    #[test]
+    fn it_normalises_units_second() {
+        assert_f64_eq(Units::Second.normalise_to_second(30.0), 30.0);
+    }
+
+    #[test]
+    fn it_normalises_units_from_seconds() {
+        assert_f64_eq(Units::Second.normalise_from_second(30.0), 30.0);
+    }
+
+    #[test]
+    fn it_normalises_units_minute() {
+        assert_f64_eq(Units::Minute.normalise_to_second(1.0), 60.0);
+    }
+
+    #[test]
+    fn it_normalises_units_from_minute() {
+        assert_f64_eq(Units::Minute.normalise_from_second(60.0), 1.0);
+    }
+
+    #[test]
+    fn it_normalises_units_minutes() {
+        assert_f64_eq(Units::Minute.normalise_to_second(5.0), 300.0);
+    }
+
+    #[test]
+    fn it_normalises_units_from_minutes() {
+        assert_f64_eq(Units::Minute.normalise_from_second(300.0), 5.0);
+    }
+
+    fn assert_f64_eq(left: f64, right: f64) {
+        let eq = relative_eq!(left, right, epsilon = 1e-10);
+        assert!(
+            eq,
+            "{} is not equal to {} (epsilon: {})",
+            left, right, 1e-10
+        );
     }
 }

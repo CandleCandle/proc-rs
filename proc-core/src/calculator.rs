@@ -108,7 +108,7 @@ impl Calculator {
         for req in gc.get_requirements().iter() {
             for (row_idx, row_item) in all_proc_io.iter().enumerate() {
                 if req.item.id == row_item.id {
-                    col[row_idx] = req.quantity;
+                    col[row_idx] = gc.get_units().normalise_to_second(req.quantity);
                 }
             }
         }
@@ -247,7 +247,8 @@ impl Calculator {
         let mut parts: Vec<String> = Vec::new();
         if positive_sum.abs() > 1e-10 {
             parts.push(format!(
-                "\"{{ {{<produce> produce {positive_sum:.2}/{} }}",
+                "\"{{ {{<produce> produce {:.2}/{} }}",
+                self.units.normalise_from_second(*positive_sum),
                 self.units.to_short_string()
             ));
         } else {
@@ -258,7 +259,8 @@ impl Calculator {
         }
         if negative_sum.abs() > 1e-10 {
             parts.push(format!(
-                "{{<consume> consume {negative_sum:.2}/{} }} }}\"",
+                "{{<consume> consume {:.2}/{} }} }}\"",
+                self.units.normalise_from_second(negative_sum),
                 self.units.to_short_string()
             ));
         } else {
@@ -304,10 +306,11 @@ impl Calculator {
                 .enumerate()
                 .map(|(idx, i)| {
                     format!(
-                        "<i{}> {} ({:.2}/s)",
+                        "<i{}> {} ({:.2}/{})",
                         idx,
                         i.item.display,
-                        i.quantity * proc_count
+                        self.units.normalise_from_second(i.quantity * proc_count),
+                        self.units.to_short_string()
                     )
                 })
                 .join(" | ");
@@ -316,10 +319,11 @@ impl Calculator {
                 .enumerate()
                 .map(|(idx, i)| {
                     format!(
-                        "<o{}> {} ({:.2}/s)",
+                        "<o{}> {} ({:.2}/{})",
                         idx,
                         i.item.display,
-                        i.quantity * proc_count
+                        self.units.normalise_from_second(i.quantity * proc_count),
+                        self.units.to_short_string()
                     )
                 })
                 .join(" | ");
@@ -406,6 +410,41 @@ mod test {
                 -5.0, 1.0, 0.0, 0.0, // p1
                 -2.0, 0.0, 1.0, 0.0, // p2
                 5.0, 0.0, 0.0, 7.0, // p3
+            ],
+        );
+        assert_eq!(
+            (actual.nrows(), actual.ncols()),
+            (expected.nrows(), expected.ncols()),
+            "Row/Column mismatch: {} is not equal to {}",
+            actual,
+            expected
+        );
+        let equality = actual.relative_eq(&expected, EPSILON, 1e-10);
+        assert!(
+            equality,
+            "{} is not equal to {} (epsilon: {})",
+            actual, expected, 1e-10
+        );
+    }
+
+    #[test]
+    fn it_calculates_initial_matrix_with_units() {
+        let mut gc = fixtures::create_config();
+        gc.update_units(Units::Minute);
+        gc.add_requirement("part_3", 7.0);
+        gc.add_import_export("part_1");
+        gc.add_import_export("part_2");
+        gc.add_process("make_a", "basic", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.initial_matrix();
+        let expected = DMatrix::from_row_slice(
+            3,
+            4,
+            &[
+                // proc io  io  req
+                -5.0, 1.0, 0.0, 0.0, // p1
+                -2.0, 0.0, 1.0, 0.0, // p2
+                5.0, 0.0, 0.0, 420.0, // p3
             ],
         );
         assert_eq!(
