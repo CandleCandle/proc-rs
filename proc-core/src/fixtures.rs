@@ -1,4 +1,4 @@
-use std::{collections::HashMap, env, fs, path::PathBuf, rc::Rc};
+use std::{collections::HashMap, fs, path::PathBuf, rc::Rc};
 
 use crate::{
     dataset::DataSetConf,
@@ -7,18 +7,12 @@ use crate::{
 };
 
 pub fn load_fixture(path: &str) -> String {
-    println!(
-        "fixtures location cwd: {:?} {}",
-        env::current_dir().unwrap(),
-        env::current_dir().unwrap().exists()
-    );
     let pb = PathBuf::from("..").join(
         PathBuf::from(file!())
             .parent()
             .unwrap()
             .join(PathBuf::from(path)),
     );
-    println!("fixtures location: {:?} {}", pb, pb.exists());
     fs::read_to_string(pb).unwrap()
 }
 

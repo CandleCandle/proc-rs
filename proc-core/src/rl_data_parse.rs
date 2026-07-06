@@ -1,7 +1,6 @@
 use core::fmt;
 use std::{
-    collections::{BTreeMap, HashMap},
-    rc::Rc,
+    collections::{BTreeMap, HashMap}, rc::Rc
 };
 
 use enum_id_derive::EnumId;
@@ -9,7 +8,6 @@ use serde::{
     Deserialize, Deserializer, Serialize,
     de::{self, MapAccess, Visitor, value::SeqAccessDeserializer},
 };
-use serde_json::Value;
 
 use crate::{
     dataset::DataSetConf,
@@ -87,47 +85,43 @@ impl DataParserRecipeLister {
     }
 
     fn extract_items(
-        parsed: &BTreeMap<String, Value>,
+        items: &HashMap<String, ItemJ>,
+        fluids: &HashMap<String, Fluid>,
+        recipes: &HashMap<String, Recipe>,
     ) -> Result<HashMap<String, Rc<Item>>, String> {
-        let mut items: HashMap<String, Rc<Item>> = HashMap::new();
 
-        for k in &[
-            DataParserRecipeListerFiles::Items,
-            DataParserRecipeListerFiles::Fluids,
-        ] {
-            let classification = match &k {
-                DataParserRecipeListerFiles::Items => Some(Classification::Solid),
-                DataParserRecipeListerFiles::Fluids => Some(Classification::Fluid),
-                _ => None,
+        let mut result: HashMap<String, Rc<Item>> = items.iter().map(
+            |(k, v)| (k.clone(), Rc::new(v.new_item_from()))
+        ).collect();
+
+        result.extend(fluids.iter().map(
+            |(k, v)| (k.clone(), Rc::new(v.new_item_from()))
+        ));
+
+        // for each recipe, find products that have a temperature.
+        // remove the corresponding basic Item and add a replacement with an appropriate id/name
+        // add first then remove at the end so that the correct classification is copied.
+
+        for (_k, recipe) in recipes.iter() {
+            if recipe.products.is_some() {
+                for product in recipe.products.as_ref().unwrap() {
+                    if product.temperature.is_some() {
+                        let existing = result.get(&product.name).cloned();
+                        let new_id = format!("{}--{}", product.name, product.temperature.unwrap() as i64);
+                        result.insert(new_id.clone(), Rc::new(Item {
+                            id: new_id,
+                            display: format!("{} ({}°C)", product.name, product.temperature.unwrap() as i64),
+                            classification: match &existing {
+                                None => Classification::Fluid,
+                                Some(i) => i.classification.clone()
+                            }
+                        }));
+                    }
+                }
             }
-            .ok_or(format!("Unable to classify {k:?} as a solid or fluid"))?;
-            items.extend(
-                parsed
-                    .get(&k.to_key())
-                    .ok_or(format!("missing json {k:?}"))?
-                    .as_object()
-                    .ok_or(format!("missing root object in {k:?}"))?
-                    .into_iter()
-                    .map(|(id, val)| -> Result<(String, Rc<Item>), String> {
-                        Ok((
-                            id.clone(),
-                            Rc::new(Item {
-                                id: val
-                                    .get("name")
-                                    .ok_or(format!("missing name in {id} from {k:?}"))?
-                                    .as_str()
-                                    .ok_or(format!("{k:?} {id}.name was not a string"))?
-                                    .to_string(),
-                                display: id.clone(), // TODO find the i18n files and use.
-                                classification: classification.clone(),
-                            }),
-                        ))
-                    })
-                    .collect::<Result<Vec<(String, Rc<Item>)>, String>>()?,
-            );
         }
 
-        Ok(items)
+        Ok(result)
     }
 
     fn extract_processes(
@@ -228,14 +222,16 @@ impl DataParser for DataParserRecipeLister {
         let mining_drill = self.parse_as(&DataParserRecipeListerFiles::MiningDrill, jsons)?;
         let recipe = self.parse_as(&DataParserRecipeListerFiles::Recipe, jsons)?;
         let resource = self.parse_as(&DataParserRecipeListerFiles::Resource, jsons)?;
+        let items = self.parse_as(&DataParserRecipeListerFiles::Items, jsons)?;
+        let fluids = self.parse_as(&DataParserRecipeListerFiles::Fluids, jsons)?;
 
-        let mut parsed: BTreeMap<String, Value> = BTreeMap::new();
-        for (k, v) in jsons.iter() {
-            parsed.insert(
-                k.clone(),
-                serde_json::from_str(v).map_err(|e| format!("{e}"))?,
-            );
-        }
+        // let mut parsed: BTreeMap<String, Value> = BTreeMap::new();
+        // for (k, v) in jsons.iter() {
+        //     parsed.insert(
+        //         k.clone(),
+        //         serde_json::from_str(v).map_err(|e| format!("{e}"))?,
+        //     );
+        // }
 
         let factory_groups = Self::extract_factory_groups(
             &assembling_machines,
@@ -250,7 +246,7 @@ impl DataParser for DataParserRecipeLister {
             &mining_drill,
             &factory_groups,
         )?;
-        let items = Self::extract_items(&parsed)?;
+        let items = Self::extract_items(&items, &fluids, &recipe)?;
         let processes = Self::extract_processes(&recipe, &resource, &factory_groups, &items)?;
 
         Ok(Data {
@@ -259,6 +255,33 @@ impl DataParser for DataParserRecipeLister {
             factories,
             processes,
         })
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+struct ItemJ {
+    name: String,
+}
+impl ItemJ {
+    fn new_item_from(&self) -> Item {
+        Item {
+            id: self.name.clone(),
+            display: self.name.clone(),
+            classification: Classification::Solid,
+        }
+    }
+}
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+struct Fluid {
+    name: String,
+}
+impl Fluid {
+    fn new_item_from(&self) -> Item {
+        Item {
+            id: self.name.clone(),
+            display: self.name.clone(),
+            classification: Classification::Fluid,
+        }
     }
 }
 
@@ -331,6 +354,7 @@ impl Recipe {
     ) -> Result<Option<Process>, String> {
         let group = factory_groups.get(&self.category).cloned();
         if group.is_none() {
+            eprintln!("recipe: skipping {} due to a missing factory group ({})", self.name, self.category);
             return Ok(None);
         }
         Ok(Some(Process {
@@ -343,28 +367,28 @@ impl Recipe {
                 .as_ref()
                 .unwrap()
                 .iter()
-                .map(|i| i.new_input_from(items))
+                .map(|i| i.new_input_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
                 .collect::<Result<Vec<Stack>, String>>()?,
             inputs_unmod: self
                 .ingredients
                 .as_ref()
                 .unwrap()
                 .iter()
-                .map(|i| i.new_input_unmod_from(items))
+                .map(|i| i.new_input_unmod_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
                 .collect::<Result<Vec<Stack>, String>>()?,
             outputs: self
                 .products
                 .as_ref()
                 .unwrap()
                 .iter()
-                .map(|o| o.new_output_from(items))
+                .map(|o| o.new_output_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
                 .collect::<Result<Vec<Stack>, String>>()?,
             outputs_unmod: self
                 .products
                 .as_ref()
                 .unwrap()
                 .iter()
-                .map(|o| o.new_output_unmod_from(items))
+                .map(|o| o.new_output_unmod_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
                 .collect::<Result<Vec<Stack>, String>>()?,
         }))
     }
@@ -761,8 +785,11 @@ mod test {
                 "angels-gas-enriched-hydrogen-sulfide",
                 "angels-gas-hydrogen-sulfide",
                 "angels-liquid-water-heavy",
+                "angels-liquid-water-heavy--100",
+                "angels-liquid-water-heavy--25",
                 "angels-liquid-water-semiheavy-2",
                 "angels-liquid-water-semiheavy-3",
+                "angels-liquid-water-semiheavy-3--100",
                 "angels-water-green-waste",
                 "angels-water-purified",
                 "angels-water-saline",
@@ -774,6 +801,7 @@ mod test {
                 "iron-chest",
                 "scrap",
                 "steam",
+                "steam--125",
                 "steel-chest",
                 "sulfuric-acid",
                 "tungsten-carbide",
