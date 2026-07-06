@@ -108,7 +108,7 @@ impl Calculator {
         for req in gc.get_requirements().iter() {
             for (row_idx, row_item) in all_proc_io.iter().enumerate() {
                 if req.item.id == row_item.id {
-                    col[row_idx] = gc.get_units().normalise_to_second(req.quantity);
+                    col[row_idx] = gc.get_units().normalise_from_second(req.quantity);
                 }
             }
         }
@@ -174,6 +174,7 @@ impl Calculator {
 
         let mut result = BTreeMap::new();
         for (idx, id) in processes.iter().enumerate() {
+            result.insert(id.to_string(), self.units.normalise_from_second(*last_col.get(idx).unwrap()));
             result.insert(id.to_string(), *last_col.get(idx).unwrap());
         }
         result
@@ -185,10 +186,10 @@ impl Calculator {
         for proc in self.gc.get_processes() {
             let count = *counts.get(proc.id()).unwrap();
             for inp in proc.inputs() {
-                result.add(inp * -count)
+                result.add(inp * self.units.normalise_to_second(-count))
             }
             for out in proc.outputs() {
-                result.add(out * count)
+                result.add(out * self.units.normalise_to_second(count))
             }
         }
         result
@@ -431,7 +432,7 @@ mod test {
     fn it_calculates_initial_matrix_with_units() {
         let mut gc = fixtures::create_config();
         gc.update_units(Units::Minute);
-        gc.add_requirement("part_3", 7.0);
+        gc.add_requirement("part_3", 6.0);
         gc.add_import_export("part_1");
         gc.add_import_export("part_2");
         gc.add_process("make_a", "basic", 1.0, 1.0, 1.0);
@@ -444,7 +445,7 @@ mod test {
                 // proc io  io  req
                 -5.0, 1.0, 0.0, 0.0, // p1
                 -2.0, 0.0, 1.0, 0.0, // p2
-                5.0, 0.0, 0.0, 420.0, // p3
+                 5.0, 0.0, 0.0, 0.1, // p3
             ],
         );
         assert_eq!(
@@ -626,6 +627,37 @@ mod test {
         assert_eq!(actual.len(), 1);
         assert!(actual.contains_key("one_to_one"));
         assert_eq!(actual.get("one_to_one"), Some(&10.0));
+    }
+
+    #[test]
+    fn it_calculates_process_counts_with_custom_units() {
+        let mut gc = fixtures::create_config();
+        gc.update_units(Units::Minute);
+        gc.add_requirement("part_2", 120.0); // 120/minute
+        gc.add_import_export("part_1");
+        gc.add_process("one_to_one", "basic", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.process_counts();
+        assert_eq!(actual.len(), 1);
+        assert!(actual.contains_key("one_to_one"));
+        assert_eq!(actual.get("one_to_one"), Some(&2.0));
+    }
+
+    #[test]
+    fn it_calculates_material_counts_with_custom_units() {
+        let mut gc = fixtures::create_config();
+        gc.update_units(Units::Minute);
+        gc.add_requirement("part_2", 120.0); // 120/minute
+        gc.add_import_export("part_1");
+        gc.add_process("one_to_one", "basic", 1.0, 1.0, 1.0);
+        let calc = Calculator::generate(&gc);
+        let actual = calc.materials();
+        assert_eq!(actual.sum(&gc.item("part_1")).quantity, -600.0);
+        assert_eq!(actual.sum(&gc.item("part_2")).quantity, 120.0);
+        assert_eq!(actual.sum_negative(&gc.item("part_1")).quantity, -600.0);
+        assert_eq!(actual.sum_negative(&gc.item("part_2")).quantity, 0.0);
+        assert_eq!(actual.sum_positive(&gc.item("part_1")).quantity, 0.0);
+        assert_eq!(actual.sum_positive(&gc.item("part_2")).quantity, 120.0);
     }
 
     #[test]

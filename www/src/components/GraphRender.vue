@@ -48,6 +48,11 @@ watch(cfg_fu, (value) => {
     --item-net-equal-fg: light-dark(#333, #fff);
     --item-net-equal-bg: light-dark(#fff, #333);
 }
+/*
+div#vis {
+    width: 100%;
+    height: 100%;
+} */
 
 .graph {
     fill-opacity: 0.0;

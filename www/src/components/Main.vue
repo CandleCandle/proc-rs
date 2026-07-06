@@ -44,6 +44,11 @@ const cfg = shallowRef(new GraphConfiguration());
 // this Forces an Update as it is the :key on the CurrentConfiguration.
 const cfg_fu = ref(0);
 
+const folds = ref({
+  'get-started': !cfg.value.can_render(),
+  'current-configuration': cfg.value.can_render(),
+});
+
 // XXX This behaviour needs to run when location.hash is changed
 // by something that isn't the contents of the graph config changing?
 // at the moment, it's only run on actual page load. There's a forced
@@ -112,10 +117,6 @@ function handle_cfg_update() {
     cfg_fu.value++;
 }
 
-const folds = ref({
-  'get-started': !cfg.value.can_render(),
-  'current-configuration': cfg.value.can_render(),
-});
 
 function handle_fold_update(event_or_id, forced) {
   console.log("fold update 1", event_or_id, forced, folds.value, event_or_id);
