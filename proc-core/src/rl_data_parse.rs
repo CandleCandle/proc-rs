@@ -88,7 +88,7 @@ impl DataParserRecipeLister {
         items: &HashMap<String, ItemJ>,
         fluids: &HashMap<String, Fluid>,
         recipes: &HashMap<String, Recipe>,
-    ) -> Result<HashMap<String, Rc<Item>>, String> {
+    ) -> Result<(HashMap<String, Rc<Item>>, HashMap<String, Vec<(f64, Rc<Item>)>>), String> {
 
         let mut result: HashMap<String, Rc<Item>> = items.iter().map(
             |(k, v)| (k.clone(), Rc::new(v.new_item_from()))
@@ -101,27 +101,34 @@ impl DataParserRecipeLister {
         // for each recipe, find products that have a temperature.
         // remove the corresponding basic Item and add a replacement with an appropriate id/name
         // add first then remove at the end so that the correct classification is copied.
-
+        let mut items_with_temperatures = HashMap::new();
         for (_k, recipe) in recipes.iter() {
             if recipe.products.is_some() {
                 for product in recipe.products.as_ref().unwrap() {
                     if product.temperature.is_some() {
-                        let existing = result.get(&product.name).cloned();
-                        let new_id = format!("{}--{}", product.name, product.temperature.unwrap() as i64);
-                        result.insert(new_id.clone(), Rc::new(Item {
-                            id: new_id,
-                            display: format!("{} ({}°C)", product.name, product.temperature.unwrap() as i64),
-                            classification: match &existing {
-                                None => Classification::Fluid,
-                                Some(i) => i.classification.clone()
+                        let new_id = product.create_id();
+                        if ! result.contains_key(&new_id) {
+                            let existing = result.get(&product.name).cloned();
+                            let new_item = Rc::new(Item {
+                                id: new_id.clone(),
+                                display: format!("{} ({}°C)", product.name, product.temperature.unwrap() as i64),
+                                classification: match &existing {
+                                    None => Classification::Fluid,
+                                    Some(i) => i.classification.clone()
+                                }
+                            });
+                            result.insert(new_id.clone(), new_item.clone());
+                            if ! items_with_temperatures.contains_key(&product.name) {
+                                items_with_temperatures.insert(product.name.clone(), Vec::new());
                             }
-                        }));
+                            items_with_temperatures.get_mut(&product.name).unwrap().push( (product.temperature.unwrap(), new_item.clone()) );
+                        }
                     }
                 }
             }
         }
 
-        Ok(result)
+        Ok((result, items_with_temperatures))
     }
 
     fn extract_processes(
@@ -129,22 +136,17 @@ impl DataParserRecipeLister {
         resources: &HashMap<String, Resource>,
         factory_groups: &HashMap<String, Rc<FactoryGroup>>,
         items: &HashMap<String, Rc<Item>>,
+        items_with_temperatures: &HashMap<String, Vec<(f64, Rc<Item>)>>,
     ) -> Result<HashMap<String, Rc<Process>>, String> {
         let mut processes: HashMap<String, Rc<Process>> = HashMap::new();
 
-        processes.extend(
-            recipes
-                .iter()
-                .map(|(k, v)| -> Result<Option<(String, Rc<Process>)>, String> {
-                    match v.new_process_from(factory_groups, items)? {
-                        None => Ok(None),
-                        Some(proc) => Ok(Some((k.clone(), Rc::new(proc)))),
-                    }
-                })
-                .filter(|v| v.as_ref().is_ok_and(|t| t.is_some()))
-                .map(|v| v.map(|t| t.unwrap()))
-                .collect::<Result<Vec<(String, Rc<Process>)>, String>>()?,
-        );
+        for (_id, recipe) in recipes {
+            // let procs = recipe.new_processes_from(factory_groups, items, &HashMap::new())?; // XXX should fail here
+            let procs = recipe.new_processes_from(factory_groups, items, items_with_temperatures)?;
+            for proc in procs {
+                processes.insert(proc.id.clone(), Rc::new(proc));
+            }
+        }
 
         processes.extend(
             resources
@@ -246,8 +248,8 @@ impl DataParser for DataParserRecipeLister {
             &mining_drill,
             &factory_groups,
         )?;
-        let items = Self::extract_items(&items, &fluids, &recipe)?;
-        let processes = Self::extract_processes(&recipe, &resource, &factory_groups, &items)?;
+        let (items, items_with_temperatures) = Self::extract_items(&items, &fluids, &recipe)?;
+        let processes = Self::extract_processes(&recipe, &resource, &factory_groups, &items, &items_with_temperatures)?;
 
         Ok(Data {
             items,
@@ -347,50 +349,97 @@ struct Recipe {
     products: Option<Vec<Product>>,
 }
 impl Recipe {
-    fn new_process_from(
+    fn new_processes_from(
         &self,
         factory_groups: &HashMap<String, Rc<FactoryGroup>>,
         items: &HashMap<String, Rc<Item>>,
-    ) -> Result<Option<Process>, String> {
-        let group = factory_groups.get(&self.category).cloned();
-        if group.is_none() {
+        items_with_temperatures: &HashMap<String, Vec<(f64, Rc<Item>)>>
+    ) -> Result<Vec<Process>, String> {
+        eprintln!("recipe: processing {}", self.name);
+        if ! factory_groups.contains_key(&self.category) {
             eprintln!("recipe: skipping {} due to a missing factory group ({})", self.name, self.category);
-            return Ok(None);
+            return Ok(Vec::new());
         }
-        Ok(Some(Process {
+        if self.has_temperature_input() {
+            self.permute_temperature_inputs(factory_groups.get(&self.category).unwrap().clone(), items, items_with_temperatures)
+        } else {
+            self.new_basic_process(factory_groups.get(&self.category).unwrap().clone(), items)
+        }
+    }
+
+    fn permute_temperature_inputs(
+        &self,
+        factory_group: Rc<FactoryGroup>,
+        items: &HashMap<String, Rc<Item>>,
+        items_with_temperatures: &HashMap<String, Vec<(f64, Rc<Item>)>>
+    ) -> Result<Vec<Process>, String> {
+        let mut input_options: Vec<Vec<Stack>> = Vec::new();
+        for ingredient in self.ingredients.as_ref().unwrap_or(&Vec::new()) {
+            input_options.push(ingredient.new_inputs_from(items, items_with_temperatures).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e))?);
+        }
+        let permutations = permute(&input_options);
+        eprintln!("permuted: {:?}", permutations);
+        let mut result = Vec::new();
+
+        for (perm_idx, permutation) in permutations.iter().enumerate() {
+            let process = Process {
+                id: format!("{}--{}", self.name, perm_idx),
+                display: self.name.clone(),
+                duration: self.energy,
+                group: factory_group.clone(),
+                inputs: permutation.iter().enumerate()
+                    .map(|(idx, pos)| input_options.get(idx).unwrap().get(*pos).unwrap())
+                    .cloned()
+                    .collect(),
+                inputs_unmod: permutation.iter().enumerate()
+                    .map(|(idx, pos)| input_options.get(idx).unwrap().get(*pos).unwrap())
+                    .cloned()
+                    .collect(),
+                outputs: self.products.as_ref().unwrap().iter()
+                    .map(|o| o.new_output_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
+                    .collect::<Result<Vec<Stack>, String>>()?,
+                outputs_unmod: self.products.as_ref().unwrap().iter()
+                    .map(|o| o.new_output_unmod_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
+                    .collect::<Result<Vec<Stack>, String>>()?,
+            };
+            eprintln!("resulting process: {:?}", process);
+            result.push(process);
+        }
+
+        Ok(result)
+    }
+
+    fn has_temperature_input(&self) -> bool {
+        if self.ingredients.is_none() {
+            return false
+        }
+        self.ingredients.as_ref().unwrap().iter()
+                .any(|input| input.has_temperature_range())
+    }
+
+    fn new_basic_process(
+        &self,
+        factory_group: Rc<FactoryGroup>,
+        items: &HashMap<String, Rc<Item>>,
+    ) -> Result<Vec<Process>, String> {
+        Ok(vec![Process {
             id: self.name.clone(),
             display: self.name.clone(),
             duration: self.energy,
-            group: group.unwrap(),
-            inputs: self
-                .ingredients
-                .as_ref()
-                .unwrap()
-                .iter()
+            group: factory_group,
+            inputs: self.ingredients.as_ref().unwrap().iter()
                 .map(|i| i.new_input_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
                 .collect::<Result<Vec<Stack>, String>>()?,
-            inputs_unmod: self
-                .ingredients
-                .as_ref()
-                .unwrap()
-                .iter()
+            inputs_unmod: self.ingredients.as_ref().unwrap().iter()
                 .map(|i| i.new_input_unmod_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
                 .collect::<Result<Vec<Stack>, String>>()?,
-            outputs: self
-                .products
-                .as_ref()
-                .unwrap()
-                .iter()
+            outputs: self.products.as_ref().unwrap().iter()
                 .map(|o| o.new_output_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
                 .collect::<Result<Vec<Stack>, String>>()?,
-            outputs_unmod: self
-                .products
-                .as_ref()
-                .unwrap()
-                .iter()
+            outputs_unmod: self.products.as_ref().unwrap().iter()
                 .map(|o| o.new_output_unmod_from(items).inspect_err(|e| eprintln!("recipe: skipping {}: {}", self.name, e)))
                 .collect::<Result<Vec<Stack>, String>>()?,
-        }))
+        }])
     }
 }
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
@@ -401,6 +450,12 @@ struct Ingredient {
     maximum_temperature: Option<f64>,
 }
 impl Ingredient {
+    fn has_temperature_range(&self) -> bool {
+        self.minimum_temperature.is_some() || self.maximum_temperature.is_some()
+    }
+    fn within_temperature_range(&self, value: &f64) -> bool {
+        self.minimum_temperature.unwrap_or(f64::MIN) <= *value && *value <= self.maximum_temperature.unwrap_or(f64::MAX)
+    }
     fn new_input_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
         Ok(Stack {
             item: items
@@ -410,6 +465,40 @@ impl Ingredient {
             quantity: self.amount.unwrap_or(0.0),
         })
     }
+    fn new_inputs_from(&self,
+        items: &HashMap<String, Rc<Item>>,
+        items_with_temperatures: &HashMap<String, Vec<(f64, Rc<Item>)>>
+    ) -> Result<Vec<Stack>, String> {
+        if self.has_temperature_range() {
+            eprintln!("  current ingredient {}, between {} and {}", self.name, self.minimum_temperature.unwrap_or(f64::MIN), self.maximum_temperature.unwrap_or(f64::MAX));
+            for (k, v) in items_with_temperatures {
+                for (t, i) in v {
+                    eprintln!("  k: {} t: {}, name: {}", k, t, i.id);
+                }
+            }
+
+            let mut result = items_with_temperatures.get(&self.name).unwrap().iter()
+                .filter(|(n, item)| {
+                    let r = self.within_temperature_range(n);
+                    eprintln!("temp range filter {} {} <= {} <= {} === {}", item.id, self.minimum_temperature.unwrap_or(f64::MIN), n, self.maximum_temperature.unwrap_or(f64::MAX), r);
+                    r
+                })
+                .map(|(_n, item)| {
+                    Ok(Stack {
+                        item: item.clone(),
+                        quantity: self.amount.unwrap_or(0.0)
+                    })
+
+                }).peekable();
+            if result.peek().is_none() {
+                return Err(format!("failed to find a temperature based item for {} between {} and {}", self.name, self.minimum_temperature.unwrap_or(f64::MIN), self.maximum_temperature.unwrap_or(f64::MAX)));
+            }
+            result.collect()
+        } else {
+            Ok(vec![self.new_input_from(items)?])
+        }
+    }
+
     fn new_input_unmod_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
         Ok(Stack {
             item: items
@@ -435,7 +524,7 @@ impl Product {
     fn new_output_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
         Ok(Stack {
             item: items
-                .get(&self.name)
+                .get(&self.create_id())
                 .cloned()
                 .ok_or_else(|| format!("failed to find item {}", self.name))?,
             quantity: self.calculate_quantity(),
@@ -444,7 +533,7 @@ impl Product {
     fn new_output_unmod_from(&self, items: &HashMap<String, Rc<Item>>) -> Result<Stack, String> {
         Ok(Stack {
             item: items
-                .get(&self.name)
+                .get(&self.create_id())
                 .cloned()
                 .ok_or_else(|| format!("failed to find item {}", self.name))?,
             quantity: self.calculate_unmod_quantity(),
@@ -462,6 +551,13 @@ impl Product {
     }
     fn calculate_unmod_quantity(&self) -> f64 {
         self.ignored_by_productivity.unwrap_or(0.0)
+    }
+    fn create_id(&self) -> String {
+        if self.temperature.is_some() {
+            format!("{}--{}", self.name, self.temperature.unwrap() as i64)
+        } else {
+            self.name.clone()
+        }
     }
 }
 
@@ -577,6 +673,39 @@ where
     Ok(Some(
         VecOrEmpty::deserialize(deserializer).map(|sov| sov.into_inner())?,
     ))
+}
+
+fn permute<T>(input: &Vec<Vec<T>>) -> Vec<Vec<usize>> {
+    let mut mutable: Vec<Vec<usize>> = Vec::new();
+    for r in input {
+        mutable.push(r.iter().enumerate().map(|(i, _)| i).collect());
+    }
+    eprintln!("permuting: {:?}", mutable);
+    _permute(&mut mutable, vec![])
+}
+
+fn _permute(input: &mut Vec<Vec<usize>>, out: Vec<Vec<usize>>) -> Vec<Vec<usize>> {
+    if input.len() == 0 {
+        return out;
+    }
+    let entry = input.remove(0);
+    if out.len() > 0 {
+        let mut r = Vec::new();
+        for o in out {
+            for e in &entry {
+                let mut o2 = o.clone();
+                o2.push(*e);
+                r.push(o2);
+            }
+        }
+        return _permute(input, r);
+    } else {
+        let mut r = Vec::new();
+        for v in entry {
+            r.push(vec![v]);
+        }
+        return _permute(input, r);
+    }
 }
 
 #[cfg(test)]
@@ -830,8 +959,8 @@ mod test {
                 .collect::<Vec<String>>(),
             &[
                 "Moss-1-without-sludge",
-                "angels-heavy-water-cooling", // input between 26C and MAX_INT; output at 25C
-                "angels-liquid-water-heavy", // input between MIN_INT and 25C; output at 100C
+                "angels-heavy-water-cooling--0", // input between 26C and MAX_INT; output at 25C
+                "angels-liquid-water-heavy--0", // input between MIN_INT and 25C; output at 100C
                 "angels-liquid-water-semiheavy-3", // outputs at 100C
                 "big-mining-drill-recycling",
                 "kovarex-enrichment-process",
@@ -929,6 +1058,51 @@ mod test {
                 .map(|s| s.quantity)
                 .collect::<Vec<f64>>(),
             &[40.0, 2.0]
+        );
+    }
+
+    #[test]
+    fn it_understands_process_with_temperature_restricted_io() {
+        setup_tracing();
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister {}.parse(&mut jsons);
+        let r = res.unwrap();
+        let process = r.processes.get("angels-heavy-water-cooling--0").unwrap();
+        assert_eq!(
+            process
+                .inputs
+                .iter()
+                .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
+                .map(|s| (s.item.id.as_str(), s.quantity))
+                .collect::<Vec<(&str, f64)>>(),
+            &[
+                ("angels-liquid-water-heavy--100", 100.0),
+                ("angels-water-purified", 25.0),
+            ]
+        );
+        assert_eq!(
+            process
+                .outputs
+                .iter()
+                .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
+                .map(|s| (s.item.id.as_str(), s.quantity))
+                .collect::<Vec<(&str, f64)>>(),
+            &[
+                ("angels-liquid-water-heavy--25", 0.0),
+                ("steam--125", 25.0),
+            ]
+        );
+        assert_eq!(
+            process
+                .outputs_unmod
+                .iter()
+                .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
+                .map(|s| (s.item.id.as_str(), s.quantity))
+                .collect::<Vec<(&str, f64)>>(),
+            &[
+                ("angels-liquid-water-heavy--25", 100.0),
+                ("steam--125", 0.0),
+            ]
         );
     }
 
@@ -1317,4 +1491,26 @@ mod test {
         };
         assert_eq!(0.0, p.calculate_quantity());
     }
+
+    #[test]
+    fn calculates_permutations() {
+        let input = vec![
+            vec!["first0", "first1", "first2"],
+            vec!["second0"],
+            vec!["third0", "third1"]
+        ];
+        let result = permute(&input);
+        assert_eq!(
+            vec![
+                vec![0, 0, 0],
+                vec![0, 0, 1],
+                vec![1, 0, 0],
+                vec![1, 0, 1],
+                vec![2, 0, 0],
+                vec![2, 0, 1],
+            ],
+            result
+        )
+    }
+
 }
