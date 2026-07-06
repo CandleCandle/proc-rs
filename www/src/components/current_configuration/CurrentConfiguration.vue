@@ -7,6 +7,8 @@ import ProcDisplay from '../ProcDisplay.vue';
 const emit = defineEmits(['cfg_update', 'make_item', 'use_item', 'fold_update']);
 const { cfg, dataset, folds } = defineProps(['cfg', 'dataset', 'folds']);
 
+console.log("dataset", dataset);
+
 // const currentConfigurationIsExpanded = ref(cfg.can_render() || cfg.get_requirements().length > 0);
 
 function handle_cfg_update() {
@@ -84,7 +86,7 @@ function remove_process(cfg, id) {
             <h3>Items</h3>
             <div class="items">
                 <hr class="items_fw" v-if="map_items(cfg).length > 0" />
-                <CurrentCfgItem @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" />
+                <CurrentCfgItem @cfg_update="handle_cfg_update" @use_item="handle_use_item" @make_item="handle_make_item" v-for="stack in map_items(cfg)" :stack="stack" :cfg="cfg" :dataset="dataset" />
             </div>
             <br /><br />
             <h3>Processes</h3>

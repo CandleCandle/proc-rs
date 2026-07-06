@@ -17,11 +17,30 @@ pub trait FetchDataSet {
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
+enum Units {
+    #[default]
+    Second,
+    Minute,
+    Belt(u32),
+}
+impl From<String> for Units {
+    fn from(value: String) -> Self {
+        match value.to_ascii_lowercase().as_str() {
+            "second" => Units::Second,
+            "minute" => Units::Minute,
+            _ => Units::Belt(15),
+        }
+    }
+}
+// XXX (re-)hydrate this attribute
+
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct GraphConfiguration {
     // everything needed in order to make a graph, mutable so that the UI can make changes.
     // It should only allow graph generation when it has enough information to do something.
     current_data_set: Option<DataSetConf>,
     current_data: Option<Data>,
+    units: Units,
 
     requirements: Vec<Stack>,
     import_export: Vec<Rc<Item>>,
@@ -47,7 +66,6 @@ impl <T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfigurati
     async fn rehydrate(&self, fetcher: T) -> Result<GraphConfiguration, String> {
         let current_data_set = self.clone().current_data_set
                 .map(|s| -> Result<DataSetConf, String> { return Ok(DataSetConf{id: s.id, style: s.style.try_into()?})}).transpose()?;
-        // let current_data = current_data_set.map(|d| d.clone().into_data(fetcher));
         let current_data = match current_data_set.clone() {
             Some(d) => Some(d.into_data(fetcher).await?),
             None => None,
@@ -74,6 +92,7 @@ impl <T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfigurati
         Ok(GraphConfiguration {
             current_data_set,
             current_data,
+            units: Units::Second,
             requirements,
             import_export,
             processes,
@@ -98,6 +117,7 @@ impl GraphConfiguration {
         GraphConfiguration {
             current_data_set: None,
             current_data: None,
+            units: Units::Second,
             requirements: vec![],
             import_export: vec![],
             processes: vec![],
