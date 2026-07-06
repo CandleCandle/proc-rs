@@ -61,8 +61,8 @@ watch(requirement_value, (value) => {
     </div>
     <div>
         <div>
-            <input type="radio" id="requirement-{{ stack.id() }}" value="requirement" v-model="type"/>
-            <label for="requirement{{ stack.id() }}" v-tooltip="'Set ' + stack.display() + ' as a requirement'" > Requirement</label>
+            <input type="radio" :id="'requirement-' + stack.id()" value="requirement" v-model="type"/>
+            <label :for="'requirement-' + stack.id()" v-tooltip="'Set ' + stack.display() + ' as a requirement'" > Requirement</label>
             <span v-if="stack.is_req()">
                 &nbsp;
                 <input type="text" size="5" v-model.lazy.number="requirement_value" :disabled="type != DisplayItem.REQUIREMENT"
@@ -72,12 +72,12 @@ watch(requirement_value, (value) => {
             </span>
         </div>
         <div>
-            <input type="radio" id="import_export-{{ stack.id() }}" value="import_export" v-model="type" />
-            <label for="import_export-{{ stack.id() }}" v-tooltip="'Use an infinite source or sink for ' + stack.display()" > Import/Export</label>
+            <input type="radio" :id="'import_export-' + stack.id()" value="import_export" v-model="type" />
+            <label :for="'import_export-' + stack.id()" v-tooltip="'Use an infinite source or sink for ' + stack.display()" > Import/Export</label>
         </div>
         <div>
-            <input type="radio" id="intermediate-{{ stack.id() }}" value="intermediate" v-model="type" />
-            <label for="intermediate-{{ stack.id() }}" v-tooltip="stack.display() + ' should have a net zero produce & consume'"> Intermediate</label>
+            <input type="radio" :id="'intermediate-' + stack.id()" value="intermediate" v-model="type" />
+            <label :for="'intermediate-' + stack.id()" v-tooltip="stack.display() + ' should have a net zero produce & consume'"> Intermediate</label>
         </div>
     </div>
     <div class="items_fw"><hr /></div>
