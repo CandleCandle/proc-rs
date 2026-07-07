@@ -3,11 +3,12 @@ use std::{
     rc::Rc,
 };
 
+use enum_id_derive::EnumId;
 use serde::{Deserialize, Serialize};
 
-use crate::data::model::{Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
+use crate::model::{Data, DataParser, Factory, FactoryGroup, Item, Process, Stack};
 
-#[derive(Debug)]
+#[derive(Debug, EnumId)]
 pub enum DataParserFrdFiles {
     RecipesClean,
     Tags,
@@ -16,11 +17,7 @@ pub enum DataParserFrdFiles {
 
 impl DataParserFrdFiles {
     pub fn to_key(&self) -> String {
-        match &self {
-            Self::RecipesClean => "RecipesClean".to_string(),
-            Self::Tags => "Tags".to_string(),
-            Self::Machines => "Machines".to_string(),
-        }
+        self.name()
     }
 }
 
@@ -58,10 +55,14 @@ impl DataParser for DataParserFrd {
             serde_json::from_str(jsons.get(&DataParserFrdFiles::Machines.to_key()).unwrap())
                 .unwrap();
 
-        let factory_groups0: HashMap<_, _> = tags.tags.iter()
+        let factory_groups0: HashMap<_, _> = tags
+            .tags
+            .iter()
             .map(|f| Ok((f.identifier.clone(), Rc::new(f.new_factory_group_from()?))))
             .collect::<Result<HashMap<String, Rc<FactoryGroup>>, String>>()?;
-        let factory_groups1: HashMap<_, _> = machines.machines.iter()
+        let factory_groups1: HashMap<_, _> = machines
+            .machines
+            .iter()
             .flat_map(|(_id, m)| m.new_factory_groups_from())
             .map(|g| Ok((g.id.clone(), Rc::new(g))))
             .collect::<Result<HashMap<String, Rc<FactoryGroup>>, String>>()?;
@@ -98,15 +99,12 @@ impl DataParser for DataParserFrd {
         let factories: HashMap<_, _> = machines
             .machines
             .iter()
-            .map(|(k, m)| {
-                Ok((
-                    k.clone(),
-                    Rc::new(m.new_factory_for(k, &factory_groups)?),
-                ))
-            })
+            .map(|(k, m)| Ok((k.clone(), Rc::new(m.new_factory_for(k, &factory_groups)?))))
             .collect::<Result<HashMap<String, Rc<Factory>>, String>>()?;
 
-        let processes: HashMap<String, Rc<Process>> = recipes.recipes.iter()
+        let processes: HashMap<String, Rc<Process>> = recipes
+            .recipes
+            .iter()
             .map(|r| r.new_process_from(&factory_groups, &items))
             .map(|p| p.map(|pp| (pp.id.clone(), Rc::new(pp))))
             .collect::<Result<HashMap<String, Rc<Process>>, String>>()?;
@@ -166,29 +164,46 @@ impl FrdRecipe {
         self.inputs.iter().chain(self.outputs.iter())
     }
 
-    fn new_process_from(&self, factory_groups: &HashMap<String, Rc<FactoryGroup>>, items: &HashMap<String, Rc<Item>>) -> Result<Process, String> {
-        Ok(Process{
+    fn new_process_from(
+        &self,
+        factory_groups: &HashMap<String, Rc<FactoryGroup>>,
+        items: &HashMap<String, Rc<Item>>,
+    ) -> Result<Process, String> {
+        Ok(Process {
             id: self.identifier.clone(),
             display: self.name.clone(),
             group: factory_groups.get("assembler").unwrap().clone(), // XXX Convert many-to-many to one-to-many?
-            duration: self.time_ms/1000.0,
+            duration: self.time_ms / 1000.0,
             inputs_unmod: Vec::new(),
             outputs_unmod: Vec::new(),
-            inputs: self.inputs.iter()
-                .map(|i| Ok(Stack{
-                    item: items.get(&i.identifier).cloned().ok_or(format!("failed to find an item for {}", i.identifier))?,
-                    quantity: i.amount
-                }))
+            inputs: self
+                .inputs
+                .iter()
+                .map(|i| {
+                    Ok(Stack {
+                        item: items
+                            .get(&i.identifier)
+                            .cloned()
+                            .ok_or(format!("failed to find an item for {}", i.identifier))?,
+                        quantity: i.amount,
+                    })
+                })
                 .collect::<Result<Vec<Stack>, String>>()?,
-            outputs: self.outputs.iter()
-                .map(|i| Ok(Stack{
-                    item: items.get(&i.identifier).cloned().ok_or(format!("failed to find an item for {}", i.identifier))?,
-                    quantity: i.amount
-                }))
+            outputs: self
+                .outputs
+                .iter()
+                .map(|i| {
+                    Ok(Stack {
+                        item: items
+                            .get(&i.identifier)
+                            .cloned()
+                            .ok_or(format!("failed to find an item for {}", i.identifier))?,
+                        quantity: i.amount,
+                    })
+                })
                 .collect::<Result<Vec<Stack>, String>>()?,
         })
     }
-
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
@@ -205,10 +220,9 @@ struct FrdMachine {
 }
 impl FrdMachine {
     fn new_factory_groups_from(&self) -> Vec<FactoryGroup> {
-        self.crafting_tags.iter()
-            .map(|m| FactoryGroup{
-                id: m.clone()
-            })
+        self.crafting_tags
+            .iter()
+            .map(|m| FactoryGroup { id: m.clone() })
             .collect()
     }
     fn new_factory_for(
@@ -223,10 +237,10 @@ impl FrdMachine {
                 .crafting_tags
                 .iter()
                 .map(|t| {
-                    factory_groups
-                        .get(t)
-                        .cloned()
-                        .ok_or(format!("failed to find a factory group for {t} when creating {}", id))
+                    factory_groups.get(t).cloned().ok_or(format!(
+                        "failed to find a factory group for {t} when creating {}",
+                        id
+                    ))
                 })
                 .collect::<Result<Vec<Rc<FactoryGroup>>, String>>()?,
             duration_multiplier: 1.0 / self.crafting_speed_multiplier,
@@ -239,7 +253,7 @@ impl FrdMachine {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::data::fixtures::load_fixture;
+    use crate::fixtures::load_fixture;
     use itertools::Itertools;
 
     fn create_input_fixture() -> BTreeMap<String, String> {
@@ -337,11 +351,7 @@ mod test {
                 .map(|i| i.display.clone())
                 .sorted()
                 .collect::<Vec<String>>(),
-            &[
-                "Power Line",
-                "Xenoferrite Ore",
-                "Xenoferrite Plates",
-            ]
+            &["Power Line", "Xenoferrite Ore", "Xenoferrite Plates",]
         )
     }
 }

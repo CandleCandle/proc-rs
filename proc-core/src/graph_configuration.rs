@@ -1,20 +1,88 @@
-use std::{collections::{BTreeMap, HashSet}, rc::Rc};
+use std::{
+    collections::{BTreeMap, HashSet},
+    rc::Rc,
+};
 
 use itertools::Itertools;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 
-use crate::data::{dataset::DehydratedDataSetConf, hydration::{Dehydrate, Rehydrate}, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory}};
+use crate::{
+    dataset::DehydratedDataSetConf,
+    hydration::{Dehydrate, Rehydrate},
+    model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory},
+};
 
-use super::{dataset::{DataSetConf}, model::{ActiveProcess, Data, Item, Process, Stack}};
+use crate::{
+    dataset::DataSetConf,
+    model::{ActiveProcess, Data, Item, Process, Stack},
+};
 
 ///
 /// Provide a way to fetch the blob of json that represents the data contents
 pub trait FetchDataSet {
     #[allow(async_fn_in_trait)]
-    async fn fetch(&self, relative_path: &str) ->  Result<String, String>;
+    async fn fetch(&self, relative_path: &str) -> Result<String, String>;
     // fn fetch(&self, dataset_id: &String) -> impl Future<Output = Result<String, String>> + Send;
 }
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum Units {
+    #[default]
+    Second,
+    Minute,
+    Custom(f64),
+}
+impl From<String> for Units {
+    /*
+     * plain "minute", "second"
+     * int + m
+     * int + s
+     */
+    fn from(value: String) -> Self {
+        match value.to_ascii_lowercase().as_str() {
+            "second" => Units::Second,
+            "minute" => Units::Minute,
+            _ => Units::Custom(15.0), // attempt to parse as f64 XXX
+        }
+    }
+}
+impl ToString for Units {
+    fn to_string(&self) -> String {
+        match &self {
+            Units::Second => "second".to_string(),
+            Units::Minute => "minute".to_string(),
+            Units::Custom(n) => format!("{n}/s"),
+        }
+    }
+}
+impl Units {
+    pub fn to_short_string(&self) -> String {
+        match &self {
+            Units::Second => "s".to_string(),
+            Units::Minute => "m".to_string(),
+            Units::Custom(n) => format!("{n}"),
+        }
+    }
+    pub fn normalise_to_second(&self, value: f64) -> f64 {
+        let m = match self {
+            Units::Second => 1.0,
+            Units::Minute => 60.0,
+            Units::Custom(m) => m.clone(),
+        };
+        value * m
+    }
+    pub fn normalise_from_second(&self, value: f64) -> f64 {
+        let m = match self {
+            Units::Second => 1.0,
+            Units::Minute => 60.0,
+            Units::Custom(m) => m.clone(),
+        };
+        value / m
+    }
+}
+
+// XXX (re-)hydrate this attribute
 
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct GraphConfiguration {
@@ -22,6 +90,7 @@ pub struct GraphConfiguration {
     // It should only allow graph generation when it has enough information to do something.
     current_data_set: Option<DataSetConf>,
     current_data: Option<Data>,
+    units: Units,
 
     requirements: Vec<Stack>,
     import_export: Vec<Rc<Item>>,
@@ -32,22 +101,29 @@ impl Dehydrate<DehydratedGraphConfiguration> for GraphConfiguration {
     fn dehydrate(&self) -> DehydratedGraphConfiguration {
         DehydratedGraphConfiguration {
             current_data_set: self.current_data_set.as_ref().map(|d| d.dehydrate()),
-            requirements: self.requirements.iter()
-                .map(|s| s.dehydrate())
-                .collect(),
+            requirements: self.requirements.iter().map(|s| s.dehydrate()).collect(),
             import_export: self.import_export.iter().map(|io| io.dehydrate()).collect(),
             processes: self.processes.iter().map(|p| p.dehydrate()).collect(),
+            units: self.units.to_string(),
         }
     }
 }
 
-impl <T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfiguration
-    where T: FetchDataSet
- {
+impl<T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfiguration
+where
+    T: FetchDataSet,
+{
     async fn rehydrate(&self, fetcher: T) -> Result<GraphConfiguration, String> {
-        let current_data_set = self.clone().current_data_set
-                .map(|s| -> Result<DataSetConf, String> { return Ok(DataSetConf{id: s.id, style: s.style.try_into()?})}).transpose()?;
-        // let current_data = current_data_set.map(|d| d.clone().into_data(fetcher));
+        let current_data_set = self
+            .clone()
+            .current_data_set
+            .map(|s| -> Result<DataSetConf, String> {
+                return Ok(DataSetConf {
+                    id: s.id,
+                    style: s.style.try_into()?,
+                });
+            })
+            .transpose()?;
         let current_data = match current_data_set.clone() {
             Some(d) => Some(d.into_data(fetcher).await?),
             None => None,
@@ -67,13 +143,18 @@ impl <T> Rehydrate<T, GraphConfiguration, String> for DehydratedGraphConfigurati
         let mut processes = Vec::with_capacity(self.processes.len());
         if current_data.is_some() {
             for proc in &self.processes {
-                processes.push(proc.rehydrate(&current_data.as_ref().unwrap()).await.unwrap());
+                processes.push(
+                    proc.rehydrate(&current_data.as_ref().unwrap())
+                        .await
+                        .unwrap(),
+                );
             }
         };
 
         Ok(GraphConfiguration {
             current_data_set,
             current_data,
+            units: Units::from(self.units.clone()),
             requirements,
             import_export,
             processes,
@@ -91,6 +172,9 @@ pub struct DehydratedGraphConfiguration {
     import_export: Vec<DehydratedItem>,
     #[serde(rename = "p")]
     processes: Vec<DehydratedActiveProcess>,
+    #[serde(rename = "u")]
+    units: String,
+
 }
 
 impl GraphConfiguration {
@@ -98,6 +182,7 @@ impl GraphConfiguration {
         GraphConfiguration {
             current_data_set: None,
             current_data: None,
+            units: Units::Second,
             requirements: vec![],
             import_export: vec![],
             processes: vec![],
@@ -117,11 +202,25 @@ impl GraphConfiguration {
     }
 
     pub fn add_requirement(&mut self, id: &str, quantity: f64) {
-        self.requirements.push(
-            Stack {
-                item: self.current_data.as_ref().unwrap().items.get(id).unwrap().clone(),
-                quantity
+        self.requirements.push(Stack {
+            item: self
+                .current_data
+                .as_ref()
+                .unwrap()
+                .items
+                .get(id)
+                .unwrap()
+                .clone(),
+            quantity,
         });
+    }
+
+    pub fn get_units(&self) -> &Units {
+        &self.units
+    }
+
+    pub fn update_units(&mut self, units: Units) {
+        self.units = units;
     }
 
     pub fn remove_requirement(&mut self, id: &str) {
@@ -133,7 +232,15 @@ impl GraphConfiguration {
     }
 
     pub fn add_import_export(&mut self, id: &str) {
-        self.import_export.push(self.current_data.as_ref().unwrap().items.get(id).unwrap().clone());
+        self.import_export.push(
+            self.current_data
+                .as_ref()
+                .unwrap()
+                .items
+                .get(id)
+                .unwrap()
+                .clone(),
+        );
     }
 
     pub fn remove_import_export(&mut self, id: &str) {
@@ -144,35 +251,55 @@ impl GraphConfiguration {
         &self.import_export
     }
 
-    pub fn add_process(&mut self, id: &str, factory: &str, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
-        self.processes.push(
-            ActiveProcess::new(
-                self.current_data.as_ref().unwrap().processes.get(id).unwrap().clone(),
-                self.get_factory(factory),
-                duration_multiplier,
-                inputs_multiplier,
-                outputs_multiplier,
-            )
-        );
+    pub fn add_process(
+        &mut self,
+        id: &str,
+        factory: &str,
+        duration_multiplier: f64,
+        inputs_multiplier: f64,
+        outputs_multiplier: f64,
+    ) {
+        self.processes.push(ActiveProcess::new(
+            self.current_data
+                .as_ref()
+                .unwrap()
+                .processes
+                .get(id)
+                .unwrap()
+                .clone(),
+            self.get_factory(factory),
+            duration_multiplier,
+            inputs_multiplier,
+            outputs_multiplier,
+        ));
     }
 
     pub fn remove_process(&mut self, id: &str) {
         self.processes.retain(|p| *p.id() != *id);
     }
 
-    pub fn update_modifiers(&mut self, proc_id: String, factory_id: String, duration_multiplier: f64, inputs_multiplier: f64, outputs_multiplier: f64) {
+    pub fn update_modifiers(
+        &mut self,
+        proc_id: String,
+        factory_id: String,
+        duration_multiplier: f64,
+        inputs_multiplier: f64,
+        outputs_multiplier: f64,
+    ) {
         self.remove_process(&proc_id);
-        self.add_process(&proc_id, &factory_id, duration_multiplier, inputs_multiplier, outputs_multiplier);
+        self.add_process(
+            &proc_id,
+            &factory_id,
+            duration_multiplier,
+            inputs_multiplier,
+            outputs_multiplier,
+        );
     }
 
     pub fn get_factory(&self, factory_id: &str) -> Rc<Factory> {
         match &self.current_data {
-            Some(data) =>
-                data.factories
-                    .get(factory_id)
-                    .cloned()
-                    .unwrap_or_default(),
-            None => Rc::new(Factory::default())
+            Some(data) => data.factories.get(factory_id).cloned().unwrap_or_default(),
+            None => Rc::new(Factory::default()),
         }
     }
 
@@ -180,13 +307,15 @@ impl GraphConfiguration {
         match &self.current_data {
             Some(data) => {
                 let fg = data.processes.get(proc_id).unwrap().group.clone();
-                data.factories.values()
+                data.factories
+                    .values()
                     .filter(|factory| factory.groups.contains(&fg))
                     .sorted_by(|a, b| a.duration_multiplier.total_cmp(&b.duration_multiplier))
                     .next()
                     .unwrap()
-                    .id.clone()
-            },
+                    .id
+                    .clone()
+            }
             None => "".to_string(),
         }
     }
@@ -195,13 +324,14 @@ impl GraphConfiguration {
         match &self.current_data {
             Some(data) => {
                 let fg = data.processes.get(proc_id).unwrap().group.clone();
-                data.factories.values()
+                data.factories
+                    .values()
                     .filter(|factory| factory.groups.contains(&fg))
                     .sorted_by(|a, b| a.display.cmp(&b.display))
                     .cloned()
                     .collect()
-            },
-            None => Vec::new()
+            }
+            None => Vec::new(),
         }
     }
 
@@ -209,8 +339,16 @@ impl GraphConfiguration {
         &self.processes
     }
 
-    pub async fn update_data_set(&mut self, id: &str, style: &str, fetcher: impl FetchDataSet) -> Result<(), String> {
-        self.current_data_set = Some(DataSetConf{id: id.to_string(), style: style.to_string().try_into()?});
+    pub async fn update_data_set(
+        &mut self,
+        id: &str,
+        style: &str,
+        fetcher: impl FetchDataSet,
+    ) -> Result<(), String> {
+        self.current_data_set = Some(DataSetConf {
+            id: id.to_string(),
+            style: style.to_string().try_into()?,
+        });
 
         let parser = self.current_data_set.as_ref().unwrap().style.parser();
 
@@ -232,15 +370,22 @@ impl GraphConfiguration {
     pub fn search_items(&self, search: &str) -> Result<Vec<Rc<Item>>, String> {
         match &self.current_data {
             Some(d) => {
-                let matcher = Regex::new(search)
-                    .map_err(|e| format!("{e:?}").clone())?;
-                let mut v = d.items.iter()
-                    .filter(|(_id, item)| matcher.is_match(&item.id) || matcher.is_match(&item.display))
+                let matcher = Regex::new(search).map_err(|e| format!("{e:?}").clone())?;
+                let mut v = d
+                    .items
+                    .iter()
+                    .filter(|(_id, item)| {
+                        matcher.is_match(&item.id) || matcher.is_match(&item.display)
+                    })
                     .map(|(_id, i)| i.clone())
                     .collect::<Vec<Rc<Item>>>();
-                v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
+                v.sort_by(|a, b| {
+                    a.display
+                        .to_ascii_lowercase()
+                        .cmp(&b.display.to_ascii_lowercase())
+                });
                 Ok(v)
-            },
+            }
             None => Ok(vec![]),
         }
     }
@@ -251,38 +396,49 @@ impl GraphConfiguration {
     {
         match &self.current_data {
             Some(d) => {
-                let mut v = d.processes.iter()
+                let mut v = d
+                    .processes
+                    .iter()
                     .filter(|(_id, proc)| predicate(proc))
                     .map(|(_id, i)| i.clone())
                     .collect::<Vec<Rc<Process>>>();
-                v.sort_by(|a,b| a.display.to_ascii_lowercase().cmp(&b.display.to_ascii_lowercase()) );
+                v.sort_by(|a, b| {
+                    a.display
+                        .to_ascii_lowercase()
+                        .cmp(&b.display.to_ascii_lowercase())
+                });
                 Ok(v)
-            },
+            }
             None => Ok(vec![]),
         }
     }
 
     pub fn search_processes(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
-        let matcher = Regex::new(search)
-            .map_err(|e| format!("{e:?}").clone())?;
-        self.search_proc(|proc| {
-            matcher.is_match(&proc.id) || matcher.is_match(&proc.display)
-        })
+        let matcher = Regex::new(search).map_err(|e| format!("{e:?}").clone())?;
+        self.search_proc(|proc| matcher.is_match(&proc.id) || matcher.is_match(&proc.display))
     }
 
     pub fn search_processes_by_output(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
         self.search_proc(|proc| {
-            proc.outputs.iter().any(|output| {
-                search == output.item.id && output.quantity > 0.0
-            })
+            proc.outputs
+                .iter()
+                .any(|output| search == output.item.id && output.quantity > 0.0)
+            ||
+            proc.outputs_unmod
+                .iter()
+                .any(|output| search == output.item.id && output.quantity > 0.0)
         })
     }
 
     pub fn search_processes_by_input(&self, search: &str) -> Result<Vec<Rc<Process>>, String> {
         self.search_proc(|proc| {
-            proc.inputs.iter().any(|input| {
-                search == input.item.id && input.quantity > 0.0
-            })
+            proc.inputs
+                .iter()
+                .any(|input| search == input.item.id && input.quantity > 0.0)
+            ||
+            proc.inputs_unmod
+                .iter()
+                .any(|input| search == input.item.id && input.quantity > 0.0)
         })
     }
 
@@ -291,12 +447,26 @@ impl GraphConfiguration {
         // set of all process output items (O)
         // disjoint of I and O (symmetric_difference)
         // remove anything that is in io or req.
-        let inputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
-            proc.inputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
-        }).collect();
-        let outputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
-            proc.outputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
-        }).collect();
+        let inputs: HashSet<Rc<Item>> = self
+            .processes
+            .iter()
+            .flat_map(|proc| {
+                proc.inputs()
+                    .iter()
+                    .map(|s| s.item.clone())
+                    .collect::<Vec<Rc<Item>>>()
+            })
+            .collect();
+        let outputs: HashSet<Rc<Item>> = self
+            .processes
+            .iter()
+            .flat_map(|proc| {
+                proc.outputs()
+                    .iter()
+                    .map(|s| s.item.clone())
+                    .collect::<Vec<Rc<Item>>>()
+            })
+            .collect();
         let mut diff: HashSet<Rc<Item>> = inputs.symmetric_difference(&outputs).cloned().collect();
         for io in &self.import_export {
             diff.remove(io);
@@ -311,12 +481,26 @@ impl GraphConfiguration {
         // set of all process output items (O)
         // intersection of I and O (symmetric_difference)
         // remove anything that is in io or req.
-        let inputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
-            proc.inputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
-        }).collect();
-        let outputs: HashSet<Rc<Item>> = self.processes.iter().flat_map(|proc| {
-            proc.outputs().iter().map(|s| s.item.clone()).collect::<Vec<Rc<Item>>>()
-        }).collect();
+        let inputs: HashSet<Rc<Item>> = self
+            .processes
+            .iter()
+            .flat_map(|proc| {
+                proc.inputs()
+                    .iter()
+                    .map(|s| s.item.clone())
+                    .collect::<Vec<Rc<Item>>>()
+            })
+            .collect();
+        let outputs: HashSet<Rc<Item>> = self
+            .processes
+            .iter()
+            .flat_map(|proc| {
+                proc.outputs()
+                    .iter()
+                    .map(|s| s.item.clone())
+                    .collect::<Vec<Rc<Item>>>()
+            })
+            .collect();
         let mut diff: HashSet<Rc<Item>> = inputs.intersection(&outputs).cloned().collect();
         for io in &self.import_export {
             diff.remove(io);
@@ -331,8 +515,10 @@ impl GraphConfiguration {
 #[cfg(test)]
 mod test {
 
-    use crate::data::fixtures;
+    use approx::relative_eq;
+
     use super::*;
+    use crate::fixtures;
 
     #[test]
     fn it_searches_items_with_no_data() {
@@ -423,11 +609,22 @@ mod test {
         let gc = fixtures::create_config();
         let result = gc.search_processes_by_output("part_3").unwrap();
         assert_eq!(result.len(), 2);
-        assert_eq!(result.iter().map(|i| i.id.clone()).collect::<Vec<String>>(), ["slow_a_maker", "make_a"]);
+        assert_eq!(
+            result.iter().map(|i| i.id.clone()).collect::<Vec<String>>(),
+            ["slow_a_maker", "make_a"]
+        );
     }
 
     #[test]
     fn it_searches_processes_by_output_id() {
+        let gc = fixtures::create_config();
+        let result = gc.search_processes_by_output("part_4").unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result.get(0).unwrap().id, "make_b");
+    }
+
+    #[test]
+    fn it_searches_processes_by_output_id_with_temperature() {
         let gc = fixtures::create_config();
         let result = gc.search_processes_by_output("part_4").unwrap();
         assert_eq!(result.len(), 1);
@@ -479,9 +676,50 @@ mod test {
     #[test]
     fn it_finds_factories_for_processes() {
         let mut gc = fixtures::create_config();
-        let result = gc.factories_for_process(&"make_a".to_string())
-            .iter().map(|fg| fg.id.clone())
+        let result = gc
+            .factories_for_process(&"make_a".to_string())
+            .iter()
+            .map(|fg| fg.id.clone())
             .collect::<Vec<String>>();
         assert_eq!(result, vec!["all_basics", "just_basic2"]);
+    }
+
+    #[test]
+    fn it_normalises_units_second() {
+        assert_f64_eq(Units::Second.normalise_to_second(30.0), 30.0);
+    }
+
+    #[test]
+    fn it_normalises_units_from_seconds() {
+        assert_f64_eq(Units::Second.normalise_from_second(30.0), 30.0);
+    }
+
+    #[test]
+    fn it_normalises_units_minute() {
+        assert_f64_eq(Units::Minute.normalise_to_second(1.0), 60.0);
+    }
+
+    #[test]
+    fn it_normalises_units_from_minute() {
+        assert_f64_eq(Units::Minute.normalise_from_second(60.0), 1.0);
+    }
+
+    #[test]
+    fn it_normalises_units_minutes() {
+        assert_f64_eq(Units::Minute.normalise_to_second(5.0), 300.0);
+    }
+
+    #[test]
+    fn it_normalises_units_from_minutes() {
+        assert_f64_eq(Units::Minute.normalise_from_second(300.0), 5.0);
+    }
+
+    fn assert_f64_eq(left: f64, right: f64) {
+        let eq = relative_eq!(left, right, epsilon = 1e-10);
+        assert!(
+            eq,
+            "{} is not equal to {} (epsilon: {})",
+            left, right, 1e-10
+        );
     }
 }

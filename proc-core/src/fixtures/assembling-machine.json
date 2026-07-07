@@ -123,5 +123,56 @@
         "drain" : 11666.666666667
       }
     }
+  },
+  "everything" : {
+    "name" : "everything",
+    "localised_name" : [
+      "entity-name.everything"
+    ],
+    "type" : "everything",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "crafting" : true,
+      "basic-crafting" : true,
+      "advanced-crafting" : true,
+      "electronics" : true,
+      "pressing" : true,
+      "parameters" : true,
+      "centrifuging": true,
+      "crafting-with-fluid" : true,
+      "angels-water-treatment": true,
+      "angels-water-enrichment": true,
+      "angels-advanced-chemistry": true,
+      "angels-cooling": true,
+      "angels-petrochem-boiler": true
+
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
   }
 }

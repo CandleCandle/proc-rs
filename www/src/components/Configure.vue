@@ -6,65 +6,22 @@ import ProcDisplay from './ProcDisplay.vue';
 
 
 const emit = defineEmits(['cfg_update', 'fold_update']);
-const props = defineProps(['cfg', 'cfg_fu', 'folds']);
-const { _0, cfg_fu } = toRefs(props);
-const { cfg, _1, folds } = props;
+const props = defineProps(['cfg', 'cfg_fu', 'folds', 'datasets']);
+const { _0, cfg_fu, _1, _3 } = toRefs(props);
+const { cfg, _2, folds, datasets } = props;
 
-class DataSetConf {
-    constructor(dataset) {
-        this._raw = dataset
-    }
-    id() {
-        return this._raw['main']['name']
-                + '-'
-                + this._raw['main']['version']
-                + (this._raw['mod'] ?
-                    '-'
-                        + this._raw['mod'][0]['name']
-                        + '-'
-                        + this._raw['mod'][0]['version']
-                 : "");
-    }
-    description() {
-        return this._raw['main']['name']
-                + ' (' + this._raw['main']['version'] + ')'
-                + (this._raw['mod'] ?
-                    ' [' + this._raw['mod'][0]['name']
-                        + ' (' + this._raw['mod'][0]['version'] + ')'
-                        + ']'
-                 : "");
-    }
-    style() {
-        return this._raw['style'];
-    }
-}
 
-let datasets = await fetch('data/datasets.json')
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error("failed to fetch the list of data sets")
-        }
-        return response.json()
-    })
-    .then((json) => {
-        console.log(json);
-        return json.datasets.map(set => new DataSetConf(set))
-    });
-console.log('fetched datasets', datasets.map(v => {
-    return {
-        style: v.style(),
-        id: v.id(),
-        description: v.description(),
-    };
-}));
+const cds = cfg.get_current_data_set();
+const dataSetId = ref( cds ? cds : '' );
+const dataset = ref( cds ? datasets.find(d => d.id() === cds) : null );
+console.log("dataset id", cds, dataSetId, dataset);
 
-const dataSetId = ref('');
-const dataset = ref(null);
 watch(dataSetId, (id) => {
     let found_dataset = datasets.find(e => e.id() == id);
     dataset.value = found_dataset;
     console.log("Updating config with", id, found_dataset);
     cfg.update_data_set(id, found_dataset.style());
+    cfg.update_units(found_dataset.units());
 });
 
 const searchItem = ref('');

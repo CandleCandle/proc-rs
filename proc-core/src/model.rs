@@ -1,9 +1,17 @@
-use std::{collections::{BTreeMap, BTreeSet, HashMap}, hash::{Hash, Hasher}, ops, rc::Rc};
+use std::{
+    collections::{BTreeMap, BTreeSet, HashMap},
+    hash::{Hash, Hasher},
+    ops,
+    rc::Rc,
+};
 
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
-use crate::data::{dataset::DataSetConf, hydration::{Dehydrate, Rehydrate}};
+use crate::{
+    dataset::DataSetConf,
+    hydration::{Dehydrate, Rehydrate},
+};
 
 pub trait DataParser {
     fn parse(&self, jsons: &mut BTreeMap<String, String>) -> Result<Data, String>;
@@ -51,7 +59,9 @@ pub struct FactoryGroup {
 }
 impl Default for FactoryGroup {
     fn default() -> Self {
-        Self { id: "default".to_string() }
+        Self {
+            id: "default".to_string(),
+        }
     }
 }
 
@@ -105,31 +115,41 @@ pub struct ProcessBuilder {
 }
 impl ProcessBuilder {
     pub fn new() -> Self {
-        ProcessBuilder { ..Default::default() }
+        ProcessBuilder {
+            ..Default::default()
+        }
     }
     pub fn id(mut self, id: String) -> Self {
-        self.id = Some(id); self
+        self.id = Some(id);
+        self
     }
     pub fn display(mut self, display: String) -> Self {
-        self.display = Some(display); self
+        self.display = Some(display);
+        self
     }
     pub fn duration(mut self, duration: f64) -> Self {
-        self.duration = Some(duration); self
+        self.duration = Some(duration);
+        self
     }
     pub fn group(mut self, group: Rc<FactoryGroup>) -> Self {
-        self.group = Some(group); self
+        self.group = Some(group);
+        self
     }
     pub fn with_input(mut self, input: Stack) -> Self {
-        self.inputs.push(input); self
+        self.inputs.push(input);
+        self
     }
     pub fn with_input_unmod(mut self, input: Stack) -> Self {
-        self.inputs_unmod.push(input); self
+        self.inputs_unmod.push(input);
+        self
     }
     pub fn with_output(mut self, output: Stack) -> Self {
-        self.outputs.push(output); self
+        self.outputs.push(output);
+        self
     }
     pub fn with_output_unmod(mut self, output: Stack) -> Self {
-        self.outputs_unmod.push(output); self
+        self.outputs_unmod.push(output);
+        self
     }
     pub fn build(self) -> Process {
         Process {
@@ -162,7 +182,11 @@ impl ActiveProcess {
         outputs_multiplier: f64,
     ) -> Self {
         Self {
-            process, duration_multiplier, inputs_multiplier, outputs_multiplier, factory
+            process,
+            duration_multiplier,
+            inputs_multiplier,
+            outputs_multiplier,
+            factory,
         }
     }
 
@@ -186,8 +210,13 @@ impl ActiveProcess {
         self.process.duration * self.factory.duration_multiplier * self.duration_multiplier
     }
 
-    fn io_calc(modifiable: &[Stack], unmodifiable: &[Stack], multiplier: f64, duration: f64) -> Vec<Stack> {
-      let unmodified = unmodifiable
+    fn io_calc(
+        modifiable: &[Stack],
+        unmodifiable: &[Stack],
+        multiplier: f64,
+        duration: f64,
+    ) -> Vec<Stack> {
+        let unmodified = unmodifiable
             .iter()
             .map(|s| Stack::new(s.item.clone(), s.quantity / duration));
 
@@ -195,9 +224,9 @@ impl ActiveProcess {
             .iter()
             .map(|s| Stack::new(s.item.clone(), multiplier * s.quantity / duration));
 
-        let all = unmodified.chain(modified)
-            .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
-            ;
+        let all = unmodified
+            .chain(modified)
+            .sorted_by(|a, b| a.item.id.cmp(&b.item.id));
 
         let mut result: Vec<Stack> = Vec::new();
         for stack in all {
@@ -210,7 +239,7 @@ impl ActiveProcess {
                         result.push(stk);
                         result.push(stack);
                     }
-                },
+                }
                 None => result.push(stack),
             }
         }
@@ -222,7 +251,8 @@ impl ActiveProcess {
             &self.process.inputs,
             &self.process.inputs_unmod,
             self.inputs_multiplier * self.factory.inputs_multiplier,
-            self.duration())
+            self.duration(),
+        )
     }
 
     pub fn outputs(&self) -> Vec<Stack> {
@@ -230,10 +260,10 @@ impl ActiveProcess {
             &self.process.outputs,
             &self.process.outputs_unmod,
             self.outputs_multiplier * self.factory.outputs_multiplier,
-            self.duration())
+            self.duration(),
+        )
     }
 }
-
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct DehydratedActiveProcess {
@@ -262,9 +292,17 @@ impl Dehydrate<DehydratedActiveProcess> for ActiveProcess {
 }
 impl Rehydrate<&Data, ActiveProcess, String> for DehydratedActiveProcess {
     async fn rehydrate(&self, data: &Data) -> Result<ActiveProcess, String> {
-        Ok(ActiveProcess{
-            process: data.processes.get(&self.process).cloned().ok_or_else(|| format!("missing process {} in data", self.process))?,
-            factory: data.factories.get(&self.factory).cloned().ok_or_else(|| format!("missing factory {} in data", self.factory))?,
+        Ok(ActiveProcess {
+            process: data
+                .processes
+                .get(&self.process)
+                .cloned()
+                .ok_or_else(|| format!("missing process {} in data", self.process))?,
+            factory: data
+                .factories
+                .get(&self.factory)
+                .cloned()
+                .ok_or_else(|| format!("missing factory {} in data", self.factory))?,
             duration_multiplier: self.duration_multiplier,
             inputs_multiplier: self.inputs_multiplier,
             outputs_multiplier: self.outputs_multiplier,
@@ -279,9 +317,7 @@ pub struct Stack {
 }
 impl Stack {
     pub fn new(item: Rc<Item>, quantity: f64) -> Self {
-        Stack {
-            item, quantity
-        }
+        Stack { item, quantity }
     }
 }
 
@@ -290,25 +326,34 @@ pub struct DehydratedStack {
     #[serde(rename = "i")]
     item: String,
     #[serde(rename = "q")]
-    quantity:f64,
+    quantity: f64,
 }
 impl Dehydrate<DehydratedStack> for Stack {
     fn dehydrate(&self) -> DehydratedStack {
-        DehydratedStack { item: self.item.id.clone(), quantity: self.quantity, }
+        DehydratedStack {
+            item: self.item.id.clone(),
+            quantity: self.quantity,
+        }
     }
 }
 impl Rehydrate<&Data, Stack, String> for DehydratedStack {
     async fn rehydrate(&self, data: &Data) -> Result<Stack, String> {
-        Ok(Stack{
-            item: data.items.get(&self.item).cloned().ok_or_else(|| format!("missing item {} in data", self.item))?,
-            quantity: self.quantity
+        Ok(Stack {
+            item: data
+                .items
+                .get(&self.item)
+                .cloned()
+                .ok_or_else(|| format!("missing item {} in data", self.item))?,
+            quantity: self.quantity,
         })
     }
 }
 
-impl <'a> FromIterator<&'a Stack> for Stack {
+impl<'a> FromIterator<&'a Stack> for Stack {
     fn from_iter<T>(iter: T) -> Self
-    where T: IntoIterator<Item = &'a Stack> {
+    where
+        T: IntoIterator<Item = &'a Stack>,
+    {
         let mut q = 0.0;
         let mut i: Option<Rc<Item>> = None;
         for s in iter {
@@ -317,26 +362,38 @@ impl <'a> FromIterator<&'a Stack> for Stack {
             }
             q += s.quantity;
         }
-        Stack { item: i.unwrap(), quantity: q }
+        Stack {
+            item: i.unwrap(),
+            quantity: q,
+        }
     }
 }
 
 impl ops::Mul<f64> for &Stack {
     type Output = Stack;
     fn mul(self, rhs: f64) -> Stack {
-        Stack { item: self.item.clone(), quantity: self.quantity * rhs }
+        Stack {
+            item: self.item.clone(),
+            quantity: self.quantity * rhs,
+        }
     }
 }
 impl ops::Mul<f64> for Stack {
     type Output = Stack;
     fn mul(self, rhs: f64) -> Stack {
-        Stack { item: self.item.clone(), quantity: self.quantity * rhs }
+        Stack {
+            item: self.item.clone(),
+            quantity: self.quantity * rhs,
+        }
     }
 }
 impl ops::Add<f64> for Stack {
     type Output = Stack;
     fn add(self, rhs: f64) -> Self::Output {
-        Stack { item: self.item.clone(), quantity: self.quantity + rhs }
+        Stack {
+            item: self.item.clone(),
+            quantity: self.quantity + rhs,
+        }
     }
 }
 
@@ -348,10 +405,18 @@ pub struct Item {
 }
 impl Item {
     pub fn named(id: String, classification: Classification, display: String) -> Self {
-        Self { id, classification, display }
+        Self {
+            id,
+            classification,
+            display,
+        }
     }
     pub fn new(id: String) -> Self {
-        Self { id: id.clone(), classification: Classification::Solid, display: id }
+        Self {
+            id: id.clone(),
+            classification: Classification::Solid,
+            display: id,
+        }
     }
 }
 impl Hash for Item {
@@ -367,12 +432,17 @@ pub struct DehydratedItem {
 }
 impl Dehydrate<DehydratedItem> for Item {
     fn dehydrate(&self) -> DehydratedItem {
-        DehydratedItem { item: self.id.clone() }
+        DehydratedItem {
+            item: self.id.clone(),
+        }
     }
 }
 impl Rehydrate<&Data, Rc<Item>, String> for DehydratedItem {
     async fn rehydrate(&self, data: &Data) -> Result<Rc<Item>, String> {
-        data.items.get(&self.item).cloned().ok_or_else(|| format!("missing item {} in data", self.item))
+        data.items
+            .get(&self.item)
+            .cloned()
+            .ok_or_else(|| format!("missing item {} in data", self.item))
     }
 }
 // // XXX possible to derive a Display using the enum names?
@@ -391,33 +461,43 @@ pub struct StackSet {
 }
 
 impl StackSet {
-
-
     pub fn add(&mut self, stack: Stack) {
         self.combined.push(stack);
     }
 
     pub fn sum_negative(&self, item: &Rc<Item>) -> Stack {
-        [Stack{item: item.clone(), quantity: 0.0}].iter()
-            .chain(self.combined.iter())
-            .filter(|s| s.item.id == item.id)
-            .filter(|s| s.quantity <= 0.0)
-            .collect()
+        [Stack {
+            item: item.clone(),
+            quantity: 0.0,
+        }]
+        .iter()
+        .chain(self.combined.iter())
+        .filter(|s| s.item.id == item.id)
+        .filter(|s| s.quantity <= 0.0)
+        .collect()
     }
 
     pub fn sum_positive(&self, item: &Rc<Item>) -> Stack {
-        [Stack{item: item.clone(), quantity: 0.0}].iter()
-            .chain(self.combined.iter())
-            .filter(|s| s.item.id == item.id)
-            .filter(|s| s.quantity >= 0.0)
-            .collect()
+        [Stack {
+            item: item.clone(),
+            quantity: 0.0,
+        }]
+        .iter()
+        .chain(self.combined.iter())
+        .filter(|s| s.item.id == item.id)
+        .filter(|s| s.quantity >= 0.0)
+        .collect()
     }
 
     pub fn sum(&self, item: &Rc<Item>) -> Stack {
-        [Stack{item: item.clone(), quantity: 0.0}].iter()
-            .chain(self.combined.iter())
-            .filter(|s| s.item.id == item.id)
-            .collect()
+        [Stack {
+            item: item.clone(),
+            quantity: 0.0,
+        }]
+        .iter()
+        .chain(self.combined.iter())
+        .filter(|s| s.item.id == item.id)
+        .collect()
     }
 
     pub fn contained_items(&self) -> BTreeSet<Rc<Item>> {
@@ -425,13 +505,10 @@ impl StackSet {
     }
 }
 
-
-
-
 #[cfg(test)]
 mod test {
 
-    use crate::data::fixtures::{simple_data_fixture};
+    use crate::fixtures::simple_data_fixture;
 
     use super::*;
 
@@ -488,16 +565,31 @@ mod test {
     #[test]
     fn active_process_inputs_are_scaled_by_duration() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("slow_a_maker").unwrap().clone(), Rc::new(Factory::default()), 1.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("slow_a_maker").unwrap().clone(),
+            Rc::new(Factory::default()),
+            1.0,
+            1.0,
+            1.0,
+        );
         let actual = ap.inputs();
-        let expected = vec![Stack::new(data.item("part_1").unwrap(), 1.0), Stack::new(data.item("part_2").unwrap(), 0.4)];
+        let expected = vec![
+            Stack::new(data.item("part_1").unwrap(), 1.0),
+            Stack::new(data.item("part_2").unwrap(), 0.4),
+        ];
         assert_eq!(expected, actual);
     }
 
     #[test]
     fn active_process_outputs_are_scaled_by_duration() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("slow_a_maker").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 1.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("slow_a_maker").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            1.0,
+            1.0,
+            1.0,
+        );
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 1.0)];
         assert_eq!(expected, actual);
@@ -506,7 +598,13 @@ mod test {
     #[test]
     fn active_process_duration_is_modified() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 2.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("make_a").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            2.0,
+            1.0,
+            1.0,
+        );
         let actual = ap.duration();
         let expected = 2.0;
         assert_eq!(expected, actual);
@@ -515,7 +613,13 @@ mod test {
     #[test]
     fn active_process_duration_is_modified_with_factory_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("just_basic2").unwrap().clone(), 3.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("make_a").unwrap().clone(),
+            data.factories.get("just_basic2").unwrap().clone(),
+            3.0,
+            1.0,
+            1.0,
+        );
         let actual = ap.duration();
         let expected = 1.5;
         assert_eq!(expected, actual);
@@ -524,16 +628,31 @@ mod test {
     #[test]
     fn active_process_inputs_are_scaled_by_duration_with_duration_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 2.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("make_a").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            2.0,
+            1.0,
+            1.0,
+        );
         let actual = ap.inputs();
-        let expected = vec![Stack::new(data.item("part_1").unwrap(), 2.5), Stack::new(data.item("part_2").unwrap(), 1.0)];
+        let expected = vec![
+            Stack::new(data.item("part_1").unwrap(), 2.5),
+            Stack::new(data.item("part_2").unwrap(), 1.0),
+        ];
         assert_eq!(expected, actual);
     }
 
     #[test]
     fn active_process_outputs_are_scaled_by_duration_with_duration_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 2.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("make_a").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            2.0,
+            1.0,
+            1.0,
+        );
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 2.5)];
         assert_eq!(expected, actual);
@@ -542,7 +661,13 @@ mod test {
     #[test]
     fn active_process_outputs_are_scaled_by_output_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("output_modifier").unwrap().clone(), 1.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("make_a").unwrap().clone(),
+            data.factories.get("output_modifier").unwrap().clone(),
+            1.0,
+            1.0,
+            1.0,
+        );
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 10.0)];
         assert_eq!(expected, actual);
@@ -551,28 +676,49 @@ mod test {
     #[test]
     fn active_process_inputs_are_scaled_by_input_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("input_modifier").unwrap().clone(), 1.0, 1.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("make_a").unwrap().clone(),
+            data.factories.get("input_modifier").unwrap().clone(),
+            1.0,
+            1.0,
+            1.0,
+        );
         let actual = ap.inputs();
         let expected = vec![
             Stack::new(data.item("part_1").unwrap(), 10.0),
             Stack::new(data.item("part_2").unwrap(), 4.0),
-            ];
+        ];
         assert_eq!(expected, actual);
     }
 
     #[test]
     fn active_process_inputs_are_scaled_by_duration_with_input_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 1.0, 2.0, 1.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("make_a").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            1.0,
+            2.0,
+            1.0,
+        );
         let actual = ap.inputs();
-        let expected = vec![Stack::new(data.item("part_1").unwrap(), 10.0), Stack::new(data.item("part_2").unwrap(), 4.0)];
+        let expected = vec![
+            Stack::new(data.item("part_1").unwrap(), 10.0),
+            Stack::new(data.item("part_2").unwrap(), 4.0),
+        ];
         assert_eq!(expected, actual);
     }
 
     #[test]
     fn active_process_outputs_are_scaled_by_duration_with_output_modifier() {
         let data = simple_data_fixture();
-        let ap = ActiveProcess::new(data.processes.get("make_a").unwrap().clone(), data.factories.get("basic").unwrap().clone(), 1.0, 1.0, 3.0);
+        let ap = ActiveProcess::new(
+            data.processes.get("make_a").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            1.0,
+            1.0,
+            3.0,
+        );
         let actual = ap.outputs();
         let expected = vec![Stack::new(data.item("part_3").unwrap(), 15.0)];
         assert_eq!(expected, actual);
@@ -585,23 +731,74 @@ mod test {
             Rc::new(Item::new("id_1".to_string())),
             Rc::new(Item::new("id_2".to_string())),
         ];
-        let proc = Rc::new(ProcessBuilder::new()
-            .id("proc".to_string())
-            .display("proc".to_string())
-            .group(Rc::new(FactoryGroup{id: "none".to_string()}))
-            .duration(1.0)
-            .with_input(Stack { item: items[0].clone(), quantity: 5.0 })
-            .with_input_unmod(Stack { item: items[0].clone(), quantity: 5.0 })
-            .with_input(Stack { item: items[1].clone(), quantity: 1.0 })
-            .with_output_unmod(Stack { item: items[0].clone(), quantity: 4.0 })
-            .with_output(Stack { item: items[2].clone(), quantity: 2.0 })
-            .build());
+        let proc = Rc::new(
+            ProcessBuilder::new()
+                .id("proc".to_string())
+                .display("proc".to_string())
+                .group(Rc::new(FactoryGroup {
+                    id: "none".to_string(),
+                }))
+                .duration(1.0)
+                .with_input(Stack {
+                    item: items[0].clone(),
+                    quantity: 5.0,
+                })
+                .with_input_unmod(Stack {
+                    item: items[0].clone(),
+                    quantity: 5.0,
+                })
+                .with_input(Stack {
+                    item: items[1].clone(),
+                    quantity: 1.0,
+                })
+                .with_output_unmod(Stack {
+                    item: items[0].clone(),
+                    quantity: 4.0,
+                })
+                .with_output(Stack {
+                    item: items[2].clone(),
+                    quantity: 2.0,
+                })
+                .build(),
+        );
 
         let ap = ActiveProcess::new(proc.clone(), Rc::new(Factory::default()), 1.0, 2.0, 3.0);
 
-        assert_eq!(15.0, ap.inputs().iter().filter(|s| s.item.id == "id_0").next().unwrap().quantity);
-        assert_eq!(2.0, ap.inputs().iter().filter(|s| s.item.id == "id_1").next().unwrap().quantity);
-        assert_eq!(4.0, ap.outputs().iter().filter(|s| s.item.id == "id_0").next().unwrap().quantity);
-        assert_eq!(6.0, ap.outputs().iter().filter(|s| s.item.id == "id_2").next().unwrap().quantity);
+        assert_eq!(
+            15.0,
+            ap.inputs()
+                .iter()
+                .filter(|s| s.item.id == "id_0")
+                .next()
+                .unwrap()
+                .quantity
+        );
+        assert_eq!(
+            2.0,
+            ap.inputs()
+                .iter()
+                .filter(|s| s.item.id == "id_1")
+                .next()
+                .unwrap()
+                .quantity
+        );
+        assert_eq!(
+            4.0,
+            ap.outputs()
+                .iter()
+                .filter(|s| s.item.id == "id_0")
+                .next()
+                .unwrap()
+                .quantity
+        );
+        assert_eq!(
+            6.0,
+            ap.outputs()
+                .iter()
+                .filter(|s| s.item.id == "id_2")
+                .next()
+                .unwrap()
+                .quantity
+        );
     }
 }
