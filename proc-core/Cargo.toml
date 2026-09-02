@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-base64 = "0.22.1"
+base64 = "0.23"
 graphviz-rust = "0.9.8"
-itertools = "0.14.0"
-nalgebra = "0.34.2"
+itertools = "0.15"
+nalgebra = "0.35"
 serde = { version = "1.0.228", features = ["derive", "rc"] }
 serde_json = { version = "1.0.149", default-features = false, features = ["alloc"] }
 
