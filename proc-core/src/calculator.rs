@@ -11,13 +11,12 @@ use graphviz_rust::{
 };
 use itertools::Itertools;
 use nalgebra::{DMatrix, DVector};
+use regex::{self, Regex};
 
 use crate::{
     graph_configuration::{GraphConfiguration, Units},
     model::{ActiveProcess, Item, StackSet},
 };
-
-use regex::{self, Regex};
 
 pub struct Calculator {
     gc: GraphConfiguration,
@@ -174,7 +173,11 @@ impl Calculator {
 
         let mut result = BTreeMap::new();
         for (idx, id) in processes.iter().enumerate() {
-            result.insert(id.to_string(), self.units.normalise_from_second(*last_col.get(idx).unwrap()));
+            result.insert(
+                id.to_string(),
+                self.units
+                    .normalise_from_second(*last_col.get(idx).unwrap()),
+            );
             result.insert(id.to_string(), *last_col.get(idx).unwrap());
         }
         result
@@ -445,7 +448,7 @@ mod test {
                 // proc io  io  req
                 -5.0, 1.0, 0.0, 0.0, // p1
                 -2.0, 0.0, 1.0, 0.0, // p2
-                 5.0, 0.0, 0.0, 0.1, // p3
+                5.0, 0.0, 0.0, 0.1, // p3
             ],
         );
         assert_eq!(

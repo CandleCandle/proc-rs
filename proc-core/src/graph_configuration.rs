@@ -8,14 +8,12 @@ use regex::Regex;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    dataset::DehydratedDataSetConf,
+    dataset::{DataSetConf, DehydratedDataSetConf},
     hydration::{Dehydrate, Rehydrate},
-    model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory},
-};
-
-use crate::{
-    dataset::DataSetConf,
-    model::{ActiveProcess, Data, Item, Process, Stack},
+    model::{
+        ActiveProcess, Data, DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory,
+        Item, Process, Stack,
+    },
 };
 
 ///
@@ -174,7 +172,6 @@ pub struct DehydratedGraphConfiguration {
     processes: Vec<DehydratedActiveProcess>,
     #[serde(rename = "u")]
     units: String,
-
 }
 
 impl GraphConfiguration {
@@ -423,10 +420,10 @@ impl GraphConfiguration {
             proc.outputs
                 .iter()
                 .any(|output| search == output.item.id && output.quantity > 0.0)
-            ||
-            proc.outputs_unmod
-                .iter()
-                .any(|output| search == output.item.id && output.quantity > 0.0)
+                || proc
+                    .outputs_unmod
+                    .iter()
+                    .any(|output| search == output.item.id && output.quantity > 0.0)
         })
     }
 
@@ -435,10 +432,10 @@ impl GraphConfiguration {
             proc.inputs
                 .iter()
                 .any(|input| search == input.item.id && input.quantity > 0.0)
-            ||
-            proc.inputs_unmod
-                .iter()
-                .any(|input| search == input.item.id && input.quantity > 0.0)
+                || proc
+                    .inputs_unmod
+                    .iter()
+                    .any(|input| search == input.item.id && input.quantity > 0.0)
         })
     }
 

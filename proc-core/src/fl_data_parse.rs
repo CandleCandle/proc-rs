@@ -203,9 +203,10 @@ impl FLabRecipe {
 
 #[cfg(test)]
 mod test {
+    use itertools::Itertools;
+
     use super::*;
     use crate::fixtures::load_fixture;
-    use itertools::Itertools;
 
     fn create_input_fixture() -> BTreeMap<String, String> {
         let mut jsons = BTreeMap::new();

@@ -1,23 +1,24 @@
 use std::rc::Rc;
 
+use base64::{Engine, prelude::BASE64_URL_SAFE_NO_PAD};
 use itertools::Itertools;
 use nalgebra::{DMatrix, Scalar};
-use wasm_bindgen::prelude::wasm_bindgen;
-use wasm_bindgen::{JsCast, prelude::JsValue};
-
+use proc_core::{
+    calculator::Calculator,
+    graph_configuration::{
+        DehydratedGraphConfiguration, FetchDataSet, GraphConfiguration as GraphConfigurationLib,
+        Units,
+    },
+    hydration::{Dehydrate, Rehydrate},
+    model::{ActiveProcess, Factory, Item, Process},
+};
+use serde::{Deserialize, Serialize};
+use wasm_bindgen::{
+    JsCast,
+    prelude::{JsValue, wasm_bindgen},
+};
 use wasm_bindgen_futures::JsFuture;
 use web_sys::{Request, RequestInit, RequestMode, Response};
-
-use serde::{Deserialize, Serialize};
-
-use proc_core::calculator::Calculator;
-use proc_core::graph_configuration::{DehydratedGraphConfiguration, Units};
-use proc_core::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
-use proc_core::hydration::{Dehydrate, Rehydrate};
-use proc_core::model::{ActiveProcess, Factory};
-use proc_core::model::{Item, Process};
-
-use base64::{Engine, prelude::BASE64_URL_SAFE_NO_PAD};
 
 #[wasm_bindgen]
 extern "C" {
