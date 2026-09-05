@@ -85,6 +85,26 @@
     "fuel_value" : 0,
     "stack_size" : 100
   },
+  "angels-neptunium-240" : {
+    "name" : "angels-neptunium-240",
+    "localised_name" : [
+      "item-name.angels-neptunium-240"
+    ],
+    "type" : "item",
+    "order" : "a[uranium-processing]-c[angels-neptunium-240]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "bob-plutonium-239" : {
+    "name" : "bob-plutonium-239",
+    "localised_name" : [
+      "item-name.bob-plutonium-239"
+    ],
+    "type" : "item",
+    "order" : "a[uranium-processing]-c[bob-plutonium-239]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
   "tungsten-carbide" : {
     "name" : "tungsten-carbide",
     "localised_name" : [

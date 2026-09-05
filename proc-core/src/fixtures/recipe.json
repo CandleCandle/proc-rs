@@ -456,7 +456,63 @@
       "ignored_by_productivity" : 100
     }
   },
-    "angels-liquid-water-heavy" : {
+  "angels-plutonium-breeding" : {
+    "name" : "angels-plutonium-breeding",
+    "localised_name" : [
+      "recipe-name.angels-plutonium-breeding"
+    ],
+    "category" : "centrifuging",
+    "order" : "b[mox]-c[processing]",
+    "group" : {
+      "name" : "production",
+      "type" : "item-group"
+    },
+    "subgroup" : {
+      "name" : "angels-power-nuclear-processing",
+      "type" : "item-subgroup"
+    },
+    "enabled" : false,
+    "hidden" : false,
+    "hidden_from_player_crafting" : false,
+    "emissions_multiplier" : 1,
+    "energy" : 20,
+    "ingredients" : [
+      {
+        "type" : "item",
+        "name" : "uranium-238",
+        "amount" : 52
+      },
+      {
+        "type" : "item",
+        "name" : "angels-neptunium-240",
+        "amount" : 5
+      }
+    ],
+    "products" : [
+      {
+        "type" : "item",
+        "name" : "uranium-235",
+        "probability" : 0.95,
+        "amount" : 1,
+        "ignored_by_productivity" : 1
+      },
+      {
+        "type" : "item",
+        "name" : "bob-plutonium-239",
+        "probability" : 1,
+        "amount" : 13,
+        "ignored_by_productivity" : 13
+      },
+      {
+        "type" : "item",
+        "name" : "uranium-238",
+        "probability" : 1,
+        "amount" : 43,
+        "ignored_by_productivity" : 43
+      }
+    ]
+  },
+  "angels-liquid-water-heavy" : {
     "name" : "angels-liquid-water-heavy",
     "localised_name" : [
       "fluid-name.angels-liquid-water-heavy"
