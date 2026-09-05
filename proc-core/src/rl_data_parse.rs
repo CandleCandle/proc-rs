@@ -542,17 +542,18 @@ impl Product {
         })
     }
     fn calculate_quantity(&self) -> f64 {
-        ((self.amount.unwrap_or(0.0) * self.probability.unwrap_or(1.0))
+        let with_ignored = self.amount.unwrap_or(0.0) - self.ignored_by_productivity.unwrap_or(0.0);
+        ((with_ignored * self.probability.unwrap_or(1.0))
             + self.extra_count_fraction.unwrap_or(0.0))
             + (self
                 .amount_min
                 .zip(self.amount_max)
                 .map(|(i, a)| i + ((a - i) / 2.0)))
             .unwrap_or(0.0)
-            - self.ignored_by_productivity.unwrap_or(0.0)
+
     }
     fn calculate_unmod_quantity(&self) -> f64 {
-        self.ignored_by_productivity.unwrap_or(0.0)
+        self.ignored_by_productivity.unwrap_or(0.0) * self.probability.unwrap_or(1.0)
     }
     fn create_id(&self) -> String {
         if self.temperature.is_some() {
@@ -922,10 +923,12 @@ mod test {
                 "angels-liquid-water-semiheavy-2",
                 "angels-liquid-water-semiheavy-3",
                 "angels-liquid-water-semiheavy-3--100",
+                "angels-neptunium-240",
                 "angels-water-green-waste",
                 "angels-water-purified",
                 "angels-water-saline",
                 "big-mining-drill",
+                "bob-plutonium-239",
                 "coal",
                 "crude-oil",
                 "electric-engine-unit",
@@ -965,6 +968,7 @@ mod test {
                 "angels-heavy-water-cooling--0", // input between 26C and MAX_INT; output at 25C
                 "angels-liquid-water-heavy--0", // input between MIN_INT and 25C; output at 100C
                 "angels-liquid-water-semiheavy-3", // outputs at 100C
+                "angels-plutonium-breeding",
                 "big-mining-drill-recycling",
                 "kovarex-enrichment-process",
                 "parameter-0",
@@ -1439,6 +1443,116 @@ mod test {
                 .collect::<Vec<f64>>(),
             &[5.5, 8.0]
         );
+    }
+
+    #[test]
+    fn bug_it_understands_plutonium() {
+        setup_tracing();
+        let mut jsons = create_input_fixture();
+        let res = DataParserRecipeLister {}.parse(&mut jsons);
+        let r = res.unwrap();
+        let process = r.processes.get("angels-plutonium-breeding").unwrap();
+
+        assert_eq!(process.id, "angels-plutonium-breeding");
+        assert_eq!(process.display, "angels-plutonium-breeding");
+        assert_eq!(process.duration, 20.0);
+        assert_eq!(process.group.id, "centrifuging");
+
+        assert_eq!(
+            process
+                .inputs
+                .iter()
+                .map(|s| s.item.id.clone())
+                .sorted()
+                .collect::<Vec<String>>(),
+            &["angels-neptunium-240", "uranium-238"]
+        );
+        assert_eq!(
+            process
+                .inputs
+                .iter()
+                .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
+                .map(|s| s.quantity)
+                .collect::<Vec<f64>>(),
+            &[5.0, 52.0]
+        );
+        assert_eq!(
+            process
+                .inputs_unmod
+                .iter()
+                .map(|s| s.item.id.clone())
+                .sorted()
+                .collect::<Vec<String>>(),
+            &["angels-neptunium-240", "uranium-238"]
+        );
+        assert_eq!(
+            process
+                .inputs_unmod
+                .iter()
+                .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
+                .map(|s| s.quantity)
+                .collect::<Vec<f64>>(),
+            &[0.0, 0.0]
+        );
+        assert_eq!(
+            process
+                .outputs
+                .iter()
+                .map(|s| s.item.id.clone())
+                .sorted()
+                .collect::<Vec<String>>(),
+            &[
+                "bob-plutonium-239",
+                "uranium-235",
+                "uranium-238"
+            ]
+        );
+        assert_eq!(
+            process
+                .outputs
+                .iter()
+                .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
+                .map(|s| s.quantity)
+                .collect::<Vec<f64>>(),
+            &[0.0, 0.0, 0.0]
+        );
+        assert_eq!(
+            process
+                .outputs_unmod
+                .iter()
+                .map(|s| s.item.id.clone())
+                .sorted()
+                .collect::<Vec<String>>(),
+            &[
+                "bob-plutonium-239",
+                "uranium-235",
+                "uranium-238"
+            ]
+        );
+        assert_eq!(
+            process
+                .outputs_unmod
+                .iter()
+                .sorted_by(|a, b| a.item.id.cmp(&b.item.id))
+                .map(|s| s.quantity)
+                .collect::<Vec<f64>>(),
+            &[13.0, 0.95, 43.0]
+        );
+    }
+
+    #[test]
+    fn bug_it_understands_plutonium_o1() {
+        let mut items = HashMap::new();
+        items.insert("uranium-235".to_string(), Rc::new(Item::new("uranium-235".to_string())));
+        let product = Product {
+            name: "uranium-235".to_string(),
+            amount: Some(1.0),
+            probability: Some(0.95),
+            ignored_by_productivity: Some(1.0),
+            ..Default::default()
+        };
+        assert_eq!(product.new_output_from(&items).unwrap().quantity, 0.0);
+        assert_eq!(product.new_output_unmod_from(&items).unwrap().quantity, 0.95);
     }
 
     #[test]
