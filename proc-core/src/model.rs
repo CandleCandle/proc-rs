@@ -508,9 +508,8 @@ impl StackSet {
 #[cfg(test)]
 mod test {
 
-    use crate::fixtures::simple_data_fixture;
-
     use super::*;
+    use crate::fixtures::simple_data_fixture;
 
     #[test]
     fn stackset_sums() {

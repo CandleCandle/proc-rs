@@ -156,9 +156,8 @@ impl DataParser for DataParserBasic {
 mod test {
     use std::any::{Any, TypeId};
 
-    use crate::model::Classification;
-
     use super::*;
+    use crate::model::Classification;
 
     fn simple_item_fixture() -> &'static str {
         r#"
