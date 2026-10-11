@@ -13,8 +13,7 @@ use itertools::Itertools;
 use nalgebra::{DMatrix, DVector};
 
 use crate::{
-    graph_configuration::{GraphConfiguration, Units},
-    model::{ActiveProcess, Item, StackSet},
+    dataset::ModifierStyle, graph_configuration::{GraphConfiguration, Units}, model::{ActiveProcess, Item, StackSet},
 };
 
 use regex::{self, Regex};
@@ -22,6 +21,7 @@ use regex::{self, Regex};
 pub struct Calculator {
     gc: GraphConfiguration,
     units: Units,
+    modifier_style: ModifierStyle,
     initial: DMatrix<f64>,
     reduced: DMatrix<f64>,
 }
@@ -34,6 +34,7 @@ impl Calculator {
         Calculator {
             gc: gc.clone(),
             units: gc.get_units().clone(),
+            modifier_style: gc.get_current_data_set().unwrap().modifier_style,
             initial,
             reduced,
         }
@@ -353,11 +354,11 @@ impl Calculator {
                     ty: EdgeTy::Pair(
                         Vertex::N(NodeId(
                             Id::Plain(Self::normalise_id(&input.item.id)),
-                            Some(Port(Some(Id::Plain("consume".to_string())), None)),
+                            Some(Port(Some(Id::Plain("consume".to_string())), Some("s".to_string()))),
                         )),
                         Vertex::N(NodeId(
                             proc_id.clone(),
-                            Some(Port(Some(Id::Plain(format!("i{idx}"))), None)),
+                            Some(Port(Some(Id::Plain(format!("i{idx}"))), Some("n".to_string()))),
                         )),
                     ),
                     attributes: vec![],
@@ -369,11 +370,11 @@ impl Calculator {
                     ty: EdgeTy::Pair(
                         Vertex::N(NodeId(
                             proc_id.clone(),
-                            Some(Port(Some(Id::Plain(format!("o{idx}"))), None)),
+                            Some(Port(Some(Id::Plain(format!("o{idx}"))), Some("s".to_string()))),
                         )),
                         Vertex::N(NodeId(
                             Id::Plain(Self::normalise_id(&output.item.id)),
-                            Some(Port(Some(Id::Plain("produce".to_string())), None)),
+                            Some(Port(Some(Id::Plain("produce".to_string())), Some("n".to_string()))),
                         )),
                     ),
                     attributes: vec![],

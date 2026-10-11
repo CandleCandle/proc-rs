@@ -1,9 +1,7 @@
 use std::{collections::HashMap, fs, path::PathBuf, rc::Rc};
 
 use crate::{
-    dataset::DataSetConf,
-    graph_configuration::GraphConfiguration,
-    model::{Classification, Data, Factory, FactoryGroup, Item, Process, Stack},
+    dataset::{DataSetConf, DataSetStyle, ModifierStyle, NameVer}, graph_configuration::{GraphConfiguration, Units}, model::{Classification, Data, Factory, FactoryGroup, Item, Process, Stack},
 };
 
 pub fn load_fixture(path: &str) -> String {
@@ -187,7 +185,25 @@ pub fn simple_data_fixture() -> Data {
         ],
         outputs_unmod: Vec::new(),
     };
-    let processes = vec![p1, p1_slow, p2, p3, p4]
+        let p5 = Process {
+        id: "modifiers".to_string(),
+        display: "all types of input & output".to_string(),
+        duration: 2.0,
+        group: factory_groups.get(&"basic".to_string()).unwrap().clone(),
+        inputs: vec![
+            Stack::new(items.get("part_1").unwrap().clone(), 5.0), // 2.5/s
+        ],
+        inputs_unmod: vec![
+            Stack::new(items.get("part_1").unwrap().clone(), 3.0), // 1.5/s
+        ],
+        outputs: vec![
+            Stack::new(items.get("part_2").unwrap().clone(), 7.0), // 3.5/s
+        ],
+        outputs_unmod: vec![
+            Stack::new(items.get("part_2").unwrap().clone(), 5.0), // 2.5/s
+        ],
+    };
+    let processes = vec![p1, p1_slow, p2, p3, p4, p5]
         .iter()
         .map(|p| (p.id.clone(), Rc::new(p.to_owned())))
         .collect();
@@ -206,6 +222,10 @@ pub fn create_config() -> GraphConfiguration {
         DataSetConf {
             id: "".to_string(),
             style: "basic".to_string().try_into().unwrap(),
+            main: NameVer{..Default::default()},
+            modifications: Default::default(),
+            modifier_style: ModifierStyle::Multiplier,
+            units: Units::Second,
         },
     );
     gc

@@ -3,6 +3,7 @@ use std::{
     rc::Rc,
 };
 
+use enum_id::EnumId;
 use enum_id_derive::EnumId;
 use serde_json::Value;
 

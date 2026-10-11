@@ -2,8 +2,8 @@ import './assets/main.css';
 
 import App from './App.vue';
 import { createApp } from 'vue';
-import FloatingVue from 'floating-vue'
-import 'floating-vue/dist/style.css'
+import { createRouter, createWebHistory } from 'vue-router'
+import ui from '@nuxt/ui/vue-plugin'
 
 
 const scripts = {'viz':'viz-lite.js'}
@@ -19,13 +19,24 @@ Object.entries(scripts).forEach(entry => {
             }
         });
 
-createApp(App)
-    .use(FloatingVue)
-    .mount('#app');
 
-// import('proc-rs').then(mod => {
-//     let app = createApp(App, {
-//         proc_rs: mod
-//     });
-//     app.mount('#app');
-// });
+import DatasetSelect from './components/DatasetSelect.vue';
+import FirstSearch from './components/FirstSearch.vue';
+import Graph from './components/Graph.vue';
+import NextSearch from './components/NextSearch.vue';
+
+const router = createRouter({
+    routes: [
+        {'path': '/', component: DatasetSelect },
+        {'path': '/search', component: FirstSearch },
+        {'path': '/graph', component: Graph },
+        {'path': '/make/:item_id', component: NextSearch, props: true },
+        {'path': '/use/:item_id', component: NextSearch, props: true },
+    ],
+    history: createWebHistory()
+})
+
+createApp(App)
+    .use(router)
+    .use(ui)
+    .mount('#app');

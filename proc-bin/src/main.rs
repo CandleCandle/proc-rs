@@ -1,11 +1,11 @@
-use base64::{Engine, prelude::BASE64_STANDARD_NO_PAD};
+use base64::{Engine, prelude::BASE64_URL_SAFE_NO_PAD};
 use clap::{Parser, Subcommand, ValueEnum};
 use proc_core::{
-    calculator::Calculator,
-    dataset::DataSetConf,
-    graph_configuration::{DehydratedGraphConfiguration, FetchDataSet, GraphConfiguration},
-    hydration::{Dehydrate, Rehydrate},
-    model::StackSet,
+    calculator::Calculator, dataset::{
+        DataSetConf, ModifierStyle, NameVer
+    }, graph_configuration::{
+        DehydratedGraphConfiguration, FetchDataSet, GraphConfiguration, Units
+    }, hydration::{Dehydrate, Rehydrate}, model::StackSet,
 };
 use rmp_serde;
 use serde_json;
@@ -114,17 +114,24 @@ struct GenerateArgs {
     ///
     /// id is a process id that exists in the data
     ///
-    /// F1 is a duration multiplier (0.5 = half speed, 2 = double speed)
+    /// Modifiers are interperated per the modifier_style argument.
+    /// Examples below are for the 'Multiplier' style.
     ///
-    /// F2 is an input multiplier (0.5 = process uses 1/2 the inputs in each cycle)
+    /// F1 is a duration modifier (0.5 = half speed, 2 = double speed)
     ///
-    /// F3 is an output multiplier (2 = process produces double the outputs in each cycle)
+    /// F2 is an input modifier (0.5 = process uses 1/2 the inputs in each cycle)
+    ///
+    /// F3 is an output modifier (2 = process produces double the outputs in each cycle)
     #[arg(short = 'p', long = "process")]
     processes: Vec<String>,
 
     /// Path to write the graph description
     #[arg(short = 'g', long = "graph-out")]
     graph: Option<PathBuf>,
+
+    /// Modifier stype; one of Multiplier, Percent, or PercentAddition
+    #[arg(short = 'm', long = "modifier-style")]
+    modifier_style: Option<String>
 }
 
 struct FileFetcher {
@@ -173,7 +180,7 @@ async fn serial(args: SerialArgs) -> Result<(), String> {
     let dgc: DehydratedGraphConfiguration = match args.mode {
         SerialMode::Json => serde_json::from_str(&args.value).map_err(|e| e.to_string())?,
         SerialMode::MessagePack => rmp_serde::decode::from_slice(
-            BASE64_STANDARD_NO_PAD
+            BASE64_URL_SAFE_NO_PAD
                 .decode(args.value)
                 .map_err(|e| e.to_string())?
                 .as_slice(),
@@ -192,6 +199,10 @@ async fn generate(args: GenerateArgs) -> Result<(), String> {
     let current_data_conf = DataSetConf {
         id: args.dataset_id,
         style: args.dataset_style.try_into()?,
+        main: NameVer{..Default::default()},
+        modifications: Default::default(),
+        modifier_style: args.modifier_style.unwrap_or("multiplier".to_string()).try_into()?,
+        units: Units::Second,
     };
 
     let ff = FileFetcher {
@@ -259,7 +270,7 @@ fn report_gc(gc: GraphConfiguration, graph: Option<PathBuf>) -> Result<(), Strin
     );
     tracing::info!(
         "serialised configuration {}",
-        BASE64_STANDARD_NO_PAD.encode(rmp_serde::encode::to_vec(&gc.dehydrate()).unwrap())
+        BASE64_URL_SAFE_NO_PAD.encode(rmp_serde::encode::to_vec(&gc.dehydrate()).unwrap())
     );
     tracing::info!("initial matrix {}", calc.initial_matrix());
     tracing::info!("reduced matrix {}", calc.reduced_matrix());
@@ -324,6 +335,10 @@ async fn search(args: SearchArgs) -> Result<(), String> {
     let current_data_conf = DataSetConf {
         id: args.dataset_id,
         style: args.dataset_style.try_into()?,
+        main: NameVer{..Default::default()},
+        modifications: Default::default(),
+        modifier_style: ModifierStyle::Multiplier,
+        units: Units::Second,
     };
 
     let ff = FileFetcher {

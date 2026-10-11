@@ -1,44 +1,51 @@
 {
-    "datasets": [
-        {
+    "datasets": {
+        "starbirds-0.2.1": {
             "main": { "name": "starbirds", "version": "0.1.2" },
-            "style": "basic",
-            "units": "minute"
+            "style": "Basic",
+            "units": "Minute",
+            "modifier_style": "Multiplier"
         },
-        {
+        "factorio-2.0.66-sa-2.0.66": {
             "main": { "name": "factorio", "version": "2.0.66" },
             "mod": [{ "name": "sa", "version": "2.0.66" }],
-            "style": "recipelister",
-            "units": "second"
+            "style": "RecipeLister",
+            "units": "Second",
+            "modifier_style": "PercentAddition"
         },
-        {
+        "factorio-2.0.74-pyanodons-3.0.62": {
             "main": { "name": "factorio", "version": "2.0.74" },
             "mod": [{ "name": "pyanodons", "version": "3.0.62" }],
-            "style": "recipelister",
-            "units": "second"
+            "style": "RecipeLister",
+            "units": "Second",
+            "modifier_style": "PercentAddition"
         },
-        {
+        "foundry-2.0.0": {
             "main": { "name": "foundry", "version": "2.0.0" },
-            "style": "flab",
-            "units": "minute"
+            "style": "FLab",
+            "units": "Minute",
+            "modifier_style": "Multiplier"
         },
-        {
+        "factorio-1.1.109-pyanodons-2.4.17": {
             "main": { "name": "factorio", "version": "1.1.109" },
             "mod": [{ "name": "pyanodons", "version": "2.4.17" }],
-            "style": "flab",
-            "units": "second"
+            "style": "FLab",
+            "units": "Second",
+            "modifier_style": "PercentAddition"
         },
-        {
+        "factorio-2.0.73-angelbob-2.0.6": {
             "main": { "name": "factorio", "version": "2.0.73" },
             "mod": [{ "name": "angelbob", "version": "2.0.6" }],
-            "style": "recipelister",
-            "units": "second"
+            "style": "RecipeLister",
+            "units": "Second",
+            "modifier_style": "PercentAddition"
         },
-        {
+        "foundry-3.0.0-wip-0.0.1": {
             "main": { "name": "foundry", "version": "3.0.0" },
             "mod": [{ "name": "wip", "version": "0.0.1" }],
-            "style": "frd",
-            "units": "second"
+            "style": "Frd",
+            "units": "Second",
+            "modifier_style": "Multiplier"
         }
-    ]
+    }
 }

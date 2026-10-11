@@ -8,9 +8,7 @@ use regex::Regex;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    dataset::DehydratedDataSetConf,
-    hydration::{Dehydrate, Rehydrate},
-    model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory},
+    dataset::{DataSetConfs, DehydratedDataSetConf}, hydration::{Dehydrate, Rehydrate}, model::{DehydratedActiveProcess, DehydratedItem, DehydratedStack, Factory},
 };
 
 use crate::{
@@ -26,7 +24,7 @@ pub trait FetchDataSet {
     // fn fetch(&self, dataset_id: &String) -> impl Future<Output = Result<String, String>> + Send;
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
+#[derive(Debug, Clone, PartialEq, Default, Deserialize, Serialize)]
 pub enum Units {
     #[default]
     Second,
@@ -86,6 +84,7 @@ impl Units {
 
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct GraphConfiguration {
+    datasets: Option<DataSetConfs>,
     // everything needed in order to make a graph, mutable so that the UI can make changes.
     // It should only allow graph generation when it has enough information to do something.
     current_data_set: Option<DataSetConf>,
@@ -114,16 +113,14 @@ where
     T: FetchDataSet,
 {
     async fn rehydrate(&self, fetcher: T) -> Result<GraphConfiguration, String> {
-        let current_data_set = self
-            .clone()
-            .current_data_set
-            .map(|s| -> Result<DataSetConf, String> {
-                return Ok(DataSetConf {
-                    id: s.id,
-                    style: s.style.try_into()?,
-                });
-            })
-            .transpose()?;
+        let datasets = fetcher.fetch("data/datasets.json")
+            .await.map(|r| -> DataSetConfs {
+                serde_json::from_str(&r).unwrap()
+            })?;
+
+        let current_data_set = datasets.datasets.iter().find(
+            |ds| ds.id == self.current_data_set.as_ref().unwrap().id
+        ).cloned();
         let current_data = match current_data_set.clone() {
             Some(d) => Some(d.into_data(fetcher).await?),
             None => None,
@@ -152,7 +149,8 @@ where
         };
 
         Ok(GraphConfiguration {
-            current_data_set,
+            datasets: Some(datasets),
+            current_data_set: current_data_set,
             current_data,
             units: Units::from(self.units.clone()),
             requirements,
@@ -180,6 +178,7 @@ pub struct DehydratedGraphConfiguration {
 impl GraphConfiguration {
     pub fn new() -> GraphConfiguration {
         GraphConfiguration {
+            datasets: None,
             current_data_set: None,
             current_data: None,
             units: Units::Second,
@@ -201,8 +200,8 @@ impl GraphConfiguration {
         !self.processes.is_empty()
     }
 
-    pub fn add_requirement(&mut self, id: &str, quantity: f64) {
-        self.requirements.push(Stack {
+    pub fn add_requirement(&mut self, id: &str, quantity: f64) -> Stack {
+        let req = Stack {
             item: self
                 .current_data
                 .as_ref()
@@ -212,7 +211,9 @@ impl GraphConfiguration {
                 .unwrap()
                 .clone(),
             quantity,
-        });
+        };
+        self.requirements.push(req.clone());
+        req
     }
 
     pub fn get_units(&self) -> &Units {
@@ -231,16 +232,16 @@ impl GraphConfiguration {
         &self.requirements
     }
 
-    pub fn add_import_export(&mut self, id: &str) {
-        self.import_export.push(
-            self.current_data
+    pub fn add_import_export(&mut self, id: &str) -> Rc<Item> {
+        let io = self.current_data
                 .as_ref()
                 .unwrap()
                 .items
                 .get(id)
                 .unwrap()
-                .clone(),
-        );
+                .clone();
+        self.import_export.push(io.clone());
+        io
     }
 
     pub fn remove_import_export(&mut self, id: &str) {
@@ -259,7 +260,24 @@ impl GraphConfiguration {
         inputs_multiplier: f64,
         outputs_multiplier: f64,
     ) {
-        self.processes.push(ActiveProcess::new(
+        self.processes.push(self.create_active_process(
+            id,
+            factory,
+            duration_multiplier,
+            inputs_multiplier,
+            outputs_multiplier,
+        ));
+    }
+
+    pub fn create_active_process(
+        &self,
+        id: &str,
+        factory: &str,
+        duration_multiplier: f64,
+        inputs_multiplier: f64,
+        outputs_multiplier: f64
+    ) -> ActiveProcess {
+        ActiveProcess::new(
             self.current_data
                 .as_ref()
                 .unwrap()
@@ -268,10 +286,11 @@ impl GraphConfiguration {
                 .unwrap()
                 .clone(),
             self.get_factory(factory),
+            self.current_data_set.as_ref().cloned().unwrap().modifier_style,
             duration_multiplier,
             inputs_multiplier,
             outputs_multiplier,
-        ));
+        )
     }
 
     pub fn remove_process(&mut self, id: &str) {
@@ -320,6 +339,24 @@ impl GraphConfiguration {
         }
     }
 
+    pub async fn update_data_sets(
+        &mut self,
+        fetcher: &impl FetchDataSet) -> Result<(), String> {
+        if self.datasets.is_none() {
+            let result = fetcher.fetch("data/datasets.json")
+                .await.map(|r| -> Result<DataSetConfs, String> {
+                    let r: Result<DataSetConfs, serde_json::Error> = serde_json::from_str(&r);
+                    r.map_err(|e| format!("err parsing datasets {}", e))
+                })?;
+            self.datasets = Some(result?);
+        }
+        Ok(())
+    }
+
+    pub fn get_data_sets(&self) -> Result<DataSetConfs, String> {
+        self.datasets.as_ref().cloned().ok_or("data sets not updated.".to_string())
+    }
+
     pub fn factories_for_process(&mut self, proc_id: &String) -> Vec<Rc<Factory>> {
         match &self.current_data {
             Some(data) => {
@@ -342,13 +379,12 @@ impl GraphConfiguration {
     pub async fn update_data_set(
         &mut self,
         id: &str,
-        style: &str,
         fetcher: impl FetchDataSet,
     ) -> Result<(), String> {
-        self.current_data_set = Some(DataSetConf {
-            id: id.to_string(),
-            style: style.to_string().try_into()?,
-        });
+        self.update_data_sets(&fetcher).await?;
+        self.current_data_set = self.datasets.as_ref().unwrap().datasets.iter()
+            .find(|ds| ds.id == id)
+            .cloned();
 
         let parser = self.current_data_set.as_ref().unwrap().style.parser();
 

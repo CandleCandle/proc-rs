@@ -3,6 +3,7 @@ use std::{
     collections::{BTreeMap, HashMap}, rc::Rc
 };
 
+use enum_id::EnumId;
 use enum_id_derive::EnumId;
 use serde::{
     Deserialize, Deserializer, Serialize,

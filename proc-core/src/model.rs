@@ -5,12 +5,12 @@ use std::{
     rc::Rc,
 };
 
+use enum_id::EnumId;
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    dataset::DataSetConf,
-    hydration::{Dehydrate, Rehydrate},
+    dataset::{DataSetConf, ModifierStyle}, hydration::{Dehydrate, Rehydrate},
 };
 
 pub trait DataParser {
@@ -169,24 +169,27 @@ impl ProcessBuilder {
 pub struct ActiveProcess {
     process: Rc<Process>,
     factory: Rc<Factory>,
-    duration_multiplier: f64,
-    inputs_multiplier: f64,
-    outputs_multiplier: f64,
+    modifier_style: ModifierStyle,
+    duration_modifier: f64, // TODO rename these to *_modifier, so that ModifierStyle makes more sense.
+    inputs_modifier: f64,
+    outputs_modifier: f64,
 }
 impl ActiveProcess {
     pub fn new(
         process: Rc<Process>,
         factory: Rc<Factory>,
-        duration_multiplier: f64,
-        inputs_multiplier: f64,
-        outputs_multiplier: f64,
+        modifier_style: ModifierStyle,
+        duration_modifier: f64,
+        inputs_modifier: f64,
+        outputs_modifier: f64,
     ) -> Self {
         Self {
             process,
-            duration_multiplier,
-            inputs_multiplier,
-            outputs_multiplier,
             factory,
+            modifier_style,
+            duration_modifier,
+            inputs_modifier,
+            outputs_modifier,
         }
     }
 
@@ -207,7 +210,8 @@ impl ActiveProcess {
     }
 
     pub fn duration(&self) -> f64 {
-        self.process.duration * self.factory.duration_multiplier * self.duration_multiplier
+        // self.process.duration * self.factory.duration_multiplier * self.duration_modifier
+        self.process.duration * self.factory.duration_multiplier * self.modifier_style.to_multiplier(self.duration_modifier)
     }
 
     fn io_calc(
@@ -250,7 +254,9 @@ impl ActiveProcess {
         Self::io_calc(
             &self.process.inputs,
             &self.process.inputs_unmod,
-            self.inputs_multiplier * self.factory.inputs_multiplier,
+            // self.inputs_modifier * self.factory.inputs_multiplier,
+            self.modifier_style.to_multiplier(self.inputs_modifier) * self.factory.inputs_multiplier,
+            // self.modifier_style.to_multiplier(self.inputs_modifier) * self.factory.inputs_multiplier,
             self.duration(),
         )
     }
@@ -259,7 +265,7 @@ impl ActiveProcess {
         Self::io_calc(
             &self.process.outputs,
             &self.process.outputs_unmod,
-            self.outputs_multiplier * self.factory.outputs_multiplier,
+            self.modifier_style.to_multiplier(self.outputs_modifier) * self.factory.outputs_multiplier,
             self.duration(),
         )
     }
@@ -271,12 +277,14 @@ pub struct DehydratedActiveProcess {
     process: String,
     #[serde(rename = "f")]
     factory: String,
+    #[serde(rename = "m")]
+    modifier_style: String,
     #[serde(rename = "d")]
-    duration_multiplier: f64,
+    duration_modifier: f64,
     #[serde(rename = "i")]
-    inputs_multiplier: f64,
+    inputs_modifier: f64,
     #[serde(rename = "o")]
-    outputs_multiplier: f64,
+    outputs_modifier: f64,
 }
 
 impl Dehydrate<DehydratedActiveProcess> for ActiveProcess {
@@ -284,9 +292,10 @@ impl Dehydrate<DehydratedActiveProcess> for ActiveProcess {
         DehydratedActiveProcess {
             process: self.process.id.clone(),
             factory: self.factory.id.clone(),
-            duration_multiplier: self.duration_multiplier,
-            inputs_multiplier: self.inputs_multiplier,
-            outputs_multiplier: self.outputs_multiplier,
+            modifier_style: self.modifier_style.name(),
+            duration_modifier: self.duration_modifier,
+            inputs_modifier: self.inputs_modifier,
+            outputs_modifier: self.outputs_modifier,
         }
     }
 }
@@ -303,9 +312,10 @@ impl Rehydrate<&Data, ActiveProcess, String> for DehydratedActiveProcess {
                 .get(&self.factory)
                 .cloned()
                 .ok_or_else(|| format!("missing factory {} in data", self.factory))?,
-            duration_multiplier: self.duration_multiplier,
-            inputs_multiplier: self.inputs_multiplier,
-            outputs_multiplier: self.outputs_multiplier,
+            modifier_style: self.modifier_style.clone().try_into()?,
+            duration_modifier: self.duration_modifier,
+            inputs_modifier: self.inputs_modifier,
+            outputs_modifier: self.outputs_modifier,
         })
     }
 }
@@ -568,6 +578,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("slow_a_maker").unwrap().clone(),
             Rc::new(Factory::default()),
+            ModifierStyle::Multiplier,
             1.0,
             1.0,
             1.0,
@@ -586,6 +597,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("slow_a_maker").unwrap().clone(),
             data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::Multiplier,
             1.0,
             1.0,
             1.0,
@@ -601,6 +613,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("make_a").unwrap().clone(),
             data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::Multiplier,
             2.0,
             1.0,
             1.0,
@@ -616,6 +629,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("make_a").unwrap().clone(),
             data.factories.get("just_basic2").unwrap().clone(),
+            ModifierStyle::Multiplier,
             3.0,
             1.0,
             1.0,
@@ -631,6 +645,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("make_a").unwrap().clone(),
             data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::Multiplier,
             2.0,
             1.0,
             1.0,
@@ -649,6 +664,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("make_a").unwrap().clone(),
             data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::Multiplier,
             2.0,
             1.0,
             1.0,
@@ -664,6 +680,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("make_a").unwrap().clone(),
             data.factories.get("output_modifier").unwrap().clone(),
+            ModifierStyle::Multiplier,
             1.0,
             1.0,
             1.0,
@@ -679,6 +696,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("make_a").unwrap().clone(),
             data.factories.get("input_modifier").unwrap().clone(),
+            ModifierStyle::Multiplier,
             1.0,
             1.0,
             1.0,
@@ -697,6 +715,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("make_a").unwrap().clone(),
             data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::Multiplier,
             1.0,
             2.0,
             1.0,
@@ -715,6 +734,7 @@ mod test {
         let ap = ActiveProcess::new(
             data.processes.get("make_a").unwrap().clone(),
             data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::Multiplier,
             1.0,
             1.0,
             3.0,
@@ -762,7 +782,11 @@ mod test {
                 .build(),
         );
 
-        let ap = ActiveProcess::new(proc.clone(), Rc::new(Factory::default()), 1.0, 2.0, 3.0);
+        let ap = ActiveProcess::new(
+            proc.clone(),
+            Rc::new(Factory::default()),
+            ModifierStyle::Multiplier,
+            1.0, 2.0, 3.0);
 
         assert_eq!(
             15.0,
@@ -800,5 +824,53 @@ mod test {
                 .unwrap()
                 .quantity
         );
+    }
+
+    #[test]
+    fn active_process_modifies_based_on_multiplier_modifier_style() {
+        let data = simple_data_fixture();
+        let ap = ActiveProcess::new(
+            data.processes.get("modifiers").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::Multiplier,
+            2.0,
+            3.0,
+            5.0,
+        );
+        assert_eq!(4.0, ap.duration());
+        assert_eq!(vec![Stack::new(data.item("part_1").unwrap(), 4.5)], ap.inputs());
+        assert_eq!(vec![Stack::new(data.item("part_2").unwrap(), 10.0)], ap.outputs());
+    }
+
+    #[test]
+    fn active_process_modifies_based_on_percent_modifier_style() {
+        let data = simple_data_fixture();
+        let ap = ActiveProcess::new(
+            data.processes.get("modifiers").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::Percent,
+            200.0,
+            300.0,
+            500.0,
+        );
+        assert_eq!(4.0, ap.duration());
+        assert_eq!(vec![Stack::new(data.item("part_1").unwrap(), 4.5)], ap.inputs());
+        assert_eq!(vec![Stack::new(data.item("part_2").unwrap(), 10.0)], ap.outputs());
+    }
+
+    #[test]
+    fn active_process_modifies_based_on_percent_addition_modifier_style() {
+        let data = simple_data_fixture();
+        let ap = ActiveProcess::new(
+            data.processes.get("modifiers").unwrap().clone(),
+            data.factories.get("basic").unwrap().clone(),
+            ModifierStyle::PercentAddition,
+            100.0,
+            200.0,
+            400.0,
+        );
+        assert_eq!(4.0, ap.duration());
+        assert_eq!(vec![Stack::new(data.item("part_1").unwrap(), 4.5)], ap.inputs());
+        assert_eq!(vec![Stack::new(data.item("part_2").unwrap(), 10.0)], ap.outputs());
     }
 }
