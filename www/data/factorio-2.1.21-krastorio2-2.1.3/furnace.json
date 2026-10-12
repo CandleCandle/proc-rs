@@ -1,0 +1,155 @@
+{
+  "kr-crusher" : {
+    "name" : "kr-crusher",
+    "localised_name" : [
+      "entity-name.kr-crusher"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 225000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-crushing" : true,
+      "kr-void-crushing" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 7500
+      }
+    }
+  },
+  "kr-flare-stack" : {
+    "name" : "kr-flare-stack",
+    "localised_name" : [
+      "entity-name.kr-flare-stack"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 100000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-fuel-burning" : true
+    },
+    "module_inventory_size" : 1,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3333.3333333333
+      }
+    }
+  },
+  "kr-stabilizer-charging-station" : {
+    "name" : "kr-stabilizer-charging-station",
+    "localised_name" : [
+      "entity-name.kr-stabilizer-charging-station"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 1000000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "kr-stabilizer-charging" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 33333.333333333
+      }
+    }
+  },
+  "kr-air-purifier" : {
+    "name" : "kr-air-purifier",
+    "localised_name" : [
+      "entity-name.kr-air-purifier"
+    ],
+    "type" : "furnace",
+    "energy_usage" : 75000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-air-purification" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 2500
+      }
+    }
+  }
+}

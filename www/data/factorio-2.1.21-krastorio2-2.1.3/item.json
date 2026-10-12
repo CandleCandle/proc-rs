@@ -1,0 +1,8109 @@
+{
+  "wooden-chest" : {
+    "name" : "wooden-chest",
+    "localised_name" : [
+      "entity-name.wooden-chest"
+    ],
+    "type" : "item",
+    "order" : "a[items]-a[wooden-chest]",
+    "fuel_value" : 3000000,
+    "stack_size" : 50,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 0.35,
+    "fuel_top_speed_multiplier" : 0.5,
+    "place_result" : "wooden-chest"
+  },
+  "iron-chest" : {
+    "name" : "iron-chest",
+    "localised_name" : [
+      "entity-name.iron-chest"
+    ],
+    "type" : "item",
+    "order" : "a[items]-b[iron-chest]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "iron-chest"
+  },
+  "kr-shelter" : {
+    "name" : "kr-shelter",
+    "localised_name" : [
+      "entity-name.kr-shelter"
+    ],
+    "type" : "item",
+    "order" : "aaa",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "kr-shelter-container"
+  },
+  "kr-shelter-plus" : {
+    "name" : "kr-shelter-plus",
+    "localised_name" : [
+      "entity-name.kr-shelter-plus"
+    ],
+    "type" : "item",
+    "order" : "aaa",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "kr-shelter-plus-container"
+  },
+  "storage-tank" : {
+    "name" : "storage-tank",
+    "localised_name" : [
+      "entity-name.storage-tank"
+    ],
+    "type" : "item",
+    "order" : "b[fluid]-a[storage-tank]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "storage-tank"
+  },
+  "kr-big-storage-tank" : {
+    "name" : "kr-big-storage-tank",
+    "localised_name" : [
+      "entity-name.kr-big-storage-tank"
+    ],
+    "type" : "item",
+    "order" : "b[fluid]-bb2[storage-tank-2]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-big-storage-tank"
+  },
+  "kr-huge-storage-tank" : {
+    "name" : "kr-huge-storage-tank",
+    "localised_name" : [
+      "entity-name.kr-huge-storage-tank"
+    ],
+    "type" : "item",
+    "order" : "b[fluid]-c[storage-tank-3]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-huge-storage-tank"
+  },
+  "steel-chest" : {
+    "name" : "steel-chest",
+    "localised_name" : [
+      "entity-name.steel-chest"
+    ],
+    "type" : "item",
+    "order" : "a[asteel-chest]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "steel-chest"
+  },
+  "active-provider-chest" : {
+    "name" : "active-provider-chest",
+    "localised_name" : [
+      "entity-name.active-provider-chest"
+    ],
+    "type" : "item",
+    "order" : "a[chest-active-provider]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "active-provider-chest"
+  },
+  "buffer-chest" : {
+    "name" : "buffer-chest",
+    "localised_name" : [
+      "entity-name.buffer-chest"
+    ],
+    "type" : "item",
+    "order" : "b[chest-buffer]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "buffer-chest"
+  },
+  "passive-provider-chest" : {
+    "name" : "passive-provider-chest",
+    "localised_name" : [
+      "entity-name.passive-provider-chest"
+    ],
+    "type" : "item",
+    "order" : "c[chest-passive-provider]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "passive-provider-chest"
+  },
+  "requester-chest" : {
+    "name" : "requester-chest",
+    "localised_name" : [
+      "entity-name.requester-chest"
+    ],
+    "type" : "item",
+    "order" : "d[chest-requester]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "requester-chest"
+  },
+  "storage-chest" : {
+    "name" : "storage-chest",
+    "localised_name" : [
+      "entity-name.storage-chest"
+    ],
+    "type" : "item",
+    "order" : "e[chest-storage]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "storage-chest"
+  },
+  "kr-strongbox" : {
+    "name" : "kr-strongbox",
+    "localised_name" : [
+      "entity-name.kr-strongbox"
+    ],
+    "type" : "item",
+    "order" : "a[strongbox]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-strongbox"
+  },
+  "kr-active-provider-strongbox" : {
+    "name" : "kr-active-provider-strongbox",
+    "localised_name" : [
+      "entity-name.kr-active-provider-strongbox"
+    ],
+    "type" : "item",
+    "order" : "b[active-provider-strongbox]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-active-provider-strongbox"
+  },
+  "kr-buffer-strongbox" : {
+    "name" : "kr-buffer-strongbox",
+    "localised_name" : [
+      "entity-name.kr-buffer-strongbox"
+    ],
+    "type" : "item",
+    "order" : "c[buffer-strongbox]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-buffer-strongbox"
+  },
+  "kr-passive-provider-strongbox" : {
+    "name" : "kr-passive-provider-strongbox",
+    "localised_name" : [
+      "entity-name.kr-passive-provider-strongbox"
+    ],
+    "type" : "item",
+    "order" : "d[passive-provider-strongbox]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-passive-provider-strongbox"
+  },
+  "kr-requester-strongbox" : {
+    "name" : "kr-requester-strongbox",
+    "localised_name" : [
+      "entity-name.kr-requester-strongbox"
+    ],
+    "type" : "item",
+    "order" : "e[requester-strongbox]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-requester-strongbox"
+  },
+  "kr-storage-strongbox" : {
+    "name" : "kr-storage-strongbox",
+    "localised_name" : [
+      "entity-name.kr-storage-strongbox"
+    ],
+    "type" : "item",
+    "order" : "f[storage-strongbox]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-storage-strongbox"
+  },
+  "kr-warehouse" : {
+    "name" : "kr-warehouse",
+    "localised_name" : [
+      "entity-name.kr-warehouse"
+    ],
+    "type" : "item",
+    "order" : "a[warehouse]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-warehouse"
+  },
+  "kr-active-provider-warehouse" : {
+    "name" : "kr-active-provider-warehouse",
+    "localised_name" : [
+      "entity-name.kr-active-provider-warehouse"
+    ],
+    "type" : "item",
+    "order" : "b[active-provider-warehouse]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-active-provider-warehouse"
+  },
+  "kr-buffer-warehouse" : {
+    "name" : "kr-buffer-warehouse",
+    "localised_name" : [
+      "entity-name.kr-buffer-warehouse"
+    ],
+    "type" : "item",
+    "order" : "c[buffer-warehouse]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-buffer-warehouse"
+  },
+  "kr-passive-provider-warehouse" : {
+    "name" : "kr-passive-provider-warehouse",
+    "localised_name" : [
+      "entity-name.kr-passive-provider-warehouse"
+    ],
+    "type" : "item",
+    "order" : "d[passive-provider-warehouse]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-passive-provider-warehouse"
+  },
+  "kr-requester-warehouse" : {
+    "name" : "kr-requester-warehouse",
+    "localised_name" : [
+      "entity-name.kr-requester-warehouse"
+    ],
+    "type" : "item",
+    "order" : "e[requester-warehouse]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-requester-warehouse"
+  },
+  "kr-storage-warehouse" : {
+    "name" : "kr-storage-warehouse",
+    "localised_name" : [
+      "entity-name.kr-storage-warehouse"
+    ],
+    "type" : "item",
+    "order" : "f[storage-warehouse]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-storage-warehouse"
+  },
+  "transport-belt" : {
+    "name" : "transport-belt",
+    "localised_name" : [
+      "entity-name.transport-belt"
+    ],
+    "type" : "item",
+    "order" : "a[transport-belt]-a[transport-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 100,
+    "place_result" : "transport-belt"
+  },
+  "fast-transport-belt" : {
+    "name" : "fast-transport-belt",
+    "localised_name" : [
+      "entity-name.fast-transport-belt"
+    ],
+    "type" : "item",
+    "order" : "a[transport-belt]-b[fast-transport-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 100,
+    "place_result" : "fast-transport-belt"
+  },
+  "express-transport-belt" : {
+    "name" : "express-transport-belt",
+    "localised_name" : [
+      "entity-name.express-transport-belt"
+    ],
+    "type" : "item",
+    "order" : "a[transport-belt]-c[express-transport-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 100,
+    "place_result" : "express-transport-belt"
+  },
+  "kr-advanced-transport-belt" : {
+    "name" : "kr-advanced-transport-belt",
+    "localised_name" : [
+      "entity-name.kr-advanced-transport-belt"
+    ],
+    "type" : "item",
+    "order" : "a[transport-belt]-d[advanced-transport-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 100,
+    "place_result" : "kr-advanced-transport-belt"
+  },
+  "kr-superior-transport-belt" : {
+    "name" : "kr-superior-transport-belt",
+    "localised_name" : [
+      "entity-name.kr-superior-transport-belt"
+    ],
+    "type" : "item",
+    "order" : "a[transport-belt]-e[superior-transport-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 100,
+    "place_result" : "kr-superior-transport-belt"
+  },
+  "underground-belt" : {
+    "name" : "underground-belt",
+    "localised_name" : [
+      "entity-name.underground-belt"
+    ],
+    "type" : "item",
+    "order" : "b[underground-belt]-a[underground-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "underground-belt"
+  },
+  "fast-underground-belt" : {
+    "name" : "fast-underground-belt",
+    "localised_name" : [
+      "entity-name.fast-underground-belt"
+    ],
+    "type" : "item",
+    "order" : "b[underground-belt]-b[fast-underground-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "fast-underground-belt"
+  },
+  "express-underground-belt" : {
+    "name" : "express-underground-belt",
+    "localised_name" : [
+      "entity-name.express-underground-belt"
+    ],
+    "type" : "item",
+    "order" : "b[underground-belt]-c[express-underground-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "express-underground-belt"
+  },
+  "kr-advanced-underground-belt" : {
+    "name" : "kr-advanced-underground-belt",
+    "localised_name" : [
+      "entity-name.kr-advanced-underground-belt"
+    ],
+    "type" : "item",
+    "order" : "b[underground-belt]-d[advanced-underground-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-underground-belt"
+  },
+  "kr-superior-underground-belt" : {
+    "name" : "kr-superior-underground-belt",
+    "localised_name" : [
+      "entity-name.kr-superior-underground-belt"
+    ],
+    "type" : "item",
+    "order" : "b[underground-belt]-e[superior-underground-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-superior-underground-belt"
+  },
+  "splitter" : {
+    "name" : "splitter",
+    "localised_name" : [
+      "entity-name.splitter"
+    ],
+    "type" : "item",
+    "order" : "c[splitter]-a[splitter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "splitter"
+  },
+  "fast-splitter" : {
+    "name" : "fast-splitter",
+    "localised_name" : [
+      "entity-name.fast-splitter"
+    ],
+    "type" : "item",
+    "order" : "c[splitter]-b[fast-splitter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "fast-splitter"
+  },
+  "express-splitter" : {
+    "name" : "express-splitter",
+    "localised_name" : [
+      "entity-name.express-splitter"
+    ],
+    "type" : "item",
+    "order" : "c[splitter]-c[express-splitter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "express-splitter"
+  },
+  "kr-advanced-splitter" : {
+    "name" : "kr-advanced-splitter",
+    "localised_name" : [
+      "entity-name.kr-advanced-splitter"
+    ],
+    "type" : "item",
+    "order" : "c[splitter]-d[advanced-splitter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-splitter"
+  },
+  "kr-superior-splitter" : {
+    "name" : "kr-superior-splitter",
+    "localised_name" : [
+      "entity-name.kr-superior-splitter"
+    ],
+    "type" : "item",
+    "order" : "c[splitter]-e[superior-splitter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-superior-splitter"
+  },
+  "kr-loader" : {
+    "name" : "kr-loader",
+    "localised_name" : [
+      "entity-name.kr-loader"
+    ],
+    "type" : "item",
+    "order" : "d[loader]-a1[kr-loader]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-loader"
+  },
+  "kr-fast-loader" : {
+    "name" : "kr-fast-loader",
+    "localised_name" : [
+      "entity-name.kr-fast-loader"
+    ],
+    "type" : "item",
+    "order" : "d[loader]-a2[kr-fast-loader]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-fast-loader"
+  },
+  "kr-express-loader" : {
+    "name" : "kr-express-loader",
+    "localised_name" : [
+      "entity-name.kr-express-loader"
+    ],
+    "type" : "item",
+    "order" : "d[loader]-a3[kr-express-loader]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-express-loader"
+  },
+  "kr-advanced-loader" : {
+    "name" : "kr-advanced-loader",
+    "localised_name" : [
+      "entity-name.kr-advanced-loader"
+    ],
+    "type" : "item",
+    "order" : "d[loader]-a4[kr-advanced-loader]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-loader"
+  },
+  "kr-superior-loader" : {
+    "name" : "kr-superior-loader",
+    "localised_name" : [
+      "entity-name.kr-superior-loader"
+    ],
+    "type" : "item",
+    "order" : "d[loader]-a5[kr-superior-loader]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-superior-loader"
+  },
+  "loader" : {
+    "name" : "loader",
+    "localised_name" : [
+      "entity-name.loader"
+    ],
+    "type" : "item",
+    "order" : "d[loader]-a[basic-loader]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "loader"
+  },
+  "fast-loader" : {
+    "name" : "fast-loader",
+    "localised_name" : [
+      "entity-name.fast-loader"
+    ],
+    "type" : "item",
+    "order" : "d[loader]-b[fast-loader]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "fast-loader"
+  },
+  "express-loader" : {
+    "name" : "express-loader",
+    "localised_name" : [
+      "entity-name.express-loader"
+    ],
+    "type" : "item",
+    "order" : "d[loader]-c[express-loader]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "express-loader"
+  },
+  "burner-inserter" : {
+    "name" : "burner-inserter",
+    "localised_name" : [
+      "entity-name.burner-inserter"
+    ],
+    "type" : "item",
+    "order" : "a[burner-inserter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "burner-inserter"
+  },
+  "inserter" : {
+    "name" : "inserter",
+    "localised_name" : [
+      "entity-name.inserter"
+    ],
+    "type" : "item",
+    "order" : "b[inserter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "inserter"
+  },
+  "long-handed-inserter" : {
+    "name" : "long-handed-inserter",
+    "localised_name" : [
+      "entity-name.long-handed-inserter"
+    ],
+    "type" : "item",
+    "order" : "c[long-handed-inserter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "long-handed-inserter"
+  },
+  "fast-inserter" : {
+    "name" : "fast-inserter",
+    "localised_name" : [
+      "entity-name.fast-inserter"
+    ],
+    "type" : "item",
+    "order" : "d[fast-inserter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "fast-inserter"
+  },
+  "bulk-inserter" : {
+    "name" : "bulk-inserter",
+    "localised_name" : [
+      "entity-name.bulk-inserter"
+    ],
+    "type" : "item",
+    "order" : "f[bulk-inserter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "bulk-inserter"
+  },
+  "kr-superior-inserter" : {
+    "name" : "kr-superior-inserter",
+    "localised_name" : [
+      "entity-name.kr-superior-inserter"
+    ],
+    "type" : "item",
+    "order" : "h1[superior-inserter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-superior-inserter"
+  },
+  "kr-superior-long-inserter" : {
+    "name" : "kr-superior-long-inserter",
+    "localised_name" : [
+      "entity-name.kr-superior-long-inserter"
+    ],
+    "type" : "item",
+    "order" : "h2[superior-long-inserter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-superior-long-inserter"
+  },
+  "small-electric-pole" : {
+    "name" : "small-electric-pole",
+    "localised_name" : [
+      "entity-name.small-electric-pole"
+    ],
+    "type" : "item",
+    "order" : "a[energy]-a[small-electric-pole]",
+    "fuel_value" : 1500000,
+    "stack_size" : 50,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 0.35,
+    "fuel_top_speed_multiplier" : 0.5,
+    "place_result" : "small-electric-pole"
+  },
+  "medium-electric-pole" : {
+    "name" : "medium-electric-pole",
+    "localised_name" : [
+      "entity-name.medium-electric-pole"
+    ],
+    "type" : "item",
+    "order" : "a[energy]-b[medium-electric-pole]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "medium-electric-pole"
+  },
+  "big-electric-pole" : {
+    "name" : "big-electric-pole",
+    "localised_name" : [
+      "entity-name.big-electric-pole"
+    ],
+    "type" : "item",
+    "order" : "a[energy]-c[big-electric-pole]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "big-electric-pole"
+  },
+  "substation" : {
+    "name" : "substation",
+    "localised_name" : [
+      "entity-name.substation"
+    ],
+    "type" : "item",
+    "order" : "a[energy]-d[substation]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "substation"
+  },
+  "kr-superior-substation" : {
+    "name" : "kr-superior-substation",
+    "localised_name" : [
+      "entity-name.kr-superior-substation"
+    ],
+    "type" : "item",
+    "order" : "a[energy]-e[substation-mk2]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-superior-substation"
+  },
+  "pipe" : {
+    "name" : "pipe",
+    "localised_name" : [
+      "entity-name.pipe"
+    ],
+    "type" : "item",
+    "order" : "a[pipe]-a[pipe]",
+    "fuel_value" : 0,
+    "stack_size" : 100,
+    "place_result" : "pipe"
+  },
+  "kr-steel-pipe" : {
+    "name" : "kr-steel-pipe",
+    "localised_name" : [
+      "entity-name.kr-steel-pipe"
+    ],
+    "type" : "item",
+    "order" : "a[pipe]-aa[steel-pipe]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-steel-pipe"
+  },
+  "pipe-to-ground" : {
+    "name" : "pipe-to-ground",
+    "localised_name" : [
+      "entity-name.pipe-to-ground"
+    ],
+    "type" : "item",
+    "order" : "a[pipe]-b[pipe-to-ground]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "pipe-to-ground"
+  },
+  "kr-steel-pipe-to-ground" : {
+    "name" : "kr-steel-pipe-to-ground",
+    "localised_name" : [
+      "entity-name.kr-steel-pipe-to-ground"
+    ],
+    "type" : "item",
+    "order" : "a[pipe]-ba[steel-pipe-to-ground]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-steel-pipe-to-ground"
+  },
+  "pump" : {
+    "name" : "pump",
+    "localised_name" : [
+      "entity-name.pump"
+    ],
+    "type" : "item",
+    "order" : "b[pipe]-c[pump]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "pump"
+  },
+  "kr-steel-pump" : {
+    "name" : "kr-steel-pump",
+    "localised_name" : [
+      "entity-name.kr-steel-pump"
+    ],
+    "type" : "item",
+    "order" : "b[pipe]-ca[steel-pump]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-steel-pump"
+  },
+  "kr-tesla-coil" : {
+    "name" : "kr-tesla-coil",
+    "localised_name" : [
+      "entity-name.kr-tesla-coil"
+    ],
+    "type" : "item",
+    "order" : "z-a[energy]-f2[tesla-coil]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-tesla-coil"
+  },
+  "kr-planetary-teleporter" : {
+    "name" : "kr-planetary-teleporter",
+    "localised_name" : [
+      "entity-name.kr-planetary-teleporter"
+    ],
+    "type" : "item",
+    "order" : "z-z-b[kr-planetary-teleporter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-planetary-teleporter"
+  },
+  "rail" : {
+    "name" : "rail",
+    "localised_name" : [
+      "item-name.rail"
+    ],
+    "type" : "rail-planner",
+    "order" : "a[rail]-a[rail]",
+    "fuel_value" : 0,
+    "stack_size" : 100,
+    "place_result" : "straight-rail"
+  },
+  "rail-ramp" : {
+    "name" : "rail-ramp",
+    "localised_name" : [
+      "entity-name.rail-ramp"
+    ],
+    "type" : "rail-planner",
+    "order" : "a[rail]-b[rail-ramp]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "rail-ramp"
+  },
+  "rail-support" : {
+    "name" : "rail-support",
+    "localised_name" : [
+      "entity-name.rail-support"
+    ],
+    "type" : "item",
+    "order" : "a[rail]-c[rail-support]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_result" : "rail-support"
+  },
+  "train-stop" : {
+    "name" : "train-stop",
+    "localised_name" : [
+      "entity-name.train-stop"
+    ],
+    "type" : "item",
+    "order" : "b[train-automation]-a[train-stop]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "train-stop"
+  },
+  "rail-signal" : {
+    "name" : "rail-signal",
+    "localised_name" : [
+      "entity-name.rail-signal"
+    ],
+    "type" : "item",
+    "order" : "b[train-automation]-b[rail-signal]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "rail-signal"
+  },
+  "rail-chain-signal" : {
+    "name" : "rail-chain-signal",
+    "localised_name" : [
+      "entity-name.rail-chain-signal"
+    ],
+    "type" : "item",
+    "order" : "b[train-automation]-c[rail-chain-signal]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "rail-chain-signal"
+  },
+  "locomotive" : {
+    "name" : "locomotive",
+    "localised_name" : [
+      "entity-name.locomotive"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "c[rolling-stock]-a[locomotive]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_result" : "locomotive"
+  },
+  "kr-nuclear-locomotive" : {
+    "name" : "kr-nuclear-locomotive",
+    "localised_name" : [
+      "entity-name.kr-nuclear-locomotive"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "c[rolling-stock]-a[nuclear-locomotive]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_result" : "kr-nuclear-locomotive"
+  },
+  "cargo-wagon" : {
+    "name" : "cargo-wagon",
+    "localised_name" : [
+      "entity-name.cargo-wagon"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "c[rolling-stock]-b[cargo-wagon]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_result" : "cargo-wagon"
+  },
+  "fluid-wagon" : {
+    "name" : "fluid-wagon",
+    "localised_name" : [
+      "entity-name.fluid-wagon"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "c[rolling-stock]-c[fluid-wagon]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_result" : "fluid-wagon"
+  },
+  "artillery-wagon" : {
+    "name" : "artillery-wagon",
+    "localised_name" : [
+      "entity-name.artillery-wagon"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "c[rolling-stock]-d[artillery-wagon]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_result" : "artillery-wagon"
+  },
+  "car" : {
+    "name" : "car",
+    "localised_name" : [
+      "entity-name.car"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "b[personal-transport]-a[car]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "car"
+  },
+  "tank" : {
+    "name" : "tank",
+    "localised_name" : [
+      "entity-name.kr-armored-vehicle"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "b[personal-transport]-b[tank]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "tank"
+  },
+  "kr-advanced-tank" : {
+    "name" : "kr-advanced-tank",
+    "localised_name" : [
+      "entity-name.kr-advanced-tank"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "b[personal-transport]-b[z-advanced-tank]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "kr-advanced-tank"
+  },
+  "spidertron" : {
+    "name" : "spidertron",
+    "localised_name" : [
+      "entity-name.spidertron"
+    ],
+    "type" : "item-with-entity-data",
+    "order" : "b[personal-transport]-c[spidertron]-a[spider]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "spidertron"
+  },
+  "logistic-robot" : {
+    "name" : "logistic-robot",
+    "localised_name" : [
+      "entity-name.logistic-robot"
+    ],
+    "type" : "item",
+    "order" : "a[robot]-a[logistic-robot]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "logistic-robot"
+  },
+  "construction-robot" : {
+    "name" : "construction-robot",
+    "localised_name" : [
+      "entity-name.construction-robot"
+    ],
+    "type" : "item",
+    "order" : "a[robot]-b[construction-robot]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "construction-robot"
+  },
+  "roboport" : {
+    "name" : "roboport",
+    "localised_name" : [
+      "entity-name.roboport"
+    ],
+    "type" : "item",
+    "order" : "c[signal]-a[roboport]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "roboport"
+  },
+  "kr-small-roboport" : {
+    "name" : "kr-small-roboport",
+    "localised_name" : [
+      "entity-name.kr-small-roboport"
+    ],
+    "type" : "item",
+    "order" : "c[signal]-b[small-roboport]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-small-roboport"
+  },
+  "kr-big-roboport" : {
+    "name" : "kr-big-roboport",
+    "localised_name" : [
+      "entity-name.kr-big-roboport"
+    ],
+    "type" : "item",
+    "order" : "c[signal]-c[big-roboport]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-big-roboport"
+  },
+  "small-lamp" : {
+    "name" : "small-lamp",
+    "localised_name" : [
+      "entity-name.small-lamp"
+    ],
+    "type" : "item",
+    "order" : "a[light]-a[small-lamp]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "small-lamp"
+  },
+  "arithmetic-combinator" : {
+    "name" : "arithmetic-combinator",
+    "localised_name" : [
+      "entity-name.arithmetic-combinator"
+    ],
+    "type" : "item",
+    "order" : "c[combinators]-a[arithmetic-combinator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "arithmetic-combinator"
+  },
+  "decider-combinator" : {
+    "name" : "decider-combinator",
+    "localised_name" : [
+      "entity-name.decider-combinator"
+    ],
+    "type" : "item",
+    "order" : "c[combinators]-b[decider-combinator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "decider-combinator"
+  },
+  "selector-combinator" : {
+    "name" : "selector-combinator",
+    "localised_name" : [
+      "entity-name.selector-combinator"
+    ],
+    "type" : "item",
+    "order" : "c[combinators]-c[selector-combinator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "selector-combinator"
+  },
+  "constant-combinator" : {
+    "name" : "constant-combinator",
+    "localised_name" : [
+      "entity-name.constant-combinator"
+    ],
+    "type" : "item",
+    "order" : "c[combinators]-d[constant-combinator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "constant-combinator"
+  },
+  "power-switch" : {
+    "name" : "power-switch",
+    "localised_name" : [
+      "entity-name.power-switch"
+    ],
+    "type" : "item",
+    "order" : "d[other]-a[power-switch]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "power-switch"
+  },
+  "programmable-speaker" : {
+    "name" : "programmable-speaker",
+    "localised_name" : [
+      "entity-name.programmable-speaker"
+    ],
+    "type" : "item",
+    "order" : "d[other]-b[programmable-speaker]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "programmable-speaker"
+  },
+  "display-panel" : {
+    "name" : "display-panel",
+    "localised_name" : [
+      "entity-name.display-panel"
+    ],
+    "type" : "item",
+    "order" : "s[display-panel]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "display-panel"
+  },
+  "stone-brick" : {
+    "name" : "stone-brick",
+    "localised_name" : [
+      "item-name.stone-brick"
+    ],
+    "type" : "item",
+    "order" : "a[stone-brick]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "concrete" : {
+    "name" : "concrete",
+    "localised_name" : [
+      "item-name.concrete"
+    ],
+    "type" : "item",
+    "order" : "b[concrete]-a[plain]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "hazard-concrete" : {
+    "name" : "hazard-concrete",
+    "localised_name" : [
+      "item-name.hazard-concrete"
+    ],
+    "type" : "item",
+    "order" : "b[concrete]-b[hazard]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "refined-concrete" : {
+    "name" : "refined-concrete",
+    "localised_name" : [
+      "item-name.refined-concrete"
+    ],
+    "type" : "item",
+    "order" : "b[concrete]-c[refined]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "refined-hazard-concrete" : {
+    "name" : "refined-hazard-concrete",
+    "localised_name" : [
+      "item-name.refined-hazard-concrete"
+    ],
+    "type" : "item",
+    "order" : "b[concrete]-d[refined-hazard]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "landfill" : {
+    "name" : "landfill",
+    "localised_name" : [
+      "item-name.landfill"
+    ],
+    "type" : "item",
+    "order" : "c[landfill]-a[dirt]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "cliff-explosives" : {
+    "name" : "cliff-explosives",
+    "localised_name" : [
+      "item-name.cliff-explosives"
+    ],
+    "type" : "capsule",
+    "order" : "d[cliff-explosives]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-black-reinforced-plate" : {
+    "name" : "kr-black-reinforced-plate",
+    "localised_name" : [
+      "item-name.kr-black-reinforced-plate"
+    ],
+    "type" : "item",
+    "order" : "z[black-reinforced-plate]-a1[black-reinforced-plate]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-white-reinforced-plate" : {
+    "name" : "kr-white-reinforced-plate",
+    "localised_name" : [
+      "item-name.kr-white-reinforced-plate"
+    ],
+    "type" : "item",
+    "order" : "z[white-reinforced-plate]-a2[white-reinforced-plate]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "repair-pack" : {
+    "name" : "repair-pack",
+    "localised_name" : [
+      "item-name.repair-pack"
+    ],
+    "type" : "repair-tool",
+    "order" : "b[repair]-a[repair-pack]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "blueprint" : {
+    "name" : "blueprint",
+    "localised_name" : [
+      "item-name.blueprint"
+    ],
+    "type" : "blueprint",
+    "order" : "c[automated-construction]-a[blueprint]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "deconstruction-planner" : {
+    "name" : "deconstruction-planner",
+    "localised_name" : [
+      "item-name.deconstruction-planner"
+    ],
+    "type" : "deconstruction-item",
+    "order" : "c[automated-construction]-b[deconstruction-planner]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "upgrade-planner" : {
+    "name" : "upgrade-planner",
+    "localised_name" : [
+      "item-name.upgrade-planner"
+    ],
+    "type" : "upgrade-item",
+    "order" : "c[automated-construction]-c[upgrade-planner]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "blueprint-book" : {
+    "name" : "blueprint-book",
+    "localised_name" : [
+      "item-name.blueprint-book"
+    ],
+    "type" : "blueprint-book",
+    "order" : "c[automated-construction]-d[blueprint-book]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "copy-paste-tool" : {
+    "name" : "copy-paste-tool",
+    "localised_name" : [
+      "item-name.copy-paste-tool"
+    ],
+    "type" : "copy-paste-tool",
+    "order" : "c[automated-construction]-x",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "cut-paste-tool" : {
+    "name" : "cut-paste-tool",
+    "localised_name" : [
+      "item-name.cut-paste-tool"
+    ],
+    "type" : "copy-paste-tool",
+    "order" : "c[automated-construction]-x",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "kr-wind-turbine" : {
+    "name" : "kr-wind-turbine",
+    "localised_name" : [
+      "entity-name.kr-wind-turbine"
+    ],
+    "type" : "item",
+    "order" : "00[solar-panel]-a[wind-turbine]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-wind-turbine"
+  },
+  "boiler" : {
+    "name" : "boiler",
+    "localised_name" : [
+      "entity-name.boiler"
+    ],
+    "type" : "item",
+    "order" : "b[steam-power]-a[boiler]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "boiler"
+  },
+  "steam-engine" : {
+    "name" : "steam-engine",
+    "localised_name" : [
+      "entity-name.steam-engine"
+    ],
+    "type" : "item",
+    "order" : "b[steam-power]-b[steam-engine]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "steam-engine"
+  },
+  "kr-gas-power-station" : {
+    "name" : "kr-gas-power-station",
+    "localised_name" : [
+      "entity-name.kr-gas-power-station"
+    ],
+    "type" : "item",
+    "order" : "c[solar-panel]-b[gas-power-station]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "kr-gas-power-station"
+  },
+  "solar-panel" : {
+    "name" : "solar-panel",
+    "localised_name" : [
+      "entity-name.solar-panel"
+    ],
+    "type" : "item",
+    "order" : "d[solar-panel]-a[solar-panel]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "solar-panel"
+  },
+  "kr-advanced-solar-panel" : {
+    "name" : "kr-advanced-solar-panel",
+    "localised_name" : [
+      "entity-name.kr-advanced-solar-panel"
+    ],
+    "type" : "item",
+    "order" : "d[solar-panel]-b[advanced-solar-panel]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-solar-panel"
+  },
+  "kr-logo" : {
+    "name" : "kr-logo",
+    "localised_name" : [
+      "entity-name.kr-logo"
+    ],
+    "type" : "item",
+    "order" : "d[solar-panel]-e[kr-logo]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-logo"
+  },
+  "accumulator" : {
+    "name" : "accumulator",
+    "localised_name" : [
+      "entity-name.accumulator"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "accumulator"
+  },
+  "crystal-drain-pole-rampant" : {
+    "name" : "crystal-drain-pole-rampant",
+    "localised_name" : [
+      "entity-name.crystal-drain-pole-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-drain-pole-rampant"
+  },
+  "crystal-v1-item-drain-rampant" : {
+    "name" : "crystal-v1-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v1-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v1-drain-rampant"
+  },
+  "crystal-v10-item-drain-rampant" : {
+    "name" : "crystal-v10-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v10-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v10-drain-rampant"
+  },
+  "crystal-v2-item-drain-rampant" : {
+    "name" : "crystal-v2-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v2-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v2-drain-rampant"
+  },
+  "crystal-v3-item-drain-rampant" : {
+    "name" : "crystal-v3-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v3-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v3-drain-rampant"
+  },
+  "crystal-v4-item-drain-rampant" : {
+    "name" : "crystal-v4-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v4-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v4-drain-rampant"
+  },
+  "crystal-v5-item-drain-rampant" : {
+    "name" : "crystal-v5-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v5-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v5-drain-rampant"
+  },
+  "crystal-v6-item-drain-rampant" : {
+    "name" : "crystal-v6-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v6-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v6-drain-rampant"
+  },
+  "crystal-v7-item-drain-rampant" : {
+    "name" : "crystal-v7-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v7-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v7-drain-rampant"
+  },
+  "crystal-v8-item-drain-rampant" : {
+    "name" : "crystal-v8-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v8-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v8-drain-rampant"
+  },
+  "crystal-v9-item-drain-rampant" : {
+    "name" : "crystal-v9-item-drain-rampant",
+    "localised_name" : [
+      "entity-name.crystal-v9-drain-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "crystal-v9-drain-rampant"
+  },
+  "drain-trigger-rampant" : {
+    "name" : "drain-trigger-rampant",
+    "localised_name" : [
+      "entity-name.drain-trigger-rampant"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-a[accumulator]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "drain-trigger-rampant"
+  },
+  "kr-energy-storage" : {
+    "name" : "kr-energy-storage",
+    "localised_name" : [
+      "entity-name.kr-energy-storage"
+    ],
+    "type" : "item",
+    "order" : "e[accumulator]-b[energy-storage]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-energy-storage"
+  },
+  "nuclear-reactor" : {
+    "name" : "nuclear-reactor",
+    "localised_name" : [
+      "entity-name.nuclear-reactor"
+    ],
+    "type" : "item",
+    "order" : "f[nuclear-energy]-a[reactor]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "nuclear-reactor"
+  },
+  "kr-fusion-reactor" : {
+    "name" : "kr-fusion-reactor",
+    "localised_name" : [
+      "entity-name.kr-fusion-reactor"
+    ],
+    "type" : "item",
+    "order" : "f[nuclear-energy]-b2[fusion-reactor]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "kr-fusion-reactor"
+  },
+  "heat-pipe" : {
+    "name" : "heat-pipe",
+    "localised_name" : [
+      "entity-name.heat-pipe"
+    ],
+    "type" : "item",
+    "order" : "f[nuclear-energy]-b[heat-pipe]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "heat-pipe"
+  },
+  "heat-exchanger" : {
+    "name" : "heat-exchanger",
+    "localised_name" : [
+      "entity-name.heat-exchanger"
+    ],
+    "type" : "item",
+    "order" : "f[nuclear-energy]-c[heat-exchanger]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "heat-exchanger"
+  },
+  "steam-turbine" : {
+    "name" : "steam-turbine",
+    "localised_name" : [
+      "entity-name.steam-turbine"
+    ],
+    "type" : "item",
+    "order" : "f[nuclear-energy]-d[steam-turbine]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "steam-turbine"
+  },
+  "kr-advanced-steam-turbine" : {
+    "name" : "kr-advanced-steam-turbine",
+    "localised_name" : [
+      "entity-name.kr-advanced-steam-turbine"
+    ],
+    "type" : "item",
+    "order" : "f[nuclear-energy]-e2[advanced-steam-turbine]",
+    "fuel_value" : 0,
+    "stack_size" : 25,
+    "place_result" : "kr-advanced-steam-turbine"
+  },
+  "kr-antimatter-reactor" : {
+    "name" : "kr-antimatter-reactor",
+    "localised_name" : [
+      "entity-name.kr-antimatter-reactor"
+    ],
+    "type" : "item",
+    "order" : "z-h[antimatter-reactor]-c[antimatter-reactor]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "kr-antimatter-reactor"
+  },
+  "burner-mining-drill" : {
+    "name" : "burner-mining-drill",
+    "localised_name" : [
+      "entity-name.burner-mining-drill"
+    ],
+    "type" : "item",
+    "order" : "a[items]-a[burner-mining-drill]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "burner-mining-drill"
+  },
+  "electric-mining-drill" : {
+    "name" : "electric-mining-drill",
+    "localised_name" : [
+      "entity-name.electric-mining-drill"
+    ],
+    "type" : "item",
+    "order" : "a[items]-b[electric-mining-drill]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "electric-mining-drill"
+  },
+  "kr-electric-mining-drill-mk2" : {
+    "name" : "kr-electric-mining-drill-mk2",
+    "localised_name" : [
+      "entity-name.kr-electric-mining-drill-mk2"
+    ],
+    "type" : "item",
+    "order" : "a[items]-c[electric-mining-drill-mk2]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-electric-mining-drill-mk2"
+  },
+  "kr-electric-mining-drill-mk3" : {
+    "name" : "kr-electric-mining-drill-mk3",
+    "localised_name" : [
+      "entity-name.kr-electric-mining-drill-mk3"
+    ],
+    "type" : "item",
+    "order" : "a[items]-c[electric-mining-drill-mk3]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-electric-mining-drill-mk3"
+  },
+  "kr-quarry-drill" : {
+    "name" : "kr-quarry-drill",
+    "localised_name" : [
+      "entity-name.kr-quarry-drill"
+    ],
+    "type" : "item",
+    "order" : "a[items]-e[quarry-drill]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-quarry-drill"
+  },
+  "offshore-pump" : {
+    "name" : "offshore-pump",
+    "localised_name" : [
+      "entity-name.offshore-pump"
+    ],
+    "type" : "item",
+    "order" : "b[fluids]-a[offshore-pump]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_result" : "offshore-pump"
+  },
+  "pumpjack" : {
+    "name" : "pumpjack",
+    "localised_name" : [
+      "entity-name.pumpjack"
+    ],
+    "type" : "item",
+    "order" : "b[fluids]-b[pumpjack]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_result" : "pumpjack"
+  },
+  "stone-furnace" : {
+    "name" : "stone-furnace",
+    "localised_name" : [
+      "entity-name.stone-furnace"
+    ],
+    "type" : "item",
+    "order" : "a[stone-furnace]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "stone-furnace"
+  },
+  "steel-furnace" : {
+    "name" : "steel-furnace",
+    "localised_name" : [
+      "entity-name.steel-furnace"
+    ],
+    "type" : "item",
+    "order" : "b[steel-furnace]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "steel-furnace"
+  },
+  "electric-furnace" : {
+    "name" : "electric-furnace",
+    "localised_name" : [
+      "entity-name.electric-furnace"
+    ],
+    "type" : "item",
+    "order" : "c[electric-furnace]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "electric-furnace"
+  },
+  "kr-advanced-furnace" : {
+    "name" : "kr-advanced-furnace",
+    "localised_name" : [
+      "entity-name.kr-advanced-furnace"
+    ],
+    "type" : "item",
+    "order" : "c[electric-furnace]-f[advanced-furnace]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-furnace"
+  },
+  "assembling-machine-1" : {
+    "name" : "assembling-machine-1",
+    "localised_name" : [
+      "entity-name.assembling-machine-1"
+    ],
+    "type" : "item",
+    "order" : "a[assembling-machine-1]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "assembling-machine-1"
+  },
+  "assembling-machine-2" : {
+    "name" : "assembling-machine-2",
+    "localised_name" : [
+      "entity-name.assembling-machine-2"
+    ],
+    "type" : "item",
+    "order" : "b[assembling-machine-2]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "assembling-machine-2"
+  },
+  "assembling-machine-3" : {
+    "name" : "assembling-machine-3",
+    "localised_name" : [
+      "entity-name.assembling-machine-3"
+    ],
+    "type" : "item",
+    "order" : "c1[assembling-machine-3]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "assembling-machine-3"
+  },
+  "kr-advanced-assembling-machine" : {
+    "name" : "kr-advanced-assembling-machine",
+    "localised_name" : [
+      "entity-name.kr-advanced-assembling-machine"
+    ],
+    "type" : "item",
+    "order" : "c2[advanced-assembling-machine]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-assembling-machine"
+  },
+  "kr-greenhouse" : {
+    "name" : "kr-greenhouse",
+    "localised_name" : [
+      "entity-name.kr-greenhouse"
+    ],
+    "type" : "item",
+    "order" : "d-g1[greenhouse]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-greenhouse"
+  },
+  "kr-bio-lab" : {
+    "name" : "kr-bio-lab",
+    "localised_name" : [
+      "entity-name.kr-bio-lab"
+    ],
+    "type" : "item",
+    "order" : "d-g2[bio-lab]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-bio-lab"
+  },
+  "kr-crusher" : {
+    "name" : "kr-crusher",
+    "localised_name" : [
+      "entity-name.kr-crusher"
+    ],
+    "type" : "item",
+    "order" : "d-h1[crusher]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-crusher"
+  },
+  "oil-refinery" : {
+    "name" : "oil-refinery",
+    "localised_name" : [
+      "entity-name.oil-refinery"
+    ],
+    "type" : "item",
+    "order" : "d[refinery]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "oil-refinery"
+  },
+  "kr-electrolysis-plant" : {
+    "name" : "kr-electrolysis-plant",
+    "localised_name" : [
+      "entity-name.kr-electrolysis-plant"
+    ],
+    "type" : "item",
+    "order" : "e-a1[electrolysis-plant]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-electrolysis-plant"
+  },
+  "kr-filtration-plant" : {
+    "name" : "kr-filtration-plant",
+    "localised_name" : [
+      "entity-name.kr-filtration-plant"
+    ],
+    "type" : "item",
+    "order" : "e-b1[filtration-plant]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-filtration-plant"
+  },
+  "kr-atmospheric-condenser" : {
+    "name" : "kr-atmospheric-condenser",
+    "localised_name" : [
+      "entity-name.kr-atmospheric-condenser"
+    ],
+    "type" : "item",
+    "order" : "e-c1[atmospheric-condenser]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-atmospheric-condenser"
+  },
+  "kr-flare-stack" : {
+    "name" : "kr-flare-stack",
+    "localised_name" : [
+      "entity-name.kr-flare-stack"
+    ],
+    "type" : "item",
+    "order" : "e-d1[flare-stack]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-flare-stack"
+  },
+  "chemical-plant" : {
+    "name" : "chemical-plant",
+    "localised_name" : [
+      "entity-name.chemical-plant"
+    ],
+    "type" : "item",
+    "order" : "e[chemical-plant]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "chemical-plant"
+  },
+  "kr-advanced-chemical-plant" : {
+    "name" : "kr-advanced-chemical-plant",
+    "localised_name" : [
+      "entity-name.kr-advanced-chemical-plant"
+    ],
+    "type" : "item",
+    "order" : "e[chemical-plant]-b[advanced-chemical-plant]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-chemical-plant"
+  },
+  "kr-fuel-refinery" : {
+    "name" : "kr-fuel-refinery",
+    "localised_name" : [
+      "entity-name.kr-fuel-refinery"
+    ],
+    "type" : "item",
+    "order" : "e[fuel-refinery]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-fuel-refinery"
+  },
+  "kr-research-server" : {
+    "name" : "kr-research-server",
+    "localised_name" : [
+      "entity-name.kr-research-server"
+    ],
+    "type" : "item",
+    "order" : "f3[research-servers]-a1[research-server]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-research-server"
+  },
+  "kr-quantum-computer" : {
+    "name" : "kr-quantum-computer",
+    "localised_name" : [
+      "entity-name.kr-quantum-computer"
+    ],
+    "type" : "item",
+    "order" : "f3[research-servers]-b1[quantum-computer]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-quantum-computer"
+  },
+  "centrifuge" : {
+    "name" : "centrifuge",
+    "localised_name" : [
+      "entity-name.centrifuge"
+    ],
+    "type" : "item",
+    "order" : "f[centrifuge]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "centrifuge"
+  },
+  "kr-advanced-lab" : {
+    "name" : "kr-advanced-lab",
+    "localised_name" : [
+      "entity-name.kr-advanced-lab"
+    ],
+    "type" : "item",
+    "order" : "g[lab]-g2[advanced-lab]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-lab"
+  },
+  "kr-singularity-lab" : {
+    "name" : "kr-singularity-lab",
+    "localised_name" : [
+      "entity-name.kr-singularity-lab"
+    ],
+    "type" : "item",
+    "order" : "g[lab]-g3[kr-singularity-lab]",
+    "fuel_value" : 0,
+    "stack_size" : 25,
+    "place_result" : "kr-singularity-lab"
+  },
+  "kr-matter-plant" : {
+    "name" : "kr-matter-plant",
+    "localised_name" : [
+      "entity-name.kr-matter-plant"
+    ],
+    "type" : "item",
+    "order" : "i[matter]-a[matter-plant]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "kr-matter-plant"
+  },
+  "kr-matter-associator" : {
+    "name" : "kr-matter-associator",
+    "localised_name" : [
+      "entity-name.kr-matter-associator"
+    ],
+    "type" : "item",
+    "order" : "i[matter]-b[matter-associator]",
+    "fuel_value" : 0,
+    "stack_size" : 25,
+    "place_result" : "kr-matter-associator"
+  },
+  "kr-stabilizer-charging-station" : {
+    "name" : "kr-stabilizer-charging-station",
+    "localised_name" : [
+      "entity-name.kr-stabilizer-charging-station"
+    ],
+    "type" : "item",
+    "order" : "i[matter]-c[stabilizer-charging-station]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-stabilizer-charging-station"
+  },
+  "kr-air-purifier" : {
+    "name" : "kr-air-purifier",
+    "localised_name" : [
+      "entity-name.kr-air-purifier"
+    ],
+    "type" : "item",
+    "order" : "z[air-purifier]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-air-purifier"
+  },
+  "lab" : {
+    "name" : "lab",
+    "localised_name" : [
+      "entity-name.lab"
+    ],
+    "type" : "item",
+    "order" : "z[lab]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "lab"
+  },
+  "kr-singularity-beacon" : {
+    "name" : "kr-singularity-beacon",
+    "localised_name" : [
+      "entity-name.kr-singularity-beacon"
+    ],
+    "type" : "item",
+    "order" : "8[singularity-beacon]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-singularity-beacon"
+  },
+  "beacon" : {
+    "name" : "beacon",
+    "localised_name" : [
+      "entity-name.beacon"
+    ],
+    "type" : "item",
+    "order" : "a[beacon]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_result" : "beacon"
+  },
+  "speed-module" : {
+    "name" : "speed-module",
+    "localised_name" : [
+      "item-name.speed-module"
+    ],
+    "type" : "module",
+    "order" : "a[speed]-a[speed-module-1]",
+    "fuel_value" : 0,
+    "category" : "speed",
+    "stack_size" : 50,
+    "tier" : 1,
+    "module_effects" : {
+      "consumption" : 0.5,
+      "speed" : 0.2,
+      "quality" : -0.01
+    }
+  },
+  "speed-module-2" : {
+    "name" : "speed-module-2",
+    "localised_name" : [
+      "item-name.speed-module-2"
+    ],
+    "type" : "module",
+    "order" : "a[speed]-b[speed-module-2]",
+    "fuel_value" : 0,
+    "category" : "speed",
+    "stack_size" : 50,
+    "tier" : 2,
+    "module_effects" : {
+      "consumption" : 0.6,
+      "speed" : 0.3,
+      "quality" : -0.015
+    }
+  },
+  "speed-module-3" : {
+    "name" : "speed-module-3",
+    "localised_name" : [
+      "item-name.speed-module-3"
+    ],
+    "type" : "module",
+    "order" : "a[speed]-c[speed-module-3]",
+    "fuel_value" : 0,
+    "category" : "speed",
+    "stack_size" : 50,
+    "tier" : 3,
+    "module_effects" : {
+      "consumption" : 0.7,
+      "speed" : 0.5,
+      "quality" : -0.025
+    }
+  },
+  "efficiency-module" : {
+    "name" : "efficiency-module",
+    "localised_name" : [
+      "item-name.efficiency-module"
+    ],
+    "type" : "module",
+    "order" : "c[efficiency]-a[efficiency-module-1]",
+    "fuel_value" : 0,
+    "category" : "efficiency",
+    "stack_size" : 50,
+    "tier" : 1,
+    "module_effects" : {
+      "consumption" : -0.3
+    }
+  },
+  "efficiency-module-2" : {
+    "name" : "efficiency-module-2",
+    "localised_name" : [
+      "item-name.efficiency-module-2"
+    ],
+    "type" : "module",
+    "order" : "c[efficiency]-b[efficiency-module-2]",
+    "fuel_value" : 0,
+    "category" : "efficiency",
+    "stack_size" : 50,
+    "tier" : 2,
+    "module_effects" : {
+      "consumption" : -0.4
+    }
+  },
+  "efficiency-module-3" : {
+    "name" : "efficiency-module-3",
+    "localised_name" : [
+      "item-name.efficiency-module-3"
+    ],
+    "type" : "module",
+    "order" : "c[efficiency]-c[efficiency-module-3]",
+    "fuel_value" : 0,
+    "category" : "efficiency",
+    "stack_size" : 50,
+    "tier" : 3,
+    "module_effects" : {
+      "consumption" : -0.5
+    }
+  },
+  "productivity-module" : {
+    "name" : "productivity-module",
+    "localised_name" : [
+      "item-name.productivity-module"
+    ],
+    "type" : "module",
+    "order" : "c[productivity]-a[productivity-module-1]",
+    "fuel_value" : 0,
+    "category" : "productivity",
+    "stack_size" : 50,
+    "tier" : 1,
+    "module_effects" : {
+      "consumption" : 0.4,
+      "speed" : -0.05,
+      "productivity" : 0.04,
+      "pollution" : 0.05
+    }
+  },
+  "productivity-module-2" : {
+    "name" : "productivity-module-2",
+    "localised_name" : [
+      "item-name.productivity-module-2"
+    ],
+    "type" : "module",
+    "order" : "c[productivity]-b[productivity-module-2]",
+    "fuel_value" : 0,
+    "category" : "productivity",
+    "stack_size" : 50,
+    "tier" : 2,
+    "module_effects" : {
+      "consumption" : 0.6,
+      "speed" : -0.1,
+      "productivity" : 0.06,
+      "pollution" : 0.07
+    }
+  },
+  "productivity-module-3" : {
+    "name" : "productivity-module-3",
+    "localised_name" : [
+      "item-name.productivity-module-3"
+    ],
+    "type" : "module",
+    "order" : "c[productivity]-c[productivity-module-3]",
+    "fuel_value" : 0,
+    "category" : "productivity",
+    "stack_size" : 50,
+    "tier" : 3,
+    "module_effects" : {
+      "consumption" : 0.8,
+      "speed" : -0.15,
+      "productivity" : 0.1,
+      "pollution" : 0.1
+    }
+  },
+  "empty-module-slot" : {
+    "name" : "empty-module-slot",
+    "localised_name" : [
+      "item-name.empty-module-slot"
+    ],
+    "type" : "item",
+    "order" : "z[meta]-a[empty-module-slot]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "rocket-silo" : {
+    "name" : "rocket-silo",
+    "localised_name" : [
+      "entity-name.rocket-silo"
+    ],
+    "type" : "item",
+    "order" : "a[rocket-silo]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "rocket-silo"
+  },
+  "cargo-landing-pad" : {
+    "name" : "cargo-landing-pad",
+    "localised_name" : [
+      "entity-name.cargo-landing-pad"
+    ],
+    "type" : "item",
+    "order" : "c-a[cargo-landing-pad]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "cargo-landing-pad"
+  },
+  "satellite" : {
+    "name" : "satellite",
+    "localised_name" : [
+      "item-name.satellite"
+    ],
+    "type" : "item",
+    "order" : "d[rocket-parts]-e[satellite]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "rocket_launch_products" : [
+      {
+        "independent_probability" : 1,
+        "shared_probability" : {
+          "min" : 0,
+          "max" : 1
+        },
+        "type" : "item",
+        "name" : "kr-space-research-data",
+        "amount" : 1000,
+        "affected_by_quality" : true
+      }
+    ]
+  },
+  "kr-sand" : {
+    "name" : "kr-sand",
+    "localised_name" : [
+      "item-name.kr-sand"
+    ],
+    "type" : "item",
+    "order" : "a[sand]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "wood" : {
+    "name" : "wood",
+    "localised_name" : [
+      "item-name.wood"
+    ],
+    "type" : "item",
+    "order" : "a[wood]",
+    "fuel_value" : 1250000,
+    "stack_size" : 200,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 0.35,
+    "fuel_top_speed_multiplier" : 0.5
+  },
+  "coal" : {
+    "name" : "coal",
+    "localised_name" : [
+      "item-name.coal"
+    ],
+    "type" : "item",
+    "order" : "b[coal]",
+    "fuel_value" : 6000000,
+    "stack_size" : 200,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 0.5,
+    "fuel_top_speed_multiplier" : 0.6
+  },
+  "stone" : {
+    "name" : "stone",
+    "localised_name" : [
+      "item-name.stone"
+    ],
+    "type" : "item",
+    "order" : "d[stone]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "iron-ore" : {
+    "name" : "iron-ore",
+    "localised_name" : [
+      "item-name.iron-ore"
+    ],
+    "type" : "item",
+    "order" : "e[iron-ore]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "copper-ore" : {
+    "name" : "copper-ore",
+    "localised_name" : [
+      "item-name.copper-ore"
+    ],
+    "type" : "item",
+    "order" : "f[copper-ore]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "uranium-ore" : {
+    "name" : "uranium-ore",
+    "localised_name" : [
+      "item-name.uranium-ore"
+    ],
+    "type" : "item",
+    "order" : "g[uranium-ore]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-imersite" : {
+    "name" : "kr-imersite",
+    "localised_name" : [
+      "item-name.kr-imersite"
+    ],
+    "type" : "item",
+    "order" : "ga[kr-imersite]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-rare-metal-ore" : {
+    "name" : "kr-rare-metal-ore",
+    "localised_name" : [
+      "item-name.kr-rare-metal-ore"
+    ],
+    "type" : "item",
+    "order" : "ga[kr-rare-metal-ore]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-first-aid-kit" : {
+    "name" : "kr-first-aid-kit",
+    "localised_name" : [
+      "item-name.kr-first-aid-kit"
+    ],
+    "type" : "capsule",
+    "order" : "h[first-aid-kit]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "raw-fish" : {
+    "name" : "raw-fish",
+    "localised_name" : [
+      "item-name.raw-fish"
+    ],
+    "type" : "capsule",
+    "order" : "h[raw-fish]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "rocket_launch_products" : [
+      {
+        "independent_probability" : 1,
+        "shared_probability" : {
+          "min" : 0,
+          "max" : 1
+        },
+        "type" : "item",
+        "name" : "kr-dolphin-gun",
+        "amount" : 1,
+        "affected_by_quality" : true
+      }
+    ]
+  },
+  "kr-coke" : {
+    "name" : "kr-coke",
+    "localised_name" : [
+      "item-name.kr-coke"
+    ],
+    "type" : "item",
+    "order" : "a1[coke]",
+    "fuel_value" : 10000000,
+    "stack_size" : 200,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 0.6,
+    "fuel_top_speed_multiplier" : 0.7
+  },
+  "kr-glass" : {
+    "name" : "kr-glass",
+    "localised_name" : [
+      "item-name.kr-glass"
+    ],
+    "type" : "item",
+    "order" : "a1[glass]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-fertilizer" : {
+    "name" : "kr-fertilizer",
+    "localised_name" : [
+      "item-name.kr-fertilizer"
+    ],
+    "type" : "item",
+    "order" : "a2[fertilizer]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-biomass" : {
+    "name" : "kr-biomass",
+    "localised_name" : [
+      "item-name.kr-biomass"
+    ],
+    "type" : "item",
+    "order" : "a[biomass]",
+    "fuel_value" : 2000000,
+    "stack_size" : 200,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 0.8,
+    "fuel_top_speed_multiplier" : 0.8
+  },
+  "iron-plate" : {
+    "name" : "iron-plate",
+    "localised_name" : [
+      "item-name.iron-plate"
+    ],
+    "type" : "item",
+    "order" : "a[smelting]-a[iron-plate]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "copper-plate" : {
+    "name" : "copper-plate",
+    "localised_name" : [
+      "item-name.copper-plate"
+    ],
+    "type" : "item",
+    "order" : "a[smelting]-b[copper-plate]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "steel-plate" : {
+    "name" : "steel-plate",
+    "localised_name" : [
+      "item-name.steel-plate"
+    ],
+    "type" : "item",
+    "order" : "a[smelting]-c[steel-plate]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-quartz" : {
+    "name" : "kr-quartz",
+    "localised_name" : [
+      "item-name.kr-quartz"
+    ],
+    "type" : "item",
+    "order" : "b3[quartz]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-silicon" : {
+    "name" : "kr-silicon",
+    "localised_name" : [
+      "item-name.kr-silicon"
+    ],
+    "type" : "item",
+    "order" : "b4[silicon]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "solid-fuel" : {
+    "name" : "solid-fuel",
+    "localised_name" : [
+      "item-name.solid-fuel"
+    ],
+    "type" : "item",
+    "order" : "b[chemistry]-a[solid-fuel]",
+    "fuel_value" : 20000000,
+    "stack_size" : 50,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 0.75,
+    "fuel_top_speed_multiplier" : 0.75
+  },
+  "plastic-bar" : {
+    "name" : "plastic-bar",
+    "localised_name" : [
+      "item-name.plastic-bar"
+    ],
+    "type" : "item",
+    "order" : "b[chemistry]-b[plastic-bar]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "sulfur" : {
+    "name" : "sulfur",
+    "localised_name" : [
+      "item-name.sulfur"
+    ],
+    "type" : "item",
+    "order" : "b[chemistry]-c[sulfur]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "battery" : {
+    "name" : "battery",
+    "localised_name" : [
+      "item-name.battery"
+    ],
+    "type" : "item",
+    "order" : "b[chemistry]-d[battery]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "explosives" : {
+    "name" : "explosives",
+    "localised_name" : [
+      "item-name.explosives"
+    ],
+    "type" : "item",
+    "order" : "b[chemistry]-e[explosives]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "kr-rare-metals" : {
+    "name" : "kr-rare-metals",
+    "localised_name" : [
+      "item-name.kr-rare-metals"
+    ],
+    "type" : "item",
+    "order" : "c[kr-rare-metals]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-imersium-plate" : {
+    "name" : "kr-imersium-plate",
+    "localised_name" : [
+      "item-name.kr-imersium-plate"
+    ],
+    "type" : "item",
+    "order" : "e00-a2[imersium-plate]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-enriched-iron" : {
+    "name" : "kr-enriched-iron",
+    "localised_name" : [
+      "item-name.kr-enriched-iron"
+    ],
+    "type" : "item",
+    "order" : "e05-a[enriched-ores]-a1[enriched-iron]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-enriched-copper" : {
+    "name" : "kr-enriched-copper",
+    "localised_name" : [
+      "item-name.kr-enriched-copper"
+    ],
+    "type" : "item",
+    "order" : "e05-a[enriched-ores]-a2[enriched-copper]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-enriched-rare-metals" : {
+    "name" : "kr-enriched-rare-metals",
+    "localised_name" : [
+      "item-name.kr-enriched-rare-metals"
+    ],
+    "type" : "item",
+    "order" : "e05-a[enriched-ores]-a3[enriched-rare-metals]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-lithium-chloride" : {
+    "name" : "kr-lithium-chloride",
+    "localised_name" : [
+      "item-name.kr-lithium-chloride"
+    ],
+    "type" : "item",
+    "order" : "h1[lithium-chloride]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-lithium" : {
+    "name" : "kr-lithium",
+    "localised_name" : [
+      "item-name.kr-lithium"
+    ],
+    "type" : "item",
+    "order" : "h2[lithium]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-lithium-sulfur-battery" : {
+    "name" : "kr-lithium-sulfur-battery",
+    "localised_name" : [
+      "item-name.kr-lithium-sulfur-battery"
+    ],
+    "type" : "item",
+    "order" : "i2[lithium-sulfur-battery]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-imersite-powder" : {
+    "name" : "kr-imersite-powder",
+    "localised_name" : [
+      "item-name.kr-imersite-powder"
+    ],
+    "type" : "item",
+    "order" : "q01[imersite-powder]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-tritium" : {
+    "name" : "kr-tritium",
+    "localised_name" : [
+      "item-name.kr-tritium"
+    ],
+    "type" : "item",
+    "order" : "s[tritium]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-fuel" : {
+    "name" : "kr-fuel",
+    "localised_name" : [
+      "item-name.kr-fuel"
+    ],
+    "type" : "item",
+    "order" : "w01[fuel]",
+    "fuel_value" : 15000000,
+    "stack_size" : 200,
+    "fuel_categories" : [
+      "kr-vehicle-fuel"
+    ],
+    "fuel_acceleration_multiplier" : 1,
+    "fuel_top_speed_multiplier" : 1
+  },
+  "kr-biofuel" : {
+    "name" : "kr-biofuel",
+    "localised_name" : [
+      "item-name.kr-biofuel"
+    ],
+    "type" : "item",
+    "order" : "w02[bio-fuel]",
+    "fuel_value" : 15000000,
+    "stack_size" : 200,
+    "fuel_categories" : [
+      "kr-vehicle-fuel"
+    ],
+    "fuel_acceleration_multiplier" : 0.8,
+    "fuel_top_speed_multiplier" : 0.9
+  },
+  "kr-advanced-fuel" : {
+    "name" : "kr-advanced-fuel",
+    "localised_name" : [
+      "item-name.kr-advanced-fuel"
+    ],
+    "type" : "item",
+    "order" : "w03[advanced-fuel]",
+    "fuel_value" : 15000000,
+    "stack_size" : 200,
+    "fuel_categories" : [
+      "kr-vehicle-fuel"
+    ],
+    "fuel_acceleration_multiplier" : 1.25,
+    "fuel_top_speed_multiplier" : 1.25
+  },
+  "water-barrel" : {
+    "name" : "water-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.water"
+      ]
+    ],
+    "type" : "item",
+    "order" : "a[fluid]-a[water]-a[water]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "crude-oil-barrel" : {
+    "name" : "crude-oil-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.crude-oil"
+      ]
+    ],
+    "type" : "item",
+    "order" : "a[fluid]-b[oil]-a[crude-oil]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "petroleum-gas-barrel" : {
+    "name" : "petroleum-gas-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.petroleum-gas"
+      ]
+    ],
+    "type" : "item",
+    "order" : "a[fluid]-b[oil]-b[petroleum-gas]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "light-oil-barrel" : {
+    "name" : "light-oil-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.light-oil"
+      ]
+    ],
+    "type" : "item",
+    "order" : "a[fluid]-b[oil]-c[light-oil]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "heavy-oil-barrel" : {
+    "name" : "heavy-oil-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.heavy-oil"
+      ]
+    ],
+    "type" : "item",
+    "order" : "a[fluid]-b[oil]-d[heavy-oil]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "lubricant-barrel" : {
+    "name" : "lubricant-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.lubricant"
+      ]
+    ],
+    "type" : "item",
+    "order" : "a[fluid]-b[oil]-e[lubricant]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "sulfuric-acid-barrel" : {
+    "name" : "sulfuric-acid-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.sulfuric-acid"
+      ]
+    ],
+    "type" : "item",
+    "order" : "a[fluid]-b[oil]-f[sulfuric-acid]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-hydrogen-barrel" : {
+    "name" : "kr-hydrogen-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-hydrogen"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya01[hydrogen]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-mineral-water-barrel" : {
+    "name" : "kr-mineral-water-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-mineral-water"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya01[kr-mineral-water]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-chlorine-barrel" : {
+    "name" : "kr-chlorine-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-chlorine"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya02[chlorine]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-dirty-water-barrel" : {
+    "name" : "kr-dirty-water-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-dirty-water"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya03[dirty-water]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-oxygen-barrel" : {
+    "name" : "kr-oxygen-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-oxygen"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya03[oxygen]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-nitrogen-barrel" : {
+    "name" : "kr-nitrogen-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-nitrogen"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya04[nitrogen]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-ammonia-barrel" : {
+    "name" : "kr-ammonia-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-ammonia"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya05[ammonia]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-nitric-acid-barrel" : {
+    "name" : "kr-nitric-acid-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-nitric-acid"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya06[nitric-acid]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-hydrogen-chloride-barrel" : {
+    "name" : "kr-hydrogen-chloride-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-hydrogen-chloride"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya07[hydrogen-chloride]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-biomethanol-barrel" : {
+    "name" : "kr-biomethanol-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-biomethanol"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya08[biomethanol]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-heavy-water-barrel" : {
+    "name" : "kr-heavy-water-barrel",
+    "localised_name" : [
+      "item-name.filled-barrel",
+      [
+        "fluid-name.kr-heavy-water"
+      ]
+    ],
+    "type" : "item",
+    "order" : "ya09[heavy-water]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-matter-cube" : {
+    "name" : "kr-matter-cube",
+    "localised_name" : [
+      "item-name.kr-matter-cube"
+    ],
+    "type" : "item",
+    "order" : "000[matter]-000[matter-cube]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "iron-gear-wheel" : {
+    "name" : "iron-gear-wheel",
+    "localised_name" : [
+      "item-name.iron-gear-wheel"
+    ],
+    "type" : "item",
+    "order" : "a[basic-intermediates]-a[iron-gear-wheel]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "iron-stick" : {
+    "name" : "iron-stick",
+    "localised_name" : [
+      "item-name.iron-stick"
+    ],
+    "type" : "item",
+    "order" : "a[basic-intermediates]-b[iron-stick]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "copper-cable" : {
+    "name" : "copper-cable",
+    "localised_name" : [
+      "item-name.copper-cable"
+    ],
+    "type" : "item",
+    "order" : "a[basic-intermediates]-c[copper-cable]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "barrel" : {
+    "name" : "barrel",
+    "localised_name" : [
+      "item-name.barrel"
+    ],
+    "type" : "item",
+    "order" : "a[basic-intermediates]-d[empty-barrel]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "electronic-circuit" : {
+    "name" : "electronic-circuit",
+    "localised_name" : [
+      "item-name.electronic-circuit"
+    ],
+    "type" : "item",
+    "order" : "b[circuits]-a[electronic-circuit]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "advanced-circuit" : {
+    "name" : "advanced-circuit",
+    "localised_name" : [
+      "item-name.advanced-circuit"
+    ],
+    "type" : "item",
+    "order" : "b[circuits]-b[advanced-circuit]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "processing-unit" : {
+    "name" : "processing-unit",
+    "localised_name" : [
+      "item-name.processing-unit"
+    ],
+    "type" : "item",
+    "order" : "b[circuits]-c[processing-unit]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-iron-beam" : {
+    "name" : "kr-iron-beam",
+    "localised_name" : [
+      "item-name.kr-iron-beam"
+    ],
+    "type" : "item",
+    "order" : "c-a2[iron-beam]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-steel-beam" : {
+    "name" : "kr-steel-beam",
+    "localised_name" : [
+      "item-name.kr-steel-beam"
+    ],
+    "type" : "item",
+    "order" : "c-a2[steel-beam]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-imersium-beam" : {
+    "name" : "kr-imersium-beam",
+    "localised_name" : [
+      "item-name.kr-imersium-beam"
+    ],
+    "type" : "item",
+    "order" : "c-a3[imersium-beam]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "engine-unit" : {
+    "name" : "engine-unit",
+    "localised_name" : [
+      "item-name.engine-unit"
+    ],
+    "type" : "item",
+    "order" : "c[advanced-intermediates]-a[engine-unit]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "electric-engine-unit" : {
+    "name" : "electric-engine-unit",
+    "localised_name" : [
+      "item-name.electric-engine-unit"
+    ],
+    "type" : "item",
+    "order" : "c[advanced-intermediates]-b[electric-engine-unit]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "flying-robot-frame" : {
+    "name" : "flying-robot-frame",
+    "localised_name" : [
+      "item-name.flying-robot-frame"
+    ],
+    "type" : "item",
+    "order" : "c[advanced-intermediates]-c[flying-robot-frame]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "kr-steel-gear-wheel" : {
+    "name" : "kr-steel-gear-wheel",
+    "localised_name" : [
+      "item-name.kr-steel-gear-wheel"
+    ],
+    "type" : "item",
+    "order" : "d-a2[steel-gear-wheel]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-imersium-gear-wheel" : {
+    "name" : "kr-imersium-gear-wheel",
+    "localised_name" : [
+      "item-name.kr-imersium-gear-wheel"
+    ],
+    "type" : "item",
+    "order" : "d-a3[imersium-gear-wheel]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "low-density-structure" : {
+    "name" : "low-density-structure",
+    "localised_name" : [
+      "item-name.low-density-structure"
+    ],
+    "type" : "item",
+    "order" : "d[rocket-parts]-a[low-density-structure]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "rocket-fuel" : {
+    "name" : "rocket-fuel",
+    "localised_name" : [
+      "item-name.rocket-fuel"
+    ],
+    "type" : "item",
+    "order" : "d[rocket-parts]-b[rocket-fuel]",
+    "fuel_value" : 20000000,
+    "stack_size" : 100,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 1,
+    "fuel_top_speed_multiplier" : 1
+  },
+  "rocket-part" : {
+    "name" : "rocket-part",
+    "localised_name" : [
+      "item-name.rocket-part"
+    ],
+    "type" : "item",
+    "order" : "d[rocket-parts]-d[rocket-part]",
+    "fuel_value" : 0,
+    "stack_size" : 5
+  },
+  "kr-inserter-parts" : {
+    "name" : "kr-inserter-parts",
+    "localised_name" : [
+      "item-name.kr-inserter-parts"
+    ],
+    "type" : "item",
+    "order" : "e01[ei-inserter-parts]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-electronic-components" : {
+    "name" : "kr-electronic-components",
+    "localised_name" : [
+      "item-name.kr-electronic-components"
+    ],
+    "type" : "item",
+    "order" : "e02[ei-electronic-components]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-automation-core" : {
+    "name" : "kr-automation-core",
+    "localised_name" : [
+      "item-name.kr-automation-core"
+    ],
+    "type" : "item",
+    "order" : "e1[automation-core]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-ai-core" : {
+    "name" : "kr-ai-core",
+    "localised_name" : [
+      "item-name.kr-ai-core"
+    ],
+    "type" : "item",
+    "order" : "h1[ai-core]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-energy-control-unit" : {
+    "name" : "kr-energy-control-unit",
+    "localised_name" : [
+      "item-name.kr-energy-control-unit"
+    ],
+    "type" : "item",
+    "order" : "j1[energy-control-unit]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-imersite-crystal" : {
+    "name" : "kr-imersite-crystal",
+    "localised_name" : [
+      "item-name.kr-imersite-crystal"
+    ],
+    "type" : "item",
+    "order" : "q03[imersite-crystal]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-empty-dt-fuel-cell" : {
+    "name" : "kr-empty-dt-fuel-cell",
+    "localised_name" : [
+      "item-name.kr-empty-dt-fuel-cell"
+    ],
+    "type" : "item",
+    "order" : "r[uranium-processing]-b1[dt-fuel]-a1[empty-dt-fuel]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-dt-fuel-cell" : {
+    "name" : "kr-dt-fuel-cell",
+    "localised_name" : [
+      "item-name.kr-dt-fuel-cell"
+    ],
+    "type" : "item",
+    "order" : "r[uranium-processing]-b1[dt-fuel]-a2[dt-fuel]",
+    "fuel_value" : 10000000000,
+    "stack_size" : 10,
+    "fuel_categories" : [
+      "kr-fusion-fuel"
+    ],
+    "fuel_acceleration_multiplier" : 1,
+    "fuel_top_speed_multiplier" : 1,
+    "burnt_result" : "kr-empty-dt-fuel-cell"
+  },
+  "kr-empty-antimatter-fuel-cell" : {
+    "name" : "kr-empty-antimatter-fuel-cell",
+    "localised_name" : [
+      "item-name.kr-empty-antimatter-fuel-cell"
+    ],
+    "type" : "item",
+    "order" : "r[uranium-processing]-b2[antimatter-fuel-cell]-a1[empty-antimatter-fuel-cell]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-charged-antimatter-fuel-cell" : {
+    "name" : "kr-charged-antimatter-fuel-cell",
+    "localised_name" : [
+      "item-name.kr-charged-antimatter-fuel-cell"
+    ],
+    "type" : "item",
+    "order" : "r[uranium-processing]-b2[antimatter-fuel-cell]-a2[charged-antimatter-fuel-cell]",
+    "fuel_value" : 300000000000,
+    "stack_size" : 10,
+    "fuel_categories" : [
+      "kr-antimatter-fuel"
+    ],
+    "fuel_acceleration_multiplier" : 1,
+    "fuel_top_speed_multiplier" : 1,
+    "burnt_result" : "kr-empty-antimatter-fuel-cell"
+  },
+  "kr-gps-satellite" : {
+    "name" : "kr-gps-satellite",
+    "localised_name" : [
+      "item-name.kr-gps-satellite"
+    ],
+    "type" : "item",
+    "order" : "u01[a1-gps-satellite]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "rocket_launch_products" : [
+      {
+        "independent_probability" : 1,
+        "shared_probability" : {
+          "min" : 0,
+          "max" : 1
+        },
+        "type" : "item",
+        "name" : "kr-teleportation-gps-module",
+        "amount" : 1,
+        "affected_by_quality" : true
+      }
+    ]
+  },
+  "kr-teleportation-gps-module" : {
+    "name" : "kr-teleportation-gps-module",
+    "localised_name" : [
+      "item-name.kr-teleportation-gps-module"
+    ],
+    "type" : "item",
+    "order" : "u01[a2-teleportation-gps-module]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "kr-matter-stabilizer" : {
+    "name" : "kr-matter-stabilizer",
+    "localised_name" : [
+      "item-name.kr-matter-stabilizer"
+    ],
+    "type" : "item",
+    "order" : "w1[matter-stabilizers]-a1[matter-stabilizer]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-charged-matter-stabilizer" : {
+    "name" : "kr-charged-matter-stabilizer",
+    "localised_name" : [
+      "item-name.kr-charged-matter-stabilizer"
+    ],
+    "type" : "item",
+    "order" : "w1[matter-stabilizers]-a2[charged-matter-stabilizer]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-pollution-filter" : {
+    "name" : "kr-pollution-filter",
+    "localised_name" : [
+      "item-name.kr-pollution-filter"
+    ],
+    "type" : "item",
+    "order" : "w2-a1[pollution-filter]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-used-pollution-filter" : {
+    "name" : "kr-used-pollution-filter",
+    "localised_name" : [
+      "item-name.kr-used-pollution-filter"
+    ],
+    "type" : "item",
+    "order" : "w2-a2[used-pollution-filter]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "uranium-235" : {
+    "name" : "uranium-235",
+    "localised_name" : [
+      "item-name.uranium-235"
+    ],
+    "type" : "item",
+    "order" : "a[uranium-processing]-b[uranium-235]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "uranium-238" : {
+    "name" : "uranium-238",
+    "localised_name" : [
+      "item-name.uranium-238"
+    ],
+    "type" : "item",
+    "order" : "a[uranium-processing]-c[uranium-238]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "uranium-fuel-cell" : {
+    "name" : "uranium-fuel-cell",
+    "localised_name" : [
+      "item-name.uranium-fuel-cell"
+    ],
+    "type" : "item",
+    "order" : "b[uranium-products]-a[uranium-fuel-cell]",
+    "fuel_value" : 50000000000,
+    "stack_size" : 10,
+    "fuel_categories" : [
+      "nuclear"
+    ],
+    "fuel_acceleration_multiplier" : 1,
+    "fuel_top_speed_multiplier" : 1,
+    "burnt_result" : "depleted-uranium-fuel-cell"
+  },
+  "depleted-uranium-fuel-cell" : {
+    "name" : "depleted-uranium-fuel-cell",
+    "localised_name" : [
+      "item-name.depleted-uranium-fuel-cell"
+    ],
+    "type" : "item",
+    "order" : "b[uranium-products]-b[depleted-uranium-fuel-cell]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "nuclear-fuel" : {
+    "name" : "nuclear-fuel",
+    "localised_name" : [
+      "item-name.nuclear-fuel"
+    ],
+    "type" : "item",
+    "order" : "r[uranium-processing]-e[nuclear-fuel]",
+    "fuel_value" : 1210000000,
+    "stack_size" : 10,
+    "fuel_categories" : [
+      "chemical"
+    ],
+    "fuel_acceleration_multiplier" : 2.5,
+    "fuel_top_speed_multiplier" : 1.15
+  },
+  "kr-blank-tech-card" : {
+    "name" : "kr-blank-tech-card",
+    "localised_name" : [
+      "item-name.kr-blank-tech-card"
+    ],
+    "type" : "item",
+    "order" : "a00[blank-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-biter-research-data" : {
+    "name" : "kr-biter-research-data",
+    "localised_name" : [
+      "item-name.kr-biter-research-data"
+    ],
+    "type" : "item",
+    "order" : "a01[biters-research-data]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-matter-research-data" : {
+    "name" : "kr-matter-research-data",
+    "localised_name" : [
+      "item-name.kr-matter-research-data"
+    ],
+    "type" : "item",
+    "order" : "a02[matter-research-data]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-space-research-data" : {
+    "name" : "kr-space-research-data",
+    "localised_name" : [
+      "item-name.kr-space-research-data"
+    ],
+    "type" : "item",
+    "order" : "a03[space-research-data]",
+    "fuel_value" : 0,
+    "stack_size" : 1000
+  },
+  "kr-basic-tech-card" : {
+    "name" : "kr-basic-tech-card",
+    "localised_name" : [
+      "item-name.kr-basic-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b01[basic-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "automation-science-pack" : {
+    "name" : "automation-science-pack",
+    "localised_name" : [
+      "item-name.automation-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b02[automation-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "logistic-science-pack" : {
+    "name" : "logistic-science-pack",
+    "localised_name" : [
+      "item-name.logistic-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b03[logistic-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "military-science-pack" : {
+    "name" : "military-science-pack",
+    "localised_name" : [
+      "item-name.military-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b04[military-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "chemical-science-pack" : {
+    "name" : "chemical-science-pack",
+    "localised_name" : [
+      "item-name.chemical-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b05[chemical-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "production-science-pack" : {
+    "name" : "production-science-pack",
+    "localised_name" : [
+      "item-name.production-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b06[production-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "utility-science-pack" : {
+    "name" : "utility-science-pack",
+    "localised_name" : [
+      "item-name.utility-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b07[utility-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "space-science-pack" : {
+    "name" : "space-science-pack",
+    "localised_name" : [
+      "item-name.optimization-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b08[optimization-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-matter-tech-card" : {
+    "name" : "kr-matter-tech-card",
+    "localised_name" : [
+      "item-name.kr-matter-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b09[matter-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-advanced-tech-card" : {
+    "name" : "kr-advanced-tech-card",
+    "localised_name" : [
+      "item-name.kr-advanced-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b10[advanced-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "kr-singularity-tech-card" : {
+    "name" : "kr-singularity-tech-card",
+    "localised_name" : [
+      "item-name.kr-singularity-tech-card"
+    ],
+    "type" : "item",
+    "order" : "b11[singularity-tech-card]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "coin" : {
+    "name" : "coin",
+    "localised_name" : [
+      "item-name.coin"
+    ],
+    "type" : "item",
+    "order" : "y",
+    "fuel_value" : 0,
+    "stack_size" : 100000
+  },
+  "science" : {
+    "name" : "science",
+    "localised_name" : [
+      "item-name.science"
+    ],
+    "type" : "item",
+    "order" : "zz[science]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "kr-accelerator" : {
+    "name" : "kr-accelerator",
+    "localised_name" : [
+      "item-name.kr-accelerator"
+    ],
+    "type" : "gun",
+    "order" : "a[basic-clips]-a[pistol]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 22,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 22,
+      "damage_modifier" : 5,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 7.5,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.10000000149012,
+      "movement_slow_down_cooldown" : 7.5,
+      "ammo_categories" : [
+        "bullet"
+      ],
+      "projectile_center" : [
+        0,
+        0
+      ],
+      "projectile_creation_distance" : 1.125,
+      "shell_particle" : {
+        "name" : "shell-particle",
+        "direction" : 0.25,
+        "direction_deviation" : 0.10000000149012,
+        "speed" : 0.10000000149012,
+        "speed_deviation" : 0.029999999329448,
+        "starting_frame_speed" : 0.40000000596046,
+        "starting_frame_speed_deviation" : 0.10000000149012,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0,
+        "vertical_speed_deviation" : 0,
+        "center" : [
+          0,
+          0.1
+        ],
+        "creation_distance" : -0.5,
+        "creation_distance_orientation" : 0,
+        "use_source_position" : false
+      },
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "pistol" : {
+    "name" : "pistol",
+    "localised_name" : [
+      "item-name.pistol"
+    ],
+    "type" : "gun",
+    "order" : "a[basic-clips]-a[pistol]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 15,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 15,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 20,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.20000000298023,
+      "movement_slow_down_cooldown" : 20,
+      "ammo_categories" : [
+        "bullet"
+      ],
+      "projectile_center" : [
+        0,
+        0
+      ],
+      "projectile_creation_distance" : 1.125,
+      "shell_particle" : {
+        "name" : "shell-particle",
+        "direction" : 0.25,
+        "direction_deviation" : 0.10000000149012,
+        "speed" : 0.10000000149012,
+        "speed_deviation" : 0.029999999329448,
+        "starting_frame_speed" : 0.40000000596046,
+        "starting_frame_speed_deviation" : 0.10000000149012,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0,
+        "vertical_speed_deviation" : 0,
+        "center" : [
+          0,
+          0.1
+        ],
+        "creation_distance" : -0.5,
+        "creation_distance_orientation" : 0,
+        "use_source_position" : false
+      },
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "submachine-gun" : {
+    "name" : "submachine-gun",
+    "localised_name" : [
+      "item-name.submachine-gun"
+    ],
+    "type" : "gun",
+    "order" : "a[basic-clips]-b[submachine-gun]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 18,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 18,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 6,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.69999998807907,
+      "movement_slow_down_cooldown" : 6,
+      "ammo_categories" : [
+        "bullet"
+      ],
+      "projectile_center" : [
+        0,
+        0
+      ],
+      "projectile_creation_distance" : 1.125,
+      "shell_particle" : {
+        "name" : "shell-particle",
+        "direction" : 0.25,
+        "direction_deviation" : 0.10000000149012,
+        "speed" : 0.10000000149012,
+        "speed_deviation" : 0.029999999329448,
+        "starting_frame_speed" : 0.40000000596046,
+        "starting_frame_speed_deviation" : 0.10000000149012,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0,
+        "vertical_speed_deviation" : 0,
+        "center" : [
+          0,
+          0.1
+        ],
+        "creation_distance" : -0.5,
+        "creation_distance_orientation" : 0,
+        "use_source_position" : false
+      },
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "tank-machine-gun" : {
+    "name" : "tank-machine-gun",
+    "localised_name" : [
+      "item-name.tank-machine-gun"
+    ],
+    "type" : "gun",
+    "order" : "a[basic-clips]-b[tank-machine-gun]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 20,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 20,
+      "damage_modifier" : 1.25,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 8,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.69999998807907,
+      "movement_slow_down_cooldown" : 8,
+      "ammo_categories" : [
+        "bullet"
+      ],
+      "projectile_center" : [
+        -0.15625,
+        -0.07812
+      ],
+      "projectile_creation_distance" : 1,
+      "shell_particle" : {
+        "name" : "shell-particle",
+        "direction" : 0.25,
+        "direction_deviation" : 0.10000000149012,
+        "speed" : 0.10000000149012,
+        "speed_deviation" : 0.029999999329448,
+        "starting_frame_speed" : 0.40000000596046,
+        "starting_frame_speed_deviation" : 0.10000000149012,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0,
+        "vertical_speed_deviation" : 0,
+        "center" : [
+          0,
+          0
+        ],
+        "creation_distance" : -0.6875,
+        "creation_distance_orientation" : 0,
+        "use_source_position" : false
+      },
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "vehicle-machine-gun" : {
+    "name" : "vehicle-machine-gun",
+    "localised_name" : [
+      "item-name.vehicle-machine-gun"
+    ],
+    "type" : "gun",
+    "order" : "a[basic-clips]-b[vehicle-machine-gun]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 20,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 20,
+      "damage_modifier" : 1.25,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 8,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.69999998807907,
+      "movement_slow_down_cooldown" : 8,
+      "ammo_categories" : [
+        "bullet"
+      ],
+      "projectile_center" : [
+        0,
+        0
+      ],
+      "projectile_creation_distance" : 0.64999997615814,
+      "shell_particle" : {
+        "name" : "shell-particle",
+        "direction" : 0.25,
+        "direction_deviation" : 0.10000000149012,
+        "speed" : 0.10000000149012,
+        "speed_deviation" : 0.029999999329448,
+        "starting_frame_speed" : 0.40000000596046,
+        "starting_frame_speed_deviation" : 0.10000000149012,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0,
+        "vertical_speed_deviation" : 0,
+        "center" : [
+          0,
+          0
+        ],
+        "creation_distance" : -0.6875,
+        "creation_distance_orientation" : 0,
+        "use_source_position" : false
+      },
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "tank-flamethrower" : {
+    "name" : "tank-flamethrower",
+    "localised_name" : [
+      "item-name.tank-flamethrower"
+    ],
+    "type" : "gun",
+    "order" : "b[flamethrower]-b[tank-flamethrower]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "stream",
+      "range" : 9,
+      "min_range" : 3,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 9,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 1,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 1,
+      "movement_slow_down_cooldown" : 1,
+      "ammo_categories" : [
+        "flamethrower"
+      ],
+      "fluid_consumption" : 0,
+      "gun_barrel_length" : 1.3999999761581,
+      "gun_center_shift" : {
+        "north" : [
+          -0.17,
+          -1.15
+        ],
+        "north_east" : [
+          -0.17,
+          -1.15
+        ],
+        "east" : [
+          -0.17,
+          -1.15
+        ],
+        "south_east" : [
+          -0.17,
+          -1.15
+        ],
+        "south" : [
+          -0.17,
+          -1.15
+        ],
+        "south_west" : [
+          -0.17,
+          -1.15
+        ],
+        "west" : [
+          -0.17,
+          -1.15
+        ],
+        "north_west" : [
+          -0.17,
+          -1.15
+        ]
+      }
+    }
+  },
+  "shotgun" : {
+    "name" : "shotgun",
+    "localised_name" : [
+      "item-name.shotgun"
+    ],
+    "type" : "gun",
+    "order" : "b[shotgun]-a[basic]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 15,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 15,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 40,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0,
+      "movement_slow_down_cooldown" : 40,
+      "ammo_categories" : [
+        "shotgun-shell"
+      ],
+      "projectile_center" : [
+        0,
+        0
+      ],
+      "projectile_creation_distance" : 0.125,
+      "shell_particle" : {
+        "name" : "shotgun-shell-particle",
+        "direction" : 0.25,
+        "direction_deviation" : 0.10000000149012,
+        "speed" : 0.064999997615814,
+        "speed_deviation" : 0.029999999329448,
+        "starting_frame_speed" : 0.40000000596046,
+        "starting_frame_speed_deviation" : 0.10000000149012,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0.054999999701977,
+        "vertical_speed_deviation" : 0.0099999997764826,
+        "center" : [
+          0,
+          0
+        ],
+        "creation_distance" : 0.3875,
+        "creation_distance_orientation" : 0,
+        "use_source_position" : false
+      },
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "combat-shotgun" : {
+    "name" : "combat-shotgun",
+    "localised_name" : [
+      "item-name.combat-shotgun"
+    ],
+    "type" : "gun",
+    "order" : "b[shotgun]-a[combat]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 15,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 15,
+      "damage_modifier" : 1.5,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 30,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0,
+      "movement_slow_down_cooldown" : 30,
+      "ammo_categories" : [
+        "shotgun-shell"
+      ],
+      "projectile_center" : [
+        0,
+        0
+      ],
+      "projectile_creation_distance" : 0.125,
+      "shell_particle" : {
+        "name" : "shotgun-shell-particle",
+        "direction" : 0.25,
+        "direction_deviation" : 0.10000000149012,
+        "speed" : 0.064999997615814,
+        "speed_deviation" : 0.029999999329448,
+        "starting_frame_speed" : 0.40000000596046,
+        "starting_frame_speed_deviation" : 0.10000000149012,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0.054999999701977,
+        "vertical_speed_deviation" : 0.0099999997764826,
+        "center" : [
+          0,
+          0
+        ],
+        "creation_distance" : 0.3875,
+        "creation_distance_orientation" : 0,
+        "use_source_position" : false
+      },
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "kr-impulse-rifle" : {
+    "name" : "kr-impulse-rifle",
+    "localised_name" : [
+      "item-name.kr-impulse-rifle"
+    ],
+    "type" : "gun",
+    "order" : "c2[impulse-rifle]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 50,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 1,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 50,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 60,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.60000002384186,
+      "movement_slow_down_cooldown" : 60,
+      "ammo_categories" : [
+        "kr-impulse-rifle"
+      ],
+      "projectile_center" : [
+        0,
+        0
+      ],
+      "projectile_creation_distance" : 0.60000002384186,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "kr-heavy-rocket-launcher" : {
+    "name" : "kr-heavy-rocket-launcher",
+    "localised_name" : [
+      "item-name.kr-heavy-rocket-launcher"
+    ],
+    "type" : "gun",
+    "order" : "d[heavy-rocket-launcher]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 90,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 90,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 180,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.75,
+      "movement_slow_down_cooldown" : 180,
+      "ammo_categories" : [
+        "kr-heavy-rocket"
+      ],
+      "projectile_center" : [
+        -0.17,
+        0
+      ],
+      "projectile_creation_distance" : 0.60000002384186,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "rocket-launcher" : {
+    "name" : "rocket-launcher",
+    "localised_name" : [
+      "item-name.rocket-launcher"
+    ],
+    "type" : "gun",
+    "order" : "d[rocket-launcher]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 36,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 36,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 60,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.80000001192093,
+      "movement_slow_down_cooldown" : 60,
+      "ammo_categories" : [
+        "rocket"
+      ],
+      "projectile_center" : [
+        -0.17,
+        0
+      ],
+      "projectile_creation_distance" : 0.60000002384186,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "flamethrower" : {
+    "name" : "flamethrower",
+    "localised_name" : [
+      "item-name.flamethrower"
+    ],
+    "type" : "gun",
+    "order" : "e[flamethrower]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "attack_parameters" : {
+      "type" : "stream",
+      "range" : 15,
+      "min_range" : 3,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 15,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 1,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.40000000596046,
+      "movement_slow_down_cooldown" : 1,
+      "ammo_categories" : [
+        "flamethrower"
+      ],
+      "fluid_consumption" : 0,
+      "gun_barrel_length" : 0.80000001192093,
+      "gun_center_shift" : {
+        "north" : [
+          0,
+          -1
+        ],
+        "north_east" : [
+          0,
+          -1
+        ],
+        "east" : [
+          0,
+          -1
+        ],
+        "south_east" : [
+          0,
+          -1
+        ],
+        "south" : [
+          0,
+          -1
+        ],
+        "south_west" : [
+          0,
+          -1
+        ],
+        "west" : [
+          0,
+          -1
+        ],
+        "north_west" : [
+          0,
+          -1
+        ]
+      }
+    }
+  },
+  "artillery-wagon-cannon" : {
+    "name" : "artillery-wagon-cannon",
+    "localised_name" : [
+      "item-name.artillery-wagon-cannon"
+    ],
+    "type" : "gun",
+    "order" : "z[artillery]-a[cannon]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 224,
+      "min_range" : 96,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 224,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 300,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0,
+      "movement_slow_down_cooldown" : 300,
+      "ammo_categories" : [
+        "artillery-shell"
+      ],
+      "projectile_center" : [
+        -0.15625,
+        -0.07812
+      ],
+      "projectile_creation_distance" : 1.6000000238419,
+      "shell_particle" : {
+        "name" : "artillery-shell-particle",
+        "direction" : 0.40000000596046,
+        "direction_deviation" : 0.050000000745058,
+        "speed" : 0.10000000149012,
+        "speed_deviation" : 0.10000000149012,
+        "starting_frame_speed" : 0.5,
+        "starting_frame_speed_deviation" : 0.5,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0.050000000745058,
+        "vertical_speed_deviation" : 0.0099999997764826,
+        "center" : [
+          0,
+          -0.5
+        ],
+        "creation_distance" : 0.5,
+        "creation_distance_orientation" : 0.4,
+        "use_source_position" : true
+      },
+      "projectile_creation_parameters" : [
+        [
+          0,
+          [
+            0,
+            -4.53125
+          ]
+        ],
+        [
+          0.0040000001899898,
+          [
+            0.109375,
+            -4.515625
+          ]
+        ],
+        [
+          0.0080000003799796,
+          [
+            0.203125,
+            -4.515625
+          ]
+        ],
+        [
+          0.012000000104308,
+          [
+            0.296875,
+            -4.515625
+          ]
+        ],
+        [
+          0.016000000759959,
+          [
+            0.390625,
+            -4.515625
+          ]
+        ],
+        [
+          0.018999999389052,
+          [
+            0.484375,
+            -4.5
+          ]
+        ],
+        [
+          0.023000000044703,
+          [
+            0.578125,
+            -4.5
+          ]
+        ],
+        [
+          0.027000000700355,
+          [
+            0.671875,
+            -4.484375
+          ]
+        ],
+        [
+          0.030999999493361,
+          [
+            0.765625,
+            -4.46875
+          ]
+        ],
+        [
+          0.034000001847744,
+          [
+            0.859375,
+            -4.453125
+          ]
+        ],
+        [
+          0.037999998778105,
+          [
+            0.953125,
+            -4.4375
+          ]
+        ],
+        [
+          0.041999999433756,
+          [
+            1.046875,
+            -4.421875
+          ]
+        ],
+        [
+          0.046000000089407,
+          [
+            1.140625,
+            -4.40625
+          ]
+        ],
+        [
+          0.0489999987185,
+          [
+            1.234375,
+            -4.375
+          ]
+        ],
+        [
+          0.052999999374151,
+          [
+            1.328125,
+            -4.359375
+          ]
+        ],
+        [
+          0.057000000029802,
+          [
+            1.421875,
+            -4.328125
+          ]
+        ],
+        [
+          0.059999998658895,
+          [
+            1.5,
+            -4.3125
+          ]
+        ],
+        [
+          0.064000003039837,
+          [
+            1.59375,
+            -4.28125
+          ]
+        ],
+        [
+          0.06700000166893,
+          [
+            1.671875,
+            -4.25
+          ]
+        ],
+        [
+          0.071000002324581,
+          [
+            1.765625,
+            -4.21875
+          ]
+        ],
+        [
+          0.074000000953674,
+          [
+            1.84375,
+            -4.1875
+          ]
+        ],
+        [
+          0.078000001609325,
+          [
+            1.9375,
+            -4.15625
+          ]
+        ],
+        [
+          0.081000000238419,
+          [
+            2.015625,
+            -4.125
+          ]
+        ],
+        [
+          0.08500000089407,
+          [
+            2.09375,
+            -4.09375
+          ]
+        ],
+        [
+          0.087999999523163,
+          [
+            2.171875,
+            -4.046875
+          ]
+        ],
+        [
+          0.090999998152256,
+          [
+            2.265625,
+            -4.015625
+          ]
+        ],
+        [
+          0.094999998807907,
+          [
+            2.34375,
+            -3.96875
+          ]
+        ],
+        [
+          0.097999997437,
+          [
+            2.40625,
+            -3.9375
+          ]
+        ],
+        [
+          0.10100000351667,
+          [
+            2.484375,
+            -3.890625
+          ]
+        ],
+        [
+          0.10400000214577,
+          [
+            2.5625,
+            -3.84375
+          ]
+        ],
+        [
+          0.10800000280142,
+          [
+            2.625,
+            -3.796875
+          ]
+        ],
+        [
+          0.11100000143051,
+          [
+            2.703125,
+            -3.75
+          ]
+        ],
+        [
+          0.1140000000596,
+          [
+            2.765625,
+            -3.703125
+          ]
+        ],
+        [
+          0.1169999986887,
+          [
+            2.84375,
+            -3.65625
+          ]
+        ],
+        [
+          0.11999999731779,
+          [
+            2.90625,
+            -3.609375
+          ]
+        ],
+        [
+          0.12300000339746,
+          [
+            2.96875,
+            -3.5625
+          ]
+        ],
+        [
+          0.12600000202656,
+          [
+            3.03125,
+            -3.5
+          ]
+        ],
+        [
+          0.12899999320507,
+          [
+            3.09375,
+            -3.453125
+          ]
+        ],
+        [
+          0.13199999928474,
+          [
+            3.140625,
+            -3.390625
+          ]
+        ],
+        [
+          0.13500000536442,
+          [
+            3.203125,
+            -3.34375
+          ]
+        ],
+        [
+          0.13799999654293,
+          [
+            3.25,
+            -3.28125
+          ]
+        ],
+        [
+          0.1410000026226,
+          [
+            3.3125,
+            -3.234375
+          ]
+        ],
+        [
+          0.14399999380112,
+          [
+            3.359375,
+            -3.171875
+          ]
+        ],
+        [
+          0.14599999785423,
+          [
+            3.40625,
+            -3.109375
+          ]
+        ],
+        [
+          0.14900000393391,
+          [
+            3.453125,
+            -3.046875
+          ]
+        ],
+        [
+          0.15199999511242,
+          [
+            3.5,
+            -2.984375
+          ]
+        ],
+        [
+          0.15500000119209,
+          [
+            3.53125,
+            -2.9375
+          ]
+        ],
+        [
+          0.15700000524521,
+          [
+            3.578125,
+            -2.875
+          ]
+        ],
+        [
+          0.15999999642372,
+          [
+            3.609375,
+            -2.8125
+          ]
+        ],
+        [
+          0.1630000025034,
+          [
+            3.65625,
+            -2.75
+          ]
+        ],
+        [
+          0.16500000655651,
+          [
+            3.6875,
+            -2.671875
+          ]
+        ],
+        [
+          0.16799999773502,
+          [
+            3.71875,
+            -2.609375
+          ]
+        ],
+        [
+          0.1710000038147,
+          [
+            3.75,
+            -2.546875
+          ]
+        ],
+        [
+          0.17299999296665,
+          [
+            3.765625,
+            -2.484375
+          ]
+        ],
+        [
+          0.17599999904633,
+          [
+            3.796875,
+            -2.421875
+          ]
+        ],
+        [
+          0.179000005126,
+          [
+            3.8125,
+            -2.359375
+          ]
+        ],
+        [
+          0.18099999427795,
+          [
+            3.828125,
+            -2.28125
+          ]
+        ],
+        [
+          0.18400000035763,
+          [
+            3.859375,
+            -2.21875
+          ]
+        ],
+        [
+          0.18600000441074,
+          [
+            3.875,
+            -2.15625
+          ]
+        ],
+        [
+          0.18899999558926,
+          [
+            3.875,
+            -2.078125
+          ]
+        ],
+        [
+          0.19099999964237,
+          [
+            3.890625,
+            -2.015625
+          ]
+        ],
+        [
+          0.19400000572205,
+          [
+            3.890625,
+            -1.953125
+          ]
+        ],
+        [
+          0.195999994874,
+          [
+            3.90625,
+            -1.875
+          ]
+        ],
+        [
+          0.19900000095367,
+          [
+            3.90625,
+            -1.8125
+          ]
+        ],
+        [
+          0.20100000500679,
+          [
+            3.90625,
+            -1.75
+          ]
+        ],
+        [
+          0.2039999961853,
+          [
+            3.90625,
+            -1.671875
+          ]
+        ],
+        [
+          0.20600000023842,
+          [
+            3.90625,
+            -1.609375
+          ]
+        ],
+        [
+          0.20900000631809,
+          [
+            3.890625,
+            -1.546875
+          ]
+        ],
+        [
+          0.21099999547005,
+          [
+            3.890625,
+            -1.46875
+          ]
+        ],
+        [
+          0.21400000154972,
+          [
+            3.875,
+            -1.40625
+          ]
+        ],
+        [
+          0.21600000560284,
+          [
+            3.859375,
+            -1.34375
+          ]
+        ],
+        [
+          0.21899999678135,
+          [
+            3.84375,
+            -1.265625
+          ]
+        ],
+        [
+          0.22200000286102,
+          [
+            3.828125,
+            -1.203125
+          ]
+        ],
+        [
+          0.22400000691414,
+          [
+            3.8125,
+            -1.140625
+          ]
+        ],
+        [
+          0.22699999809265,
+          [
+            3.78125,
+            -1.078125
+          ]
+        ],
+        [
+          0.22900000214577,
+          [
+            3.765625,
+            -1
+          ]
+        ],
+        [
+          0.23199999332428,
+          [
+            3.734375,
+            -0.9375
+          ]
+        ],
+        [
+          0.2339999973774,
+          [
+            3.703125,
+            -0.875
+          ]
+        ],
+        [
+          0.23700000345707,
+          [
+            3.671875,
+            -0.8125
+          ]
+        ],
+        [
+          0.23999999463558,
+          [
+            3.640625,
+            -0.75
+          ]
+        ],
+        [
+          0.2419999986887,
+          [
+            3.609375,
+            -0.6875
+          ]
+        ],
+        [
+          0.24500000476837,
+          [
+            3.5625,
+            -0.625
+          ]
+        ],
+        [
+          0.24799999594688,
+          [
+            3.53125,
+            -0.5625
+          ]
+        ],
+        [
+          0.25,
+          [
+            3.484375,
+            -0.5
+          ]
+        ],
+        [
+          0.25299999117851,
+          [
+            3.4375,
+            -0.4375
+          ]
+        ],
+        [
+          0.25600001215935,
+          [
+            3.390625,
+            -0.375
+          ]
+        ],
+        [
+          0.25900000333786,
+          [
+            3.34375,
+            -0.328125
+          ]
+        ],
+        [
+          0.26199999451637,
+          [
+            3.296875,
+            -0.265625
+          ]
+        ],
+        [
+          0.26499998569489,
+          [
+            3.234375,
+            -0.203125
+          ]
+        ],
+        [
+          0.26800000667572,
+          [
+            3.1875,
+            -0.15625
+          ]
+        ],
+        [
+          0.27099999785423,
+          [
+            3.125,
+            -0.09375
+          ]
+        ],
+        [
+          0.27399998903275,
+          [
+            3.0625,
+            -0.046875
+          ]
+        ],
+        [
+          0.27700001001358,
+          [
+            3.015625,
+            0
+          ]
+        ],
+        [
+          0.28000000119209,
+          [
+            2.953125,
+            0.046875
+          ]
+        ],
+        [
+          0.28400000929832,
+          [
+            2.890625,
+            0.09375
+          ]
+        ],
+        [
+          0.28700000047684,
+          [
+            2.8125,
+            0.140625
+          ]
+        ],
+        [
+          0.29100000858307,
+          [
+            2.75,
+            0.1875
+          ]
+        ],
+        [
+          0.29399999976158,
+          [
+            2.6875,
+            0.234375
+          ]
+        ],
+        [
+          0.29800000786781,
+          [
+            2.609375,
+            0.28125
+          ]
+        ],
+        [
+          0.30199998617172,
+          [
+            2.53125,
+            0.328125
+          ]
+        ],
+        [
+          0.30599999427795,
+          [
+            2.46875,
+            0.375
+          ]
+        ],
+        [
+          0.31000000238419,
+          [
+            2.390625,
+            0.421875
+          ]
+        ],
+        [
+          0.31400001049042,
+          [
+            2.3125,
+            0.453125
+          ]
+        ],
+        [
+          0.31799998879433,
+          [
+            2.234375,
+            0.5
+          ]
+        ],
+        [
+          0.32300001382828,
+          [
+            2.15625,
+            0.53125
+          ]
+        ],
+        [
+          0.32699999213219,
+          [
+            2.078125,
+            0.578125
+          ]
+        ],
+        [
+          0.33199998736382,
+          [
+            2,
+            0.609375
+          ]
+        ],
+        [
+          0.33700001239777,
+          [
+            1.90625,
+            0.640625
+          ]
+        ],
+        [
+          0.34200000762939,
+          [
+            1.828125,
+            0.671875
+          ]
+        ],
+        [
+          0.34799998998642,
+          [
+            1.734375,
+            0.703125
+          ]
+        ],
+        [
+          0.35299998521805,
+          [
+            1.65625,
+            0.734375
+          ]
+        ],
+        [
+          0.3589999973774,
+          [
+            1.5625,
+            0.765625
+          ]
+        ],
+        [
+          0.36500000953674,
+          [
+            1.484375,
+            0.796875
+          ]
+        ],
+        [
+          0.37200000882149,
+          [
+            1.390625,
+            0.8125
+          ]
+        ],
+        [
+          0.37900000810623,
+          [
+            1.296875,
+            0.84375
+          ]
+        ],
+        [
+          0.38600000739098,
+          [
+            1.203125,
+            0.859375
+          ]
+        ],
+        [
+          0.39300000667572,
+          [
+            1.109375,
+            0.875
+          ]
+        ],
+        [
+          0.40000000596046,
+          [
+            1.015625,
+            0.90625
+          ]
+        ],
+        [
+          0.40799999237061,
+          [
+            0.921875,
+            0.921875
+          ]
+        ],
+        [
+          0.41600000858307,
+          [
+            0.828125,
+            0.9375
+          ]
+        ],
+        [
+          0.42500001192093,
+          [
+            0.734375,
+            0.953125
+          ]
+        ],
+        [
+          0.43399998545647,
+          [
+            0.640625,
+            0.953125
+          ]
+        ],
+        [
+          0.44299998879433,
+          [
+            0.546875,
+            0.96875
+          ]
+        ],
+        [
+          0.45199999213219,
+          [
+            0.453125,
+            0.984375
+          ]
+        ],
+        [
+          0.46200001239777,
+          [
+            0.359375,
+            0.984375
+          ]
+        ],
+        [
+          0.4709999859333,
+          [
+            0.265625,
+            0.984375
+          ]
+        ],
+        [
+          0.48100000619888,
+          [
+            0.171875,
+            1
+          ]
+        ],
+        [
+          0.49099999666214,
+          [
+            0.078125,
+            1
+          ]
+        ],
+        [
+          0.5009999871254,
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          0.51099997758865,
+          [
+            -0.109375,
+            1
+          ]
+        ],
+        [
+          0.52100002765656,
+          [
+            -0.203125,
+            1
+          ]
+        ],
+        [
+          0.53100001811981,
+          [
+            -0.296875,
+            0.984375
+          ]
+        ],
+        [
+          0.54100000858307,
+          [
+            -0.390625,
+            0.984375
+          ]
+        ],
+        [
+          0.55000001192093,
+          [
+            -0.484375,
+            0.96875
+          ]
+        ],
+        [
+          0.55900001525879,
+          [
+            -0.578125,
+            0.96875
+          ]
+        ],
+        [
+          0.56800001859665,
+          [
+            -0.671875,
+            0.953125
+          ]
+        ],
+        [
+          0.57700002193451,
+          [
+            -0.765625,
+            0.9375
+          ]
+        ],
+        [
+          0.58600002527237,
+          [
+            -0.859375,
+            0.921875
+          ]
+        ],
+        [
+          0.59399998188019,
+          [
+            -0.953125,
+            0.90625
+          ]
+        ],
+        [
+          0.60199999809265,
+          [
+            -1.046875,
+            0.890625
+          ]
+        ],
+        [
+          0.60900002717972,
+          [
+            -1.140625,
+            0.875
+          ]
+        ],
+        [
+          0.61599999666214,
+          [
+            -1.234375,
+            0.859375
+          ]
+        ],
+        [
+          0.62300002574921,
+          [
+            -1.328125,
+            0.828125
+          ]
+        ],
+        [
+          0.62999999523163,
+          [
+            -1.421875,
+            0.8125
+          ]
+        ],
+        [
+          0.63599997758865,
+          [
+            -1.5,
+            0.78125
+          ]
+        ],
+        [
+          0.64200001955032,
+          [
+            -1.59375,
+            0.75
+          ]
+        ],
+        [
+          0.64800000190735,
+          [
+            -1.671875,
+            0.734375
+          ]
+        ],
+        [
+          0.65399998426437,
+          [
+            -1.765625,
+            0.703125
+          ]
+        ],
+        [
+          0.658999979496,
+          [
+            -1.84375,
+            0.671875
+          ]
+        ],
+        [
+          0.66399997472763,
+          [
+            -1.9375,
+            0.625
+          ]
+        ],
+        [
+          0.6690000295639,
+          [
+            -2.015625,
+            0.59375
+          ]
+        ],
+        [
+          0.67400002479553,
+          [
+            -2.09375,
+            0.5625
+          ]
+        ],
+        [
+          0.67799997329712,
+          [
+            -2.1875,
+            0.53125
+          ]
+        ],
+        [
+          0.68300002813339,
+          [
+            -2.265625,
+            0.484375
+          ]
+        ],
+        [
+          0.68699997663498,
+          [
+            -2.34375,
+            0.453125
+          ]
+        ],
+        [
+          0.69099998474121,
+          [
+            -2.40625,
+            0.40625
+          ]
+        ],
+        [
+          0.69499999284744,
+          [
+            -2.484375,
+            0.359375
+          ]
+        ],
+        [
+          0.69900000095367,
+          [
+            -2.5625,
+            0.3125
+          ]
+        ],
+        [
+          0.70300000905991,
+          [
+            -2.625,
+            0.265625
+          ]
+        ],
+        [
+          0.70700001716614,
+          [
+            -2.703125,
+            0.21875
+          ]
+        ],
+        [
+          0.70999997854233,
+          [
+            -2.765625,
+            0.171875
+          ]
+        ],
+        [
+          0.71399998664856,
+          [
+            -2.84375,
+            0.125
+          ]
+        ],
+        [
+          0.71700000762939,
+          [
+            -2.90625,
+            0.078125
+          ]
+        ],
+        [
+          0.72000002861023,
+          [
+            -2.96875,
+            0.03125
+          ]
+        ],
+        [
+          0.72399997711182,
+          [
+            -3.03125,
+            0
+          ]
+        ],
+        [
+          0.72699999809265,
+          [
+            -3.09375,
+            -0.0625
+          ]
+        ],
+        [
+          0.73000001907349,
+          [
+            -3.140625,
+            -0.109375
+          ]
+        ],
+        [
+          0.73299998044968,
+          [
+            -3.203125,
+            -0.171875
+          ]
+        ],
+        [
+          0.73600000143051,
+          [
+            -3.25,
+            -0.21875
+          ]
+        ],
+        [
+          0.73900002241135,
+          [
+            -3.3125,
+            -0.28125
+          ]
+        ],
+        [
+          0.74199998378754,
+          [
+            -3.359375,
+            -0.34375
+          ]
+        ],
+        [
+          0.74500000476837,
+          [
+            -3.40625,
+            -0.40625
+          ]
+        ],
+        [
+          0.74699997901917,
+          [
+            -3.453125,
+            -0.453125
+          ]
+        ],
+        [
+          0.75,
+          [
+            -3.5,
+            -0.515625
+          ]
+        ],
+        [
+          0.75300002098084,
+          [
+            -3.53125,
+            -0.578125
+          ]
+        ],
+        [
+          0.75599998235703,
+          [
+            -3.578125,
+            -0.640625
+          ]
+        ],
+        [
+          0.75800001621246,
+          [
+            -3.609375,
+            -0.703125
+          ]
+        ],
+        [
+          0.76099997758865,
+          [
+            -3.65625,
+            -0.765625
+          ]
+        ],
+        [
+          0.76399999856949,
+          [
+            -3.6875,
+            -0.828125
+          ]
+        ],
+        [
+          0.76599997282028,
+          [
+            -3.71875,
+            -0.890625
+          ]
+        ],
+        [
+          0.76899999380112,
+          [
+            -3.75,
+            -0.96875
+          ]
+        ],
+        [
+          0.77100002765656,
+          [
+            -3.765625,
+            -1.03125
+          ]
+        ],
+        [
+          0.77399998903275,
+          [
+            -3.796875,
+            -1.09375
+          ]
+        ],
+        [
+          0.77700001001358,
+          [
+            -3.8125,
+            -1.15625
+          ]
+        ],
+        [
+          0.77899998426437,
+          [
+            -3.828125,
+            -1.21875
+          ]
+        ],
+        [
+          0.78200000524521,
+          [
+            -3.859375,
+            -1.296875
+          ]
+        ],
+        [
+          0.783999979496,
+          [
+            -3.875,
+            -1.359375
+          ]
+        ],
+        [
+          0.78700000047684,
+          [
+            -3.875,
+            -1.421875
+          ]
+        ],
+        [
+          0.78899997472763,
+          [
+            -3.890625,
+            -1.5
+          ]
+        ],
+        [
+          0.79199999570847,
+          [
+            -3.890625,
+            -1.5625
+          ]
+        ],
+        [
+          0.7940000295639,
+          [
+            -3.90625,
+            -1.625
+          ]
+        ],
+        [
+          0.79699999094009,
+          [
+            -3.90625,
+            -1.703125
+          ]
+        ],
+        [
+          0.79900002479553,
+          [
+            -3.90625,
+            -1.765625
+          ]
+        ],
+        [
+          0.80199998617172,
+          [
+            -3.90625,
+            -1.828125
+          ]
+        ],
+        [
+          0.80400002002716,
+          [
+            -3.90625,
+            -1.90625
+          ]
+        ],
+        [
+          0.80699998140335,
+          [
+            -3.890625,
+            -1.96875
+          ]
+        ],
+        [
+          0.80900001525879,
+          [
+            -3.890625,
+            -2.03125
+          ]
+        ],
+        [
+          0.81199997663498,
+          [
+            -3.875,
+            -2.109375
+          ]
+        ],
+        [
+          0.81400001049042,
+          [
+            -3.859375,
+            -2.171875
+          ]
+        ],
+        [
+          0.81699997186661,
+          [
+            -3.84375,
+            -2.234375
+          ]
+        ],
+        [
+          0.81999999284744,
+          [
+            -3.828125,
+            -2.3125
+          ]
+        ],
+        [
+          0.82200002670288,
+          [
+            -3.8125,
+            -2.375
+          ]
+        ],
+        [
+          0.82499998807907,
+          [
+            -3.78125,
+            -2.4375
+          ]
+        ],
+        [
+          0.82700002193451,
+          [
+            -3.765625,
+            -2.5
+          ]
+        ],
+        [
+          0.8299999833107,
+          [
+            -3.734375,
+            -2.5625
+          ]
+        ],
+        [
+          0.83300000429153,
+          [
+            -3.703125,
+            -2.640625
+          ]
+        ],
+        [
+          0.83499997854233,
+          [
+            -3.671875,
+            -2.703125
+          ]
+        ],
+        [
+          0.83799999952316,
+          [
+            -3.640625,
+            -2.765625
+          ]
+        ],
+        [
+          0.841000020504,
+          [
+            -3.609375,
+            -2.828125
+          ]
+        ],
+        [
+          0.84299999475479,
+          [
+            -3.5625,
+            -2.890625
+          ]
+        ],
+        [
+          0.84600001573563,
+          [
+            -3.53125,
+            -2.953125
+          ]
+        ],
+        [
+          0.84899997711182,
+          [
+            -3.484375,
+            -3.015625
+          ]
+        ],
+        [
+          0.85199999809265,
+          [
+            -3.4375,
+            -3.078125
+          ]
+        ],
+        [
+          0.85399997234344,
+          [
+            -3.390625,
+            -3.125
+          ]
+        ],
+        [
+          0.85699999332428,
+          [
+            -3.34375,
+            -3.1875
+          ]
+        ],
+        [
+          0.86000001430511,
+          [
+            -3.296875,
+            -3.25
+          ]
+        ],
+        [
+          0.86299997568131,
+          [
+            -3.234375,
+            -3.296875
+          ]
+        ],
+        [
+          0.86599999666214,
+          [
+            -3.1875,
+            -3.359375
+          ]
+        ],
+        [
+          0.86900001764297,
+          [
+            -3.125,
+            -3.40625
+          ]
+        ],
+        [
+          0.87199997901917,
+          [
+            -3.0625,
+            -3.46875
+          ]
+        ],
+        [
+          0.875,
+          [
+            -3.015625,
+            -3.515625
+          ]
+        ],
+        [
+          0.87800002098084,
+          [
+            -2.953125,
+            -3.578125
+          ]
+        ],
+        [
+          0.88099998235703,
+          [
+            -2.890625,
+            -3.625
+          ]
+        ],
+        [
+          0.88400000333786,
+          [
+            -2.8125,
+            -3.671875
+          ]
+        ],
+        [
+          0.8870000243187,
+          [
+            -2.75,
+            -3.71875
+          ]
+        ],
+        [
+          0.88999998569489,
+          [
+            -2.6875,
+            -3.765625
+          ]
+        ],
+        [
+          0.89300000667572,
+          [
+            -2.609375,
+            -3.8125
+          ]
+        ],
+        [
+          0.89600002765656,
+          [
+            -2.53125,
+            -3.859375
+          ]
+        ],
+        [
+          0.89999997615814,
+          [
+            -2.46875,
+            -3.90625
+          ]
+        ],
+        [
+          0.90299999713898,
+          [
+            -2.390625,
+            -3.9375
+          ]
+        ],
+        [
+          0.90600001811981,
+          [
+            -2.3125,
+            -3.984375
+          ]
+        ],
+        [
+          0.91000002622604,
+          [
+            -2.234375,
+            -4.03125
+          ]
+        ],
+        [
+          0.91299998760223,
+          [
+            -2.15625,
+            -4.0625
+          ]
+        ],
+        [
+          0.91600000858307,
+          [
+            -2.078125,
+            -4.09375
+          ]
+        ],
+        [
+          0.9200000166893,
+          [
+            -1.984375,
+            -4.140625
+          ]
+        ],
+        [
+          0.92299997806549,
+          [
+            -1.90625,
+            -4.171875
+          ]
+        ],
+        [
+          0.92699998617172,
+          [
+            -1.828125,
+            -4.203125
+          ]
+        ],
+        [
+          0.93000000715256,
+          [
+            -1.734375,
+            -4.234375
+          ]
+        ],
+        [
+          0.93400001525879,
+          [
+            -1.65625,
+            -4.265625
+          ]
+        ],
+        [
+          0.93699997663498,
+          [
+            -1.5625,
+            -4.296875
+          ]
+        ],
+        [
+          0.94099998474121,
+          [
+            -1.46875,
+            -4.3125
+          ]
+        ],
+        [
+          0.94400000572205,
+          [
+            -1.390625,
+            -4.34375
+          ]
+        ],
+        [
+          0.94800001382828,
+          [
+            -1.296875,
+            -4.359375
+          ]
+        ],
+        [
+          0.95200002193451,
+          [
+            -1.203125,
+            -4.390625
+          ]
+        ],
+        [
+          0.9549999833107,
+          [
+            -1.109375,
+            -4.40625
+          ]
+        ],
+        [
+          0.95899999141693,
+          [
+            -1.015625,
+            -4.421875
+          ]
+        ],
+        [
+          0.96299999952316,
+          [
+            -0.921875,
+            -4.4375
+          ]
+        ],
+        [
+          0.96700000762939,
+          [
+            -0.828125,
+            -4.453125
+          ]
+        ],
+        [
+          0.97000002861023,
+          [
+            -0.734375,
+            -4.46875
+          ]
+        ],
+        [
+          0.97399997711182,
+          [
+            -0.640625,
+            -4.484375
+          ]
+        ],
+        [
+          0.97799998521805,
+          [
+            -0.546875,
+            -4.5
+          ]
+        ],
+        [
+          0.98199999332428,
+          [
+            -0.453125,
+            -4.5
+          ]
+        ],
+        [
+          0.98500001430511,
+          [
+            -0.359375,
+            -4.515625
+          ]
+        ],
+        [
+          0.98900002241135,
+          [
+            -0.265625,
+            -4.515625
+          ]
+        ],
+        [
+          0.99299997091293,
+          [
+            -0.171875,
+            -4.515625
+          ]
+        ],
+        [
+          0.99699997901917,
+          [
+            -0.078125,
+            -4.53125
+          ]
+        ]
+      ],
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "spidertron-rocket-launcher-1" : {
+    "name" : "spidertron-rocket-launcher-1",
+    "localised_name" : [
+      "item-name.spidertron-rocket-launcher"
+    ],
+    "type" : "gun",
+    "order" : "z[spider]-a[rocket-launcher]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 40,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 40,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 90,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 1,
+      "movement_slow_down_cooldown" : 90,
+      "ammo_categories" : [
+        "rocket"
+      ],
+      "projectile_center" : [
+        0,
+        0.3
+      ],
+      "projectile_creation_distance" : -0.5,
+      "projectile_orientation_offset" : 0.9375
+    }
+  },
+  "spidertron-rocket-launcher-2" : {
+    "name" : "spidertron-rocket-launcher-2",
+    "localised_name" : [
+      "item-name.spidertron-rocket-launcher"
+    ],
+    "type" : "gun",
+    "order" : "z[spider]-a[rocket-launcher]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 40,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 40,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 90,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 1,
+      "movement_slow_down_cooldown" : 90,
+      "ammo_categories" : [
+        "rocket"
+      ],
+      "projectile_center" : [
+        0,
+        0.3
+      ],
+      "projectile_creation_distance" : -0.5,
+      "projectile_orientation_offset" : 0.96875
+    }
+  },
+  "spidertron-rocket-launcher-3" : {
+    "name" : "spidertron-rocket-launcher-3",
+    "localised_name" : [
+      "item-name.spidertron-rocket-launcher"
+    ],
+    "type" : "gun",
+    "order" : "z[spider]-a[rocket-launcher]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 40,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 40,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 90,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 1,
+      "movement_slow_down_cooldown" : 90,
+      "ammo_categories" : [
+        "rocket"
+      ],
+      "projectile_center" : [
+        0,
+        0.3
+      ],
+      "projectile_creation_distance" : -0.5,
+      "projectile_orientation_offset" : 0.03125
+    }
+  },
+  "spidertron-rocket-launcher-4" : {
+    "name" : "spidertron-rocket-launcher-4",
+    "localised_name" : [
+      "item-name.spidertron-rocket-launcher"
+    ],
+    "type" : "gun",
+    "order" : "z[spider]-a[rocket-launcher]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 40,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 40,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 90,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 1,
+      "movement_slow_down_cooldown" : 90,
+      "ammo_categories" : [
+        "rocket"
+      ],
+      "projectile_center" : [
+        0,
+        0.3
+      ],
+      "projectile_creation_distance" : -0.5,
+      "projectile_orientation_offset" : 0.0625
+    }
+  },
+  "kr-advanced-tank-cannon-a" : {
+    "name" : "kr-advanced-tank-cannon-a",
+    "localised_name" : [
+      "item-name.kr-advanced-tank-cannon-a"
+    ],
+    "type" : "gun",
+    "order" : "z[tank]-a[cannon-a]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 60,
+      "min_range" : 15,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 60,
+      "damage_modifier" : 0.5,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 80,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.5,
+      "movement_slow_down_cooldown" : 80,
+      "ammo_categories" : [
+        "kr-railgun-shell"
+      ],
+      "projectile_center" : [
+        0,
+        0.25
+      ],
+      "projectile_creation_distance" : 4.5,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "kr-advanced-tank-cannon-b" : {
+    "name" : "kr-advanced-tank-cannon-b",
+    "localised_name" : [
+      "item-name.kr-advanced-tank-cannon-b"
+    ],
+    "type" : "gun",
+    "order" : "z[tank]-a[cannon-b]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 60,
+      "min_range" : 15,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 60,
+      "damage_modifier" : 0.5,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 80,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0,
+      "movement_slow_down_cooldown" : 80,
+      "ammo_categories" : [
+        "kr-railgun-shell"
+      ],
+      "projectile_center" : [
+        0,
+        0.25
+      ],
+      "projectile_creation_distance" : 4.5,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "kr-advanced-tank-cannon-c" : {
+    "name" : "kr-advanced-tank-cannon-c",
+    "localised_name" : [
+      "item-name.kr-advanced-tank-cannon-c"
+    ],
+    "type" : "gun",
+    "order" : "z[tank]-a[cannon-c]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 120,
+      "min_range" : 20,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 120,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 160,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0,
+      "movement_slow_down_cooldown" : 160,
+      "ammo_categories" : [
+        "kr-railgun-shell"
+      ],
+      "projectile_center" : [
+        0,
+        0.25
+      ],
+      "projectile_creation_distance" : 4.5,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "tank-cannon" : {
+    "name" : "tank-cannon",
+    "localised_name" : [
+      "item-name.tank-cannon"
+    ],
+    "type" : "gun",
+    "order" : "z[tank]-a[cannon]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 30,
+      "min_range" : 5,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 30,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 120,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0,
+      "movement_slow_down_cooldown" : 120,
+      "ammo_categories" : [
+        "cannon-shell"
+      ],
+      "projectile_center" : [
+        -0.15625,
+        -0.07812
+      ],
+      "projectile_creation_distance" : 1.6000000238419,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "kr-advanced-tank-machine-gun" : {
+    "name" : "kr-advanced-tank-machine-gun",
+    "localised_name" : [
+      "item-name.kr-advanced-tank-machine-gun"
+    ],
+    "type" : "gun",
+    "order" : "z[tank]-a[tank-machine-gun]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 30,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 30,
+      "damage_modifier" : 1.5,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 6,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.25,
+      "movement_slow_down_cooldown" : 6,
+      "ammo_categories" : [
+        "bullet"
+      ],
+      "projectile_center" : [
+        0.5,
+        0.25
+      ],
+      "projectile_creation_distance" : 1.75,
+      "shell_particle" : {
+        "name" : "shell-particle",
+        "direction" : 0.25,
+        "direction_deviation" : 0.10000000149012,
+        "speed" : 0.10000000149012,
+        "speed_deviation" : 0.029999999329448,
+        "starting_frame_speed" : 0.40000000596046,
+        "starting_frame_speed_deviation" : 0.10000000149012,
+        "height" : 1,
+        "height_deviation" : 0,
+        "vertical_speed" : 0,
+        "vertical_speed_deviation" : 0,
+        "center" : [
+          0,
+          0
+        ],
+        "creation_distance" : -0.6875,
+        "creation_distance_orientation" : 0,
+        "use_source_position" : false
+      },
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "kr-advanced-tank-laser-cannon" : {
+    "name" : "kr-advanced-tank-laser-cannon",
+    "localised_name" : [
+      "item-name.kr-advanced-tank-laser-cannon"
+    ],
+    "type" : "gun",
+    "order" : "z[tank]-b[laser-cannon]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 60,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 60,
+      "damage_modifier" : 1.5,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 30,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.25,
+      "movement_slow_down_cooldown" : 30,
+      "ammo_categories" : [
+        "kr-impulse-rifle"
+      ],
+      "projectile_center" : [
+        -0.5,
+        0.25
+      ],
+      "projectile_creation_distance" : 1.75,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "firearm-magazine" : {
+    "name" : "firearm-magazine",
+    "localised_name" : [
+      "item-name.firearm-magazine"
+    ],
+    "type" : "ammo",
+    "order" : "a[basic-clips]-a[firearm-magazine]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "piercing-rounds-magazine" : {
+    "name" : "piercing-rounds-magazine",
+    "localised_name" : [
+      "item-name.piercing-rounds-magazine"
+    ],
+    "type" : "ammo",
+    "order" : "a[basic-clips]-b[piercing-rounds-magazine]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "uranium-rounds-magazine" : {
+    "name" : "uranium-rounds-magazine",
+    "localised_name" : [
+      "item-name.uranium-rounds-magazine"
+    ],
+    "type" : "ammo",
+    "order" : "a[basic-clips]-c[uranium-rounds-magazine]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-imersite-rounds-magazine" : {
+    "name" : "kr-imersite-rounds-magazine",
+    "localised_name" : [
+      "item-name.kr-imersite-rounds-magazine"
+    ],
+    "type" : "ammo",
+    "order" : "a[basic-clips]-d[imersite-rounds-magazine]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "shotgun-shell" : {
+    "name" : "shotgun-shell",
+    "localised_name" : [
+      "item-name.shotgun-shell"
+    ],
+    "type" : "ammo",
+    "order" : "b[shotgun]-a[basic]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "piercing-shotgun-shell" : {
+    "name" : "piercing-shotgun-shell",
+    "localised_name" : [
+      "item-name.piercing-shotgun-shell"
+    ],
+    "type" : "ammo",
+    "order" : "b[shotgun]-b[piercing]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-impulse-rifle-ammo" : {
+    "name" : "kr-impulse-rifle-ammo",
+    "localised_name" : [
+      "item-name.kr-impulse-rifle-ammo"
+    ],
+    "type" : "ammo",
+    "order" : "c[impulse-rifle-ammo]",
+    "fuel_value" : 0,
+    "stack_size" : 200
+  },
+  "cannon-shell" : {
+    "name" : "cannon-shell",
+    "localised_name" : [
+      "item-name.cannon-shell"
+    ],
+    "type" : "ammo",
+    "order" : "d[cannon-shell]-a[basic]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "explosive-cannon-shell" : {
+    "name" : "explosive-cannon-shell",
+    "localised_name" : [
+      "item-name.explosive-cannon-shell"
+    ],
+    "type" : "ammo",
+    "order" : "d[cannon-shell]-c[explosive]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "uranium-cannon-shell" : {
+    "name" : "uranium-cannon-shell",
+    "localised_name" : [
+      "item-name.uranium-cannon-shell"
+    ],
+    "type" : "ammo",
+    "order" : "d[cannon-shell]-c[uranium]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "explosive-uranium-cannon-shell" : {
+    "name" : "explosive-uranium-cannon-shell",
+    "localised_name" : [
+      "item-name.explosive-uranium-cannon-shell"
+    ],
+    "type" : "ammo",
+    "order" : "d[explosive-cannon-shell]-c[uranium]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "artillery-shell" : {
+    "name" : "artillery-shell",
+    "localised_name" : [
+      "item-name.artillery-shell"
+    ],
+    "type" : "ammo",
+    "order" : "d[explosive-cannon-shell]-d[artillery]",
+    "fuel_value" : 0,
+    "stack_size" : 25
+  },
+  "kr-nuclear-artillery-shell" : {
+    "name" : "kr-nuclear-artillery-shell",
+    "localised_name" : [
+      "item-name.kr-nuclear-artillery-shell"
+    ],
+    "type" : "ammo",
+    "order" : "d[explosive-cannon-shell]-d[artillery]-a2[nuclear-artillery]",
+    "fuel_value" : 0,
+    "stack_size" : 25
+  },
+  "kr-antimatter-artillery-shell" : {
+    "name" : "kr-antimatter-artillery-shell",
+    "localised_name" : [
+      "item-name.kr-antimatter-artillery-shell"
+    ],
+    "type" : "ammo",
+    "order" : "d[explosive-cannon-shell]-e[antimatter-artillery-shell]",
+    "fuel_value" : 0,
+    "stack_size" : 25
+  },
+  "rocket" : {
+    "name" : "rocket",
+    "localised_name" : [
+      "item-name.rocket"
+    ],
+    "type" : "ammo",
+    "order" : "d[rocket-launcher]-a[basic]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "explosive-rocket" : {
+    "name" : "explosive-rocket",
+    "localised_name" : [
+      "item-name.explosive-rocket"
+    ],
+    "type" : "ammo",
+    "order" : "d[rocket-launcher]-b[explosive]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-heavy-rocket" : {
+    "name" : "kr-heavy-rocket",
+    "localised_name" : [
+      "item-name.kr-heavy-rocket"
+    ],
+    "type" : "ammo",
+    "order" : "d[rocket-launcher]-b[explosive]",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "kr-antimatter-rocket" : {
+    "name" : "kr-antimatter-rocket",
+    "localised_name" : [
+      "item-name.kr-antimatter-rocket"
+    ],
+    "type" : "ammo",
+    "order" : "d[rocket-launcher]-d[antimatter-rocket]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "atomic-bomb" : {
+    "name" : "atomic-bomb",
+    "localised_name" : [
+      "item-name.atomic-bomb"
+    ],
+    "type" : "ammo",
+    "order" : "d[rocket-launcher]-d[atomic-bomb]",
+    "fuel_value" : 0,
+    "stack_size" : 10
+  },
+  "flamethrower-ammo" : {
+    "name" : "flamethrower-ammo",
+    "localised_name" : [
+      "item-name.flamethrower-ammo"
+    ],
+    "type" : "ammo",
+    "order" : "e[flamethrower]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "grenade" : {
+    "name" : "grenade",
+    "localised_name" : [
+      "item-name.grenade"
+    ],
+    "type" : "capsule",
+    "order" : "a[grenade]-a[normal]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "powerup-Combat5min-Capsule-rampantFixed" : {
+    "name" : "powerup-Combat5min-Capsule-rampantFixed",
+    "localised_name" : [
+      "item-name.powerup-Combat5min-Capsule-rampantFixed"
+    ],
+    "type" : "capsule",
+    "order" : "a[grenade]-a[normal]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "cluster-grenade" : {
+    "name" : "cluster-grenade",
+    "localised_name" : [
+      "item-name.cluster-grenade"
+    ],
+    "type" : "capsule",
+    "order" : "a[grenade]-b[cluster]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "poison-capsule" : {
+    "name" : "poison-capsule",
+    "localised_name" : [
+      "item-name.poison-capsule"
+    ],
+    "type" : "capsule",
+    "order" : "b[poison-capsule]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-biter-virus" : {
+    "name" : "kr-biter-virus",
+    "localised_name" : [
+      "item-name.kr-biter-virus"
+    ],
+    "type" : "capsule",
+    "order" : "c[poison-capsule]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "slowdown-capsule" : {
+    "name" : "slowdown-capsule",
+    "localised_name" : [
+      "item-name.slowdown-capsule"
+    ],
+    "type" : "capsule",
+    "order" : "c[slowdown-capsule]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "defender-capsule" : {
+    "name" : "defender-capsule",
+    "localised_name" : [
+      "item-name.defender-capsule"
+    ],
+    "type" : "capsule",
+    "order" : "d[defender]-b[capsule]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "distractor-capsule" : {
+    "name" : "distractor-capsule",
+    "localised_name" : [
+      "item-name.distractor-capsule"
+    ],
+    "type" : "capsule",
+    "order" : "e[distractor]-b[capsule]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "destroyer-capsule" : {
+    "name" : "destroyer-capsule",
+    "localised_name" : [
+      "item-name.destroyer-capsule"
+    ],
+    "type" : "capsule",
+    "order" : "f[destroyer]-b[capsule]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "light-armor" : {
+    "name" : "light-armor",
+    "localised_name" : [
+      "item-name.light-armor"
+    ],
+    "type" : "armor",
+    "order" : "a[light-armor]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "heavy-armor" : {
+    "name" : "heavy-armor",
+    "localised_name" : [
+      "item-name.heavy-armor"
+    ],
+    "type" : "armor",
+    "order" : "b[heavy-armor]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "modular-armor" : {
+    "name" : "modular-armor",
+    "localised_name" : [
+      "item-name.modular-armor"
+    ],
+    "type" : "armor",
+    "order" : "c[modular-armor]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "equipment_grid" : "small-equipment-grid"
+  },
+  "power-armor" : {
+    "name" : "power-armor",
+    "localised_name" : [
+      "item-name.power-armor"
+    ],
+    "type" : "armor",
+    "order" : "d[power-armor]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "equipment_grid" : "medium-equipment-grid"
+  },
+  "power-armor-mk2" : {
+    "name" : "power-armor-mk2",
+    "localised_name" : [
+      "item-name.power-armor-mk2"
+    ],
+    "type" : "armor",
+    "order" : "e[power-armor-mk2]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "equipment_grid" : "large-equipment-grid"
+  },
+  "kr-power-armor-mk3" : {
+    "name" : "kr-power-armor-mk3",
+    "localised_name" : [
+      "item-name.kr-power-armor-mk3"
+    ],
+    "type" : "armor",
+    "order" : "f[power-armor-mk3]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "equipment_grid" : "kr-mk3-armor-grid"
+  },
+  "kr-power-armor-mk4" : {
+    "name" : "kr-power-armor-mk4",
+    "localised_name" : [
+      "item-name.kr-power-armor-mk4"
+    ],
+    "type" : "armor",
+    "order" : "g[power-armor-mk4]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "equipment_grid" : "kr-mk4-armor-grid"
+  },
+  "kr-energy-absorber-equipment" : {
+    "name" : "kr-energy-absorber-equipment",
+    "localised_name" : [
+      "equipment-name.kr-energy-absorber-equipment"
+    ],
+    "type" : "item",
+    "order" : "a1[energy-source]-a1[energy-absorber-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_as_equipment_result" : "kr-energy-absorber-equipment"
+  },
+  "kr-small-portable-generator-equipment" : {
+    "name" : "kr-small-portable-generator-equipment",
+    "localised_name" : [
+      "equipment-name.kr-small-portable-generator-equipment"
+    ],
+    "type" : "item",
+    "order" : "a2[energy-source]-a2[small-portable-generator-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_as_equipment_result" : "kr-small-portable-generator-equipment"
+  },
+  "kr-portable-generator-equipment" : {
+    "name" : "kr-portable-generator-equipment",
+    "localised_name" : [
+      "equipment-name.kr-portable-generator-equipment"
+    ],
+    "type" : "item",
+    "order" : "a2[energy-source]-a3[k-generator]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_as_equipment_result" : "kr-portable-generator-equipment"
+  },
+  "fission-reactor-equipment" : {
+    "name" : "fission-reactor-equipment",
+    "localised_name" : [
+      "equipment-name.fission-reactor-equipment"
+    ],
+    "type" : "item",
+    "order" : "a2[energy-source]-a4[portable-fission-reactor]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_as_equipment_result" : "fission-reactor-equipment"
+  },
+  "kr-fusion-reactor-equipment" : {
+    "name" : "kr-fusion-reactor-equipment",
+    "localised_name" : [
+      "equipment-name.kr-fusion-reactor-equipment"
+    ],
+    "type" : "item",
+    "order" : "a2[energy-source]-a5[fusion-reactor-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_as_equipment_result" : "kr-fusion-reactor-equipment"
+  },
+  "kr-antimatter-reactor-equipment" : {
+    "name" : "kr-antimatter-reactor-equipment",
+    "localised_name" : [
+      "equipment-name.kr-antimatter-reactor-equipment"
+    ],
+    "type" : "item",
+    "order" : "a2[energy-source]-a6[antimatter-reactor-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_as_equipment_result" : "kr-antimatter-reactor-equipment"
+  },
+  "solar-panel-equipment" : {
+    "name" : "solar-panel-equipment",
+    "localised_name" : [
+      "equipment-name.solar-panel-equipment"
+    ],
+    "type" : "item",
+    "order" : "a[energy-source]-a1[solar-panel]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "solar-panel-equipment"
+  },
+  "kr-big-solar-panel-equipment" : {
+    "name" : "kr-big-solar-panel-equipment",
+    "localised_name" : [
+      "equipment-name.kr-big-solar-panel-equipment"
+    ],
+    "type" : "item",
+    "order" : "a[energy-source]-a3[big-solar-panel-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_as_equipment_result" : "kr-big-solar-panel-equipment"
+  },
+  "kr-superior-solar-panel-equipment" : {
+    "name" : "kr-superior-solar-panel-equipment",
+    "localised_name" : [
+      "equipment-name.kr-superior-solar-panel-equipment"
+    ],
+    "type" : "item",
+    "order" : "a[energy-source]-a4[superior-solar-panel-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_as_equipment_result" : "kr-superior-solar-panel-equipment"
+  },
+  "kr-big-superior-solar-panel-equipment" : {
+    "name" : "kr-big-superior-solar-panel-equipment",
+    "localised_name" : [
+      "equipment-name.kr-big-superior-solar-panel-equipment"
+    ],
+    "type" : "item",
+    "order" : "a[energy-source]-a5[superior-solar-panel-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_as_equipment_result" : "kr-big-superior-solar-panel-equipment"
+  },
+  "battery-equipment" : {
+    "name" : "battery-equipment",
+    "localised_name" : [
+      "equipment-name.battery-equipment"
+    ],
+    "type" : "item",
+    "order" : "b1[battery]-b1[battery-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "battery-equipment"
+  },
+  "kr-big-battery-equipment" : {
+    "name" : "kr-big-battery-equipment",
+    "localised_name" : [
+      "equipment-name.kr-big-battery-equipment"
+    ],
+    "type" : "item",
+    "order" : "b1[battery]-b2[battery-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-big-battery-equipment"
+  },
+  "battery-mk2-equipment" : {
+    "name" : "battery-mk2-equipment",
+    "localised_name" : [
+      "equipment-name.battery-mk2-equipment"
+    ],
+    "type" : "item",
+    "order" : "b2[battery]-b3[battery-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "battery-mk2-equipment"
+  },
+  "kr-big-battery-mk2-equipment" : {
+    "name" : "kr-big-battery-mk2-equipment",
+    "localised_name" : [
+      "equipment-name.kr-big-battery-mk2-equipment"
+    ],
+    "type" : "item",
+    "order" : "b2[battery]-b4[battery-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-big-battery-mk2-equipment"
+  },
+  "kr-battery-mk3-equipment" : {
+    "name" : "kr-battery-mk3-equipment",
+    "localised_name" : [
+      "equipment-name.kr-battery-mk3-equipment"
+    ],
+    "type" : "item",
+    "order" : "b3[battery]-b5[battery-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-battery-mk3-equipment"
+  },
+  "kr-big-battery-mk3-equipment" : {
+    "name" : "kr-big-battery-mk3-equipment",
+    "localised_name" : [
+      "equipment-name.kr-big-battery-mk3-equipment"
+    ],
+    "type" : "item",
+    "order" : "b3[battery]-b6[battery-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-big-battery-mk3-equipment"
+  },
+  "energy-shield-equipment" : {
+    "name" : "energy-shield-equipment",
+    "localised_name" : [
+      "equipment-name.energy-shield-equipment"
+    ],
+    "type" : "item",
+    "order" : "b[shield]-a[energy-shield-equipment-mk1]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "energy-shield-equipment"
+  },
+  "energy-shield-mk2-equipment" : {
+    "name" : "energy-shield-mk2-equipment",
+    "localised_name" : [
+      "equipment-name.energy-shield-mk2-equipment"
+    ],
+    "type" : "item",
+    "order" : "b[shield]-b[energy-shield-equipment-mk2]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "energy-shield-mk2-equipment"
+  },
+  "kr-energy-shield-mk3-equipment" : {
+    "name" : "kr-energy-shield-mk3-equipment",
+    "localised_name" : [
+      "equipment-name.kr-energy-shield-mk3-equipment"
+    ],
+    "type" : "item",
+    "order" : "b[shield]-c[energy-shield-equipment-mk3]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_as_equipment_result" : "kr-energy-shield-mk3-equipment"
+  },
+  "kr-energy-shield-mk4-equipment" : {
+    "name" : "kr-energy-shield-mk4-equipment",
+    "localised_name" : [
+      "equipment-name.kr-energy-shield-mk4-equipment"
+    ],
+    "type" : "item",
+    "order" : "b[shield]-c[energy-shield-equipment-mk4]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_as_equipment_result" : "kr-energy-shield-mk4-equipment"
+  },
+  "personal-laser-defense-equipment" : {
+    "name" : "personal-laser-defense-equipment",
+    "localised_name" : [
+      "equipment-name.personal-laser-defense-equipment"
+    ],
+    "type" : "item",
+    "order" : "d[active-defense]-b1[personal-laser-defense-mk1-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "personal-laser-defense-equipment"
+  },
+  "kr-personal-laser-defense-mk2-equipment" : {
+    "name" : "kr-personal-laser-defense-mk2-equipment",
+    "localised_name" : [
+      "equipment-name.kr-personal-laser-defense-mk2-equipment"
+    ],
+    "type" : "item",
+    "order" : "d[active-defense]-b2[personal-laser-defense-mk2-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-personal-laser-defense-mk2-equipment"
+  },
+  "kr-personal-laser-defense-mk3-equipment" : {
+    "name" : "kr-personal-laser-defense-mk3-equipment",
+    "localised_name" : [
+      "equipment-name.kr-personal-laser-defense-mk3-equipment"
+    ],
+    "type" : "item",
+    "order" : "d[active-defense]-b3[personal-laser-defense-mk3-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-personal-laser-defense-mk3-equipment"
+  },
+  "kr-personal-laser-defense-mk4-equipment" : {
+    "name" : "kr-personal-laser-defense-mk4-equipment",
+    "localised_name" : [
+      "equipment-name.kr-personal-laser-defense-mk4-equipment"
+    ],
+    "type" : "item",
+    "order" : "d[active-defense]-b4[personal-laser-defense-mk4-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-personal-laser-defense-mk4-equipment"
+  },
+  "discharge-defense-equipment" : {
+    "name" : "discharge-defense-equipment",
+    "localised_name" : [
+      "equipment-name.discharge-defense-equipment"
+    ],
+    "type" : "item",
+    "order" : "f[active-defense-equipment]-a[discharge-defense-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "discharge-defense-equipment"
+  },
+  "discharge-defense-remote" : {
+    "name" : "discharge-defense-remote",
+    "localised_name" : [
+      "item-name.discharge-defense-remote"
+    ],
+    "type" : "capsule",
+    "order" : "f[active-defense-equipment]-b[discharge-defense-remote]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "exoskeleton-equipment" : {
+    "name" : "exoskeleton-equipment",
+    "localised_name" : [
+      "equipment-name.exoskeleton-equipment"
+    ],
+    "type" : "item",
+    "order" : "e[exoskeleton]-a1[exoskeleton-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "exoskeleton-equipment"
+  },
+  "kr-advanced-exoskeleton-equipment" : {
+    "name" : "kr-advanced-exoskeleton-equipment",
+    "localised_name" : [
+      "equipment-name.kr-advanced-exoskeleton-equipment"
+    ],
+    "type" : "item",
+    "order" : "e[exoskeleton]-a2[advanced-exoskeleton-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-advanced-exoskeleton-equipment"
+  },
+  "kr-superior-exoskeleton-equipment" : {
+    "name" : "kr-superior-exoskeleton-equipment",
+    "localised_name" : [
+      "equipment-name.kr-superior-exoskeleton-equipment"
+    ],
+    "type" : "item",
+    "order" : "e[exoskeleton]-a3[superior-exoskeleton-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "kr-superior-exoskeleton-equipment"
+  },
+  "night-vision-equipment" : {
+    "name" : "night-vision-equipment",
+    "localised_name" : [
+      "equipment-name.night-vision-equipment"
+    ],
+    "type" : "item",
+    "order" : "f[night-vision]-a1[night-vision-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "night-vision-equipment"
+  },
+  "kr-superior-night-vision-equipment" : {
+    "name" : "kr-superior-night-vision-equipment",
+    "localised_name" : [
+      "equipment-name.kr-superior-night-vision-equipment"
+    ],
+    "type" : "item",
+    "order" : "f[night-vision]-b[superior-night-vision-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_as_equipment_result" : "kr-superior-night-vision-equipment"
+  },
+  "kr-additional-engine-equipment" : {
+    "name" : "kr-additional-engine-equipment",
+    "localised_name" : [
+      "equipment-name.kr-additional-engine-equipment"
+    ],
+    "type" : "item",
+    "order" : "e[additional-engines]-e1[advanced-additional-engine-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_as_equipment_result" : "kr-additional-engine-equipment"
+  },
+  "kr-advanced-additional-engine-equipment" : {
+    "name" : "kr-advanced-additional-engine-equipment",
+    "localised_name" : [
+      "equipment-name.kr-advanced-additional-engine-equipment"
+    ],
+    "type" : "item",
+    "order" : "e[additional-engines]-e2[advanced-additional-engine-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_as_equipment_result" : "kr-advanced-additional-engine-equipment"
+  },
+  "kr-vehicle-roboport-equipment" : {
+    "name" : "kr-vehicle-roboport-equipment",
+    "localised_name" : [
+      "equipment-name.kr-vehicle-roboport-equipment"
+    ],
+    "type" : "item",
+    "order" : "e[additional-engines]-f1[vehicle-roboport-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_as_equipment_result" : "kr-vehicle-roboport-equipment"
+  },
+  "belt-immunity-equipment" : {
+    "name" : "belt-immunity-equipment",
+    "localised_name" : [
+      "equipment-name.belt-immunity-equipment"
+    ],
+    "type" : "item",
+    "order" : "c[belt-immunity]-a[belt-immunity]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "belt-immunity-equipment"
+  },
+  "personal-roboport-equipment" : {
+    "name" : "personal-roboport-equipment",
+    "localised_name" : [
+      "equipment-name.personal-roboport-equipment"
+    ],
+    "type" : "item",
+    "order" : "e[robotics]-a[personal-roboport-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "personal-roboport-equipment"
+  },
+  "personal-roboport-mk2-equipment" : {
+    "name" : "personal-roboport-mk2-equipment",
+    "localised_name" : [
+      "equipment-name.personal-roboport-mk2-equipment"
+    ],
+    "type" : "item",
+    "order" : "e[robotics]-b[personal-roboport-mk2-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_as_equipment_result" : "personal-roboport-mk2-equipment"
+  },
+  "stone-wall" : {
+    "name" : "stone-wall",
+    "localised_name" : [
+      "entity-name.stone-wall"
+    ],
+    "type" : "item",
+    "order" : "001[stone-wall]",
+    "fuel_value" : 0,
+    "stack_size" : 200,
+    "place_result" : "stone-wall"
+  },
+  "gate" : {
+    "name" : "gate",
+    "localised_name" : [
+      "entity-name.gate"
+    ],
+    "type" : "item",
+    "order" : "002[gate]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "gate"
+  },
+  "gun-turret" : {
+    "name" : "gun-turret",
+    "localised_name" : [
+      "entity-name.gun-turret"
+    ],
+    "type" : "item",
+    "order" : "01[gun-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "gun-turret"
+  },
+  "flamethrower-turret" : {
+    "name" : "flamethrower-turret",
+    "localised_name" : [
+      "entity-name.flamethrower-turret"
+    ],
+    "type" : "item",
+    "order" : "02[flamethrower-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "flamethrower-turret"
+  },
+  "laser-turret" : {
+    "name" : "laser-turret",
+    "localised_name" : [
+      "entity-name.laser-turret"
+    ],
+    "type" : "item",
+    "order" : "03a[laser-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "laser-turret"
+  },
+  "artillery-turret" : {
+    "name" : "artillery-turret",
+    "localised_name" : [
+      "entity-name.artillery-turret"
+    ],
+    "type" : "item",
+    "order" : "04[artillery-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "artillery-turret"
+  },
+  "kr-laser-artillery-turret" : {
+    "name" : "kr-laser-artillery-turret",
+    "localised_name" : [
+      "entity-name.kr-laser-artillery-turret"
+    ],
+    "type" : "item",
+    "order" : "b[turret]-e[artillery-turret]-a[laser-artillery-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-laser-artillery-turret"
+  },
+  "kr-railgun-turret" : {
+    "name" : "kr-railgun-turret",
+    "localised_name" : [
+      "entity-name.kr-railgun-turret"
+    ],
+    "type" : "item",
+    "order" : "a01[railgun-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-railgun-turret"
+  },
+  "kr-basic-railgun-shell" : {
+    "name" : "kr-basic-railgun-shell",
+    "localised_name" : [
+      "item-name.kr-basic-railgun-shell"
+    ],
+    "type" : "ammo",
+    "order" : "b01[basic-railgun-shell]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-explosive-railgun-shell" : {
+    "name" : "kr-explosive-railgun-shell",
+    "localised_name" : [
+      "item-name.kr-explosive-railgun-shell"
+    ],
+    "type" : "ammo",
+    "order" : "b02[explosion-railgun-shell]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-antimatter-railgun-shell" : {
+    "name" : "kr-antimatter-railgun-shell",
+    "localised_name" : [
+      "item-name.kr-antimatter-railgun-shell"
+    ],
+    "type" : "ammo",
+    "order" : "b03[antimatter-railgun-shell]",
+    "fuel_value" : 0,
+    "stack_size" : 100
+  },
+  "kr-rocket-turret" : {
+    "name" : "kr-rocket-turret",
+    "localised_name" : [
+      "entity-name.kr-rocket-turret"
+    ],
+    "type" : "item",
+    "order" : "a02[rocket-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-rocket-turret"
+  },
+  "kr-explosive-turret-rocket" : {
+    "name" : "kr-explosive-turret-rocket",
+    "localised_name" : [
+      "item-name.kr-explosive-turret-rocket"
+    ],
+    "type" : "ammo",
+    "order" : "b01[explosion-rocket-for-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 25
+  },
+  "kr-nuclear-turret-rocket" : {
+    "name" : "kr-nuclear-turret-rocket",
+    "localised_name" : [
+      "item-name.kr-nuclear-turret-rocket"
+    ],
+    "type" : "ammo",
+    "order" : "b02[kr-nuclear-turret-rocket]",
+    "fuel_value" : 0,
+    "stack_size" : 25
+  },
+  "kr-antimatter-turret-rocket" : {
+    "name" : "kr-antimatter-turret-rocket",
+    "localised_name" : [
+      "item-name.kr-antimatter-turret-rocket"
+    ],
+    "type" : "ammo",
+    "order" : "b03[antimatter-rocket-for-turret]",
+    "fuel_value" : 0,
+    "stack_size" : 25
+  },
+  "kr-sentinel" : {
+    "name" : "kr-sentinel",
+    "localised_name" : [
+      "entity-name.kr-sentinel"
+    ],
+    "type" : "item",
+    "order" : "01[sentinel]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-sentinel"
+  },
+  "radar" : {
+    "name" : "radar",
+    "localised_name" : [
+      "entity-name.radar"
+    ],
+    "type" : "item",
+    "order" : "02[radar]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "radar"
+  },
+  "kr-advanced-radar" : {
+    "name" : "kr-advanced-radar",
+    "localised_name" : [
+      "entity-name.kr-advanced-radar"
+    ],
+    "type" : "item",
+    "order" : "03[advanced-radar]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "kr-advanced-radar"
+  },
+  "kr-intergalactic-transceiver" : {
+    "name" : "kr-intergalactic-transceiver",
+    "localised_name" : [
+      "entity-name.kr-intergalactic-transceiver"
+    ],
+    "type" : "item",
+    "order" : "zzzz[intergalactic-transceiver]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_result" : "kr-intergalactic-transceiver"
+  },
+  "regenerationCrystal-rampantFixed" : {
+    "name" : "regenerationCrystal-rampantFixed",
+    "localised_name" : [
+      "entity-name.regenerationCrystal-rampantFixed"
+    ],
+    "type" : "item",
+    "order" : "a[powerup]-a[regenerationCrystal]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "regenerationCrystal-rampantFixed"
+  },
+  "land-mine" : {
+    "name" : "land-mine",
+    "localised_name" : [
+      "entity-name.land-mine"
+    ],
+    "type" : "item",
+    "order" : "f[land-mine]",
+    "fuel_value" : 0,
+    "stack_size" : 100,
+    "place_result" : "land-mine"
+  },
+  "pylon-target-rampant" : {
+    "name" : "pylon-target-rampant",
+    "localised_name" : [
+      "entity-name.pylon-target-rampant"
+    ],
+    "type" : "item",
+    "order" : "a[items]-h[steel-collector]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "pylon-target-rampant"
+  },
+  "dead-dry-hairy-tree" : {
+    "name" : "dead-dry-hairy-tree",
+    "localised_name" : [
+      "entity-name.dead-dry-hairy-tree"
+    ],
+    "type" : "item",
+    "order" : "a[dead-dry-hairy-tree]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "dead-dry-hairy-tree"
+  },
+  "dead-grey-trunk" : {
+    "name" : "dead-grey-trunk",
+    "localised_name" : [
+      "entity-name.dead-grey-trunk"
+    ],
+    "type" : "item",
+    "order" : "a[dead-grey-trunk]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "dead-grey-trunk"
+  },
+  "dead-tree-desert" : {
+    "name" : "dead-tree-desert",
+    "localised_name" : [
+      "entity-name.dead-tree-desert"
+    ],
+    "type" : "item",
+    "order" : "a[dead-tree-desert]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "dead-tree-desert"
+  },
+  "dry-hairy-tree" : {
+    "name" : "dry-hairy-tree",
+    "localised_name" : [
+      "entity-name.dry-hairy-tree"
+    ],
+    "type" : "item",
+    "order" : "a[dry-hairy-tree]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "dry-hairy-tree"
+  },
+  "dry-tree" : {
+    "name" : "dry-tree",
+    "localised_name" : [
+      "entity-name.dry-tree"
+    ],
+    "type" : "item",
+    "order" : "a[dry-tree]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "dry-tree"
+  },
+  "tree-01" : {
+    "name" : "tree-01",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-01]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-01"
+  },
+  "tree-02-red" : {
+    "name" : "tree-02-red",
+    "localised_name" : [
+      "entity-name.tree-red"
+    ],
+    "type" : "item",
+    "order" : "a[tree-02-red]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-02-red"
+  },
+  "tree-02" : {
+    "name" : "tree-02",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-02]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-02"
+  },
+  "tree-03" : {
+    "name" : "tree-03",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-03]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-03"
+  },
+  "tree-04" : {
+    "name" : "tree-04",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-04]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-04"
+  },
+  "tree-05" : {
+    "name" : "tree-05",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-05]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-05"
+  },
+  "tree-06-brown" : {
+    "name" : "tree-06-brown",
+    "localised_name" : [
+      "entity-name.tree-brown"
+    ],
+    "type" : "item",
+    "order" : "a[tree-06-brown]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-06-brown"
+  },
+  "tree-06" : {
+    "name" : "tree-06",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-06]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-06"
+  },
+  "tree-07" : {
+    "name" : "tree-07",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-07]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-07"
+  },
+  "tree-08-brown" : {
+    "name" : "tree-08-brown",
+    "localised_name" : [
+      "entity-name.tree-brown"
+    ],
+    "type" : "item",
+    "order" : "a[tree-08-brown]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-08-brown"
+  },
+  "tree-08-red" : {
+    "name" : "tree-08-red",
+    "localised_name" : [
+      "entity-name.tree-red"
+    ],
+    "type" : "item",
+    "order" : "a[tree-08-red]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-08-red"
+  },
+  "tree-08" : {
+    "name" : "tree-08",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-08]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-08"
+  },
+  "tree-09-brown" : {
+    "name" : "tree-09-brown",
+    "localised_name" : [
+      "entity-name.tree-brown"
+    ],
+    "type" : "item",
+    "order" : "a[tree-09-brown]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-09-brown"
+  },
+  "tree-09-red" : {
+    "name" : "tree-09-red",
+    "localised_name" : [
+      "entity-name.tree-red"
+    ],
+    "type" : "item",
+    "order" : "a[tree-09-red]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-09-red"
+  },
+  "tree-09" : {
+    "name" : "tree-09",
+    "localised_name" : [
+      "entity-name.tree"
+    ],
+    "type" : "item",
+    "order" : "a[tree-09]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "tree-09"
+  },
+  "big-rock" : {
+    "name" : "big-rock",
+    "localised_name" : [
+      "entity-name.big-rock"
+    ],
+    "type" : "item",
+    "order" : "b[big-rock]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "big-rock"
+  },
+  "big-sand-rock" : {
+    "name" : "big-sand-rock",
+    "localised_name" : [
+      "entity-name.big-sand-rock"
+    ],
+    "type" : "item",
+    "order" : "b[big-sand-rock]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "big-sand-rock"
+  },
+  "huge-rock" : {
+    "name" : "huge-rock",
+    "localised_name" : [
+      "entity-name.huge-rock"
+    ],
+    "type" : "item",
+    "order" : "b[huge-rock]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "huge-rock"
+  },
+  "parameter-0" : {
+    "name" : "parameter-0",
+    "localised_name" : [
+      "parameter-x",
+      "0"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-1" : {
+    "name" : "parameter-1",
+    "localised_name" : [
+      "parameter-x",
+      "1"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-2" : {
+    "name" : "parameter-2",
+    "localised_name" : [
+      "parameter-x",
+      "2"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-3" : {
+    "name" : "parameter-3",
+    "localised_name" : [
+      "parameter-x",
+      "3"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-4" : {
+    "name" : "parameter-4",
+    "localised_name" : [
+      "parameter-x",
+      "4"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-5" : {
+    "name" : "parameter-5",
+    "localised_name" : [
+      "parameter-x",
+      "5"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-6" : {
+    "name" : "parameter-6",
+    "localised_name" : [
+      "parameter-x",
+      "6"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-7" : {
+    "name" : "parameter-7",
+    "localised_name" : [
+      "parameter-x",
+      "7"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-8" : {
+    "name" : "parameter-8",
+    "localised_name" : [
+      "parameter-x",
+      "8"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "parameter-9" : {
+    "name" : "parameter-9",
+    "localised_name" : [
+      "parameter-x",
+      "9"
+    ],
+    "type" : "item",
+    "order" : "a",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "copper-wire" : {
+    "name" : "copper-wire",
+    "localised_name" : [
+      "item-name.copper-wire"
+    ],
+    "type" : "item",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "green-wire" : {
+    "name" : "green-wire",
+    "localised_name" : [
+      "item-name.green-wire"
+    ],
+    "type" : "item",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "red-wire" : {
+    "name" : "red-wire",
+    "localised_name" : [
+      "item-name.red-wire"
+    ],
+    "type" : "item",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "spidertron-remote" : {
+    "name" : "spidertron-remote",
+    "localised_name" : [
+      "item-name.spidertron-remote"
+    ],
+    "type" : "spidertron-remote",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "artillery-targeting-remote" : {
+    "name" : "artillery-targeting-remote",
+    "localised_name" : [
+      "item-name.artillery-targeting-remote"
+    ],
+    "type" : "capsule",
+    "order" : "b[turret]-d[artillery-turret]-b[remote]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "item-unknown" : {
+    "name" : "item-unknown",
+    "localised_name" : [
+      "item-name.item-unknown"
+    ],
+    "type" : "item",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "kr-cyber-potato-equipment" : {
+    "name" : "kr-cyber-potato-equipment",
+    "localised_name" : [
+      "equipment-name.kr-cyber-potato-equipment"
+    ],
+    "type" : "item",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "rocket_launch_products" : [
+      {
+        "independent_probability" : 1,
+        "shared_probability" : {
+          "min" : 0,
+          "max" : 1
+        },
+        "type" : "item",
+        "name" : "kr-spoiled-potato",
+        "amount" : 1,
+        "affected_by_quality" : true
+      }
+    ],
+    "place_as_equipment_result" : "kr-cyber-potato-equipment"
+  },
+  "kr-dolphin-gun" : {
+    "name" : "kr-dolphin-gun",
+    "localised_name" : [
+      "item-name.kr-dolphin-gun"
+    ],
+    "type" : "gun",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "attack_parameters" : {
+      "type" : "projectile",
+      "range" : 100,
+      "min_range" : 0,
+      "turn_range" : 1,
+      "fire_penalty" : 0,
+      "rotate_penalty" : 0,
+      "health_penalty" : 0,
+      "threatening_asteroid_penalty" : 0,
+      "range_mode" : "center-to-center",
+      "min_attack_distance" : 100,
+      "damage_modifier" : 1,
+      "ammo_consumption_modifier" : 1,
+      "cooldown" : 90,
+      "warmup" : 0,
+      "movement_slow_down_factor" : 0.34999999403954,
+      "movement_slow_down_cooldown" : 90,
+      "ammo_categories" : [
+        "kr-heavy-rocket"
+      ],
+      "projectile_center" : [
+        -0.17,
+        0
+      ],
+      "projectile_creation_distance" : 0.60000002384186,
+      "projectile_orientation_offset" : 0
+    }
+  },
+  "kr-jackhammer" : {
+    "name" : "kr-jackhammer",
+    "localised_name" : [
+      "item-name.kr-jackhammer"
+    ],
+    "type" : "selection-tool",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "kr-note-1" : {
+    "name" : "kr-note-1",
+    "localised_name" : [
+      "item-name.kr-note-1"
+    ],
+    "type" : "item",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 50
+  },
+  "kr-poop" : {
+    "name" : "kr-poop",
+    "localised_name" : [
+      "item-name.kr-poop"
+    ],
+    "type" : "capsule",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "rocket_launch_products" : [
+      {
+        "independent_probability" : 1,
+        "shared_probability" : {
+          "min" : 0,
+          "max" : 1
+        },
+        "type" : "item",
+        "name" : "kr-note-1",
+        "amount" : 1,
+        "affected_by_quality" : true
+      }
+    ]
+  },
+  "kr-potato" : {
+    "name" : "kr-potato",
+    "localised_name" : [
+      "item-name.kr-potato"
+    ],
+    "type" : "capsule",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "rocket_launch_products" : [
+      {
+        "independent_probability" : 1,
+        "shared_probability" : {
+          "min" : 0,
+          "max" : 1
+        },
+        "type" : "item",
+        "name" : "kr-cyber-potato-equipment",
+        "amount" : 1,
+        "affected_by_quality" : true
+      }
+    ]
+  },
+  "kr-spoiled-potato" : {
+    "name" : "kr-spoiled-potato",
+    "localised_name" : [
+      "item-name.kr-spoiled-potato"
+    ],
+    "type" : "capsule",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "rocket_launch_products" : [
+      {
+        "independent_probability" : 1,
+        "shared_probability" : {
+          "min" : 0,
+          "max" : 1
+        },
+        "type" : "item",
+        "name" : "kr-poop",
+        "amount" : 1,
+        "affected_by_quality" : true
+      }
+    ]
+  },
+  "no-item" : {
+    "name" : "no-item",
+    "localised_name" : [
+      "item-name.no-item"
+    ],
+    "type" : "item",
+    "order" : "",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "electric-energy-interface-equipment" : {
+    "name" : "electric-energy-interface-equipment",
+    "localised_name" : [
+      "equipment-name.electric-energy-interface-equipment"
+    ],
+    "type" : "item",
+    "order" : "a[electric-energy-interface]-b[electric-energy-interface-equipment]",
+    "fuel_value" : 0,
+    "stack_size" : 1,
+    "place_as_equipment_result" : "electric-energy-interface-equipment"
+  },
+  "electric-energy-interface" : {
+    "name" : "electric-energy-interface",
+    "localised_name" : [
+      "entity-name.electric-energy-interface"
+    ],
+    "type" : "item",
+    "order" : "a[electric-energy-interface]-b[electric-energy-interface]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "electric-energy-interface"
+  },
+  "linked-chest" : {
+    "name" : "linked-chest",
+    "localised_name" : [
+      "entity-name.linked-chest"
+    ],
+    "type" : "item",
+    "order" : "a[items]-a[linked-chest]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "linked-chest"
+  },
+  "proxy-container" : {
+    "name" : "proxy-container",
+    "localised_name" : [
+      "entity-name.proxy-container"
+    ],
+    "type" : "item",
+    "order" : "a[items]-a[proxy-container]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "proxy-container"
+  },
+  "bottomless-chest" : {
+    "name" : "bottomless-chest",
+    "localised_name" : [
+      "entity-name.bottomless-chest"
+    ],
+    "type" : "item",
+    "order" : "a[items]-c[bottomless-chest]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "bottomless-chest"
+  },
+  "heat-interface" : {
+    "name" : "heat-interface",
+    "localised_name" : [
+      "entity-name.heat-interface"
+    ],
+    "type" : "item",
+    "order" : "b[heat-interface]",
+    "fuel_value" : 0,
+    "stack_size" : 20,
+    "place_result" : "heat-interface"
+  },
+  "lane-splitter" : {
+    "name" : "lane-splitter",
+    "localised_name" : [
+      "entity-name.lane-splitter"
+    ],
+    "type" : "item",
+    "order" : "b[items]-b[lane-splitter]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "lane-splitter"
+  },
+  "linked-belt" : {
+    "name" : "linked-belt",
+    "localised_name" : [
+      "entity-name.linked-belt"
+    ],
+    "type" : "item",
+    "order" : "b[items]-b[linked-belt]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "linked-belt"
+  },
+  "one-way-valve" : {
+    "name" : "one-way-valve",
+    "localised_name" : [
+      "entity-name.one-way-valve"
+    ],
+    "type" : "item",
+    "order" : "b[items]-o[one-way-valve]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "one-way-valve"
+  },
+  "overflow-valve" : {
+    "name" : "overflow-valve",
+    "localised_name" : [
+      "entity-name.overflow-valve"
+    ],
+    "type" : "item",
+    "order" : "b[items]-o[overflow-valve]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "overflow-valve"
+  },
+  "top-up-valve" : {
+    "name" : "top-up-valve",
+    "localised_name" : [
+      "entity-name.top-up-valve"
+    ],
+    "type" : "item",
+    "order" : "b[items]-o[top-up-valve]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "top-up-valve"
+  },
+  "infinity-cargo-wagon" : {
+    "name" : "infinity-cargo-wagon",
+    "localised_name" : [
+      "entity-name.infinity-cargo-wagon"
+    ],
+    "type" : "item",
+    "order" : "c[item]-o[infinity-cargo-wagon]",
+    "fuel_value" : 0,
+    "stack_size" : 5,
+    "place_result" : "infinity-cargo-wagon"
+  },
+  "infinity-chest" : {
+    "name" : "infinity-chest",
+    "localised_name" : [
+      "entity-name.infinity-chest"
+    ],
+    "type" : "item",
+    "order" : "c[item]-o[infinity-chest]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "infinity-chest"
+  },
+  "infinity-pipe" : {
+    "name" : "infinity-pipe",
+    "localised_name" : [
+      "entity-name.infinity-pipe"
+    ],
+    "type" : "item",
+    "order" : "d[item]-o[infinity-pipe]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "infinity-pipe"
+  },
+  "selection-tool" : {
+    "name" : "selection-tool",
+    "localised_name" : [
+      "item-name.selection-tool"
+    ],
+    "type" : "selection-tool",
+    "order" : "e[automated-construction]-a[blueprint]",
+    "fuel_value" : 0,
+    "stack_size" : 1
+  },
+  "simple-entity-with-force" : {
+    "name" : "simple-entity-with-force",
+    "localised_name" : [
+      "entity-name.simple-entity-with-force"
+    ],
+    "type" : "item",
+    "order" : "s[simple-entity-with-force]-f[simple-entity-with-force]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "simple-entity-with-force"
+  },
+  "simple-entity-with-owner" : {
+    "name" : "simple-entity-with-owner",
+    "localised_name" : [
+      "entity-name.simple-entity-with-owner"
+    ],
+    "type" : "item",
+    "order" : "s[simple-entity-with-owner]-o[simple-entity-with-owner]",
+    "fuel_value" : 0,
+    "stack_size" : 50,
+    "place_result" : "simple-entity-with-owner"
+  },
+  "burner-generator" : {
+    "name" : "burner-generator",
+    "localised_name" : [
+      "entity-name.burner-generator"
+    ],
+    "type" : "item",
+    "order" : "t[item]-o[burner-generator]",
+    "fuel_value" : 0,
+    "stack_size" : 10,
+    "place_result" : "burner-generator"
+  }
+}

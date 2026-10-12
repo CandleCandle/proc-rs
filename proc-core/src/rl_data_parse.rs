@@ -342,7 +342,8 @@ impl MiningMachine {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 struct Recipe {
     name: String,
-    category: String,
+    category: Option<String>,
+    categories: Option<Vec<String>>,
     energy: f64,
     #[serde(default, deserialize_with = "vec_or_empty")]
     ingredients: Option<Vec<Ingredient>>,
@@ -356,15 +357,16 @@ impl Recipe {
         items: &HashMap<String, Rc<Item>>,
         items_with_temperatures: &HashMap<String, Vec<(f64, Rc<Item>)>>
     ) -> Result<Vec<Process>, String> {
+        let first_category: &String = self.category.as_ref().or_else(|| self.categories.as_ref().unwrap().get(0)).unwrap();
         eprintln!("recipe: processing {}", self.name);
-        if ! factory_groups.contains_key(&self.category) {
-            eprintln!("recipe: skipping {} due to a missing factory group ({})", self.name, self.category);
+        if ! factory_groups.contains_key(first_category) {
+            eprintln!("recipe: skipping {} due to a missing factory group ({})", self.name, first_category);
             return Ok(Vec::new());
         }
         if self.has_temperature_input() {
-            self.permute_temperature_inputs(factory_groups.get(&self.category).unwrap().clone(), items, items_with_temperatures)
+            self.permute_temperature_inputs(factory_groups.get(first_category).unwrap().clone(), items, items_with_temperatures)
         } else {
-            self.new_basic_process(factory_groups.get(&self.category).unwrap().clone(), items)
+            self.new_basic_process(factory_groups.get(first_category).unwrap().clone(), items)
         }
     }
 

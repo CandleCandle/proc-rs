@@ -1,0 +1,216 @@
+{
+  "burner-mining-drill" : {
+    "name" : "burner-mining-drill",
+    "localised_name" : [
+      "entity-name.burner-mining-drill"
+    ],
+    "energy_usage" : 100000,
+    "mining_speed" : 0.25,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true,
+          "kr-vehicle-fuel" : true
+        }
+      }
+    }
+  },
+  "electric-mining-drill" : {
+    "name" : "electric-mining-drill",
+    "localised_name" : [
+      "entity-name.electric-mining-drill"
+    ],
+    "energy_usage" : 100000,
+    "mining_speed" : 0.5,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "kr-electric-mining-drill-mk2" : {
+    "name" : "kr-electric-mining-drill-mk2",
+    "localised_name" : [
+      "entity-name.kr-electric-mining-drill-mk2"
+    ],
+    "energy_usage" : 125000,
+    "mining_speed" : 0.75,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "kr-electric-mining-drill-mk3" : {
+    "name" : "kr-electric-mining-drill-mk3",
+    "localised_name" : [
+      "entity-name.kr-electric-mining-drill-mk3"
+    ],
+    "energy_usage" : 150000,
+    "mining_speed" : 1,
+    "resource_categories" : {
+      "basic-solid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "kr-quarry-drill" : {
+    "name" : "kr-quarry-drill",
+    "localised_name" : [
+      "entity-name.kr-quarry-drill"
+    ],
+    "energy_usage" : 2500000,
+    "mining_speed" : 10,
+    "resource_categories" : {
+      "kr-quarry" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  },
+  "pumpjack" : {
+    "name" : "pumpjack",
+    "localised_name" : [
+      "entity-name.pumpjack"
+    ],
+    "energy_usage" : 100000,
+    "mining_speed" : 2,
+    "resource_categories" : {
+      "basic-fluid" : true
+    },
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 0
+      }
+    }
+  }
+}

@@ -398,7 +398,7 @@
     "localised_name" : [
       "recipe-name.angels-heavy-water-cooling"
     ],
-    "category" : "angels-cooling",
+    "categories" : [ "angels-cooling" ],
     "order" : "k[water-enrichment]-b[cooling]-d[heavy-water]",
     "group" : {
       "name" : "angels-water-treatment",

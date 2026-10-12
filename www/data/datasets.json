@@ -40,6 +40,13 @@
             "units": "Second",
             "modifier_style": "PercentAddition"
         },
+        "factorio-2.1.21-krastorio2-2.1.3": {
+            "main": { "name": "factorio", "version": "2.1.21" },
+            "mod": [{ "name": "krastorio2", "version": "2.1.3" }],
+            "style": "RecipeLister",
+            "units": "Second",
+            "modifier_style": "PercentAddition"
+        },
         "foundry-3.0.0-wip-0.0.1": {
             "main": { "name": "foundry", "version": "3.0.0" },
             "mod": [{ "name": "wip", "version": "0.0.1" }],
