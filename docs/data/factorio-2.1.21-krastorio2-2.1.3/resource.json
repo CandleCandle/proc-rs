@@ -1,0 +1,334 @@
+{
+  "coal" : {
+    "name" : "coal",
+    "localised_name" : [
+      "entity-name.coal"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "coal-particle",
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "item",
+          "name" : "coal",
+          "amount" : 1,
+          "affected_by_quality" : true
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:coal:size') > 0) * (clamp(var('default-coal-patches'), 0, 1))",
+      "richness_expression" : "(var('control:coal:size') > 0) * (1*var('control:coal:richness')*(var('default-coal-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "copper-ore" : {
+    "name" : "copper-ore",
+    "localised_name" : [
+      "entity-name.copper-ore"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "copper-ore-particle",
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "item",
+          "name" : "copper-ore",
+          "amount" : 1,
+          "affected_by_quality" : true
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:copper-ore:size') > 0) * (clamp(var('default-copper-ore-patches'), 0, 1))",
+      "richness_expression" : "(var('control:copper-ore:size') > 0) * (1*var('control:copper-ore:richness')*(var('default-copper-ore-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "iron-ore" : {
+    "name" : "iron-ore",
+    "localised_name" : [
+      "entity-name.iron-ore"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "iron-ore-particle",
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "item",
+          "name" : "iron-ore",
+          "amount" : 1,
+          "affected_by_quality" : true
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:iron-ore:size') > 0) * (clamp(var('default-iron-ore-patches'), 0, 1))",
+      "richness_expression" : "(var('control:iron-ore:size') > 0) * (1*var('control:iron-ore:richness')*(var('default-iron-ore-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "stone" : {
+    "name" : "stone",
+    "localised_name" : [
+      "entity-name.stone"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "stone-particle",
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "item",
+          "name" : "stone",
+          "amount" : 1,
+          "affected_by_quality" : true
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:stone:size') > 0) * (clamp(var('default-stone-patches'), 0, 1))",
+      "richness_expression" : "(var('control:stone:size') > 0) * (1*var('control:stone:richness')*(var('default-stone-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "b",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "uranium-ore" : {
+    "name" : "uranium-ore",
+    "localised_name" : [
+      "entity-name.uranium-ore"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "stone-particle",
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "item",
+          "name" : "uranium-ore",
+          "amount" : 1,
+          "affected_by_quality" : true
+        }
+      ],
+      "fluid_amount" : 10,
+      "required_fluid" : "sulfuric-acid"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:uranium-ore:size') > 0) * (clamp(var('default-uranium-ore-patches'), 0, 1))",
+      "richness_expression" : "(var('control:uranium-ore:size') > 0) * (1*var('control:uranium-ore:richness')*(var('default-uranium-ore-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "c",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "crude-oil" : {
+    "name" : "crude-oil",
+    "localised_name" : [
+      "entity-name.crude-oil"
+    ],
+    "resource_category" : "basic-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "fluid",
+          "name" : "crude-oil",
+          "amount" : 20
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:crude-oil:size') > 0) * (clamp(var('default-crude-oil-patches'), 0, 1)* random_penalty{x = x, y = y, source = 1, amplitude = 1 \/0.020833333333333})",
+      "richness_expression" : "(var('control:crude-oil:size') > 0) * (1*var('control:crude-oil:richness')*(var('default-crude-oil-patches')\/0.020833333333333+20000)*max((1000+distance)\/2600,1))",
+      "order" : "c",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "kr-imersite" : {
+    "name" : "kr-imersite",
+    "localised_name" : [
+      "entity-name.kr-imersite"
+    ],
+    "resource_category" : "kr-quarry",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 2,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "item",
+          "name" : "kr-imersite",
+          "amount" : 1,
+          "affected_by_quality" : true
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:kr-imersite:size') > 0) * (clamp(var('default-kr-imersite-patches'), 0, 1))",
+      "richness_expression" : "(var('control:kr-imersite:size') > 0) * (1*var('control:kr-imersite:richness')*(var('default-kr-imersite-patches')+350000)*max((1000+distance)\/2600,1))",
+      "order" : "f",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "kr-mineral-water" : {
+    "name" : "kr-mineral-water",
+    "localised_name" : [
+      "entity-name.kr-mineral-water"
+    ],
+    "resource_category" : "basic-fluid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 1,
+      "transfer_entity_health_to_products" : true,
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "fluid",
+          "name" : "kr-mineral-water",
+          "amount" : 20
+        }
+      ]
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:kr-mineral-water:size') > 0) * (clamp(var('default-kr-mineral-water-patches'), 0, 1)* random_penalty{x = x, y = y, source = 1, amplitude = 1 \/0.02})",
+      "richness_expression" : "(var('control:kr-mineral-water:size') > 0) * (1*var('control:kr-mineral-water:richness')*(var('default-kr-mineral-water-patches')\/0.02+50000)*max((1000+distance)\/2600,1))",
+      "order" : "c",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  },
+  "kr-rare-metal-ore" : {
+    "name" : "kr-rare-metal-ore",
+    "localised_name" : [
+      "entity-name.kr-rare-metal-ore"
+    ],
+    "resource_category" : "basic-solid",
+    "mineable_properties" : {
+      "minable" : true,
+      "mining_time" : 3,
+      "transfer_entity_health_to_products" : true,
+      "mining_particle" : "stone-particle",
+      "products" : [
+        {
+          "independent_probability" : 1,
+          "shared_probability" : {
+            "min" : 0,
+            "max" : 1
+          },
+          "type" : "item",
+          "name" : "kr-rare-metal-ore",
+          "amount" : 1,
+          "affected_by_quality" : true
+        }
+      ],
+      "fluid_amount" : 25,
+      "required_fluid" : "kr-chlorine"
+    },
+    "autoplace_specification" : {
+      "placement_density" : 1,
+      "probability_expression" : "(var('control:kr-rare-metal-ore:size') > 0) * (clamp(var('default-kr-rare-metal-ore-patches'), 0, 1))",
+      "richness_expression" : "(var('control:kr-rare-metal-ore:size') > 0) * (1*var('control:kr-rare-metal-ore:richness')*(var('default-kr-rare-metal-ore-patches'))*max((1000+distance)\/2600,1))",
+      "order" : "d",
+      "default_enabled" : true,
+      "force" : "neutral"
+    },
+    "energy_source" : {
+      
+    }
+  }
+}
