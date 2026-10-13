@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@nuxt/ui": "^4.10.0",
+    "tailwindcss": "^4.3.3"
+  }
+}

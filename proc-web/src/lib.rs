@@ -14,7 +14,7 @@ use proc_core::calculator::Calculator;
 use proc_core::graph_configuration::{DehydratedGraphConfiguration, Units};
 use proc_core::graph_configuration::{FetchDataSet, GraphConfiguration as GraphConfigurationLib};
 use proc_core::hydration::{Dehydrate, Rehydrate};
-use proc_core::model::{ActiveProcess, Factory};
+use proc_core::model::{ActiveProcess, Factory, Stack};
 use proc_core::model::{Item, Process};
 
 use base64::{Engine, prelude::BASE64_URL_SAFE_NO_PAD};
@@ -40,6 +40,22 @@ pub struct GraphConfiguration {
     wrapped: GraphConfigurationLib,
     calculator: Option<Calculator>,
 }
+
+#[wasm_bindgen]
+#[derive(Default, Serialize, Deserialize)]
+pub struct ProcessWithModifications {
+    id: String,
+    display: String,
+    duration: f64,
+    inputs: Vec<Stack>,
+    outputs: Vec<Stack>,
+}
+impl ProcessWithModifications {
+    pub fn from(ap: ActiveProcess) -> ProcessWithModifications {
+        ProcessWithModifications { id: ap.id().to_string(), display: ap.display().to_string(), duration: ap.duration(), inputs: ap.inputs(), outputs: ap.outputs() }
+    }
+}
+
 
 struct RequestFetcher {}
 impl FetchDataSet for RequestFetcher {
@@ -78,7 +94,7 @@ impl GraphConfiguration {
     }
 
     pub fn dehydrate(&self) -> Result<JsValue, JsValue> {
-        if self.wrapped.can_render() {
+        if self.wrapped.get_current_data_set().is_some() {
             Ok(JsValue::from_str(&BASE64_URL_SAFE_NO_PAD.encode(
                 rmp_serde::encode::to_vec(&self.wrapped.dehydrate()).unwrap(),
             )))
@@ -116,6 +132,15 @@ impl GraphConfiguration {
             .unwrap_or_else(JsValue::null)
     }
 
+    pub fn get_current_data_set_config(&self) -> Result<JsValue, JsValue> {
+        Ok(serde_wasm_bindgen::to_value(
+            self.wrapped
+            .get_current_data_set()
+            .as_ref()
+            .unwrap()
+        )?)
+    }
+
     pub fn can_render(&self) -> Result<JsValue, JsValue> {
         Ok(JsValue::from_bool(self.wrapped.can_render()))
     }
@@ -127,8 +152,8 @@ impl GraphConfiguration {
 
     pub fn update_requirement(&mut self, id: String, quantity: f64) -> Result<JsValue, JsValue> {
         self.wrapped.remove_requirement(&id);
-        self.wrapped.add_requirement(&id, quantity);
-        Ok(JsValue::null()) // XXX err result required.
+        let req = self.wrapped.add_requirement(&id, quantity);
+        Ok(serde_wasm_bindgen::to_value(&req)?)
     }
 
     pub fn remove_requirement(&mut self, id: String) -> Result<JsValue, JsValue> {
@@ -143,8 +168,8 @@ impl GraphConfiguration {
     }
 
     pub fn add_import_export(&mut self, id: String) -> Result<JsValue, JsValue> {
-        self.wrapped.add_import_export(&id);
-        Ok(JsValue::null()) // XXX err result required.
+        let io = self.wrapped.add_import_export(&id);
+        Ok(serde_wasm_bindgen::to_value(&io)?)
     }
 
     pub fn remove_import_export(&mut self, id: String) -> Result<JsValue, JsValue> {
@@ -175,6 +200,24 @@ impl GraphConfiguration {
             outputs_multiplier,
         );
         Ok(JsValue::null()) // XXX err result required.
+    }
+
+    pub fn create_modified_process(
+        &self,
+        proc_id: String,
+        factory_id: String,
+        duration_modifier: f64,
+        inputs_modifier: f64,
+        outputs_modifier: f64,
+    ) -> Result<JsValue, JsValue> {
+        log(&format!("wasm create_modified_process {proc_id}, {factory_id}, {duration_modifier}, {inputs_modifier}, {outputs_modifier}").to_string());
+        Ok(serde_wasm_bindgen::to_value(&ProcessWithModifications::from(self.wrapped.create_active_process(
+            proc_id.as_str(),
+            factory_id.as_str(),
+            duration_modifier,
+            inputs_modifier,
+            outputs_modifier,
+        )))?)
     }
 
     pub fn get_units(&mut self) -> Result<JsValue, JsValue> {
@@ -240,12 +283,34 @@ impl GraphConfiguration {
         )?)
     }
 
-    pub async fn update_data_set(&mut self, id: String, style: String) -> Result<JsValue, JsValue> {
+    pub async fn update_data_set(&mut self, id: String) -> Result<JsValue, JsValue> {
         self.wrapped
-            .update_data_set(&id, &style, RequestFetcher {})
+            .update_data_set(&id, RequestFetcher {})
             .await
-            .map_err(|e| JsValue::from_str(&e))?;
+            .map_err(|e| {
+                log(&format!("wasm update data set err {}", e).to_string());
+                return JsValue::from_str(&format!("err from wasm {}", e));
+            })?;
         Ok(JsValue::null())
+    }
+
+    pub async fn get_data_sets(&mut self) -> Result<JsValue, JsValue> {
+        let fetcher = RequestFetcher {};
+        log("wasm: get_data_sets");
+        self.wrapped.update_data_sets(&fetcher)
+            .await
+            .map_err(|e| {
+                log(&format!("wasm: get data sets err {}", e).to_string());
+                return JsValue::from_str(&e)
+            })?;
+        log(&format!("wasm: data sets fetched").to_string());
+
+        let r = &self.wrapped.get_data_sets()
+                .map_err(|s| {
+                    log(&format!("wasm: data sets retrieved: {:?}", s).to_string());
+                    return JsValue::from_str(&s)
+                })?;
+        Ok(serde_wasm_bindgen::to_value(r)?)
     }
 
     pub fn search_items(&self, search: String) -> Result<JsValue, JsValue> {

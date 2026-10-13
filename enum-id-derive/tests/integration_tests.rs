@@ -1,9 +1,16 @@
+use enum_id::EnumId;
 use enum_id_derive::EnumId;
 
 #[derive(EnumId, Debug, PartialEq)]
 enum SomethingToTest {
     ThisIsTesting,
     SomeOtherTest,
+}
+
+#[derive(EnumId, Debug, PartialEq)]
+enum AnotherThingToTest {
+    Val,
+    Other,
 }
 
 #[test]
@@ -22,7 +29,18 @@ fn it_enumerates_values() {
         SomethingToTest::values(),
         vec!(
             SomethingToTest::ThisIsTesting,
-            SomethingToTest::SomeOtherTest
+            SomethingToTest::SomeOtherTest,
+        )
+    );
+}
+
+#[test]
+fn it_enumerates_another_values() {
+    assert_eq!(
+        AnotherThingToTest::values(),
+        vec!(
+            AnotherThingToTest::Val,
+            AnotherThingToTest::Other,
         )
     );
 }

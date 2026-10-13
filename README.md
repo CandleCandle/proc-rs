@@ -1,7 +1,6 @@
 # proc-rs-app
 
 
-
 ## Project Setup
 
 ```sh

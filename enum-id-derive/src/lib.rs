@@ -20,7 +20,6 @@ fn impl_macro_enumid(ast: &syn::DeriveInput) -> TokenStream {
             let name_elements = data_enum.variants.iter();
             let values_elements = data_enum.variants.iter();
             let generated = quote! {
-                use enum_id::EnumId;
                 impl EnumId<#outer_name> for #outer_name {
                     fn name(&self) -> String {
                         match self {

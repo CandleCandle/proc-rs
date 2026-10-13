@@ -1,7 +1,7 @@
 <script setup>
-import { reactive, ref, computed, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { ModifierValues } from './proc_modifiers';
-const emit = defineEmits(['modifier_update', 'fold_update']);
+const emit = defineEmits(['modifier_update']);
 /**
  * We can be passed either a `process` or an `active_process`. This means that
  * we need to compute the `active_process` so that all the rest of the logic
@@ -18,7 +18,7 @@ const emit = defineEmits(['modifier_update', 'fold_update']);
  * proc: bare process
  * active_proc: active process; contains factory selection and extra modifiers
  */
-const { cfg, proc, active_proc, folds, id_prefix } = defineProps(['cfg', 'proc', 'active_proc', 'folds', 'id_prefix']);
+const { cfg, proc, active_proc, id_prefix } = defineProps(['cfg', 'proc', 'active_proc', 'id_prefix']);
 const active_process = computed(() => {
     if ((typeof active_proc) == 'undefined') {
         return {
@@ -38,20 +38,13 @@ const process = computed(() => {
     return active_process.value.process;
 });
 
-const modifiers_fold_id = computed(() => {
-  return id_prefix + '-' + process.value.id + '-modifiers';
-});
-
+const current_data_config = cfg.get_current_data_set_config();
 const modifiers_stash = ref(null);
 const modifiers = computed({
     get() {
         console.log("modifiers get 1", active_process.value.process.id, modifiers_stash.value);
         if (modifiers_stash.value == null) {
-            modifiers_stash.value = new ModifierValues(
-                active_process.value.duration_multiplier,
-                active_process.value.inputs_multiplier,
-                active_process.value.outputs_multiplier,
-            );
+            modifiers_stash.value = ModifierValues.create(current_data_config.modifier_style);
         }
         console.log("modifiers get 2", active_process.value.process.id, modifiers_stash.value);
         return modifiers_stash.value;
@@ -107,91 +100,124 @@ const factory_id = computed({
     console.log('factory_id change 2', value, factory_id_stash.value, process.value.id, factories_for_proc.value, cfg.factories_for_process(process.value.id));
   }
 });
+const modifier_lead = computed(() => {
+  switch (current_data_config.modifier_style) {
+    case ModifierValues.Percent:
+    case ModifierValues.Multiplier:
+      return '';
+    case ModifierValues.PercentAddition:
+      return '+';
 
-// const modifiersAreExpanded = computed({
-//   get() {
-//     return folds[modifiers_fold_id];
-//   },
-// });
-const modifiersAreExpanded = ref(false);
+  }
+})
+const modifier_trail = computed(() => {
+  switch (current_data_config.modifier_style) {
+    case ModifierValues.Percent:
+    case ModifierValues.PercentAddition:
+      return '%';
+    case ModifierValues.Multiplier:
+      return '';
 
-function toggle_modifiers(evt) {
-  // console.log(evt);
-  modifiersAreExpanded.value = evt.newState == 'open';
-  // emit('fold_update', evt);
-}
+  }
+})
 
 </script>
 
 <template>
-  <div id="name" v-tooltip="'id: ' + active_process.process.id">
-    {{ process.display }}
+  <USeparator color="primary" class="grid_fw" :label="process.display" />
+  <div id="in" class="proc_io rejustify-end proc-in"">
+    <template v-for="input in active_process.process.inputs">
+      <div>{{ input.quantity }}</div>
+      <div>{{ input.item.display }}</div>
+    </template>
   </div>
-  <div>
+  <div id="duration" class="rejustify-centre proc-duration">
     {{ process.duration }}s
   </div>
-  <div id="in">
-    <div v-for="input in active_process.process.inputs" class="proc_io">
-      <div>{{ input.quantity }}</div>
-      <div v-tooltip="'id: ' + input.item.id">{{ input.item.display }}</div>
-    </div>
-  </div>
   <div id="out">
-    <div v-for="output in active_process.process.outputs" class="proc_io">
+  <div id="out" class="proc_io rejustify-start proc-out"">
+    <template v-for="output in active_process.process.outputs">
       <div>{{ output.quantity }}</div>
-      <div v-tooltip="'id: ' + output.item.id">{{ output.item.display }}</div>
-    </div>
+      <div>{{ output.item.display }}</div>
+    </template>
+  </div>
   </div>
   <div class="proc_buttons">
     <slot name="action_button" :factory_id="factory_id_stash" :modifiers="modifiers"></slot>
-</div>
-  <details :id="modifiers_fold_id" v-bind:open="modifiersAreExpanded" @toggle="toggle_modifiers($event)">
-    <summary>modifiers</summary>
-  </details>
-  <div class="input_options" v-show="modifiersAreExpanded">
-    <input type="text" size="4" @blur="update_modifier($event, 'duration')" :value="modifiers.duration"/>
   </div>
-  <div class="input_options" v-show="modifiersAreExpanded">
-    <input type="text" size="4" @blur="update_modifier($event, 'input')" :value="modifiers.input"/>
+  <div class="input_options">
+    <UFormField class="rejustify-end proc-in" label="input&nbsp;modifier" orientation="horizontal">
+      {{ modifier_lead }}<UInput style="width:4em" placeholder="modifier (x1)" v-model="modifiers.input" max="5"/>{{ modifier_trail }}
+    </UFormField>
   </div>
-  <div class="input_options" v-show="modifiersAreExpanded">
-    <input type="text" size="4" @blur="update_modifier($event, 'output')" :value="modifiers.output"/>
+  <div class="input_options">
+    <UFormField class="rejustify-centre proc-duration" label="duration&nbsp;modifier" orientation="horizontal">
+      <span>
+        {{ modifier_lead }}<UInput style="width:4em" pplaceholder="modifier (x1)" v-model="modifiers.duration" max="5"/>{{ modifier_trail }}
+      </span>
+    </UFormField>
   </div>
-  <div class="input_options" v-show="modifiersAreExpanded">
-    <span>factory</span>
+  <div class="input_options">
+    <UFormField class="rejustify-start proc-out" label="output&nbsp;modifier" orientation="horizontal">
+      {{ modifier_lead }}<UInput style="width:4em" pplaceholder="modifier (x1)" v-model="modifiers.output" max="5"/>{{ modifier_trail }}
+    </UFormField>
   </div>
-  <div class="factory_select" v-show="modifiersAreExpanded">
-    <select v-model.lazy="factory_id">
-      <option disabled value="">Select a factory type</option>
-      <option v-for="v in factories_for_proc" :key="v.id" :value="v.id" >{{ v.display }}</option>
-    </select>
+  <div class="factory_select">
+    <UFormField class="rejustify-centre" orientation="horizontal" label="Factory" name="process">
+      <USelect v-model.lazy="factory_id" :items="factories_for_proc" value-key="id" label-key="display" />
+    </UFormField>
   </div>
-  <hr class="proc_fw" />
+
 </template>
 
 <style scoped>
 
-.proc {
-    display: grid;
-    grid-template-columns: 3fr 1fr 3fr 3fr 0fr;
-    place-items: center stretch;
-    gap: 10px;
+.proc_io {
+  display: grid;
+  grid-template-columns: 0fr 1fr;
+  /* grid-template-rows: 1fr 1fr; row count calculated and inserted into the in-line style. */
+  place-items: center stretch;
+  gap: 10px;
 }
+
+.proc-in {
+  justify-self: end;
+}
+
+.proc-duration {
+  justify-self: center;
+}
+
+.proc-out {
+  justify-self: start;
+}
+
+.rejustify-start {
+  justify-content: start;
+}
+
+.rejustify-centre {
+  justify-content: center;
+}
+
+.rejustify-end {
+  justify-content: end;
+}
+
+.grid_fw {
+    grid-column-start: 1;
+    grid-column-end: span 4;
+}
+
 .proc_buttons {
-    grid-column-start: 5;
     grid-row-end: span 3;
     place-items: center stretch;
 }
 .factory_select {
-    grid-column-start: 2;
+    grid-column-start: 1;
     grid-column-end: span 3;
     place-items: center stretch;
 }
-.proc_io {
-    display: grid;
-    grid-template-columns: 0fr 1fr;
-    place-items: center stretch;
-    gap: 10px;
-}
+
 
 </style>

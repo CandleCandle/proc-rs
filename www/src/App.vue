@@ -1,43 +1,37 @@
 <script setup>
-import Main from './components/Main.vue';
+
+// import { ref, shallowRef } from 'vue';
+// import { GraphConfiguration } from 'proc-web';
+import Main from './components/Main.vue'
+
+
+// const cfg = shallowRef(new GraphConfiguration());
+// // The GraphConfiguration is a WASM object. There is no property
+// // in it that can be "watched" to trigger render changes
+// // this Forces an Update as it is the :key
+// const cfg_fu = ref(0);
+
+// function handle_cfg_update() {
+//     console.log('Main handle_cfg_update');
+//     let seialised = cfg.value.dehydrate();
+//     console.log('serialised', seialised);
+//     if (seialised) {
+//         window.location.replace('#s0=' + seialised);
+//     }
+//     triggerRef(cfg); // XXX still needed? does it replace the cfg_fu mess?
+//     cfg_fu.value++;
+// }
+
 </script>
 
 <template>
-  <header>
-    <h1><a href="#" onclick="window.location.assign('#'); window.location.reload()">Process Calculator</a></h1>
-  </header>
-  <br />
-  <main>
-    <Suspense>
-      <Main />
-    </Suspense>
-  </main>
-
+    <main>
+        <Suspense>
+            <Main />
+        </Suspense>
+    </main>
 </template>
 
 <style>
-body {
-  display: block;
-}
 
-:root {
-    color-scheme: light dark;
-    --fg: light-dark(#333, #ccc);
-    --bg: light-dark(#fff, #333);
-}
-</style>
-
-<style scoped>
-
-@media (min-width: 1024px) {
-  header {
-    padding-right: calc(var(--section-gap) / 2);
-  }
-  main {
-    padding-right: calc(var(--section-gap) / 2);
-  }
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-}
 </style>
