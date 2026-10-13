@@ -1,0 +1,1010 @@
+{
+  "kr-fusion-reactor" : {
+    "name" : "kr-fusion-reactor",
+    "localised_name" : [
+      "entity-name.kr-fusion-reactor"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 483400000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-nuclear-fusion" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 16113333.333333
+      }
+    }
+  },
+  "stone-furnace" : {
+    "name" : "stone-furnace",
+    "localised_name" : [
+      "entity-name.stone-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "smelting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true,
+          "kr-vehicle-fuel" : true
+        }
+      }
+    }
+  },
+  "steel-furnace" : {
+    "name" : "steel-furnace",
+    "localised_name" : [
+      "entity-name.steel-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "smelting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "burner" : {
+        "effectivity" : 1,
+        "fuel_categories" : {
+          "chemical" : true,
+          "kr-vehicle-fuel" : true
+        }
+      }
+    }
+  },
+  "electric-furnace" : {
+    "name" : "electric-furnace",
+    "localised_name" : [
+      "entity-name.electric-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 2,
+    "crafting_categories" : {
+      "smelting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "kr-advanced-furnace" : {
+    "name" : "kr-advanced-furnace",
+    "localised_name" : [
+      "entity-name.kr-advanced-furnace"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 2000000,
+    "ingredient_count" : 6,
+    "crafting_speed" : 12,
+    "crafting_categories" : {
+      "smelting" : true,
+      "kr-advanced-smelting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 66666.666666667
+      }
+    }
+  },
+  "assembling-machine-1" : {
+    "name" : "assembling-machine-1",
+    "localised_name" : [
+      "entity-name.assembling-machine-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 75000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 2500
+      }
+    }
+  },
+  "assembling-machine-2" : {
+    "name" : "assembling-machine-2",
+    "localised_name" : [
+      "entity-name.assembling-machine-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 125000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 0.75,
+    "crafting_categories" : {
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4166.6666666667
+      }
+    }
+  },
+  "assembling-machine-3" : {
+    "name" : "assembling-machine-3",
+    "localised_name" : [
+      "entity-name.assembling-machine-3"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 200000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1.25,
+    "crafting_categories" : {
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 6666.6666666667
+      }
+    }
+  },
+  "kr-advanced-assembling-machine" : {
+    "name" : "kr-advanced-assembling-machine",
+    "localised_name" : [
+      "entity-name.kr-advanced-assembling-machine"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 925000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 5,
+    "crafting_categories" : {
+      "crafting" : true,
+      "advanced-crafting" : true,
+      "crafting-with-fluid" : true,
+      "kr-smelting-crafting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 30833.333333333
+      }
+    }
+  },
+  "kr-greenhouse" : {
+    "name" : "kr-greenhouse",
+    "localised_name" : [
+      "entity-name.kr-greenhouse"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 144800,
+    "ingredient_count" : 4,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-growing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4826.6666666667
+      }
+    }
+  },
+  "kr-bio-lab" : {
+    "name" : "kr-bio-lab",
+    "localised_name" : [
+      "entity-name.kr-bio-lab"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 144800,
+    "ingredient_count" : 4,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-bioprocessing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 4826.6666666667
+      }
+    }
+  },
+  "oil-refinery" : {
+    "name" : "oil-refinery",
+    "localised_name" : [
+      "entity-name.oil-refinery"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 420000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "oil-processing" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 14000
+      }
+    }
+  },
+  "kr-electrolysis-plant" : {
+    "name" : "kr-electrolysis-plant",
+    "localised_name" : [
+      "entity-name.kr-electrolysis-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 375000,
+    "ingredient_count" : 6,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-electrolysis" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 12500
+      }
+    }
+  },
+  "kr-filtration-plant" : {
+    "name" : "kr-filtration-plant",
+    "localised_name" : [
+      "entity-name.kr-filtration-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 500000,
+    "ingredient_count" : 6,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-fluid-filtration" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 16666.666666667
+      }
+    }
+  },
+  "kr-atmospheric-condenser" : {
+    "name" : "kr-atmospheric-condenser",
+    "localised_name" : [
+      "entity-name.kr-atmospheric-condenser"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 1,
+    "crafting_speed" : 1.5,
+    "crafting_categories" : {
+      "kr-atmosphere-condensation" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "chemical-plant" : {
+    "name" : "chemical-plant",
+    "localised_name" : [
+      "entity-name.chemical-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 210000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "chemistry" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 7000
+      }
+    }
+  },
+  "kr-advanced-chemical-plant" : {
+    "name" : "kr-advanced-chemical-plant",
+    "localised_name" : [
+      "entity-name.kr-advanced-chemical-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 1750000,
+    "ingredient_count" : 6,
+    "crafting_speed" : 8,
+    "crafting_categories" : {
+      "chemistry" : true,
+      "kr-advanced-chemistry" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 58333.333333333
+      }
+    }
+  },
+  "kr-fuel-refinery" : {
+    "name" : "kr-fuel-refinery",
+    "localised_name" : [
+      "entity-name.kr-fuel-refinery"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 4,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-fuel-refinery" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 3,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "kr-research-server" : {
+    "name" : "kr-research-server",
+    "localised_name" : [
+      "entity-name.kr-research-server"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 250000,
+    "ingredient_count" : 6,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-research-data" : true,
+      "kr-t2-tech-cards" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 8333.3333333333
+      }
+    }
+  },
+  "kr-quantum-computer" : {
+    "name" : "kr-quantum-computer",
+    "localised_name" : [
+      "entity-name.kr-quantum-computer"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 1000000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 3,
+    "crafting_categories" : {
+      "kr-research-data" : true,
+      "kr-t2-tech-cards" : true,
+      "kr-t3-tech-cards" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 33333.333333333
+      }
+    }
+  },
+  "centrifuge" : {
+    "name" : "centrifuge",
+    "localised_name" : [
+      "entity-name.centrifuge"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 350000,
+    "ingredient_count" : 65535,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "centrifuging" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 2,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : true
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 11666.666666667
+      }
+    }
+  },
+  "kr-matter-plant" : {
+    "name" : "kr-matter-plant",
+    "localised_name" : [
+      "entity-name.kr-matter-plant"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 24190000,
+    "ingredient_count" : 6,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-matter-conversion" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : false,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 806333.33333333
+      }
+    }
+  },
+  "kr-matter-associator" : {
+    "name" : "kr-matter-associator",
+    "localised_name" : [
+      "entity-name.kr-matter-associator"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 48390000,
+    "ingredient_count" : 6,
+    "crafting_speed" : 1,
+    "crafting_categories" : {
+      "kr-matter-deconversion" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 4,
+    "allowed_effects" : {
+      "consumption" : true,
+      "speed" : true,
+      "productivity" : true,
+      "pollution" : true,
+      "quality" : false
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 96,
+      "b" : 145,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 255,
+      "g" : 25,
+      "b" : 25,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 1613000
+      }
+    }
+  },
+  "kr-spaceship-material-fabricator-1" : {
+    "name" : "kr-spaceship-material-fabricator-1",
+    "localised_name" : [
+      "entity-name.kr-spaceship-material-fabricator-1"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 2,
+    "crafting_speed" : 0.5,
+    "crafting_categories" : {
+      "crafting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "map_color" : {
+      "r" : 0,
+      "g" : 93,
+      "b" : 147,
+      "a" : 255
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 93,
+      "b" : 147,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 0,
+      "g" : 93,
+      "b" : 147,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3000
+      }
+    }
+  },
+  "kr-spaceship-material-fabricator-2" : {
+    "name" : "kr-spaceship-material-fabricator-2",
+    "localised_name" : [
+      "entity-name.kr-spaceship-material-fabricator-2"
+    ],
+    "type" : "assembling-machine",
+    "energy_usage" : 90000,
+    "ingredient_count" : 2,
+    "crafting_speed" : 0.25,
+    "crafting_categories" : {
+      "crafting" : true,
+      "parameters" : true
+    },
+    "module_inventory_size" : 0,
+    "allowed_effects" : {
+      "consumption" : false,
+      "speed" : false,
+      "productivity" : false,
+      "pollution" : false,
+      "quality" : false
+    },
+    "map_color" : {
+      "r" : 0,
+      "g" : 93,
+      "b" : 147,
+      "a" : 255
+    },
+    "friendly_map_color" : {
+      "r" : 0,
+      "g" : 93,
+      "b" : 147,
+      "a" : 255
+    },
+    "enemy_map_color" : {
+      "r" : 0,
+      "g" : 93,
+      "b" : 147,
+      "a" : 255
+    },
+    "energy_source" : {
+      "electric" : {
+        "drain" : 3000
+      }
+    }
+  }
+}
