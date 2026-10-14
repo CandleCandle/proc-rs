@@ -88,7 +88,6 @@ function search_item_uses(item_id) {
                     indicator="hidden"
                     orientation="horizontal"
                     variant="table"
-                    default-value="intermediate"
                     :items="options"
                     v-model="item_mode"
                     size="xs"
