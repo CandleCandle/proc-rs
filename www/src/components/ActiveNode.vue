@@ -21,7 +21,7 @@ let key = 0;
 <template>
     <UApp>
         <div style="display: none">{{ cfg_fu }}</div>
-        <ActiveNodeItem v-if="node.is_item()" :key="key += 1" :cfg="cfg" :cfg_fu="cfg_fu" :node="node" @active_node="bubble_active_node" @cfg_update="bubble_cfg_update" />
+        <ActiveNodeItem v-if="node.is_item()" :cfg="cfg" :cfg_fu="cfg_fu" :node="node" @active_node="bubble_active_node" @cfg_update="bubble_cfg_update" />
         <ActiveNodeProcess v-if="node.is_process()" :key="key += 1" :cfg="cfg" :cfg_fu="cfg_fu" :node="node" @active_node="bubble_active_node" @cfg_update="bubble_cfg_update" />
     </UApp>
 </template>
